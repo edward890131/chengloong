@@ -1,0 +1,22 @@
+# 方法本體有改動 → VERSION 要升版、CHANGELOG 要有條目（PR 與直接推 main 都檢查）
+name: version-check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: 檢查改版紀錄
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            python3 .github/scripts/check_version.py "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}"
+          else
+            python3 .github/scripts/check_version.py "${{ github.event.before }}" "${{ github.sha }}"
+          fi
