@@ -3488,6 +3488,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   color: #000;
 }
 .cl-footer__slogan-hl { color: var(--cl-green-400); }
+/* 跑馬燈用的第二份文字：只在手機顯示 */
+.cl-footer__slogan-text--dup { display: none; }
 
 /* 641–1439：流動縮放 */
 @media (max-width: 1439px) and (min-width: 641px) {
@@ -3542,5 +3544,22 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .cl-footer__top { top: auto; bottom: 40px; }
   .cl-footer__line { display: none; }
 
-  .cl-footer__slogan { left: calc(50% - 194.5px); bottom: 27px; font-size: 75px; }
+  /* 標語：客戶決定（2026-10-20）手機改用與電腦版相同的完整句子，字級維持 75，跑馬燈定速循環。
+     Figma 手機稿 1695:29201 只有「NEW LIFE.」，此處與來源不同（記在 audit-source「使用者決策」） */
+  .cl-footer__slogan { left: 0; bottom: 27px; font-size: 75px; }
+  .cl-footer__slogan-track {
+    display: flex;
+    width: max-content;
+    animation: cl-footer-marquee 24s linear infinite;
+  }
+  .cl-footer__slogan-text { padding-right: .5em; }   /* 兩句之間的間隔 */
+  .cl-footer__slogan-text--dup { display: inline; }
+}
+/* 兩份文字等寬，平移 -50% 剛好接回起點，形成無縫循環；?static 與減少動態時停在起點 */
+@keyframes cl-footer-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cl-footer__slogan-track { animation: none; }
 }
