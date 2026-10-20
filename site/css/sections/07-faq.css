@@ -169,6 +169,12 @@
   .cl-faq__tabs { flex-wrap: wrap; justify-content: center; }
 }
 
+/* 平板 641–1100（S0_TABLET_CONTRACT：電腦結構，左右留白 40，區段標題 28；頁籤放得下就一列） */
+@media (min-width: 641px) and (max-width: 1100px) {
+  .cl-faq { padding-left: 40px; padding-right: 40px; }
+  .cl-faq__title { font-size: 28px; }
+}
+
 /* ---------- 手機 375（1695:19900） ---------- */
 @media (max-width: 640px) {
   .cl-faq {

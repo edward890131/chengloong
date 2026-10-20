@@ -366,6 +366,42 @@
 }
 
 /* ==========================================================================
+   平板 641–1100（S0_TABLET_CONTRACT：混合）
+   卡片內：文字區滿寬在上，下方「圖卡｜右側兩格」2 欄；兩張卡維持上下排。
+   版心左右 40，區段標題 28，卡片標題與內文照電腦版。
+   ========================================================================== */
+@media (min-width: 641px) and (max-width: 1100px) {
+  .cl-green__head { max-width: calc(100% - 80px); }
+  .cl-green__title { font-size: 28px; line-height: 39px; }
+
+  .cl-green__body { max-width: calc(100% - 80px); }
+
+  .cl-green__card {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 12px;
+    height: auto;
+  }
+  .cl-green__intro {
+    grid-column: 1 / -1;
+    gap: 32px;
+    padding: 28px 36px 36px;
+  }
+  .cl-green__en { font-size: 48px; line-height: 58px; }
+  .cl-green__desc { max-width: 640px; }
+
+  /* 圖卡與右側兩格同高 456（電腦版尺寸） */
+  .cl-green__slider,
+  .cl-green__doc { height: 456px; }
+  .cl-green__side { height: 456px; }
+  /* 證明圖是可視範圍（貼右下），欄寬改變時跟著右下角 */
+  .cl-green__doc-img { left: auto; right: 0; top: auto; bottom: -.1401px; }
+  /* 資訊框左右 12（641–1199 規則）會蓋到右下點點：點點改到右上（同手機版位置） */
+  .cl-green__dots { top: 20px; bottom: auto; }
+}
+
+/* ==========================================================================
    手機版 375（1695:19826）
    ========================================================================== */
 @media (max-width: 640px) {

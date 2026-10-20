@@ -123,6 +123,12 @@
   .cl-cta { padding-left: clamp(24px, 5.56vw, 80px); padding-right: clamp(24px, 5.56vw, 80px); }
 }
 
+/* 平板 641–1100（S0_TABLET_CONTRACT：電腦結構，左右留白 40，標題 28，按鈕維持 18px 並排） */
+@media (min-width: 641px) and (max-width: 1100px) {
+  .cl-cta { padding-left: 40px; padding-right: 40px; }
+  .cl-cta__title { font-size: 28px; }
+}
+
 /* ---------- 手機 375（1695:19927） ---------- */
 @media (max-width: 640px) {
   .cl-cta { flex-direction: row; padding: 0 16px 64px; }

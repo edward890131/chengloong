@@ -80,6 +80,35 @@
 }
 
 /* ==========================================================================
+   平板 641–1100（S0_TABLET_CONTRACT：電腦結構，照片框 280×168、間距 28＝電腦版 0.7 倍）
+   平移距離跟著換算：照片帶 6×280＋5×28＝1820，終點貼右＝100cqw－1820，中點取一半（同電腦版 580／1160）
+   ========================================================================== */
+@media (min-width: 641px) and (max-width: 1100px) {
+  .cl-strip { height: 408px; }   /* 582×0.7，照片帶上下各留 106 */
+
+  /* 弧線：用手機版 0.8 倍尺寸，改成以段落中心定位（寬度會變） */
+  .cl-strip__curve {
+    left: calc(50% - 1884.057px);
+    top: calc(50% - 857.998px);
+    width: 4503.104px;
+    height: 1219.328px;
+  }
+
+  .cl-strip__viewport { container-type: inline-size; }
+  .cl-strip__track { top: 106px; gap: 28px; animation-name: cl-strip-marquee-m; }
+  .cl-strip__item--up   { padding-bottom: 28px; }
+  .cl-strip__item--down { padding-top: 28px; }
+  .cl-strip__photo { width: 280px; height: 168px; border-radius: 14px; }
+}
+@keyframes cl-strip-marquee-m {
+  0%       { transform: translateX(0); }
+  46.2963% { transform: translateX(calc(50cqw - 910px)); }
+  50%      { transform: translateX(calc(50cqw - 910px)); }
+  96.2963% { transform: translateX(calc(100cqw - 1820px)); }
+  100%     { transform: translateX(calc(100cqw - 1820px)); }
+}
+
+/* ==========================================================================
    手機版 375（1695:19897）
    ========================================================================== */
 @media (max-width: 640px) {
