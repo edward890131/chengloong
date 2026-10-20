@@ -6,7 +6,7 @@
   "figma_prefix": "CL",
   "stage": "S0",
   "created": "2026-10-19",
-  "source": "",
+  "source": "B Figma key page：section 1695:19584「1005 前台 UI 調整」；電腦版 1695:20082「首頁_v2_L」、手機版 1695:19587「首頁_v2_S」；section 右側為各段落替代卡片與狀態",
   "paths": {
     "html_root": "",
     "tokens_json": "",
@@ -54,9 +54,9 @@
   },
   "static_param": "?static",
   "figma": {
-    "source_file_key": "",
-    "file_key": "",
-    "same_file_note": "",
+    "source_file_key": "KbEu6upVzRV4mMQBRHS5Kc",
+    "file_key": "KbEu6upVzRV4mMQBRHS5Kc",
+    "same_file_note": "來源與設計系統同一檔。來源 page（1382:4916 回饋調整、1424:44484 調整工作區）只讀；寫入只限之後新建的 Guideline／擷取／功能（正式稿）page。",
     "pages": {
       "guideline": "",
       "wireframe": "",
