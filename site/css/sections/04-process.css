@@ -142,8 +142,8 @@
   width: 46.68%;
   height: 55.78%;
   max-width: none;
-  -webkit-mask: url('../assets/04-process/card4-screen-mask.svg') no-repeat .11% .16% / 99.65% 99.66%;
-  mask: url('../assets/04-process/card4-screen-mask.svg') no-repeat .11% .16% / 99.65% 99.66%;
+  -webkit-mask: url('assets/04-process/card4-screen-mask.svg') no-repeat .11% .16% / 99.65% 99.66%;
+  mask: url('assets/04-process/card4-screen-mask.svg') no-repeat .11% .16% / 99.65% 99.66%;
 }
 
 /* 文字層：未展開＝漸層＋標題；展開（is-active）＝綠底＋icon＋標題＋分隔線＋說明 */
