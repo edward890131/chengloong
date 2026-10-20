@@ -3488,7 +3488,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   color: #000;
 }
 .cl-footer__slogan-hl { color: var(--cl-green-400); }
-/* 跑馬燈用的第二份文字：只在手機顯示 */
+/* 跑馬燈用的第二份文字：只在 .is-marquee 時顯示 */
 .cl-footer__slogan-text--dup { display: none; }
 
 /* 641–1439：流動縮放 */
@@ -3548,19 +3548,22 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
      Figma 手機稿 1695:29201 只有「NEW LIFE.」，此處與來源不同（記在 audit-source「使用者決策」） */
   /* 垂直位置照電腦版比例：中心距底 0.5174em（44.5／86），避免逗點下緣被裁（客戶 2026-10-20） */
   .cl-footer__slogan { left: 0; bottom: .5174em; font-size: 75px; }
-  .cl-footer__slogan-track {
-    display: flex;
-    width: max-content;
-    animation: cl-footer-marquee 36s linear infinite;   /* 一句 1339px／36s ≈ 37px/s（客戶要求放慢） */
-  }
-  .cl-footer__slogan-text { padding-right: .5em; }   /* 兩句之間的間隔 */
-  .cl-footer__slogan-text--dup { display: inline; }
 }
-/* 兩份文字等寬，平移 -50% 剛好接回起點，形成無縫循環；?static 與減少動態時停在起點 */
+
+/* ---------- 標語跑馬燈（客戶 2026-10-20：句子超出畫面寬就輪播，所有寬度適用） ----------
+   是否超出由 09-footer.js 量測後加 .is-marquee；速度固定約 37px/s，
+   JS 依一句的寬度（含間隔）算出 --cl-footer-marquee-dur。
+   ?static 與減少動態不加 .is-marquee，維持各寬度的靜態排版（電腦版＝Figma 稿） */
+.cl-footer.is-marquee .cl-footer__slogan { left: 0; }
+.cl-footer.is-marquee .cl-footer__slogan-track {
+  display: flex;
+  width: max-content;
+  animation: cl-footer-marquee var(--cl-footer-marquee-dur, 36s) linear infinite;
+}
+.cl-footer.is-marquee .cl-footer__slogan-text { padding-right: .5em; }   /* 兩句之間的間隔 */
+.cl-footer.is-marquee .cl-footer__slogan-text--dup { display: inline; }
+/* 兩份文字等寬，平移 -50% 剛好接回起點，形成無縫循環 */
 @keyframes cl-footer-marquee {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .cl-footer__slogan-track { animation: none; }
 }
