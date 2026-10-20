@@ -228,14 +228,23 @@
   transform: translateY(-50%);
 }
 
-/* ---------- 641–1100：流動縮放（平板尚未定案，只保證不破版） ---------- */
+/* ---------- 平板 641–1100（S0 平板契約：電腦結構）----------
+   版心左右留白 40；區段標題 28；2 欄圖文交錯，圖片填滿列高；Step 03 說明卡改直排 */
 @media (max-width: 1100px) and (min-width: 641px) {
-  .cl-paper__slider { width: calc(100% - 64px); }
-  .cl-paper__media { align-self: stretch; }
+  .cl-paper__head { max-width: calc(100% - 80px); }
+  .cl-paper__title { font-size: 28px; line-height: 39px; }
+  .cl-paper__slider { width: calc(100% - 80px); }
+  .cl-paper__text { justify-content: flex-start; gap: 32px; padding: 32px 28px; }
+  .cl-paper__no-label { font-size: 28px; line-height: 34px; }
+  .cl-paper__no-num   { font-size: 48px; line-height: 58px; }
+  .cl-paper__step-title { text-wrap: balance; }
+  .cl-paper__desc { text-wrap: pretty; }
+  .cl-paper__media { align-self: stretch; min-height: 280px; }
   .cl-paper__photo { position: absolute; inset: 0; height: 100%; aspect-ratio: auto; }
   .cl-paper__img { left: 0; top: 0; width: 100%; height: 100%; aspect-ratio: auto; transform: none; }
-  .cl-paper__media { min-height: 240px; }
+  .cl-paper__img--workers { object-position: 30% 50%; }
   .cl-paper__note-row { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .cl-paper__note-text { flex: none; width: 100%; text-wrap: pretty; }
 }
 
 /* ---------- 手機版：三張橫向卡輪播（1695:19756） ---------- */

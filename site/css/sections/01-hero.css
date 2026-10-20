@@ -338,8 +338,8 @@
   visibility: visible;
 }
 
-/* ---------- 641–1439：流動縮放，避免數據區擠壞 ---------- */
-@media (max-width: 1240px) and (min-width: 641px) {
+/* ---------- 1101–1439：流動縮放，避免數據區擠壞 ---------- */
+@media (max-width: 1240px) and (min-width: 1101px) {
   .cl-hero__nav { gap: 16px; }
   .cl-hero__nav-link { font-size: 13px; }
   .cl-hero__card { padding: 48px 32px 0; }
@@ -347,19 +347,123 @@
   .cl-hero__num { column-gap: 24px; padding: 40px 32px; }
   .cl-hero__metric-num { font-size: 32px; }
 }
-@media (max-width: 1180px) and (min-width: 641px) {
-  .cl-hero__nav { display: none; }   /* 平板導覽列待 768 定案（先隱藏避免和 logo 重疊） */
+@media (max-width: 1180px) and (min-width: 1101px) {
+  .cl-hero__nav { display: none; }   /* 中間導覽放不下時先隱藏，避免和 logo 重疊 */
 }
-@media (max-width: 960px) and (min-width: 641px) {
-  .cl-hero__title { font-size: 28px; letter-spacing: 1.4px; }
-  .cl-hero__card { padding: 40px 24px 0; }
-  .cl-hero__num { column-gap: 16px; padding: 32px 24px; }
-  .cl-hero__metric-label, .cl-hero__metric-unit { font-size: 14px; }
+
+/* ==========================================================================
+   平板 641–1100（S0 平板契約：電腦結構）
+   header 改手機樣式（logo＋預約＋漢堡）；cover 右上、白卡左下、數據區右下依比例縮；數據區 2×2
+   設計稿無平板版，值由 768 驗收寬推算
+   ========================================================================== */
+@media (max-width: 1100px) and (min-width: 641px) {
+  .cl-hero { height: 700px; }
+
+  /* header：版心留白 40；右側漢堡按鈕 40 框、icon 24，視覺右緣對齊 40 */
+  .cl-hero__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px 0 40px;
+  }
+  .cl-hero__brand { position: static; transform: none; }
+  .cl-hero__nav, .cl-hero__login, .cl-hero__book-l, .cl-hero__book-arrow { display: none; }
+  .cl-hero__actions { position: static; transform: none; gap: 8px; }
+  .cl-hero__book-s { display: inline; }
+  .cl-hero__menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+  }
+  .cl-hero__menu img { width: 24px; height: 24px; }
+
+  /* cover：右上 75% 寬，上緣距 header 56，下緣與白卡、數據區齊（距段落底 78，同電腦版） */
+  .cl-hero__cover {
+    top: 118px;
+    bottom: 78px;
+    height: auto;
+    border-top-left-radius: 32px;
+  }
+  .cl-hero__slide {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .cl-hero__slide--1 { object-position: 50% 45%; }
+  .cl-hero__slide--2 { object-position: 40% 50%; }
+  .cl-hero__slide--3 { object-position: 30% 55%; }
+  .cl-hero__slide--4 { object-position: 30% 45%; }
+
+  .cl-hero__feature { top: 150px; }
+
+  /* main：白卡左下、數據區右下，底部對齊 cover 下緣 */
+  .cl-hero__main {
+    top: auto;
+    bottom: 78px;
+    padding-left: 40px;
+  }
+  .cl-hero__card {
+    flex: 1 1 0;
+    min-width: 0;
+    width: auto;
+    height: auto;
+    gap: 24px;
+    padding: 40px 32px 0;
+    border-top-right-radius: 32px;
+  }
+  .cl-hero__title { font-size: 32px; letter-spacing: 1.6px; }
+  .cl-hero__nobr { white-space: normal; }
+
+  .cl-hero__num {
+    flex: none;
+    grid-template-columns: repeat(2, minmax(max-content, 1fr));
+    column-gap: 24px;
+    row-gap: 32px;
+    width: 52.9412%;
+    padding: 40px 32px;
+  }
+  .cl-hero__metric { gap: 8px; min-width: 0; }
+  .cl-hero__metric-label,
+  .cl-hero__metric-label--park { font-size: 14px; line-height: 20px; }
   .cl-hero__metric-value { gap: 6px; }
-  .cl-hero__metric-num { font-size: 24px; letter-spacing: 1px; }
+  .cl-hero__metric-num { font-size: 32px; letter-spacing: 1px; }
+  .cl-hero__metric-unit,
+  .cl-hero__metric-unit--co2 { font-size: 14px; line-height: 20px; }
+
+  /* 右欄 tooltip 置中會超出畫面：改成靠右展開，箭頭仍對準 icon */
+  .cl-hero__tip--end .cl-hero__tip-pop {
+    left: auto;
+    right: -24px;
+    transform: none;
+    align-items: flex-end;
+  }
+  .cl-hero__tip--end .cl-hero__tip-arrow { margin-right: 26px; }
 }
+/* 900 以下：數據區加寬、字級再縮一級 */
+@media (max-width: 900px) and (min-width: 641px) {
+  .cl-hero__card { padding: 40px 24px 0; }
+  .cl-hero__title { font-size: 28px; letter-spacing: 1.4px; }
+  .cl-hero__num { width: auto; padding: 40px 28px; column-gap: 20px; }
+  .cl-hero__metric-num { font-size: 28px; }
+  .cl-hero__tip-pop { width: 280px; }
+}
+/* 760 以下：維持 2×2 不擠字 */
 @media (max-width: 760px) and (min-width: 641px) {
-  .cl-hero__title { font-size: 24px; }
+  .cl-hero__title { font-size: 24px; letter-spacing: 1.2px; }
+  .cl-hero__num { padding: 32px 20px; column-gap: 16px; }
+  .cl-hero__metric-num { font-size: 24px; }
+  .cl-hero__metric-label,
+  .cl-hero__metric-label--park,
+  .cl-hero__metric-unit,
+  .cl-hero__metric-unit--co2 { font-size: 13px; line-height: 18px; }
+  .cl-hero__metric-value { gap: 4px; }
+}
+@media (max-width: 700px) and (min-width: 641px) {
+  .cl-hero__card { padding: 32px 20px 0; }
+  .cl-hero__title { font-size: 22px; letter-spacing: 1.1px; }
 }
 
 /* ==========================================================================

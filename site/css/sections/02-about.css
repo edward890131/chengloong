@@ -223,10 +223,18 @@
 .cl-about__cycle-img { display: block; margin-top: 40.64px; }
 .cl-about__cycle-img img { width: 1200px; height: auto; }
 
-/* ---------- 641–1100：流動縮放（平板尚未定案，只保證不破版） ---------- */
+/* ---------- 平板 641–1100（S0 平板契約：電腦結構）----------
+   版心左右留白 40；區段標題 28；四卡 2×2；循環圖用電腦版 SVG 等比縮 */
 @media (max-width: 1100px) and (min-width: 641px) {
-  .cl-about__panel { width: calc(100% - 64px); }
+  .cl-about__head { max-width: calc(100% - 80px); }
+  .cl-about__title { font-size: 28px; line-height: 39px; }
+  .cl-about__panel { width: calc(100% - 80px); }
   .cl-about__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cl-about__card-desc { text-wrap: balance; }   /* 置中短段落避免末行剩一兩字 */
+  .cl-about__cycle-head { gap: 24px; }
+  .cl-about__cycle-sub { flex: 1 1 0; min-width: 0; }
+  .cl-about__cycle-img { align-self: stretch; padding: 0 24px; }
+  .cl-about__cycle-img img { width: 100%; }
 }
 
 /* ---------- 手機版 ---------- */

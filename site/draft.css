@@ -485,8 +485,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   visibility: visible;
 }
 
-/* ---------- 641–1439：流動縮放，避免數據區擠壞 ---------- */
-@media (max-width: 1240px) and (min-width: 641px) {
+/* ---------- 1101–1439：流動縮放，避免數據區擠壞 ---------- */
+@media (max-width: 1240px) and (min-width: 1101px) {
   .cl-hero__nav { gap: 16px; }
   .cl-hero__nav-link { font-size: 13px; }
   .cl-hero__card { padding: 48px 32px 0; }
@@ -494,19 +494,123 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .cl-hero__num { column-gap: 24px; padding: 40px 32px; }
   .cl-hero__metric-num { font-size: 32px; }
 }
-@media (max-width: 1180px) and (min-width: 641px) {
-  .cl-hero__nav { display: none; }   /* 平板導覽列待 768 定案（先隱藏避免和 logo 重疊） */
+@media (max-width: 1180px) and (min-width: 1101px) {
+  .cl-hero__nav { display: none; }   /* 中間導覽放不下時先隱藏，避免和 logo 重疊 */
 }
-@media (max-width: 960px) and (min-width: 641px) {
-  .cl-hero__title { font-size: 28px; letter-spacing: 1.4px; }
-  .cl-hero__card { padding: 40px 24px 0; }
-  .cl-hero__num { column-gap: 16px; padding: 32px 24px; }
-  .cl-hero__metric-label, .cl-hero__metric-unit { font-size: 14px; }
+
+/* ==========================================================================
+   平板 641–1100（S0 平板契約：電腦結構）
+   header 改手機樣式（logo＋預約＋漢堡）；cover 右上、白卡左下、數據區右下依比例縮；數據區 2×2
+   設計稿無平板版，值由 768 驗收寬推算
+   ========================================================================== */
+@media (max-width: 1100px) and (min-width: 641px) {
+  .cl-hero { height: 700px; }
+
+  /* header：版心留白 40；右側漢堡按鈕 40 框、icon 24，視覺右緣對齊 40 */
+  .cl-hero__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px 0 40px;
+  }
+  .cl-hero__brand { position: static; transform: none; }
+  .cl-hero__nav, .cl-hero__login, .cl-hero__book-l, .cl-hero__book-arrow { display: none; }
+  .cl-hero__actions { position: static; transform: none; gap: 8px; }
+  .cl-hero__book-s { display: inline; }
+  .cl-hero__menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+  }
+  .cl-hero__menu img { width: 24px; height: 24px; }
+
+  /* cover：右上 75% 寬，上緣距 header 56，下緣與白卡、數據區齊（距段落底 78，同電腦版） */
+  .cl-hero__cover {
+    top: 118px;
+    bottom: 78px;
+    height: auto;
+    border-top-left-radius: 32px;
+  }
+  .cl-hero__slide {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .cl-hero__slide--1 { object-position: 50% 45%; }
+  .cl-hero__slide--2 { object-position: 40% 50%; }
+  .cl-hero__slide--3 { object-position: 30% 55%; }
+  .cl-hero__slide--4 { object-position: 30% 45%; }
+
+  .cl-hero__feature { top: 150px; }
+
+  /* main：白卡左下、數據區右下，底部對齊 cover 下緣 */
+  .cl-hero__main {
+    top: auto;
+    bottom: 78px;
+    padding-left: 40px;
+  }
+  .cl-hero__card {
+    flex: 1 1 0;
+    min-width: 0;
+    width: auto;
+    height: auto;
+    gap: 24px;
+    padding: 40px 32px 0;
+    border-top-right-radius: 32px;
+  }
+  .cl-hero__title { font-size: 32px; letter-spacing: 1.6px; }
+  .cl-hero__nobr { white-space: normal; }
+
+  .cl-hero__num {
+    flex: none;
+    grid-template-columns: repeat(2, minmax(max-content, 1fr));
+    column-gap: 24px;
+    row-gap: 32px;
+    width: 52.9412%;
+    padding: 40px 32px;
+  }
+  .cl-hero__metric { gap: 8px; min-width: 0; }
+  .cl-hero__metric-label,
+  .cl-hero__metric-label--park { font-size: 14px; line-height: 20px; }
   .cl-hero__metric-value { gap: 6px; }
-  .cl-hero__metric-num { font-size: 24px; letter-spacing: 1px; }
+  .cl-hero__metric-num { font-size: 32px; letter-spacing: 1px; }
+  .cl-hero__metric-unit,
+  .cl-hero__metric-unit--co2 { font-size: 14px; line-height: 20px; }
+
+  /* 右欄 tooltip 置中會超出畫面：改成靠右展開，箭頭仍對準 icon */
+  .cl-hero__tip--end .cl-hero__tip-pop {
+    left: auto;
+    right: -24px;
+    transform: none;
+    align-items: flex-end;
+  }
+  .cl-hero__tip--end .cl-hero__tip-arrow { margin-right: 26px; }
 }
+/* 900 以下：數據區加寬、字級再縮一級 */
+@media (max-width: 900px) and (min-width: 641px) {
+  .cl-hero__card { padding: 40px 24px 0; }
+  .cl-hero__title { font-size: 28px; letter-spacing: 1.4px; }
+  .cl-hero__num { width: auto; padding: 40px 28px; column-gap: 20px; }
+  .cl-hero__metric-num { font-size: 28px; }
+  .cl-hero__tip-pop { width: 280px; }
+}
+/* 760 以下：維持 2×2 不擠字 */
 @media (max-width: 760px) and (min-width: 641px) {
-  .cl-hero__title { font-size: 24px; }
+  .cl-hero__title { font-size: 24px; letter-spacing: 1.2px; }
+  .cl-hero__num { padding: 32px 20px; column-gap: 16px; }
+  .cl-hero__metric-num { font-size: 24px; }
+  .cl-hero__metric-label,
+  .cl-hero__metric-label--park,
+  .cl-hero__metric-unit,
+  .cl-hero__metric-unit--co2 { font-size: 13px; line-height: 18px; }
+  .cl-hero__metric-value { gap: 4px; }
+}
+@media (max-width: 700px) and (min-width: 641px) {
+  .cl-hero__card { padding: 32px 20px 0; }
+  .cl-hero__title { font-size: 22px; letter-spacing: 1.1px; }
 }
 
 /* ==========================================================================
@@ -900,10 +1004,18 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .cl-about__cycle-img { display: block; margin-top: 40.64px; }
 .cl-about__cycle-img img { width: 1200px; height: auto; }
 
-/* ---------- 641–1100：流動縮放（平板尚未定案，只保證不破版） ---------- */
+/* ---------- 平板 641–1100（S0 平板契約：電腦結構）----------
+   版心左右留白 40；區段標題 28；四卡 2×2；循環圖用電腦版 SVG 等比縮 */
 @media (max-width: 1100px) and (min-width: 641px) {
-  .cl-about__panel { width: calc(100% - 64px); }
+  .cl-about__head { max-width: calc(100% - 80px); }
+  .cl-about__title { font-size: 28px; line-height: 39px; }
+  .cl-about__panel { width: calc(100% - 80px); }
   .cl-about__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cl-about__card-desc { text-wrap: balance; }   /* 置中短段落避免末行剩一兩字 */
+  .cl-about__cycle-head { gap: 24px; }
+  .cl-about__cycle-sub { flex: 1 1 0; min-width: 0; }
+  .cl-about__cycle-img { align-self: stretch; padding: 0 24px; }
+  .cl-about__cycle-img img { width: 100%; }
 }
 
 /* ---------- 手機版 ---------- */
@@ -1198,14 +1310,23 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   transform: translateY(-50%);
 }
 
-/* ---------- 641–1100：流動縮放（平板尚未定案，只保證不破版） ---------- */
+/* ---------- 平板 641–1100（S0 平板契約：電腦結構）----------
+   版心左右留白 40；區段標題 28；2 欄圖文交錯，圖片填滿列高；Step 03 說明卡改直排 */
 @media (max-width: 1100px) and (min-width: 641px) {
-  .cl-paper__slider { width: calc(100% - 64px); }
-  .cl-paper__media { align-self: stretch; }
+  .cl-paper__head { max-width: calc(100% - 80px); }
+  .cl-paper__title { font-size: 28px; line-height: 39px; }
+  .cl-paper__slider { width: calc(100% - 80px); }
+  .cl-paper__text { justify-content: flex-start; gap: 32px; padding: 32px 28px; }
+  .cl-paper__no-label { font-size: 28px; line-height: 34px; }
+  .cl-paper__no-num   { font-size: 48px; line-height: 58px; }
+  .cl-paper__step-title { text-wrap: balance; }
+  .cl-paper__desc { text-wrap: pretty; }
+  .cl-paper__media { align-self: stretch; min-height: 280px; }
   .cl-paper__photo { position: absolute; inset: 0; height: 100%; aspect-ratio: auto; }
   .cl-paper__img { left: 0; top: 0; width: 100%; height: 100%; aspect-ratio: auto; transform: none; }
-  .cl-paper__media { min-height: 240px; }
+  .cl-paper__img--workers { object-position: 30% 50%; }
   .cl-paper__note-row { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .cl-paper__note-text { flex: none; width: 100%; text-wrap: pretty; }
 }
 
 /* ---------- 手機版：三張橫向卡輪播（1695:19756） ---------- */
@@ -1924,11 +2045,78 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 .cl-process__route-hint { display: none; }
 
-/* 641–1439：流動縮放，避免水平捲軸 */
+/* 1101–1439：流動縮放，避免水平捲軸（641–1100 的左右留白由下方平板區塊覆寫） */
 @media (max-width: 1439px) {
   .cl-process { padding-left: max(16px, min(80px, 5.5vw)); padding-right: max(16px, min(80px, 5.5vw)); }
   .cl-process__route-scroll { overflow-x: auto; scrollbar-width: none; }
   .cl-process__route-scroll::-webkit-scrollbar { display: none; }
+}
+
+/* ==========================================================================
+   平板（641–1100，S0_TABLET_CONTRACT「混合」）
+   四格卡＝手機結構（上下排、每格高 200）；頁籤 1＝手機結構（步驟在上、圖在下）；
+   頁籤 2＝電腦 2 欄；頁籤 3＝手機結構（見下方 ≤1100 共用區塊）。
+   左右版心 40；區段標題 28；卡片標題、內文照電腦版
+   ========================================================================== */
+@media (min-width: 641px) and (max-width: 1100px) {
+  .cl-process { padding: 40px 40px 120px; }
+
+  /* 背景弧線：沿用手機版位置（四格卡改直排後，電腦版位置會壓在卡片正中） */
+  .cl-process__curve-clip {
+    left: calc(50% - 799.5px);
+    top: 1087px;
+    width: 1600px;
+    height: 640px;
+  }
+  .cl-process__curve {
+    left: 577.758px;
+    top: 176.8792px;
+    transform: translate(-50%, -50%) rotate(2.71deg) scale(.8);
+  }
+
+  .cl-process__title { font-size: 28px; line-height: 39px; }   /* 介於 32／24，行高 140% 取整 */
+
+  /* 四格卡：上下排，每格 200 高；照片框照稿比例 3:2 以卡寬撐滿、垂直置中裁切 */
+  .cl-process__cards { flex-direction: column; }
+  .cl-process__card { flex: none; height: 200px; }
+  .cl-process__media {
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+  }
+  .cl-process__card-body {
+    inset: 0;
+    gap: 12px;
+    padding: 24px 32px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 36.944%, #000 83.875%);
+  }
+  .cl-process__card-icon { width: 32px; height: 32px; }
+  .cl-process__card-desc { height: auto; }
+
+  /* 展開卡弧線：沿用手機版旋轉，四格間距 201（卡高 200＋1） */
+  .cl-process__card-curve {
+    left: calc(50% - 187.62px);
+    top: -217.75px;
+    transform: translate(-50%, -50%) rotate(-69.82deg) scale(.8);
+  }
+  .cl-process__card--2 .cl-process__card-curve { left: calc(50% - 187.62px); top: -418.75px; }
+  .cl-process__card--3 .cl-process__card-curve { left: calc(50% - 187.62px); top: -619.75px; }
+  .cl-process__card--4 .cl-process__card-curve { left: calc(50% - 187.62px); top: -820.75px; }
+
+  .cl-process__detail { margin-top: 80px; }
+
+  /* 頁籤 1：步驟在上、圖在下；步驟卡照電腦版 */
+  .cl-process__booking { flex-direction: column; }
+  .cl-process__steps { flex: none; }
+  .cl-process__booking-img { flex: none; aspect-ratio: 3 / 2; max-height: 520px; align-self: stretch; }   /* 1024 時不讓圖過高 */
+
+  /* 頁籤 2：電腦 2 欄；欄寬變窄，產線名稱允許換行 */
+  .cl-process__prep-card { padding: 24px; }
+  .cl-process__prep-line-name { align-self: stretch; align-items: flex-start; white-space: normal; }
+  .cl-process__prep-line-name::before { margin-top: 8px; }
+  .cl-process__prep-way { white-space: normal; }
 }
 
 /* ==========================================================================
@@ -2035,7 +2223,13 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .cl-process__prep-pair { flex-direction: column; gap: 8px; }
   .cl-process__prep-img { flex: none; aspect-ratio: 240 / 160; border-radius: 16px; }
   .cl-process__prep-line-name { align-self: stretch; white-space: normal; }
+}
 
+/* ==========================================================================
+   平板＋手機共用（≤1100）：頁籤 3 當天進場流程用手機結構（1128 寬可左右滑動＋提示）
+   規則原樣從手機版搬出，≤640 的層疊順序不變
+   ========================================================================== */
+@media (max-width: 1100px) {
   /* 頁籤 3：依 2159:25259（1128 寬，可左右滑動；提示膠囊固定在左下） */
   .cl-process__route-scroll {
     overflow-x: auto;
@@ -2478,6 +2672,42 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 
 /* ==========================================================================
+   平板 641–1100（S0_TABLET_CONTRACT：混合）
+   卡片內：文字區滿寬在上，下方「圖卡｜右側兩格」2 欄；兩張卡維持上下排。
+   版心左右 40，區段標題 28，卡片標題與內文照電腦版。
+   ========================================================================== */
+@media (min-width: 641px) and (max-width: 1100px) {
+  .cl-green__head { max-width: calc(100% - 80px); }
+  .cl-green__title { font-size: 28px; line-height: 39px; }
+
+  .cl-green__body { max-width: calc(100% - 80px); }
+
+  .cl-green__card {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 12px;
+    height: auto;
+  }
+  .cl-green__intro {
+    grid-column: 1 / -1;
+    gap: 32px;
+    padding: 28px 36px 36px;
+  }
+  .cl-green__en { font-size: 48px; line-height: 58px; }
+  .cl-green__desc { max-width: 640px; }
+
+  /* 圖卡與右側兩格同高 456（電腦版尺寸） */
+  .cl-green__slider,
+  .cl-green__doc { height: 456px; }
+  .cl-green__side { height: 456px; }
+  /* 證明圖是可視範圍（貼右下），欄寬改變時跟著右下角 */
+  .cl-green__doc-img { left: auto; right: 0; top: auto; bottom: -.1401px; }
+  /* 資訊框左右 12（641–1199 規則）會蓋到右下點點：點點改到右上（同手機版位置） */
+  .cl-green__dots { top: 20px; bottom: auto; }
+}
+
+/* ==========================================================================
    手機版 375（1695:19826）
    ========================================================================== */
 @media (max-width: 640px) {
@@ -2658,6 +2888,35 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 @media (prefers-reduced-motion: reduce) {
   .cl-strip__track { animation: none; }
+}
+
+/* ==========================================================================
+   平板 641–1100（S0_TABLET_CONTRACT：電腦結構，照片框 280×168、間距 28＝電腦版 0.7 倍）
+   平移距離跟著換算：照片帶 6×280＋5×28＝1820，終點貼右＝100cqw－1820，中點取一半（同電腦版 580／1160）
+   ========================================================================== */
+@media (min-width: 641px) and (max-width: 1100px) {
+  .cl-strip { height: 408px; }   /* 582×0.7，照片帶上下各留 106 */
+
+  /* 弧線：用手機版 0.8 倍尺寸，改成以段落中心定位（寬度會變） */
+  .cl-strip__curve {
+    left: calc(50% - 1884.057px);
+    top: calc(50% - 857.998px);
+    width: 4503.104px;
+    height: 1219.328px;
+  }
+
+  .cl-strip__viewport { container-type: inline-size; }
+  .cl-strip__track { top: 106px; gap: 28px; animation-name: cl-strip-marquee-m; }
+  .cl-strip__item--up   { padding-bottom: 28px; }
+  .cl-strip__item--down { padding-top: 28px; }
+  .cl-strip__photo { width: 280px; height: 168px; border-radius: 14px; }
+}
+@keyframes cl-strip-marquee-m {
+  0%       { transform: translateX(0); }
+  46.2963% { transform: translateX(calc(50cqw - 910px)); }
+  50%      { transform: translateX(calc(50cqw - 910px)); }
+  96.2963% { transform: translateX(calc(100cqw - 1820px)); }
+  100%     { transform: translateX(calc(100cqw - 1820px)); }
 }
 
 /* ==========================================================================
@@ -2851,6 +3110,12 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .cl-faq__tabs { flex-wrap: wrap; justify-content: center; }
 }
 
+/* 平板 641–1100（S0_TABLET_CONTRACT：電腦結構，左右留白 40，區段標題 28；頁籤放得下就一列） */
+@media (min-width: 641px) and (max-width: 1100px) {
+  .cl-faq { padding-left: 40px; padding-right: 40px; }
+  .cl-faq__title { font-size: 28px; }
+}
+
 /* ---------- 手機 375（1695:19900） ---------- */
 @media (max-width: 640px) {
   .cl-faq {
@@ -3010,6 +3275,12 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 /* 641–1439：流動縮放 */
 @media (max-width: 1439px) and (min-width: 641px) {
   .cl-cta { padding-left: clamp(24px, 5.56vw, 80px); padding-right: clamp(24px, 5.56vw, 80px); }
+}
+
+/* 平板 641–1100（S0_TABLET_CONTRACT：電腦結構，左右留白 40，標題 28，按鈕維持 18px 並排） */
+@media (min-width: 641px) and (max-width: 1100px) {
+  .cl-cta { padding-left: 40px; padding-right: 40px; }
+  .cl-cta__title { font-size: 28px; }
 }
 
 /* ---------- 手機 375（1695:19927） ---------- */
@@ -3225,6 +3496,18 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .cl-footer__row { flex-wrap: wrap; }
   .cl-footer__info { flex-wrap: wrap; flex-shrink: 1; }
   .cl-footer__slogan { left: -7px; font-size: clamp(40px, 5.97vw, 86px); }
+}
+
+/* 平板 641–1100（S0_TABLET_CONTRACT：電腦結構，左右留白 40，資訊欄可換行）
+   標語照電腦版比例跟寬度縮放：86／1440＝5.972vw、left -7／1440＝-0.486vw、中心距底 44.5／86＝0.5174em */
+@media (min-width: 641px) and (max-width: 1100px) {
+  .cl-footer { min-height: 0; padding-bottom: calc(5.972vw * 1.2 + 56px); }
+  .cl-footer__inner { margin: 80px 40px 0; }
+  .cl-footer__slogan {
+    left: -.486vw;
+    bottom: calc(5.972vw * .5174);
+    font-size: 5.972vw;
+  }
 }
 
 /* ---------- 手機 375（1695:29472） ---------- */
