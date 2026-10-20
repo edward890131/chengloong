@@ -1,0 +1,292 @@
+/* ==========================================================================
+   02 什麼是水銷？（負責人 B）
+   電腦版 1695:20117（1440×1453）／手機版 1695:19642（375×1348）
+   Figma 百分比行高會四捨五入成整數 px（16px×1.4＝22、14px×1.4＝20…），這裡照 Figma 實際框高寫 px
+   ========================================================================== */
+.cl-about {
+  position: relative;
+  text-spacing-trim: space-all; /* Figma 不擠壓全形標點（Chrome 預設 normal 會擠壓「」，」），待主控決定是否移到 base */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 64px;
+  padding: 40px 0 140.64px;
+}
+.cl-about > :not(.cl-about__curve) { position: relative; z-index: 1; }
+
+/* ---------- 綠色弧線（curve_ani_*：2000×800 裁切框；path 變形取自 relativeTransform） ---------- */
+.cl-about__curve {
+  position: absolute;
+  left: calc(50% - 1000px);
+  width: 2000px;
+  height: 800px;
+  overflow: hidden;
+  pointer-events: none;
+}
+.cl-about__curve .cl-curve {
+  left: 0;
+  top: 0;
+  width: 5628.88px;
+  height: 1524.16px;
+  transform-origin: 0 0;
+}
+.cl-about__curve--whatis { top: -70px; }   /* 1695:20119 */
+.cl-about__curve--whatis .cl-curve {
+  transform: translate(-822px, -938px) matrix(.99888, .04725, -.04725, .99888, 69.74628, 0) translate(-24px, -24px);
+}
+.cl-about__curve--cycle { top: 816px; }    /* 1695:20118（curve_pattern 旋轉 152.59°） */
+.cl-about__curve--cycle .cl-curve {
+  transform: matrix(-.88773, -.46036, .46036, -.88773, 3325.70459, 2787.52002) matrix(.99888, .04725, -.04725, .99888, 69.74628, 0) translate(-24px, -24px);
+}
+
+/* ---------- 標題區 Frame 4（1695:20121） ---------- */
+.cl-about__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  width: 640px;
+  max-width: calc(100% - 32px);
+  text-align: center;
+}
+.cl-about__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+.cl-about__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--cl-font-num);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 15px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--cl-green-700);
+  white-space: nowrap;
+}
+.cl-about__eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 100px;
+  background: var(--cl-green-700);
+  flex: none;
+}
+.cl-about__title {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 45px;
+  letter-spacing: 1px;
+  color: var(--cl-ink-900);
+}
+.cl-about__lead {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: .3px;
+  color: var(--cl-ink-800-60);
+}
+
+/* ---------- 灰底容器（1695:20128） ---------- */
+.cl-about__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: calc(100% - 160px);
+  max-width: 1280px;
+  padding: 12px;
+  border-radius: 20px;
+  background: #f6f6f6;
+}
+
+/* ---------- 四張特色卡（1695:20152） ---------- */
+.cl-about__cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.cl-about__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 40px 32px 32px;
+  border-radius: 16px;
+  background: var(--cl-white);
+  overflow: hidden;
+}
+.cl-about__illus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 161.28px;
+  height: 111.36px;
+  flex: none;
+}
+.cl-about__art { position: relative; display: flex; align-items: center; justify-content: center; flex: none; }
+.cl-about__art img { max-width: none; }
+.cl-about__art--flow { width: 70.399px; height: 70.998px; }          /* Group 75646 旋轉 90° */
+.cl-about__art--flow img { width: 70.998px; height: 70.399px; flex: none; transform: rotate(90deg); }
+.cl-about__art--trace { width: 96.686px; height: 96.467px; }         /* Group 75646 旋轉 30° */
+.cl-about__art--trace img { width: 70.998px; height: 70.4px; flex: none; transform: rotate(30deg); }
+.cl-about__art--witness { display: block; width: 114px; height: 87px; } /* Group 見證雙圓 */
+.cl-about__witness-a, .cl-about__witness-b { position: absolute; top: 3.82px; width: 80px; height: 80px; }
+.cl-about__witness-a { left: 1.5px; }
+.cl-about__witness-b { left: 32.5px; }
+.cl-about__witness-dot { position: absolute; left: 48px; top: 34.5px; width: 18px; height: 18px; }
+.cl-about__art--renew { display: block; width: 87.04px; height: 87.04px; }
+/* 三層圓：inset 百分比照稿（Frame 627566 1695:20200） */
+.cl-about__art--renew img { position: absolute; }
+.cl-about__renew-dot   { left: 38.9%;  top: 77.16%; width: 22.89%; height: 22.84%; }
+.cl-about__renew-inner { left: 20.74%; top: 40.91%; width: 59.19%; height: 59.07%; }
+.cl-about__renew-outer { left: -.1%;   top: -.04%;  width: 100.21%; height: 100.02%; }
+
+.cl-about__card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  text-align: center;
+}
+.cl-about__card-title {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 25px;
+  letter-spacing: .6px;
+  color: var(--cl-ink-800);
+}
+.cl-about__card-desc {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: .3px;
+  color: var(--cl-ink-800-60);
+}
+.cl-about__only-s { display: none; }
+/* 稿上段尾 \r 字元：Figma 算進置中寬度（約 4px），照稿保留（audit-source） */
+.cl-about__cr { display: inline-block; width: 4px; }
+
+/* ---------- 圖_D 水銷價值循環（1695:20239） ---------- */
+.cl-about__cycle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 0 28.36px;
+  border-radius: 20px;
+  background: var(--cl-white);
+  overflow: hidden;
+}
+.cl-about__cycle-head {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  align-self: stretch;
+  padding: 0 24px;
+}
+.cl-about__pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex: none;
+  padding: 8px 20px;
+  border-radius: 999px;
+  background: #f6f6f6;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 25px;
+  letter-spacing: .6px;
+  color: var(--cl-ink-900);
+  white-space: nowrap;
+}
+.cl-about__pill::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 100px;
+  background: var(--cl-green-400);
+  flex: none;
+}
+.cl-about__cycle-sub {
+  padding-top: 1px; /* 稿上副標中心 y45、標籤中心 y44.5 */
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: .3px;
+  color: var(--cl-ink-800-60);
+}
+.cl-about__cycle-img { display: block; margin-top: 40.64px; }
+.cl-about__cycle-img img { width: 1200px; height: auto; }
+
+/* ---------- 641–1100：流動縮放（平板尚未定案，只保證不破版） ---------- */
+@media (max-width: 1100px) and (min-width: 641px) {
+  .cl-about__panel { width: calc(100% - 64px); }
+  .cl-about__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ---------- 手機版 ---------- */
+@media (max-width: 640px) {
+  .cl-about {
+    gap: 48px;
+    padding: 40px 16px 64px;
+  }
+  .cl-about__curve { left: calc(50% - 799.5px); width: 1600px; height: 640px; }
+  .cl-about__curve--whatis { top: -40px; }   /* 1695:19644 */
+  .cl-about__curve--whatis .cl-curve {
+    transform: scale(.8) translate(-822px, -938px) matrix(.99888, .04725, -.04725, .99888, 69.74628, 0) translate(-24px, -24px);
+  }
+  .cl-about__curve--cycle { top: 898px; }    /* 1695:19643 */
+  .cl-about__curve--cycle .cl-curve {
+    transform: scale(.8) matrix(-.88773, -.46036, .46036, -.88773, 3325.70459, 2787.52002) matrix(.99888, .04725, -.04725, .99888, 69.74628, 0) translate(-24px, -24px);
+  }
+
+  .cl-about__head { gap: 24px; width: 100%; max-width: 343px; }
+  .cl-about__heading { gap: 8px; }
+  .cl-about__title { font-size: 24px; line-height: 34px; }
+
+  /* scroll（1695:19652）＋灰底 Frame 2085663961（1695:19653） */
+  .cl-about__panel {
+    width: 100%;
+    max-width: 343px;
+    padding: 8px;
+  }
+  .cl-about__cards {
+    display: flex;
+    gap: 8px;
+    height: 300px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .cl-about__cards::-webkit-scrollbar { display: none; }
+  .cl-about__card {
+    flex: none;
+    width: 240px;
+    gap: 20px;
+    padding: 24px;
+    scroll-snap-align: start;
+  }
+  .cl-about__card-text { gap: 12px; }
+  .cl-about__art--renew { overflow: hidden; }
+  .cl-about__only-l { display: none; }
+  .cl-about__only-s { display: inline; }
+
+  /* 圖_D（1695:19741）327×655 */
+  .cl-about__cycle { padding: 24px 0; }
+  .cl-about__cycle-head {
+    flex-direction: column;
+    gap: 20px;
+    padding: 0;
+  }
+  .cl-about__pill { align-self: stretch; margin: 0 24px; }
+  .cl-about__cycle-sub { width: 247px; max-width: calc(100% - 48px); padding-top: 0; text-align: center; }
+  .cl-about__cycle-img { margin-top: 52px; }
+  .cl-about__cycle-img img { width: 327px; }
+}
