@@ -1,0 +1,616 @@
+{
+ "768": {
+  "default": {
+   "docScroll": 0,
+   "h": 2381.65625,
+   "els": {
+    ".cl-process__head": [
+     40,
+     40,
+     688,
+     66
+    ],
+    ".cl-process__cards": [
+     40,
+     170,
+     688,
+     803
+    ],
+    ".cl-process__card--1": [
+     40,
+     170,
+     688,
+     200
+    ],
+    ".cl-process__card--2": [
+     40,
+     371,
+     688,
+     200
+    ],
+    ".cl-process__card--3": [
+     40,
+     572,
+     688,
+     200
+    ],
+    ".cl-process__card--4": [
+     40,
+     773,
+     688,
+     200
+    ],
+    ".cl-process__tabs": [
+     40,
+     1053,
+     688,
+     58
+    ],
+    ".cl-process__panel:not([hidden])": [
+     40,
+     1143,
+     688,
+     1118.66
+    ],
+    ".cl-process__steps": [
+     52,
+     1155,
+     664,
+     640
+    ],
+    ".cl-process__booking-img": [
+     52,
+     1807,
+     664,
+     442.66
+    ]
+   },
+   "bad": [
+    "overflow:cl-process__step-num:01",
+    "overflow:cl-process__step-num:02",
+    "overflow:cl-process__step-no:STEP04",
+    "overflow:cl-process__step-num:04"
+   ]
+  },
+  "card1": {
+   "cardH": 200,
+   "contentTop": 54,
+   "contentBottomGap": 24
+  },
+  "card2": {
+   "cardH": 200,
+   "contentTop": 54,
+   "contentBottomGap": 24
+  },
+  "card3": {
+   "cardH": 200,
+   "contentTop": 54,
+   "contentBottomGap": 24
+  },
+  "card4": {
+   "cardH": 200,
+   "contentTop": 54,
+   "contentBottomGap": 24
+  },
+  "tab1": {
+   "docScroll": 0,
+   "h": 2381.65625,
+   "els": {
+    ".cl-process__head": [
+     40,
+     40,
+     688,
+     66
+    ],
+    ".cl-process__cards": [
+     40,
+     170,
+     688,
+     803
+    ],
+    ".cl-process__card--1": [
+     40,
+     170,
+     688,
+     200
+    ],
+    ".cl-process__card--2": [
+     40,
+     371,
+     688,
+     200
+    ],
+    ".cl-process__card--3": [
+     40,
+     572,
+     688,
+     200
+    ],
+    ".cl-process__card--4": [
+     40,
+     773,
+     688,
+     200
+    ],
+    ".cl-process__tabs": [
+     40,
+     1053,
+     688,
+     58
+    ],
+    ".cl-process__panel:not([hidden])": [
+     40,
+     1143,
+     688,
+     1118.66
+    ],
+    ".cl-process__steps": [
+     52,
+     1155,
+     664,
+     640
+    ],
+    ".cl-process__booking-img": [
+     52,
+     1807,
+     664,
+     442.66
+    ]
+   },
+   "bad": [
+    "overflow:cl-process__step-num:01",
+    "overflow:cl-process__step-num:02",
+    "overflow:cl-process__step-no:STEP04",
+    "overflow:cl-process__step-num:04"
+   ]
+  },
+  "tab2": {
+   "docScroll": 0,
+   "h": 2164,
+   "els": {
+    ".cl-process__head": [
+     40,
+     40,
+     688,
+     66
+    ],
+    ".cl-process__cards": [
+     40,
+     170,
+     688,
+     803
+    ],
+    ".cl-process__card--1": [
+     40,
+     170,
+     688,
+     200
+    ],
+    ".cl-process__card--2": [
+     40,
+     371,
+     688,
+     200
+    ],
+    ".cl-process__card--3": [
+     40,
+     572,
+     688,
+     200
+    ],
+    ".cl-process__card--4": [
+     40,
+     773,
+     688,
+     200
+    ],
+    ".cl-process__tabs": [
+     40,
+     1053,
+     688,
+     58
+    ],
+    ".cl-process__panel:not([hidden])": [
+     40,
+     1143,
+     688,
+     901
+    ],
+    ".cl-process__steps": [
+     0,
+     -100.66,
+     0,
+     0
+    ],
+    ".cl-process__booking-img": [
+     0,
+     -100.66,
+     0,
+     0
+    ]
+   },
+   "bad": []
+  },
+  "tab3": {
+   "docScroll": 0,
+   "h": 1975.796875,
+   "els": {
+    ".cl-process__head": [
+     40,
+     40,
+     688,
+     66
+    ],
+    ".cl-process__cards": [
+     40,
+     170,
+     688,
+     803
+    ],
+    ".cl-process__card--1": [
+     40,
+     170,
+     688,
+     200
+    ],
+    ".cl-process__card--2": [
+     40,
+     371,
+     688,
+     200
+    ],
+    ".cl-process__card--3": [
+     40,
+     572,
+     688,
+     200
+    ],
+    ".cl-process__card--4": [
+     40,
+     773,
+     688,
+     200
+    ],
+    ".cl-process__tabs": [
+     40,
+     1053,
+     688,
+     58
+    ],
+    ".cl-process__panel:not([hidden])": [
+     40,
+     1143,
+     688,
+     712.8
+    ],
+    ".cl-process__steps": [
+     0,
+     -100.66,
+     0,
+     0
+    ],
+    ".cl-process__booking-img": [
+     0,
+     -100.66,
+     0,
+     0
+    ]
+   },
+   "bad": []
+  },
+  "route": {
+   "sw": 1128,
+   "cw": 688,
+   "ox": "auto",
+   "afterScroll": 300,
+   "hintOpacity": "0/flex"
+  }
+ },
+ "1024": {
+  "default": {
+   "docScroll": 0,
+   "h": 2419,
+   "els": {
+    ".cl-process__head": [
+     40,
+     40,
+     944,
+     66
+    ],
+    ".cl-process__cards": [
+     40,
+     170,
+     944,
+     803
+    ],
+    ".cl-process__card--1": [
+     40,
+     170,
+     944,
+     200
+    ],
+    ".cl-process__card--2": [
+     40,
+     371,
+     944,
+     200
+    ],
+    ".cl-process__card--3": [
+     40,
+     572,
+     944,
+     200
+    ],
+    ".cl-process__card--4": [
+     40,
+     773,
+     944,
+     200
+    ],
+    ".cl-process__tabs": [
+     40,
+     1053,
+     944,
+     58
+    ],
+    ".cl-process__panel:not([hidden])": [
+     40,
+     1143,
+     944,
+     1156
+    ],
+    ".cl-process__steps": [
+     52,
+     1155,
+     920,
+     600
+    ],
+    ".cl-process__booking-img": [
+     52,
+     1767,
+     920,
+     520
+    ]
+   },
+   "bad": [
+    "overflow:cl-process__step-num:01",
+    "overflow:cl-process__step-num:02",
+    "overflow:cl-process__step-no:STEP04",
+    "overflow:cl-process__step-num:04"
+   ]
+  },
+  "card1": {
+   "cardH": 200,
+   "contentTop": 54,
+   "contentBottomGap": 24
+  },
+  "card2": {
+   "cardH": 200,
+   "contentTop": 54,
+   "contentBottomGap": 24
+  },
+  "card3": {
+   "cardH": 200,
+   "contentTop": 54,
+   "contentBottomGap": 24
+  },
+  "card4": {
+   "cardH": 200,
+   "contentTop": 54,
+   "contentBottomGap": 24
+  },
+  "tab1": {
+   "docScroll": 0,
+   "h": 2419,
+   "els": {
+    ".cl-process__head": [
+     40,
+     40,
+     944,
+     66
+    ],
+    ".cl-process__cards": [
+     40,
+     170,
+     944,
+     803
+    ],
+    ".cl-process__card--1": [
+     40,
+     170,
+     944,
+     200
+    ],
+    ".cl-process__card--2": [
+     40,
+     371,
+     944,
+     200
+    ],
+    ".cl-process__card--3": [
+     40,
+     572,
+     944,
+     200
+    ],
+    ".cl-process__card--4": [
+     40,
+     773,
+     944,
+     200
+    ],
+    ".cl-process__tabs": [
+     40,
+     1053,
+     944,
+     58
+    ],
+    ".cl-process__panel:not([hidden])": [
+     40,
+     1143,
+     944,
+     1156
+    ],
+    ".cl-process__steps": [
+     52,
+     1155,
+     920,
+     600
+    ],
+    ".cl-process__booking-img": [
+     52,
+     1767,
+     920,
+     520
+    ]
+   },
+   "bad": [
+    "overflow:cl-process__step-num:01",
+    "overflow:cl-process__step-num:02",
+    "overflow:cl-process__step-no:STEP04",
+    "overflow:cl-process__step-num:04"
+   ]
+  },
+  "tab2": {
+   "docScroll": 0,
+   "h": 2017,
+   "els": {
+    ".cl-process__head": [
+     40,
+     40,
+     944,
+     66
+    ],
+    ".cl-process__cards": [
+     40,
+     170,
+     944,
+     803
+    ],
+    ".cl-process__card--1": [
+     40,
+     170,
+     944,
+     200
+    ],
+    ".cl-process__card--2": [
+     40,
+     371,
+     944,
+     200
+    ],
+    ".cl-process__card--3": [
+     40,
+     572,
+     944,
+     200
+    ],
+    ".cl-process__card--4": [
+     40,
+     773,
+     944,
+     200
+    ],
+    ".cl-process__tabs": [
+     40,
+     1053,
+     944,
+     58
+    ],
+    ".cl-process__panel:not([hidden])": [
+     40,
+     1143,
+     944,
+     754
+    ],
+    ".cl-process__steps": [
+     0,
+     -100.13,
+     0,
+     0
+    ],
+    ".cl-process__booking-img": [
+     0,
+     -100.13,
+     0,
+     0
+    ]
+   },
+   "bad": []
+  },
+  "tab3": {
+   "docScroll": 0,
+   "h": 1975.796875,
+   "els": {
+    ".cl-process__head": [
+     40,
+     40,
+     944,
+     66
+    ],
+    ".cl-process__cards": [
+     40,
+     170,
+     944,
+     803
+    ],
+    ".cl-process__card--1": [
+     40,
+     170,
+     944,
+     200
+    ],
+    ".cl-process__card--2": [
+     40,
+     371,
+     944,
+     200
+    ],
+    ".cl-process__card--3": [
+     40,
+     572,
+     944,
+     200
+    ],
+    ".cl-process__card--4": [
+     40,
+     773,
+     944,
+     200
+    ],
+    ".cl-process__tabs": [
+     40,
+     1053,
+     944,
+     58
+    ],
+    ".cl-process__panel:not([hidden])": [
+     40,
+     1143,
+     944,
+     712.8
+    ],
+    ".cl-process__steps": [
+     0,
+     -100.13,
+     0,
+     0
+    ],
+    ".cl-process__booking-img": [
+     0,
+     -100.13,
+     0,
+     0
+    ]
+   },
+   "bad": []
+  },
+  "route": {
+   "sw": 1128,
+   "cw": 944,
+   "ox": "auto",
+   "afterScroll": 184,
+   "hintOpacity": "0/flex"
+  }
+ }
+}

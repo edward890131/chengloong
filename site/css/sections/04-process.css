@@ -605,11 +605,78 @@
 }
 .cl-process__route-hint { display: none; }
 
-/* 641–1439：流動縮放，避免水平捲軸 */
+/* 1101–1439：流動縮放，避免水平捲軸（641–1100 的左右留白由下方平板區塊覆寫） */
 @media (max-width: 1439px) {
   .cl-process { padding-left: max(16px, min(80px, 5.5vw)); padding-right: max(16px, min(80px, 5.5vw)); }
   .cl-process__route-scroll { overflow-x: auto; scrollbar-width: none; }
   .cl-process__route-scroll::-webkit-scrollbar { display: none; }
+}
+
+/* ==========================================================================
+   平板（641–1100，S0_TABLET_CONTRACT「混合」）
+   四格卡＝手機結構（上下排、每格高 200）；頁籤 1＝手機結構（步驟在上、圖在下）；
+   頁籤 2＝電腦 2 欄；頁籤 3＝手機結構（見下方 ≤1100 共用區塊）。
+   左右版心 40；區段標題 28；卡片標題、內文照電腦版
+   ========================================================================== */
+@media (min-width: 641px) and (max-width: 1100px) {
+  .cl-process { padding: 40px 40px 120px; }
+
+  /* 背景弧線：沿用手機版位置（四格卡改直排後，電腦版位置會壓在卡片正中） */
+  .cl-process__curve-clip {
+    left: calc(50% - 799.5px);
+    top: 1087px;
+    width: 1600px;
+    height: 640px;
+  }
+  .cl-process__curve {
+    left: 577.758px;
+    top: 176.8792px;
+    transform: translate(-50%, -50%) rotate(2.71deg) scale(.8);
+  }
+
+  .cl-process__title { font-size: 28px; line-height: 39px; }   /* 介於 32／24，行高 140% 取整 */
+
+  /* 四格卡：上下排，每格 200 高；照片框照稿比例 3:2 以卡寬撐滿、垂直置中裁切 */
+  .cl-process__cards { flex-direction: column; }
+  .cl-process__card { flex: none; height: 200px; }
+  .cl-process__media {
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+  }
+  .cl-process__card-body {
+    inset: 0;
+    gap: 12px;
+    padding: 24px 32px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 36.944%, #000 83.875%);
+  }
+  .cl-process__card-icon { width: 32px; height: 32px; }
+  .cl-process__card-desc { height: auto; }
+
+  /* 展開卡弧線：沿用手機版旋轉，四格間距 201（卡高 200＋1） */
+  .cl-process__card-curve {
+    left: calc(50% - 187.62px);
+    top: -217.75px;
+    transform: translate(-50%, -50%) rotate(-69.82deg) scale(.8);
+  }
+  .cl-process__card--2 .cl-process__card-curve { left: calc(50% - 187.62px); top: -418.75px; }
+  .cl-process__card--3 .cl-process__card-curve { left: calc(50% - 187.62px); top: -619.75px; }
+  .cl-process__card--4 .cl-process__card-curve { left: calc(50% - 187.62px); top: -820.75px; }
+
+  .cl-process__detail { margin-top: 80px; }
+
+  /* 頁籤 1：步驟在上、圖在下；步驟卡照電腦版 */
+  .cl-process__booking { flex-direction: column; }
+  .cl-process__steps { flex: none; }
+  .cl-process__booking-img { flex: none; aspect-ratio: 3 / 2; max-height: 520px; align-self: stretch; }   /* 1024 時不讓圖過高 */
+
+  /* 頁籤 2：電腦 2 欄；欄寬變窄，產線名稱允許換行 */
+  .cl-process__prep-card { padding: 24px; }
+  .cl-process__prep-line-name { align-self: stretch; align-items: flex-start; white-space: normal; }
+  .cl-process__prep-line-name::before { margin-top: 8px; }
+  .cl-process__prep-way { white-space: normal; }
 }
 
 /* ==========================================================================
@@ -716,7 +783,13 @@
   .cl-process__prep-pair { flex-direction: column; gap: 8px; }
   .cl-process__prep-img { flex: none; aspect-ratio: 240 / 160; border-radius: 16px; }
   .cl-process__prep-line-name { align-self: stretch; white-space: normal; }
+}
 
+/* ==========================================================================
+   平板＋手機共用（≤1100）：頁籤 3 當天進場流程用手機結構（1128 寬可左右滑動＋提示）
+   規則原樣從手機版搬出，≤640 的層疊順序不變
+   ========================================================================== */
+@media (max-width: 1100px) {
   /* 頁籤 3：依 2159:25259（1128 寬，可左右滑動；提示膠囊固定在左下） */
   .cl-process__route-scroll {
     overflow-x: auto;
