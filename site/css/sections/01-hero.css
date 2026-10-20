@@ -1,0 +1,529 @@
+/* ==========================================================================
+   01 首屏（含 header）· 負責人 A
+   電腦版 1695:20083（1440×800）／手機版 1695:19588（375×756）
+   值照 Figma 寫；行高 normal 依 metadata 文字框高度寫死 px
+   ========================================================================== */
+
+.cl-hero {
+  position: relative;
+  height: 800px;
+  overflow: hidden;
+  background: var(--cl-white);
+}
+
+/* ---------- 背景弧線 curve_ani_hero（1695:20084）----------
+   容器 2000×800 置中裁切；curve_pattern 容器 5644.395×1738.198 在 (-2870,-783)，
+   內部向量 5580.881×1476.159 旋轉 2.71deg 置中；SVG 含線寬外框 5628.88×1524.16 */
+.cl-hero__curve-clip {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 2000px;
+  height: 800px;
+  margin-left: -1000px;
+  overflow: hidden;
+  pointer-events: none;
+}
+.cl-hero__curve {
+  /* 中心點＝(-2870 + 5644.395/2, -783 + 1738.198/2)，相對 2000×800 容器 */
+  left: -47.8025px;
+  top: 86.099px;
+  width: 5628.88px;
+  height: 1524.16px;
+  transform: translate(-50%, -50%) rotate(2.71deg);
+}
+
+/* ---------- header_green（805:5591 母版）---------- */
+.cl-hero__header {
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 62px;
+  background: var(--cl-white);
+}
+.cl-hero__brand {
+  position: absolute;
+  left: 40px;
+  top: calc(50% - .5px);
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 38px;
+  padding: 1px 0;
+}
+.cl-hero__logo {
+  position: relative;
+  flex: none;
+  width: 93.053px;
+  height: 32px;
+}
+.cl-hero__logo > span { position: absolute; }
+.cl-hero__logo img { width: 100%; height: 100%; max-width: none; }
+/* 三個 Group 位置：Figma inset 百分比再加上 SVG 外擴 */
+.cl-hero__logo-mark { left: .5845%;  top: 1.5595%;  width: 32.891%;  height: 95.631%; }
+.cl-hero__logo-zh   { left: 35.7714%; top: 2.9511%; width: 62.4709%; height: 70.3579%; }
+.cl-hero__logo-en   { left: 35.7763%; top: 83.1606%; width: 63.8474%; height: 12.7638%; }
+.cl-hero__brand-service {
+  padding-left: 13px;
+  border-left: 1px solid var(--cl-ink-800-10);
+  color: var(--cl-ink-800-60);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 15.6px;
+  white-space: nowrap;
+}
+.cl-hero__nav {
+  position: absolute;
+  left: 50%;
+  top: calc(50% - .5px);
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.cl-hero__nav-link {
+  color: var(--cl-ink-900);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  white-space: nowrap;
+}
+.cl-hero__actions {
+  position: absolute;
+  right: 40px;
+  top: calc(50% - .5px);
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.cl-hero__book-s, .cl-hero__menu { display: none; }
+/* base .cl-btn--sm 的 1px 透明框線加在 padding 外，渲染 42 高、寬 +2；Figma（805:5579／805:5657）框線不占版面＝40 高。
+   暫時在段落內扣掉框線寬，已回報主控修 base */
+.cl-hero .cl-btn--sm { padding: 8.5px 20px; }
+
+/* ---------- 版心：1440 內容框（大於 1440 時置中）---------- */
+.cl-hero__inner {
+  position: relative;
+  max-width: var(--cl-page-max);
+  height: 100%;
+  margin: 0 auto;
+}
+
+/* ---------- cover_img（675:14948 元件，主畫面 Property 1=2）---------- */
+.cl-hero__cover {
+  position: absolute;
+  top: 182px;
+  right: 0;
+  width: 75%;            /* 1080 / 1440 */
+  max-width: 1080px;
+  height: 540px;
+  overflow: hidden;
+  border-top-left-radius: 40px;
+  background: var(--cl-white);
+  cursor: pointer;
+}
+.cl-hero__slide {
+  position: absolute;
+  max-width: none;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity .6s ease-out;
+}
+.cl-hero__slide.is-active { opacity: 1; }
+/* 每張圖的位置照各 variant 的 rectangle（電腦版） */
+.cl-hero__slide--1 { left: 0;      top: -55px;  width: 1080px; height: 619px; }
+.cl-hero__slide--2 { left: -146px; top: -212px; width: 1372px; height: 915px; }
+.cl-hero__slide--3 { left: -32px;  top: -211px; width: 1145px; height: 763px; }
+.cl-hero__slide--4 { left: -32px;  top: -129px; width: 1289px; height: 859px; }
+.cl-hero__cover-noise {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, .12);
+  pointer-events: none;
+}
+
+/* ---------- 首頁特色_B（698:15167，電腦版垂直輪播）---------- */
+.cl-hero__feature {
+  position: absolute;
+  z-index: 2;
+  top: 222px;
+  right: 0;
+  width: 350px;
+  padding: 6px 20px 6px 12px;
+  border-radius: 999px 0 0 999px;
+  background: rgba(0, 0, 0, .24);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+}
+.cl-hero__feature-window {
+  position: relative;
+  width: 316px;
+  height: 20px;
+  overflow: hidden;
+}
+.cl-hero__feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: transform .6s ease-out;
+}
+.cl-hero__feature-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 20px;
+}
+.cl-hero__feature-icon { width: 20px; height: 20px; flex: none; }
+.cl-hero__feature-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, .8);
+  font-size: 14px;
+  letter-spacing: .3px;
+  line-height: 20px;
+  white-space: nowrap;
+}
+.cl-hero__feature-text b { font-weight: 700; }
+.cl-hero__feature-divider {
+  flex: none;
+  width: .5px;
+  height: 15px;
+  background: rgba(255, 255, 255, .6);
+}
+.cl-hero__tags { display: none; }
+
+/* ---------- main：白卡＋數據區（1695:20087）---------- */
+.cl-hero__main {
+  position: absolute;
+  top: 360px;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding-left: 5.5556%;   /* 80 / 1440 */
+}
+.cl-hero__card {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+  width: 47.0588%;          /* 640 / 1360 */
+  height: 363px;
+  padding: 64px 64px 0;
+  border-top-right-radius: 40px;
+  background: var(--cl-white);
+}
+.cl-hero__title {
+  width: 100%;
+  color: var(--cl-ink-800);
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  line-height: 1.4;
+}
+.cl-hero__desc {
+  width: 100%;
+  color: var(--cl-ink-800-80);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: .3px;
+  line-height: 1.4;
+}
+.cl-hero__cta-arrow-s { display: none; }
+/* 瀏覽器字寬比 Figma 窄，第 2 行會多吃一個「共」；照稿把「共榮。」綁在一起（手機斷行不受影響） */
+.cl-hero__nobr { white-space: nowrap; }
+
+.cl-hero__num {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, auto);
+  column-gap: 64px;
+  row-gap: 44px;
+  width: 52.9412%;          /* 720 / 1360 */
+  padding: 56px 80px;
+  background: linear-gradient(to bottom, rgba(19, 130, 72, 0), var(--cl-green-600));
+  color: var(--cl-white);
+}
+.cl-hero__metric {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  min-width: 133px;
+  white-space: nowrap;
+}
+.cl-hero__metric-label {
+  color: rgba(255, 255, 255, .8);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+}
+.cl-hero__metric-label--tip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cl-hero__metric-label--park { line-height: 23px; }   /* metadata 文字框 23（同層其他 19），見 audit-source */
+.cl-hero__metric-value {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+.cl-hero__metric-num {
+  font-family: var(--cl-font-num);
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  line-height: 1.2;
+}
+.cl-hero__metric-unit {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19px;
+}
+.cl-hero__metric-unit--co2 { line-height: 23px; }
+.cl-hero__metric-unit--bold { font-weight: 700; }
+
+/* ---------- tooltip（1695:38486 元件；文字取自 1750:33895）---------- */
+.cl-hero__tip {
+  position: relative;
+  display: flex;
+  width: 20px;
+  height: 20px;
+}
+.cl-hero__tip-btn { display: block; width: 100%; height: 100%; }
+.cl-hero__tip-btn img { width: 100%; height: 100%; }
+.cl-hero__tip-pop {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  bottom: calc(100% + 4px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 320px;
+  transform: translateX(-50%);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .2s ease-out, visibility .2s;
+  pointer-events: none;
+  white-space: normal;
+}
+.cl-hero__tip-body {
+  display: block;
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 4px;
+  background: var(--cl-ink-900);
+  color: var(--cl-white);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: .56px;
+  line-height: 20px;
+}
+.cl-hero__tip-arrow { width: 16px; height: 10px; flex: none; }
+.cl-hero__tip:hover .cl-hero__tip-pop,
+.cl-hero__tip-btn:focus-visible + .cl-hero__tip-pop,
+.cl-hero__tip.is-open .cl-hero__tip-pop {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ---------- 641–1439：流動縮放，避免數據區擠壞 ---------- */
+@media (max-width: 1240px) and (min-width: 641px) {
+  .cl-hero__nav { gap: 16px; }
+  .cl-hero__nav-link { font-size: 13px; }
+  .cl-hero__card { padding: 48px 32px 0; }
+  .cl-hero__title { font-size: 32px; }
+  .cl-hero__num { column-gap: 24px; padding: 40px 32px; }
+  .cl-hero__metric-num { font-size: 32px; }
+}
+@media (max-width: 1180px) and (min-width: 641px) {
+  .cl-hero__nav { display: none; }   /* 平板導覽列待 768 定案（先隱藏避免和 logo 重疊） */
+}
+@media (max-width: 960px) and (min-width: 641px) {
+  .cl-hero__title { font-size: 28px; letter-spacing: 1.4px; }
+  .cl-hero__card { padding: 40px 24px 0; }
+  .cl-hero__num { column-gap: 16px; padding: 32px 24px; }
+  .cl-hero__metric-label, .cl-hero__metric-unit { font-size: 14px; }
+  .cl-hero__metric-value { gap: 6px; }
+  .cl-hero__metric-num { font-size: 24px; letter-spacing: 1px; }
+}
+@media (max-width: 760px) and (min-width: 641px) {
+  .cl-hero__title { font-size: 24px; }
+}
+
+/* ==========================================================================
+   手機版 375（1695:19588）
+   ========================================================================== */
+@media (max-width: 640px) {
+  .cl-hero { height: 756px; }
+
+  /* curve_ani_hero 1600×640，位置 calc(50% + .5px)；curve_pattern 為電腦版 0.8 倍 */
+  .cl-hero__curve-clip {
+    width: 1600px;
+    height: 640px;
+    margin-left: -799.5px;
+  }
+  .cl-hero__curve {
+    /* 中心＝(-2296 + 4515.516/2, -626.4 + 1390.559/2) */
+    left: -38.242px;
+    top: 68.8795px;
+    transform: translate(-50%, -50%) rotate(2.71deg) scale(.8);
+  }
+
+  /* header（1695:19591） */
+  .cl-hero__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    padding: 10px 8px 10px 16px;
+  }
+  .cl-hero__brand {
+    position: static;
+    transform: none;
+    gap: 13.474px;
+    min-height: 32px;
+    padding: .842px 0;
+  }
+  .cl-hero__logo { width: 78.368px; height: 26.95px; }
+  .cl-hero__brand-service {
+    padding-left: 10.947px;
+    border-left-width: .842px;
+    font-size: 13.474px;
+    line-height: 13.137px;
+  }
+  .cl-hero__nav, .cl-hero__login, .cl-hero__book-l, .cl-hero__book-arrow { display: none; }
+  .cl-hero__actions {
+    position: static;
+    transform: none;
+    gap: 8px;
+  }
+  .cl-hero__book-s { display: inline; }
+  .cl-hero__menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+  }
+  .cl-hero__menu img { width: 24px; height: 24px; }
+
+  /* cover_img size=S：400×480，right -49 */
+  .cl-hero__cover {
+    top: 108px;
+    right: -49px;
+    width: 400px;
+    max-width: none;
+    height: 480px;
+  }
+  .cl-hero__slide--1 { left: -280.5px; top: -48.89px; width: 961px;     height: 550.22px; }
+  .cl-hero__slide--2 { left: -93.26px; top: -115px;   width: 907.39px;  height: 605px; }
+  .cl-hero__slide--3 { left: -280px;   top: -203px;   width: 1070.87px; height: 714px; }
+  .cl-hero__slide--4 { left: -301px;   top: -114.89px; width: 1147px;   height: 764px; }
+
+  /* 首頁特色：手機改成三顆標籤（1695:19602） */
+  .cl-hero__feature { display: none; }
+  .cl-hero__tags {
+    position: absolute;
+    z-index: 2;
+    top: 132px;
+    left: 48px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cl-hero__tag {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px 6px 10px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, .24);
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
+    color: rgba(255, 255, 255, .8);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .3px;
+    line-height: 17px;
+    white-space: nowrap;
+  }
+  .cl-hero__tag img { width: 16px; height: 16px; flex: none; }
+
+  /* main 拆開：數據區疊在圖上、白卡在下 */
+  .cl-hero__main { position: static; display: block; padding: 0; }
+  .cl-hero__card {
+    position: absolute;
+    top: 408px;
+    left: 0;
+    width: 343px;
+    height: auto;
+    padding: 32px 32px 0 24px;
+  }
+  .cl-hero__title {
+    font-size: 24px;
+    letter-spacing: 1.4px;
+  }
+  /* 主按鈕手機為 14px 小尺寸（805:5579）：base 的 --sm 不能隨斷點切換，暫時在段落覆寫，已回報主控 */
+  .cl-hero__cta {
+    gap: 8px;
+    width: auto;
+    min-height: 40px;
+    padding: 8.5px 20px;   /* 同上：扣掉 1px 框線，總高 40 */
+    border: 1px solid transparent;
+    font-size: 14px;
+    line-height: 21px;
+  }
+  .cl-hero__cta .cl-btn__circle { left: calc(40.87% - .18px); top: 39px; bottom: auto; width: 24px; }
+  .cl-hero__cta .cl-btn__arrow { width: 20px; height: 20px; }
+  .cl-hero__cta-arrow-l { display: none; }
+  .cl-hero__cta-arrow-s { display: block; }
+
+  .cl-hero__num {
+    position: absolute;
+    top: 216px;
+    right: 0;
+    width: 351px;
+    height: 372px;
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    column-gap: 12px;
+    row-gap: 16px;
+    padding: 16px 16px 204px 24px;
+    background: linear-gradient(to bottom, rgba(19, 130, 72, 0), var(--cl-green-600) 67.073%);
+  }
+  .cl-hero__metric { gap: 8px; }
+  .cl-hero__metric-label,
+  .cl-hero__metric-label--park {
+    font-size: 12px;
+    line-height: 17px;
+  }
+  .cl-hero__metric-label--tip { gap: 4px; }
+  .cl-hero__metric-value { gap: 4px; }
+  .cl-hero__metric-num { font-size: 28px; }
+  .cl-hero__metric-unit,
+  .cl-hero__metric-unit--co2 {
+    font-size: 12px;
+    line-height: 17px;
+  }
+
+  .cl-hero__tip { width: 12px; height: 12px; }
+  .cl-hero__tip-pop { width: 200px; }
+  /* 右欄 tooltip 置中會超出畫面：改成右緣距畫面 8px，箭頭仍對準 icon */
+  .cl-hero__tip--end .cl-hero__tip-pop {
+    left: -130.5px;
+    transform: none;
+    align-items: flex-start;
+  }
+  .cl-hero__tip--end .cl-hero__tip-arrow { margin-left: 128.5px; }
+}

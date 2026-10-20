@@ -96,6 +96,24 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .cl-btn--sm .cl-btn__circle { left: calc(40.87% - .18px); top: 40px; bottom: auto; width: 24px; }
 .cl-btn--sm .cl-btn__arrow { width: 20px; height: 20px; }
 
+/* 只在手機版縮成 --sm（主 CTA：電腦 18px、手機 14px）；箭頭用兩張 img 加 .cl-btn__arrow--l／--s 切換 */
+.cl-btn__arrow--s { display: none; }
+@media (max-width: 640px) {
+  .cl-btn--sm-s {
+    gap: 8px;
+    width: auto;
+    min-height: 40px;
+    padding: 8.5px 20px;
+    border: 1px solid transparent;
+    font-size: 14px;
+    line-height: 21px;
+  }
+  .cl-btn--sm-s .cl-btn__circle { left: calc(40.87% - .18px); top: 40px; bottom: auto; width: 24px; }
+  .cl-btn--sm-s .cl-btn__arrow { width: 20px; height: 20px; }
+  .cl-btn--sm-s .cl-btn__arrow--l { display: none; }
+  .cl-btn--sm-s .cl-btn__arrow--s { display: block; }
+}
+
 .cl-btn--green   { background: var(--cl-green-500); color: var(--cl-white); }
 .cl-btn--green   .cl-btn__circle { background: var(--cl-green-700); }
 .cl-btn--black   { background: var(--cl-ink-900); color: var(--cl-white); }

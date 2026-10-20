@@ -1,0 +1,51 @@
+<frame id="1695:20083" name="首屏" x="0" y="0" width="1440" height="800">
+  <instance id="1695:20084" name="curve_ani_hero" x="-280" y="0" width="2000" height="800" />
+  <instance id="1695:20086" name="cover_img" x="360" y="182" width="1080" height="540" />
+  <frame id="1695:20087" name="main" x="0" y="360" width="1440" height="363">
+    <frame id="1695:20088" name="text" x="80" y="0" width="640" height="363">
+      <text id="1695:20089" name="title" x="64" y="64" width="512" height="112" />
+      <frame id="1695:20090" name="Frame 2085663941" x="64" y="208" width="512" height="60">
+        <text id="1695:20091" name="desc" x="0" y="0" width="512" height="60" />
+      </frame>
+      <instance id="1695:20092" name="main_btn_green" x="64" y="300" width="240" height="58" />
+    </frame>
+    <frame id="1695:20093" name="num" x="720" y="25" width="720" height="338">
+      <frame id="1695:20094" name="metric1" x="80" y="56" width="248" height="89">
+        <text id="1695:20095" name="再生機密文件" x="0" y="0" width="96" height="19" />
+        <frame id="1695:20096" name="Frame 2085662998" x="0" y="31" width="194" height="58">
+          <text id="1695:20097" name="15,813" x="0" y="0" width="150" height="58" />
+          <text id="1695:20098" name="公噸" x="162" y="30" width="32" height="19" />
+        </frame>
+      </frame>
+      <frame id="1695:20099" name="metric2" x="392" y="56" width="248" height="89">
+        <text id="1695:20100" name="累計貢獻減碳" x="0" y="0" width="96" height="19" />
+        <frame id="1695:20101" name="Frame 2085662998" x="0" y="31" width="237" height="58">
+          <text id="1695:20102" name="91,715" x="0" y="0" width="149" height="58" />
+          <text id="1695:20103" name="公噸 CO2e" x="161" y="28" width="76" height="23" />
+        </frame>
+      </frame>
+      <frame id="1695:20104" name="metric3" x="80" y="189" width="248" height="93">
+        <frame id="1695:38644" name="Frame 2085664010" x="0" y="0" width="92" height="20">
+          <text id="1695:38645" name="保留樹木" x="0" y="0.5" width="64" height="19" />
+          <instance id="1695:38646" name="保留樹木 tooltip" x="72" y="0" width="20" height="20" />
+        </frame>
+        <frame id="1695:20106" name="Frame 2085662998" x="0" y="32" width="239" height="58">
+          <text id="1695:20107" name="316,260" x="0" y="0" width="195" height="58" />
+          <text id="1695:20108" name="棵樹" x="207" y="30" width="32" height="19" />
+        </frame>
+      </frame>
+      <frame id="1695:20109" name="metric4" x="392" y="189" width="248" height="93">
+        <frame id="1695:38650" name="Frame 2085664011" x="0" y="0" width="140" height="23">
+          <text id="1695:38651" name="年碳吸附量約當" x="0" y="0" width="112" height="23" />
+          <instance id="1695:38652" name="年碳吸附量 tooltip" x="120" y="1.5" width="20" height="20" />
+        </frame>
+        <frame id="1695:20111" name="Frame 2085662998" x="0" y="35" width="216" height="58">
+          <text id="1695:20112" name="236" x="0" y="0" width="92" height="58" />
+          <text id="1695:20113" name="座大安森林公園" x="104" y="30" width="112" height="19" />
+        </frame>
+      </frame>
+    </frame>
+  </frame>
+  <instance id="1695:20115" name="首頁特色_B" x="1090" y="222" width="350" height="32" />
+  <instance id="1695:20116" name="header_green" x="0" y="0" width="1440" height="62" />
+</frame>
