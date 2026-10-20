@@ -132,6 +132,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   stroke: var(--cl-curve-color, var(--cl-green-400));   /* 灰色弧線（footer #F6F6F6）設 --cl-curve-color */
   stroke-width: 48;
   stroke-linecap: round;
+  stroke-opacity: var(--cl-curve-opacity, 1);
   animation: cl-curve-trim 12s linear infinite;
 }
 @keyframes cl-curve-trim {

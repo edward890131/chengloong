@@ -1,0 +1,100 @@
+/* ==========================================================================
+   06 串場（負責人 D）
+   電腦版 1695:20376（1440×582）／手機版 1695:19897（375×300）
+   照片帶：元件 713:17828（L：713:17827→713:17868→713:17886；S：1000:20132→1000:20150→1000:20168）
+   ========================================================================== */
+
+.cl-strip {
+  position: relative;
+  height: 582px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* curve_ani_connect：容器 2000×800 置中；curve_pattern rotate(163.58deg) scaleY(-1)，內層 rotate(2.71deg) */
+.cl-strip__curve {
+  z-index: -1;
+  left: -1635.671px;
+  top: -781.65px;
+  width: 5628.88px;
+  height: 1524.16px;
+  transform: rotate(163.58deg) scaleY(-1) rotate(2.71deg);
+}
+
+.cl-strip__viewport {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.cl-strip__track {
+  position: absolute;
+  left: 0;
+  top: 151px;
+  display: flex;
+  align-items: flex-end;
+  gap: 40px;
+  animation: cl-strip-marquee-l 21.6s linear infinite;
+}
+.cl-strip__item { display: flex; flex: none; align-items: center; }
+.cl-strip__item--up   { padding-bottom: 40px; }
+.cl-strip__item--down { padding-top: 40px; }
+
+.cl-strip__photo {
+  position: relative;
+  width: 400px;
+  height: 240px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--cl-white);
+}
+.cl-strip__img {
+  position: absolute;
+  max-width: none;
+  object-fit: cover;
+}
+/* 位置用照片框的百分比（手機版正好是電腦版 0.4 倍，同一組值） */
+.cl-strip__img--forklift { left: -2.5%; top: 47.5%; width: 105%; aspect-ratio: 4096 / 2731; transform: translateY(-50%); }
+.cl-strip__img--windmill { left: -2.25%; top: 42.5%; width: 132%; aspect-ratio: 4096 / 2731; transform: translateY(-50%); }
+.cl-strip__img--seedling { left: -2.5%; top: 0; width: 105.19%; height: 128.03%; }
+.cl-strip__img--lab      { left: -23.75%; top: -49.5833%; width: 151.5%; height: 168.3333%; }
+.cl-strip__img--pulp     { left: -9.75%; top: -4.5833%; width: 119.5%; height: 132.9167%; }
+.cl-strip__img--roll     { left: 0; top: -4.5833%; width: 100%; height: 111.25%; }
+
+/* 0 →(10s)→ -580，停 0.8s →(10s)→ -1160，停 0.8s，瞬間回到 0；共 21.6s */
+@keyframes cl-strip-marquee-l {
+  0%       { transform: translateX(0); }
+  46.2963% { transform: translateX(-580px); }
+  50%      { transform: translateX(-580px); }
+  96.2963% { transform: translateX(-1160px); }
+  100%     { transform: translateX(-1160px); }
+}
+@keyframes cl-strip-marquee-s {
+  0%       { transform: translateX(0); }
+  46.2963% { transform: translateX(-332px); }
+  50%      { transform: translateX(-332px); }
+  96.2963% { transform: translateX(-665px); }
+  100%     { transform: translateX(-665px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cl-strip__track { animation: none; }
+}
+
+/* ==========================================================================
+   手機版 375（1695:19897）
+   ========================================================================== */
+@media (max-width: 640px) {
+  .cl-strip { height: 300px; }
+
+  /* 容器 1600×640，內層 0.8 倍 */
+  .cl-strip__curve {
+    left: -1696.557px;
+    top: -707.998px;
+    width: 4503.104px;
+    height: 1219.328px;
+  }
+
+  .cl-strip__track { top: 94px; gap: 16px; animation-name: cl-strip-marquee-s; }
+  .cl-strip__item--up   { padding-bottom: 16px; }
+  .cl-strip__item--down { padding-top: 16px; }
+  .cl-strip__photo { width: 160px; height: 96px; border-radius: 8px; }
+}
