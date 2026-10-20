@@ -222,7 +222,7 @@
   .cl-footer__slogan-track {
     display: flex;
     width: max-content;
-    animation: cl-footer-marquee 24s linear infinite;
+    animation: cl-footer-marquee 36s linear infinite;   /* 一句 1339px／36s ≈ 37px/s（客戶要求放慢） */
   }
   .cl-footer__slogan-text { padding-right: .5em; }   /* 兩句之間的間隔 */
   .cl-footer__slogan-text--dup { display: inline; }
