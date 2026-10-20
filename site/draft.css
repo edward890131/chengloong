@@ -1,0 +1,126 @@
+/* ==========================================================================
+   S0 draft · base（主控負責；段落負責人只讀，要改回報主控）
+   值照 Figma 1695:20082／1695:19587 寫，S1 才收斂成 tokens。
+   ========================================================================== */
+
+:root {
+  /* color（暫定，S1 收斂） */
+  --cl-green-500: #14a558;   /* 主按鈕底 */
+  --cl-green-600: #138248;   /* 數據區漸層、CTA 底 */
+  --cl-green-700: #15663c;   /* 主按鈕 hover 圓 */
+  --cl-green-400: #1fc36c;   /* 白按鈕 hover 圓 */
+  --cl-ink-900: #111;
+  --cl-ink-800: #1f1f1f;
+  --cl-ink-800-80: rgba(31, 31, 31, .8);
+  --cl-ink-800-60: rgba(31, 31, 31, .6);
+  --cl-ink-800-10: rgba(31, 31, 31, .1);
+  --cl-white: #fff;
+
+  /* font */
+  --cl-font-sans: 'Noto Sans TC', sans-serif;
+  --cl-font-num: 'Montserrat', 'Noto Sans TC', sans-serif;
+
+  /* layout */
+  --cl-page-max: 1440px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--cl-white);
+  color: var(--cl-ink-800);
+  font-family: var(--cl-font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4, h5, h6, p, ul, ol, figure, blockquote { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+
+.cl-page { position: relative; overflow-x: clip; }
+
+/* static 模式（?static）：關掉動畫與過場，停在第一個狀態 */
+.is-static *, .is-static *::before, .is-static *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* ---------- 共用：主按鈕 main_btn（Figma 805:5510 等） ----------
+   .cl-btn               18px／寬 240（green 805:5510、white 805:5673、white20 805:5696）
+   .cl-btn--sm           14px／min-height 40（green 805:5579、black 805:5657）
+   顏色：--green --black --white --white20
+   底部藏一個圓（.cl-btn__circle），hover 放大填滿：Figma 只畫了圓的位置，放大行為待確認 */
+.cl-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 240px;
+  padding: 16px 20px;
+  border-radius: 999px;
+  overflow: hidden;
+  isolation: isolate;
+  font-family: var(--cl-font-sans);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: normal;
+  white-space: nowrap;
+  text-align: center;
+}
+.cl-btn__circle {
+  position: absolute;
+  z-index: -1;
+  left: 40.21%;
+  bottom: -48px;
+  width: 20%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  transition: transform .5s cubic-bezier(.2, .7, .2, 1);
+}
+.cl-btn:hover .cl-btn__circle { transform: scale(12); }
+.cl-btn__arrow { width: 24px; height: 24px; flex: none; }
+
+.cl-btn--sm {
+  gap: 8px;
+  width: auto;
+  min-height: 40px;
+  padding: 9.5px 21px;
+  border: 1px solid transparent;
+  font-size: 14px;
+  line-height: 21px;
+}
+.cl-btn--sm .cl-btn__circle { left: calc(40.87% - .18px); top: 39px; bottom: auto; width: 24px; }
+.cl-btn--sm .cl-btn__arrow { width: 20px; height: 20px; }
+
+.cl-btn--green   { background: var(--cl-green-500); color: var(--cl-white); }
+.cl-btn--green   .cl-btn__circle { background: var(--cl-green-700); }
+.cl-btn--black   { background: var(--cl-ink-900); color: var(--cl-white); }
+.cl-btn--black   .cl-btn__circle { background: #454545; }
+.cl-btn--white   { background: var(--cl-white); color: var(--cl-ink-900); }
+.cl-btn--white   .cl-btn__circle { background: var(--cl-green-400); }
+.cl-btn--white20 { background: rgba(255, 255, 255, .2); color: var(--cl-white); backdrop-filter: blur(42px); -webkit-backdrop-filter: blur(42px); }
+.cl-btn--white20 .cl-btn__circle { background: rgba(255, 255, 255, .2); }
+
+/* ---------- 共用：綠色弧線 curve_pattern（Figma 1656:28615） ----------
+   inline SVG：<svg class="cl-curve" viewBox="0 0 5628.88 1524.16"><path pathLength="1" d="…"/></svg>
+   path d 取自 assets/common/curve-pattern.svg；描線動畫照 get_motion_context：12s linear infinite */
+.cl-curve { position: absolute; pointer-events: none; overflow: visible; max-width: none; }
+.cl-curve path {
+  fill: none;
+  stroke: var(--cl-green-400);
+  stroke-width: 48;
+  stroke-linecap: round;
+  animation: cl-curve-trim 12s linear infinite;
+}
+@keyframes cl-curve-trim {
+  0%   { stroke-dasharray: 0 1; stroke-dashoffset: 0; visibility: hidden; }
+  50%  { stroke-dasharray: 1 1; stroke-dashoffset: 0; visibility: visible; }
+  100% { stroke-dasharray: 0 1; stroke-dashoffset: -1; visibility: hidden; }
+}
+.is-static .cl-curve path { stroke-dasharray: none; visibility: visible; }
+@media (prefers-reduced-motion: reduce) {
+  .cl-curve path { animation: none; }
+}
