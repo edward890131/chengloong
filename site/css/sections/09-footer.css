@@ -1,0 +1,205 @@
+/* ==========================================================================
+   09 footer（負責人 E）　電腦版 1695:29473 footer/l／手機版 1695:29472 footer/s
+   ========================================================================== */
+.cl-footer {
+  position: relative;
+  height: 490px;
+  overflow: hidden;
+  background: var(--cl-white);
+  /* Chrome 預設 text-spacing-trim 會壓縮相鄰全形標點（「）。」），Figma 不壓縮 → 斷行不同 */
+  text-spacing-trim: space-all;
+}
+.cl-footer__only-s { display: none; }
+
+/* curve_ani_footer（2000×800 置中，overflow clip）；弧線色 #F6F6F6（base 是綠色，段落內覆寫，已回報主控） */
+.cl-footer__curve {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 2000px;
+  height: 800px;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  pointer-events: none;
+}
+.cl-footer__curve .cl-curve {
+  left: 0;
+  top: 0;
+  transform-origin: 0 0;
+  transform: matrix(-0.842191, 0.539180, 0.539180, 0.842191, 3068.520, -1961.922);
+}
+.cl-footer__curve .cl-curve path { stroke: #f6f6f6; }
+
+/* div.public-site__footer-inner */
+.cl-footer__inner {
+  position: absolute;
+  left: 80px;
+  right: 80px;
+  top: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 64px;
+  padding-bottom: 40px;
+}
+
+/* logo/b 139.579×48：三個 Group，位置照 Figma 百分比 */
+.cl-footer__logo {
+  position: relative;
+  display: block;
+  flex: none;
+  width: 139.579px;
+  height: 48px;
+  overflow: hidden;
+}
+.cl-footer__logo-part { position: absolute; }
+.cl-footer__logo-part img { position: absolute; max-width: none; }
+.cl-footer__logo-part--mark { top: 1.75%; right: 66.59%; bottom: 3%; left: .65%; }
+.cl-footer__logo-part--mark img { left: -.2%; top: -.2%; width: 100.4%; height: 100.4%; }
+.cl-footer__logo-part--zh { top: 3.14%; right: 1.82%; bottom: 26.88%; left: 35.84%; }
+.cl-footer__logo-part--zh img { left: -.11%; top: -.27%; width: 100.21%; height: 100.54%; }
+.cl-footer__logo-part--en { top: 83.35%; right: .44%; bottom: 4.27%; left: 35.84%; }
+.cl-footer__logo-part--en img { left: -.1%; top: -1.53%; width: 100.2%; height: 103.1%; }
+
+.cl-footer__row {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  width: 100%;
+}
+.cl-footer__tagline {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 1px;
+}
+.cl-footer__brand {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: .16px;
+  color: var(--cl-ink-800);
+}
+.cl-footer__sub {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px; /* Figma normal，文字框高 20 */
+  color: var(--cl-ink-800-60);
+}
+.cl-footer__copy {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  color: var(--cl-ink-800-60);
+}
+
+.cl-footer__info {
+  display: flex;
+  flex: none;
+  align-items: flex-start;
+  gap: 40px;
+}
+.cl-footer__item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 200px;
+}
+.cl-footer__label {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 23px; /* Figma normal，文字框高 23 */
+  letter-spacing: .32px;
+  color: var(--cl-ink-800);
+}
+.cl-footer__value {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: .32px;
+  color: var(--cl-ink-800-60);
+}
+.cl-footer__value--num {
+  font-family: 'Zalando Sans Expanded', var(--cl-font-sans);
+  letter-spacing: .5px;
+}
+
+/* main_btn_black 14px：右上 */
+.cl-footer__top { position: absolute; top: 0; right: 0; }
+/* base .cl-btn--sm 的 border 加在 padding 外，總高 42、寬 86；Figma stroke INSIDE 是 40×84。
+   段落內暫時扣掉框線覆寫，已回報主控改 base */
+.cl-footer .cl-footer__top { padding: 8.5px 20px; }
+.cl-footer .cl-footer__top .cl-btn__circle { top: 40px; } /* Figma 805:5658 圓在按鈕下緣外（y=40），base 是 39 會露 1px */
+
+/* Line 14：白 20%，貼頂 */
+.cl-footer__line {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 1px;
+  max-width: none;
+}
+
+/* 底部標語 Montserrat Bold 86 */
+.cl-footer__slogan {
+  position: absolute;
+  left: calc(50% - 727px);
+  bottom: 44.5px;
+  transform: translateY(50%);
+  font-family: var(--cl-font-num);
+  font-size: 86px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #000;
+}
+.cl-footer__slogan-hl { color: var(--cl-green-400); }
+
+/* 641–1439：流動縮放 */
+@media (max-width: 1439px) and (min-width: 641px) {
+  .cl-footer { height: auto; min-height: 490px; padding-bottom: 150px; }
+  .cl-footer__inner { position: relative; left: auto; right: auto; top: auto; margin: 80px clamp(24px, 5.56vw, 80px) 0; }
+  .cl-footer__row { flex-wrap: wrap; }
+  .cl-footer__info { flex-wrap: wrap; flex-shrink: 1; }
+  .cl-footer__slogan { left: -7px; font-size: clamp(40px, 5.97vw, 86px); }
+}
+
+/* ---------- 手機 375（1695:29472） ---------- */
+@media (max-width: 640px) {
+  .cl-footer { height: 705px; }
+  .cl-footer__only-l { display: none; }
+  .cl-footer__only-s { display: inline; }
+
+  .cl-footer__curve {
+    left: calc(50% + .5px);
+    top: auto;
+    bottom: -.12px;
+    width: 1600px;
+    height: 640px;
+    transform: translateX(-50%);
+  }
+  .cl-footer__curve .cl-curve { transform: matrix(-0.673753, 0.431344, 0.431344, 0.673753, 2454.818, -1569.539); }
+
+  .cl-footer__inner { left: 16px; right: 16px; top: 64px; gap: 24px; }
+  .cl-footer__row { flex-direction: column; gap: 56px; }
+  .cl-footer__tagline { flex: none; width: 100%; }
+  .cl-footer__info {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    width: 100%;
+  }
+  .cl-footer__item { gap: 4px; width: auto; }
+  /* Figma 文字框高把 n×19.6 進位（40／120），auto layout 用進位後的高；照稿補齊，按鈕才會落在同一位置 */
+  .cl-footer__item--addr .cl-footer__value { min-height: 40px; }
+  .cl-footer__item--hours .cl-footer__value { min-height: 120px; }
+  .cl-footer__top { top: auto; bottom: 40px; }
+  .cl-footer__line { display: none; }
+
+  .cl-footer__slogan { left: calc(50% - 194.5px); bottom: 27px; font-size: 75px; }
+}

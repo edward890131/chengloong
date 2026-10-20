@@ -1,0 +1,206 @@
+/* ==========================================================================
+   07 faq（負責人 E）　電腦版 1695:20379／手機版 1695:19900
+   ========================================================================== */
+.cl-faq {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 64px;
+  padding: 40px 280px 120px;
+  background: var(--cl-white);
+  /* Chrome 預設 text-spacing-trim 會壓縮相鄰全形標點（「）。」），Figma 不壓縮 → 斷行不同 */
+  text-spacing-trim: space-all;
+}
+
+/* 標題組 1695:20380 */
+.cl-faq__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 640px;
+  max-width: 100%;
+}
+.cl-faq__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--cl-font-num);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 15px; /* Figma normal，文字框高 15 */
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--cl-green-700);
+}
+.cl-faq__eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 100px;
+  background: var(--cl-green-700);
+}
+.cl-faq__title {
+  width: 100%;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 1px;
+  text-align: center;
+  color: var(--cl-ink-900);
+}
+
+/* 內容 1695:20385 */
+.cl-faq__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 36px;
+  width: 100%;
+  max-width: 880px;
+}
+
+/* 分類頁籤 a.btn 1695:20387 等 */
+.cl-faq__tabs {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.cl-faq__tab {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 24px;
+  border-radius: 999px;
+  background: #f6f6f6;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 22px; /* Figma normal，文字框高 22 */
+  letter-spacing: .36px;
+  white-space: nowrap;
+  color: #989898;
+  transition: background-color .2s, color .2s;
+}
+.cl-faq__tab-dot {
+  display: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 100px;
+  background: var(--cl-white);
+}
+.cl-faq__tab.is-active { background: var(--cl-green-500); color: var(--cl-white); }
+.cl-faq__tab.is-active .cl-faq__tab-dot { display: block; }
+
+/* 手風琴 list 1695:20394 */
+.cl-faq__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+.cl-faq__list[hidden] { display: none; }
+
+/* list_faq_card（unfold=true／false） */
+.cl-faq__item {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 32px;
+  border-radius: 16px;
+  background: #f6f6f6;
+  overflow: hidden;
+}
+.cl-faq__q {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  text-align: left;
+}
+.cl-faq__num {
+  display: flex;
+  flex: none;
+  align-items: center;
+  width: 40px;
+  height: 22px;
+  font-family: var(--cl-font-num);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 2px;
+  white-space: nowrap;
+  color: var(--cl-green-500);
+}
+.cl-faq__question {
+  flex: 1 0 0;
+  min-width: 1px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: .5px;
+  color: var(--cl-ink-800);
+}
+.cl-faq__icon {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+.cl-faq__icon img { width: 32px; height: 32px; }
+.cl-faq__icon-minus { display: none; }
+.cl-faq__item.is-open .cl-faq__icon-minus { display: block; }
+.cl-faq__item.is-open .cl-faq__icon-add { display: none; }
+
+.cl-faq__a { display: none; padding: 4px 56px 4px 64px; }
+.cl-faq__item.is-open .cl-faq__a { display: block; }
+.cl-faq__answer {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: .3px;
+  color: var(--cl-ink-800-80);
+}
+
+/* 641–1439：流動縮放，不出水平捲軸 */
+@media (max-width: 1439px) and (min-width: 641px) {
+  .cl-faq { padding-left: clamp(40px, 19.44vw, 280px); padding-right: clamp(40px, 19.44vw, 280px); }
+  .cl-faq__tabs { flex-wrap: wrap; justify-content: center; }
+}
+
+/* ---------- 手機 375（1695:19900） ---------- */
+@media (max-width: 640px) {
+  .cl-faq {
+    align-items: flex-start;
+    gap: 48px;
+    padding: 40px 16px 64px;
+    overflow: hidden;
+  }
+  .cl-faq__head { gap: 8px; width: 100%; }
+  .cl-faq__title { font-size: 24px; }
+
+  .cl-faq__body { align-items: flex-start; gap: 32px; }
+  /* 頁籤列超出版心：右側延伸到螢幕邊、可橫向捲動（稿上第三顆被裁切） */
+  .cl-faq__tabs {
+    gap: 12px;
+    width: calc(100% + 16px);
+    margin-right: -16px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .cl-faq__tabs::-webkit-scrollbar { display: none; }
+  .cl-faq__tab {
+    padding: 8px 16px;
+    font-size: 16px;
+    line-height: 19px; /* Figma normal，文字框高 19 */
+    letter-spacing: .32px;
+  }
+  /* 稿上第二顆文字框高 23（其他 19），頁籤高 39／35：照稿做，見 audit-source */
+  .cl-faq__tab--tall { line-height: 23px; }
+
+  .cl-faq__item { padding: 20px; }
+  .cl-faq__q { gap: 16px; }
+  .cl-faq__icon img { width: 24px; height: 24px; }
+  .cl-faq__a { padding: 4px 40px 4px 56px; }
+}

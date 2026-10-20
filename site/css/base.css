@@ -28,6 +28,7 @@
 html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
+  text-spacing-trim: space-all;   /* Chrome 預設會擠壓相鄰全形標點，和 Figma 斷行不同 */
   background: var(--cl-white);
   color: var(--cl-ink-800);
   font-family: var(--cl-font-sans);
@@ -87,12 +88,12 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   gap: 8px;
   width: auto;
   min-height: 40px;
-  padding: 9.5px 21px;
+  padding: 8.5px 20px;          /* Figma stroke 在內側：總高 40 = 21 + 8.5×2 + 1×2 */
   border: 1px solid transparent;
   font-size: 14px;
   line-height: 21px;
 }
-.cl-btn--sm .cl-btn__circle { left: calc(40.87% - .18px); top: 39px; bottom: auto; width: 24px; }
+.cl-btn--sm .cl-btn__circle { left: calc(40.87% - .18px); top: 40px; bottom: auto; width: 24px; }
 .cl-btn--sm .cl-btn__arrow { width: 20px; height: 20px; }
 
 .cl-btn--green   { background: var(--cl-green-500); color: var(--cl-white); }
@@ -110,7 +111,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .cl-curve { position: absolute; pointer-events: none; overflow: visible; max-width: none; }
 .cl-curve path {
   fill: none;
-  stroke: var(--cl-green-400);
+  stroke: var(--cl-curve-color, var(--cl-green-400));   /* 灰色弧線（footer #F6F6F6）設 --cl-curve-color */
   stroke-width: 48;
   stroke-linecap: round;
   animation: cl-curve-trim 12s linear infinite;
