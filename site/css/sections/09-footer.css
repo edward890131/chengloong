@@ -217,7 +217,8 @@
 
   /* 標語：客戶決定（2026-10-20）手機改用與電腦版相同的完整句子，字級維持 75，跑馬燈定速循環。
      Figma 手機稿 1695:29201 只有「NEW LIFE.」，此處與來源不同（記在 audit-source「使用者決策」） */
-  .cl-footer__slogan { left: 0; bottom: 27px; font-size: 75px; }
+  /* 垂直位置照電腦版比例：中心距底 0.5174em（44.5／86），避免逗點下緣被裁（客戶 2026-10-20） */
+  .cl-footer__slogan { left: 0; bottom: .5174em; font-size: 75px; }
   .cl-footer__slogan-track {
     display: flex;
     width: max-content;
