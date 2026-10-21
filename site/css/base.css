@@ -25,7 +25,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 62px; }   /* header 固定置頂（R1），錨點跳轉預留 header 高 */
 body {
   margin: 0;
   text-spacing-trim: space-all;   /* Chrome 預設會擠壓相鄰全形標點，和 Figma 斷行不同 */

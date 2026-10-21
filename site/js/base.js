@@ -32,7 +32,11 @@
         if (e.isIntersecting) { show(e.target); io.unobserve(e.target); }
       });
     }, { rootMargin: '0px 0px -33.333% 0px' });
-    reveals.forEach(function (el) { io.observe(el); });
+    reveals.forEach(function (el) {
+      // 載入時已在畫面內的元素直接播放（首屏偏下的文字不必等捲動）
+      if (el.getBoundingClientRect().top < window.innerHeight) show(el);
+      else io.observe(el);
+    });
   }
 
   /* ---------- 果凍頁籤 .cl-jelly ---------- */

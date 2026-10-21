@@ -33,21 +33,28 @@
   transform: translate(-50%, -50%) rotate(2.71deg);
 }
 
-/* ---------- header_green（805:5591 母版）---------- */
+/* ---------- header_green（805:5591 母版）----------
+   R1（客戶 2026-10-21）：固定置頂，捲動不消失（全寬度）。段落內原本就是 top 0 滿版，改 fixed 不影響首屏版面。
+   z-index 10：高於各段落內容（≤2）與 RWD 預覽層（4）；彈窗類請用 >10 */
 .cl-hero__header {
-  position: absolute;
-  z-index: 5;
+  position: fixed;
+  z-index: 10;
   top: 0;
   left: 0;
   right: 0;
+  display: flex;
+  align-items: center;
   height: 62px;
+  padding: 0 40px;
   background: var(--cl-white);
 }
+/* 三塊用 flex 排：導覽置中在 logo 與右側按鈕之間（R1 導覽改 16px 後，1440 加上 RWD 預覽切換鈕會和置中導覽相撞）。
+   translateY(-.5px)＝原 Figma top: calc(50% - .5px) */
+.cl-hero__brand,
+.cl-hero__nav,
+.cl-hero__actions { transform: translateY(-.5px); }
 .cl-hero__brand {
-  position: absolute;
-  left: 40px;
-  top: calc(50% - .5px);
-  transform: translateY(-50%);
+  flex: none;
   display: flex;
   align-items: center;
   gap: 16px;
@@ -76,26 +83,20 @@
   white-space: nowrap;
 }
 .cl-hero__nav {
-  position: absolute;
-  left: 50%;
-  top: calc(50% - .5px);
-  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   gap: 32px;
+  margin: 0 auto;
 }
 .cl-hero__nav-link {
   color: var(--cl-ink-900);
-  font-size: 14px;
+  font-size: 16px;          /* R1 客戶要求 16px（Figma 14px） */
   font-weight: 500;
-  line-height: 20px;
+  line-height: 24px;
   white-space: nowrap;
 }
 .cl-hero__actions {
-  position: absolute;
-  right: 40px;
-  top: calc(50% - .5px);
-  transform: translateY(-50%);
+  flex: none;
   display: flex;
   align-items: center;
   gap: 16px;
@@ -139,6 +140,11 @@
 .cl-hero__slide--2 { left: -146px; top: -212px; width: 1372px; height: 915px; }
 .cl-hero__slide--3 { left: -32px;  top: -211px; width: 1145px; height: 763px; }
 .cl-hero__slide--4 { left: -32px;  top: -129px; width: 1289px; height: 859px; }
+/* .cl-zoom 放大中心對準 cover 中心（照片比 cover 大且偏移） */
+.cl-hero__slide--1 { transform-origin: 50% 52.504%; }
+.cl-hero__slide--2 { transform-origin: 50% 52.678%; }
+.cl-hero__slide--3 { transform-origin: 49.956% 63.041%; }
+.cl-hero__slide--4 { transform-origin: 44.375% 46.449%; }
 .cl-hero__cover-noise {
   position: absolute;
   inset: 0;
@@ -291,6 +297,9 @@
   line-height: 19px;
 }
 .cl-hero__metric-unit--co2 { line-height: 23px; }
+/* R1 數字計數：計數中藏單位，數完淡入（JS 加減 .is-counting；?static 不會加） */
+.cl-hero__metric-unit { transition: opacity .5s ease; }
+.is-counting > .cl-hero__metric-unit { opacity: 0; }
 .cl-hero__metric-unit--bold { font-weight: 700; }
 
 /* ---------- tooltip（1695:38486 元件；文字取自 1750:33895）---------- */
@@ -338,17 +347,52 @@
   visibility: visible;
 }
 
-/* ---------- 1101–1439：流動縮放，避免數據區擠壞 ---------- */
+/* ---------- 超寬螢幕 ≥1441（R1 Figma 2240:30971 ①）----------
+   cover 右緣貼齊畫面右緣、寬度隨螢幕；特色膠囊跟著貼右緣。
+   數據區（數字）停在 1440 版心內，只把綠色漸層底延伸到畫面右緣，避免照片中間出現一條硬邊。
+   --cl-hero-bleed＝版心外右側留白寬；100vw 含捲軸的多出部分由 .cl-hero overflow:hidden 裁掉 */
+@media (min-width: 1441px) {
+  .cl-hero { --cl-hero-bleed: calc((100vw - var(--cl-page-max)) / 2); }
+  .cl-hero__cover {
+    left: 25%;
+    right: calc(var(--cl-hero-bleed) * -1);
+    width: auto;
+    max-width: none;
+  }
+  /* 照片改成填滿 cover，object-position 保留 1440 的取景 */
+  .cl-hero__slide { left: 0; top: 0; width: 100%; height: 100%; transform-origin: 50% 50%; }
+  .cl-hero__slide--1 { object-position: 50% 69.62%; }
+  .cl-hero__slide--2 { object-position: 50% 56.53%; }
+  .cl-hero__slide--3 { object-position: 49.23% 94.62%; }
+  .cl-hero__slide--4 { object-position: 15.31% 40.44%; }
+  .cl-hero__feature { right: calc(var(--cl-hero-bleed) * -1); }
+  .cl-hero__num::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 100%;
+    width: var(--cl-hero-bleed);
+    background: inherit;
+    pointer-events: none;
+  }
+}
+
+/* ---------- 1101–1439：流動縮放，避免數據區擠壞 ----------
+   導覽維持 16px（R1），窄時縮間距；放不下（≤1200）先隱藏，避免和 logo／按鈕重疊 */
+@media (max-width: 1366px) and (min-width: 1101px) {
+  .cl-hero__nav { gap: 24px; }
+}
 @media (max-width: 1240px) and (min-width: 1101px) {
   .cl-hero__nav { gap: 16px; }
-  .cl-hero__nav-link { font-size: 13px; }
   .cl-hero__card { padding: 48px 32px 0; }
   .cl-hero__title { font-size: 32px; }
   .cl-hero__num { column-gap: 24px; padding: 40px 32px; }
   .cl-hero__metric-num { font-size: 32px; }
 }
-@media (max-width: 1180px) and (min-width: 1101px) {
+@media (max-width: 1200px) and (min-width: 1101px) {
   .cl-hero__nav { display: none; }   /* 中間導覽放不下時先隱藏，避免和 logo 重疊 */
+  .cl-hero__actions { margin-left: auto; }
 }
 
 /* ==========================================================================
@@ -379,10 +423,12 @@
   }
   .cl-hero__menu img { width: 24px; height: 24px; }
 
-  /* cover：右上 75% 寬，上緣距 header 56，下緣與白卡、數據區齊（距段落底 78，同電腦版） */
+  /* cover：右上 75% 寬，上緣距 header 56，下緣與白卡、數據區齊（距段落底 78，同電腦版）
+     R1 灰線：cover 下緣和白卡下緣同一條線，縮放（iPad 預覽、瀏覽器縮放）時照片邊緣反鋸齒會從白卡下露出一條灰線；
+     cover 下緣收 2px 藏在白卡與數據區後面（數據區底部是不透明綠，看不出差異） */
   .cl-hero__cover {
     top: 118px;
-    bottom: 78px;
+    bottom: 80px;
     height: auto;
     border-top-left-radius: 32px;
   }
@@ -413,17 +459,19 @@
     gap: 24px;
     padding: 40px 32px 0;
     border-top-right-radius: 32px;
+    margin-right: -1px;   /* R1 灰線：右緣多蓋 1px 數據區，縮放時接縫不露照片 */
   }
   .cl-hero__title { font-size: 32px; letter-spacing: 1.6px; }
   .cl-hero__nobr { white-space: normal; }
 
+  /* R1：數據和左邊白卡太近 → 數據區左內距加大（32→56） */
   .cl-hero__num {
     flex: none;
     grid-template-columns: repeat(2, minmax(max-content, 1fr));
     column-gap: 24px;
     row-gap: 32px;
     width: 52.9412%;
-    padding: 40px 32px;
+    padding: 40px 32px 40px 56px;
   }
   .cl-hero__metric { gap: 8px; min-width: 0; }
   .cl-hero__metric-label,
@@ -446,14 +494,14 @@
 @media (max-width: 900px) and (min-width: 641px) {
   .cl-hero__card { padding: 40px 24px 0; }
   .cl-hero__title { font-size: 28px; letter-spacing: 1.4px; }
-  .cl-hero__num { width: auto; padding: 40px 28px; column-gap: 20px; }
+  .cl-hero__num { width: auto; padding: 40px 28px 40px 48px; column-gap: 20px; }
   .cl-hero__metric-num { font-size: 28px; }
   .cl-hero__tip-pop { width: 280px; }
 }
 /* 760 以下：維持 2×2 不擠字 */
 @media (max-width: 760px) and (min-width: 641px) {
   .cl-hero__title { font-size: 24px; letter-spacing: 1.2px; }
-  .cl-hero__num { padding: 32px 20px; column-gap: 16px; }
+  .cl-hero__num { padding: 32px 20px 32px 40px; column-gap: 16px; }
   .cl-hero__metric-num { font-size: 24px; }
   .cl-hero__metric-label,
   .cl-hero__metric-label--park,
@@ -470,7 +518,10 @@
    手機版 375（1695:19588）
    ========================================================================== */
 @media (max-width: 640px) {
-  .cl-hero { height: 756px; }
+  /* R1 Figma 2240:30971 ③：cover 與綠色數據牌卡依畫面寬等比縮放（375 時＝原稿值，比例 s＝100vw/375）。
+     白卡改成在文件流裡、段落高由白卡撐開（375 時 408＋281.6＋66.4＝756，同原稿） */
+  .cl-hero { height: auto; padding-bottom: 66.4px; }
+  .cl-hero__inner { display: flow-root; height: auto; }   /* 防止白卡 margin-top 穿出 inner */
 
   /* curve_ani_hero 1600×640，位置 calc(50% + .5px)；curve_pattern 為電腦版 0.8 倍 */
   .cl-hero__curve-clip {
@@ -523,26 +574,29 @@
   }
   .cl-hero__menu img { width: 24px; height: 24px; }
 
-  /* cover_img size=S：400×480，right -49 */
+  /* cover_img size=S：375 時 400×480、left 24、right -49 → 改成 vw 等比 */
   .cl-hero__cover {
     top: 108px;
-    right: -49px;
-    width: 400px;
+    left: 6.4vw;             /* 24 / 375 */
+    right: auto;
+    width: 106.6667vw;       /* 400 / 375 */
     max-width: none;
-    height: 480px;
+    height: 128vw;           /* 480 / 375 */
   }
-  .cl-hero__slide--1 { left: -280.5px; top: -48.89px; width: 961px;     height: 550.22px; }
-  .cl-hero__slide--2 { left: -93.26px; top: -115px;   width: 907.39px;  height: 605px; }
-  .cl-hero__slide--3 { left: -280px;   top: -203px;   width: 1070.87px; height: 714px; }
-  .cl-hero__slide--4 { left: -301px;   top: -114.89px; width: 1147px;   height: 764px; }
+  /* 照片位置改成 cover 的百分比（原 px ÷ 400／480），放大中心對準 cover 中心 */
+  .cl-hero__slide--1 { left: -70.125%; top: -10.1854%; width: 240.25%;   height: 114.6292%; transform-origin: 50% 52.504%; }
+  .cl-hero__slide--2 { left: -23.315%; top: -23.9583%; width: 226.8475%; height: 126.0417%; transform-origin: 32.319% 58.678%; }
+  .cl-hero__slide--3 { left: -70%;     top: -42.2917%; width: 267.7175%; height: 148.75%;   transform-origin: 44.823% 62.045%; }
+  .cl-hero__slide--4 { left: -75.25%;  top: -23.9354%; width: 286.75%;   height: 159.1667%; transform-origin: 43.679% 46.452%; }
 
   /* 首頁特色：手機改成三顆標籤（1695:19602） */
   .cl-hero__feature { display: none; }
+  /* R1 ③：三顆 tag 貼齊 cover 左上圓角（cover 左上角往內 24），不超出照片 */
   .cl-hero__tags {
     position: absolute;
     z-index: 2;
     top: 132px;
-    left: 48px;
+    left: calc(6.4vw + 24px);
     display: flex;
     align-items: center;
     gap: 8px;
@@ -568,10 +622,10 @@
   /* main 拆開：數據區疊在圖上、白卡在下 */
   .cl-hero__main { position: static; display: block; padding: 0; }
   .cl-hero__card {
-    position: absolute;
-    top: 408px;
-    left: 0;
-    width: 343px;
+    position: relative;
+    margin-top: calc(108px + 80vw);   /* 375 時 408：cover 上緣 ＋ 300 等比 */
+    min-height: calc(48vw + 1px);     /* 寬螢幕時文字變短，仍要蓋住 cover 與數據牌卡下緣 */
+    width: calc(100% - 32px);  /* 375 時 343 */
     height: auto;
     padding: 32px 32px 0 24px;
   }
@@ -594,16 +648,17 @@
   .cl-hero__cta-arrow-l { display: none; }
   .cl-hero__cta-arrow-s { display: block; }
 
+  /* 綠色數據牌卡：375 時 351×372、top 216，下緣＝cover 下緣 → vw 等比 */
   .cl-hero__num {
     position: absolute;
-    top: 216px;
+    top: calc(108px + 28.8vw);   /* 108 ＋ 108 等比 */
     right: 0;
-    width: 351px;
-    height: 372px;
+    width: 93.6vw;               /* 351 / 375 */
+    height: 99.2vw;              /* 372 / 375 */
     grid-template-rows: repeat(2, minmax(0, 1fr));
     column-gap: 12px;
     row-gap: 16px;
-    padding: 16px 16px 204px 24px;
+    padding: 16px 16px 54.4vw 24px;   /* 底部 204＝被白卡蓋住的區域，等比 */
     background: linear-gradient(to bottom, rgba(19, 130, 72, 0), var(--cl-green-600) 67.073%);
   }
   .cl-hero__metric { gap: 8px; }
@@ -614,7 +669,7 @@
   }
   .cl-hero__metric-label--tip { gap: 4px; }
   .cl-hero__metric-value { gap: 4px; }
-  .cl-hero__metric-num { font-size: 28px; }
+  .cl-hero__metric-num { font-size: min(28px, 7.4667vw); }   /* 375 以下跟著牌卡縮，避免 320 兩欄相撞 */
   .cl-hero__metric-unit,
   .cl-hero__metric-unit--co2 {
     font-size: 12px;
