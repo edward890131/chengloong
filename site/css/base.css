@@ -79,10 +79,19 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   width: 20%;
   aspect-ratio: 1;
   border-radius: 50%;
-  transition: transform .5s cubic-bezier(.2, .7, .2, 1);
+  transition: transform .9s cubic-bezier(.22, .61, .36, 1);   /* 客戶 2026-10-21：hover 放慢（原 .5s） */
 }
 .cl-btn:hover .cl-btn__circle { transform: scale(12); }
-.cl-btn__arrow { width: 24px; height: 24px; flex: none; }
+.cl-btn { transition: color .5s ease; }
+.cl-btn__arrow { width: 24px; height: 24px; flex: none; transition: filter .5s ease; }
+/* 箭頭 hover：往右滑出、從左滑回（客戶 2026-10-21） */
+.cl-btn:hover .cl-btn__arrow { animation: cl-btn-arrow .7s cubic-bezier(.65, 0, .35, 1); }
+@keyframes cl-btn-arrow {
+  0%   { transform: translateX(0);     opacity: 1; }
+  45%  { transform: translateX(120%);  opacity: 0; }
+  46%  { transform: translateX(-120%); opacity: 0; }
+  100% { transform: translateX(0);     opacity: 1; }
+}
 
 .cl-btn--sm {
   gap: 8px;
@@ -120,6 +129,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .cl-btn--black   .cl-btn__circle { background: #454545; }
 .cl-btn--white   { background: var(--cl-white); color: var(--cl-ink-900); }
 .cl-btn--white   .cl-btn__circle { background: var(--cl-green-400); }
+/* 白底按鈕 hover 變綠底：文字與箭頭轉白（客戶 2026-10-21） */
+.cl-btn--white:hover { color: var(--cl-white); }
+.cl-btn--white:hover .cl-btn__arrow { filter: brightness(0) invert(1); }
 .cl-btn--white20 { background: rgba(255, 255, 255, .2); color: var(--cl-white); backdrop-filter: blur(42px); -webkit-backdrop-filter: blur(42px); }
 .cl-btn--white20 .cl-btn__circle { background: rgba(255, 255, 255, .2); }
 
@@ -143,4 +155,78 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .is-static .cl-curve path { stroke-dasharray: none; visibility: visible; }
 @media (prefers-reduced-motion: reduce) {
   .cl-curve path { animation: none; }
+}
+
+/* ==========================================================================
+   共用動態（客戶 2026-10-21）：段落負責人照下面的 API 套用，不要另寫
+   ?static 與 prefers-reduced-motion 時一律直接顯示最終狀態
+   ========================================================================== */
+
+/* ---------- 進場 mask reveal up：[data-reveal] ----------
+   用法：文字元素（標題、副標、牌卡內文字）加 data-reveal；base.js 會把內容包進 .cl-rv__in，
+   元素本身變成遮罩，內容由下往上滑入。元素頂端捲到畫面 2/3 處（＝滾過畫面 1/3）時播放，只播一次。
+   同一容器加 data-reveal-group，裡面的 [data-reveal] 依序錯開 80ms；也可在元素上寫 data-reveal-delay="160"（ms）。
+   卡片、圖片這類區塊用 data-reveal="fade"：淡入＋上移，不包遮罩。 */
+[data-reveal]:not([data-reveal="fade"]) { overflow: clip; overflow-clip-margin: .2em; }
+.cl-rv__in {
+  display: block;
+  transform: translateY(105%);
+  transition: transform .9s cubic-bezier(.22, 1, .36, 1);
+  transition-delay: var(--cl-rv-delay, 0ms);
+}
+[data-reveal="fade"] {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity .8s ease, transform .9s cubic-bezier(.22, 1, .36, 1);
+  transition-delay: var(--cl-rv-delay, 0ms);
+}
+.is-revealed > .cl-rv__in,
+[data-reveal="fade"].is-revealed { transform: none; opacity: 1; }
+.is-static [data-reveal] .cl-rv__in, .is-static [data-reveal="fade"] { transform: none; opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .cl-rv__in, [data-reveal="fade"] { transform: none !important; opacity: 1 !important; transition: none !important; }
+}
+
+/* ---------- 果凍頁籤 .cl-jelly ----------
+   用法：頁籤列容器加 class="cl-jelly"，選中的頁籤照舊加 .is-active。
+   base.js 會在容器裡放一顆 .cl-jelly__pill 當選中底色，切換時滑過去並有果凍形變；
+   段落 CSS 要把「選中頁籤自己的底色」改成透明（文字色照舊），底色交給 pill。
+   pill 顏色預設主綠，可用 --cl-jelly-color 改。 */
+.cl-jelly { position: relative; isolation: isolate; }
+.cl-jelly > * { position: relative; z-index: 1; }
+.cl-jelly > .cl-jelly__pill {
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  top: 0;
+  border-radius: 999px;
+  background: var(--cl-jelly-color, var(--cl-green-500));
+  pointer-events: none;
+}
+
+/* ---------- 圖片 hover 放大 .cl-zoom ----------
+   用法：圖片的裁切容器（overflow: hidden 的那層）加 class="cl-zoom"，裡面的 img 會在 hover 時以中心放大 1.1 倍。
+   用的是 CSS scale 屬性，不會蓋掉 img 既有的 transform；img 比容器大、中心不在容器中心時，
+   在段落 CSS 設 img 的 transform-origin 讓放大中心對準容器中心。 */
+.cl-zoom img { transition: scale .8s cubic-bezier(.22, 1, .36, 1); }
+.cl-zoom:hover img { scale: 1.1; }
+
+/* ---------- 圖片載入 skeleton .cl-skeleton ----------
+   用法：圖片容器加 class="cl-skeleton"；載入前顯示灰底流光，img 載入後淡入（base.js 加 .is-loaded）。 */
+.cl-skeleton { background: #ececec; }
+.cl-skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(100deg, transparent 20%, rgba(255, 255, 255, .55) 50%, transparent 80%) #ececec;
+  background-size: 200% 100%;
+  animation: cl-skeleton 1.4s linear infinite;
+  transition: opacity .5s ease;
+  pointer-events: none;
+}
+.cl-skeleton.is-loaded::after { opacity: 0; animation: none; }
+@keyframes cl-skeleton {
+  from { background-position: 150% 0; }
+  to   { background-position: -50% 0; }
 }
