@@ -213,7 +213,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
    用法：圖片的裁切容器（overflow: hidden 的那層）加 class="cl-zoom"，裡面的 img 會在 hover 時以中心放大 1.1 倍。
    用的是 CSS scale 屬性，不會蓋掉 img 既有的 transform；img 比容器大、中心不在容器中心時，
    在段落 CSS 設 img 的 transform-origin 讓放大中心對準容器中心。 */
-.cl-zoom img { transition: scale .8s cubic-bezier(.22, 1, .36, 1); }
+/* opacity 一起列：這條權重比段落的 img 規則高，只寫 scale 會蓋掉段落原本的淡入淡出（例：首屏輪播） */
+.cl-zoom img { transition: scale .8s cubic-bezier(.22, 1, .36, 1), opacity .6s ease-out; }
 @media (hover: hover) and (pointer: fine) { .cl-zoom:hover img { scale: 1.1; } }   /* 觸控裝置不放大，避免點過後一直停在放大 */
 
 /* ---------- 圖片載入 skeleton .cl-skeleton ----------

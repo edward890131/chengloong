@@ -301,7 +301,7 @@
 /* 04 服務流程：四格卡 hover／點擊展開、詳細流程頁籤切換、手機版動線圖滑動提示
    R1：滑鼠移開四格卡區域回到第 1 格；切換頁籤時畫面內的 reveal 文字直接播放
    R2：頁籤選中底色交給 base 的 .cl-tabfill（圓形填色）；展開卡弧線一展開就描線一次（CSS），
-       四格卡進畫面才加 .is-inview 開始播；頁籤 3 流程圖與說明分開滑動，提示只跟流程圖 */
+       四格卡進畫面才加 .is-inview 開始播；頁籤 3 流程圖與說明分開滑動，提示只跟流程圖；四格卡每 8 秒自動輪播 */
 (function () {
   var root = document.querySelector('.cl-process');
   if (!root) return;
@@ -349,6 +349,41 @@
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activateCard(card); }
     });
   });
+
+  /* ---------- 自動輪播（客戶 R2）：每 8 秒換到下一格，最後一格之後回到第 1 格 ----------
+     四格卡在畫面內才播；滑鼠停在四格卡上時暫停（移開會照 R1 回到第 1 格再重新計時）；
+     點擊／觸控／鍵盤選取後從那一格重新計時。?static 與減少動態不輪播。 */
+  var AUTOPLAY_MS = 8000;
+  var autoplay = cardList && cards.length > 1 &&
+    !document.documentElement.classList.contains('is-static') &&
+    !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (autoplay) {
+    var timer = 0, inView = false, hovering = false;
+    var stop = function () { clearInterval(timer); timer = 0; };
+    var start = function () {
+      stop();
+      if (!inView || hovering) return;
+      timer = setInterval(function () {
+        var i = cards.findIndex(function (c) { return c.classList.contains('is-active'); });
+        activateCard(cards[(i + 1) % cards.length]);
+      }, AUTOPLAY_MS);
+    };
+    cardList.addEventListener('mouseenter', function () { if (canHover.matches) { hovering = true; stop(); } });
+    cardList.addEventListener('mouseleave', function () { hovering = false; start(); });
+    cards.forEach(function (card) {
+      card.addEventListener('click', start);
+      card.addEventListener('focus', start);
+    });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        inView = entries[0].isIntersecting;
+        if (inView) start(); else stop();
+      }, { threshold: .3 }).observe(cardList);
+    } else {
+      inView = true;
+      start();
+    }
+  }
 
   /* ---------- 詳細服務流程_B：頁籤，預設「線上預約步驟」 ---------- */
   var tabList = root.querySelector('.cl-process__tabs');
