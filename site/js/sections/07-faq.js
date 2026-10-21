@@ -1,5 +1,5 @@
 /* 07 faq（負責人 E）：分類頁籤切換＋手風琴展開收合
-   頁籤選中底色由 base .cl-jelly 處理（只切 .is-active）；展開高度過場在 CSS（grid-template-rows） */
+   頁籤選中底色由 base .cl-tabfill 的圓形填色處理（只切 .is-active）；展開高度過場在 CSS（grid-template-rows） */
 (function () {
   var root = document.querySelector('.cl-faq');
   if (!root) return;

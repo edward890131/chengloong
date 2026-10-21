@@ -437,28 +437,6 @@
   overscroll-behavior: contain;
 }
 .cl-green__modal-img { width: 100%; height: auto; }
-/* 面板比原圖窄（平板、手機）時：點圖切換原寬 920（可上下左右捲動）／符合面板寬 */
-.cl-green__modal-hint {
-  position: absolute;
-  left: 50%;
-  bottom: 12px;
-  z-index: 1;
-  display: none;
-  padding: 6px 14px;
-  border-radius: 999px;
-  background: rgba(17, 17, 17, .72);
-  color: var(--cl-white);
-  font-size: 13px;
-  line-height: 18px;
-  white-space: nowrap;
-  transform: translateX(-50%);
-  pointer-events: none;
-}
-.cl-green__modal.is-zoomable .cl-green__modal-img { cursor: zoom-in; }
-.cl-green__modal.is-zoomable .cl-green__modal-hint { display: block; }
-.cl-green__modal.is-zoomed .cl-green__modal-body { overflow: auto; }
-.cl-green__modal.is-zoomed .cl-green__modal-img { width: 920px; max-width: none; cursor: zoom-out; }
-.cl-green__modal.is-zoomed .cl-green__modal-hint { display: none; }
 .cl-green__modal-close {
   position: absolute;
   top: 16px;

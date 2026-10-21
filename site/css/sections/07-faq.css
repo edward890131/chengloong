@@ -82,18 +82,8 @@
   color: #989898;
   transition: color .3s ease;
 }
-/* 果凍頁籤（R1 客戶 2026-10-21）：選中底色交給 base 的 .cl-jelly__pill。
-   未選頁籤的灰底改用 ::before 畫在 pill 底下（z-index -1 落在 .cl-jelly 的 stacking context），
-   pill 滑過其他頁籤時才看得到；頁籤本身取消 base 給的 z-index，讓 ::before 能沉到 pill 之下 */
-.cl-faq__tabs.cl-jelly > .cl-faq__tab { z-index: auto; }
-.cl-faq__tab::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-radius: inherit;
-  background: #f6f6f6;
-}
+/* 頁籤圓形填色（R2 客戶 2026-10-21）：灰底在頁籤本身，選中時 base 的 .cl-tabfill__circle 從底部放大填成綠色 */
+.cl-faq__tab { background: #f6f6f6; }
 .cl-faq__tab-dot {
   display: none;
   width: 6px;
@@ -101,7 +91,7 @@
   border-radius: 100px;
   background: var(--cl-white);
 }
-.cl-faq__tab.is-active { color: var(--cl-white); transition-delay: .15s; }   /* 等 pill 滑到再轉白 */
+.cl-faq__tab.is-active { color: var(--cl-white); }
 .cl-faq__tab.is-active .cl-faq__tab-dot { display: block; }
 
 /* 手風琴 list 1695:20394 */

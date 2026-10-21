@@ -40,7 +40,6 @@
   if (modal && viewBtn) {
     var closeBtn = modal.querySelector('.cl-green__modal-close');
     var body = modal.querySelector('.cl-green__modal-body');
-    var img = modal.querySelector('.cl-green__modal-img');
     var lastFocus = null;
     var lock = { html: '', body: '', pad: '' };
     var hideTimer = null;
@@ -58,10 +57,8 @@
       document.body.style.overflow = 'hidden';
       if (sbw > 0) document.body.style.paddingRight = sbw + 'px';
       modal.hidden = false;
-      modal.classList.remove('is-zoomed');
       body.scrollTop = 0;
       body.scrollLeft = 0;
-      modal.classList.toggle('is-zoomable', body.clientWidth < 920);
       void modal.offsetWidth; // 先套用初始狀態再開，過場才會跑
       modal.classList.add('is-open');
       closeBtn.focus({ preventScroll: true });
@@ -89,20 +86,6 @@
     // 觸控裝置：點整張證明圖也能開
     if (doc) doc.addEventListener('click', function () { open(); });
     [].forEach.call(modal.querySelectorAll('[data-close]'), function (el) { el.addEventListener('click', close); });
-    // 面板比原圖窄時，點圖切換原寸／符合寬度，放大後捲到點擊位置附近
-    img.addEventListener('click', function (e) {
-      if (!modal.classList.contains('is-zoomable')) return;
-      var r = img.getBoundingClientRect();
-      var fx = (e.clientX - r.left) / r.width, fy = (e.clientY - r.top) / r.height;
-      var zoomed = modal.classList.toggle('is-zoomed');
-      if (zoomed) {
-        body.scrollLeft = fx * img.offsetWidth - body.clientWidth / 2;
-        body.scrollTop = fy * img.offsetHeight - body.clientHeight / 2;
-      }
-    });
-    window.addEventListener('resize', function () {
-      if (!modal.hidden) modal.classList.toggle('is-zoomable', body.clientWidth < 920 || modal.classList.contains('is-zoomed'));
-    });
   }
 
   /* ---------- 手機版卡片捲動 ---------- */

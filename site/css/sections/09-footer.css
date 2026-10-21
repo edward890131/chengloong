@@ -162,6 +162,19 @@
 /* 跑馬燈用的第二份文字：只在 .is-marquee 時顯示 */
 .cl-footer__slogan-text--dup { display: none; }
 
+/* 寬螢幕放大填滿（客戶 R2 2026-10-21）：句子放得下時（不輪播），09-footer.js 算出 --cl-footer-slogan-fs，
+   字級等比放大到左右各留 24px；與底部距離照電腦版比例（中心距底 0.5174em），
+   頁尾高度跟著字級增加（字框頂到底 1.1174em，86px 時是 96），內容不被標語蓋到 */
+.cl-footer.is-fill {
+  height: calc(490px + (var(--cl-footer-slogan-fs) - 86px) * 1.1174);
+}
+.cl-footer.is-fill .cl-footer__slogan {
+  left: 50%;
+  bottom: .5174em;
+  font-size: var(--cl-footer-slogan-fs);
+  transform: translate(-50%, 50%);
+}
+
 /* 641–1439：流動縮放 */
 @media (max-width: 1439px) and (min-width: 641px) {
   .cl-footer { height: auto; min-height: 490px; padding-bottom: 150px; }

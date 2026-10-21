@@ -26,15 +26,15 @@
   if (isStatic || reduce || !('IntersectionObserver' in window)) {
     reveals.forEach(show);
   } else {
-    // 元素頂端進入畫面上方 2/3（＝滾過畫面 1/3）時播放
+    // 元素頂端捲到畫面 55% 高時播放（客戶 R2：比原本的 2/3 晚一點）
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (e.isIntersecting) { show(e.target); io.unobserve(e.target); }
       });
-    }, { rootMargin: '0px 0px -33.333% 0px' });
+    }, { rootMargin: '0px 0px -45% 0px' });
     reveals.forEach(function (el) {
-      // 載入時已在畫面內的元素直接播放（首屏偏下的文字不必等捲動）
-      if (el.getBoundingClientRect().top < window.innerHeight) show(el);
+      // 載入時已在觸發線上方的元素直接播放
+      if (el.getBoundingClientRect().top < window.innerHeight * .55) show(el);
       else io.observe(el);
     });
     // 錨點跳轉、scrollIntoView 這類直接跳過觸發線的情況：已在觸發線上方的一律顯示
@@ -43,7 +43,7 @@
       if (pending) return;
       pending = requestAnimationFrame(function () {
         pending = 0;
-        var line = window.innerHeight * 2 / 3;
+        var line = window.innerHeight * .55;
         reveals.forEach(function (el) {
           if (!el.classList.contains('is-revealed') && el.getBoundingClientRect().top < line) { show(el); io.unobserve(el); }
         });
@@ -51,45 +51,25 @@
     }, { passive: true });
   }
 
-  /* ---------- 果凍頁籤 .cl-jelly ---------- */
-  [].forEach.call(document.querySelectorAll('.cl-jelly'), function (list) {
-    var pill = document.createElement('span');
-    pill.className = 'cl-jelly__pill';
-    pill.setAttribute('aria-hidden', 'true');
-    list.insertBefore(pill, list.firstChild);
-    var current = null;
-
-    function place(animate) {
-      var tab = list.querySelector(':scope > .is-active');
-      if (!tab) { pill.style.opacity = '0'; return; }
-      pill.style.opacity = '1';
-      // 用 rect 量小數座標（offset* 會取整，pill 偏 1px）；可橫捲的頁籤列要加上 scroll 位移
-      var lr = list.getBoundingClientRect(), tr = tab.getBoundingClientRect();
-      var to = { x: tr.left - lr.left - list.clientLeft + list.scrollLeft, y: tr.top - lr.top - list.clientTop + list.scrollTop, w: tr.width, h: tr.height };
-      var from = current;
-      pill.style.width = to.w + 'px';
-      pill.style.height = to.h + 'px';
-      pill.style.transform = 'translate(' + to.x + 'px,' + to.y + 'px)';
-      if (animate && from && pill.animate && !isStatic && !reduce && from.x !== to.x) {
-        // 果凍：先拉長壓扁朝目標衝過頭，再回彈
-        var dir = to.x > from.x ? 1 : -1;
-        pill.animate([
-          { width: from.w + 'px', transform: 'translate(' + from.x + 'px,' + from.y + 'px) scale(1, 1)' },
-          { width: (Math.abs(to.x - from.x) * .55 + Math.max(from.w, to.w)) + 'px',
-            transform: 'translate(' + (dir > 0 ? from.x : to.x) + 'px,' + to.y + 'px) scale(1, .82)', offset: .4 },
-          { width: to.w + 'px', transform: 'translate(' + (to.x + dir * 6) + 'px,' + to.y + 'px) scale(1.04, .94)', offset: .72 },
-          { width: to.w + 'px', transform: 'translate(' + to.x + 'px,' + to.y + 'px) scale(1, 1)' }
-        ], { duration: 650, easing: 'cubic-bezier(.3, .7, .3, 1)' });
-      }
-      current = to;
+  /* ---------- 頁籤圓形填色 .cl-tabfill（客戶 R2：取代果凍頁籤，效果同按鈕 hover 的圓） ----------
+     每個頁籤底部放一顆圓（.cl-tabfill__circle），選中時放大填滿頁籤；圓的直徑依頁籤對角線算，寬窄頁籤都填得滿 */
+  [].forEach.call(document.querySelectorAll('.cl-tabfill'), function (list) {
+    var tabs = [].slice.call(list.children);
+    tabs.forEach(function (tab) {
+      var c = document.createElement('span');
+      c.className = 'cl-tabfill__circle';
+      c.setAttribute('aria-hidden', 'true');
+      tab.insertBefore(c, tab.firstChild);
+    });
+    function size() {
+      tabs.forEach(function (tab) {
+        var d = Math.ceil(Math.hypot(tab.offsetWidth / 2, tab.offsetHeight) * 2) + 2;
+        tab.style.setProperty('--cl-tabfill-d', d + 'px');
+      });
     }
-
-    place(false);
-    // 段落 JS 只要切換 .is-active，pill 就會跟著走
-    new MutationObserver(function () { place(true); })
-      .observe(list, { subtree: true, attributes: true, attributeFilter: ['class'] });
-    window.addEventListener('resize', function () { place(false); });
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { place(false); });
+    size();
+    window.addEventListener('resize', size);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(size);
   });
 
   /* ---------- 圖片載入 skeleton ---------- */

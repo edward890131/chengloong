@@ -15,25 +15,39 @@
     });
   }
 
-  /* ---------- 標語跑馬燈（客戶 2026-10-20）----------
+  /* ---------- 標語跑馬燈（客戶 2026-10-20）＋寬螢幕放大填滿（客戶 R2 2026-10-21）----------
      句子在靜態排版下超出頁尾左右邊界就加 .is-marquee 輪播，速度固定 SPEED px/s；
      ?static 與減少動態不輪播。視窗縮放、字型載入後重新判斷。 */
   var SPEED = 37.2;   // 1339px／36s：手機版確認過的速度
   var text = root.querySelector('.cl-footer__slogan-text');
   if (!text) return;
 
+  /* 寬螢幕放大填滿（客戶 R2）：句子在靜態排版放得下時，字級等比放大到左右各留 FILL_GUTTER；
+     ?static 與減少動態也適用（這是排版，不是動態） */
+  var FILL_GUTTER = 24;
+
   function update() {
-    if (html.classList.contains('is-static') || reduce.matches) {
-      root.classList.remove('is-marquee');
-      return;
-    }
     // 先回到靜態排版量字形範圍（不含跑馬燈間隔）
-    root.classList.remove('is-marquee');
+    root.classList.remove('is-marquee', 'is-fill');
+    root.style.removeProperty('--cl-footer-slogan-fs');
     var range = document.createRange();
     range.selectNodeContents(text);
     var t = range.getBoundingClientRect();
     var box = root.getBoundingClientRect();
-    if (t.left < box.left - .5 || t.right > box.right + .5) {
+    var overflow = t.left < box.left - .5 || t.right > box.right + .5;
+    if (!overflow) {
+      var fs = parseFloat(getComputedStyle(text).fontSize);
+      var target = box.width - FILL_GUTTER * 2;
+      root.style.setProperty('--cl-footer-slogan-fs', (fs * target / t.width).toFixed(2) + 'px');
+      root.classList.add('is-fill');
+      // 字距是固定 px、不跟字級等比，第一次放大後再量一次校正
+      var t2 = range.getBoundingClientRect();
+      var fs2 = parseFloat(getComputedStyle(text).fontSize);
+      root.style.setProperty('--cl-footer-slogan-fs', (fs2 * target / t2.width).toFixed(2) + 'px');
+      return;
+    }
+    if (html.classList.contains('is-static') || reduce.matches) return;
+    if (overflow) {
       root.classList.add('is-marquee');
       // 一輪距離＝一句加間隔（.is-marquee 時的 span 寬）
       var loop = text.getBoundingClientRect().width;

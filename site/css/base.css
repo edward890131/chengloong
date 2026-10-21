@@ -187,23 +187,27 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .cl-rv__in, [data-reveal="fade"] { transform: none !important; opacity: 1 !important; transition: none !important; }
 }
 
-/* ---------- 果凍頁籤 .cl-jelly ----------
-   用法：頁籤列容器加 class="cl-jelly"，選中的頁籤照舊加 .is-active。
-   base.js 會在容器裡放一顆 .cl-jelly__pill 當選中底色，切換時滑過去並有果凍形變；
-   段落 CSS 要把「選中頁籤自己的底色」改成透明（文字色照舊），底色交給 pill。
-   pill 顏色預設主綠，可用 --cl-jelly-color 改。
-   未選頁籤若有底色（例如灰底膠囊），底色要改用 ::before 畫並設 z-index: -1，
-   否則會蓋住滑過去的 pill（頁籤本身不要設 z-index，文字會自然疊在 pill 上）。 */
-.cl-jelly { position: relative; isolation: isolate; }
-.cl-jelly > * { position: relative; }
-.cl-jelly > .cl-jelly__pill {
+/* ---------- 頁籤圓形填色 .cl-tabfill（客戶 R2，取代果凍頁籤） ----------
+   用法：頁籤列容器加 class="cl-tabfill"，選中的頁籤照舊加 .is-active。
+   base.js 會在每個頁籤裡放一顆 .cl-tabfill__circle：選中時從頁籤底部中央放大填滿（同按鈕 hover 的圓，.9s），
+   取消選中時縮回。頁籤自己的底色（例如灰底）照舊寫在頁籤上，選中時「不要」再改成綠底，綠色交給圓；
+   文字色照舊在 .is-active 切換。圓顏色預設主綠，可用 --cl-tabfill-color 改。 */
+.cl-tabfill > * { position: relative; overflow: hidden; isolation: isolate; }
+.cl-tabfill__circle {
   position: absolute;
-  left: 0;
-  top: 0;
-  border-radius: 999px;
-  background: var(--cl-jelly-color, var(--cl-green-500));
+  z-index: -1;
+  left: 50%;
+  top: 100%;
+  width: var(--cl-tabfill-d, 300px);
+  height: var(--cl-tabfill-d, 300px);
+  margin: calc(var(--cl-tabfill-d, 300px) / -2) 0 0 calc(var(--cl-tabfill-d, 300px) / -2);
+  border-radius: 50%;
+  background: var(--cl-tabfill-color, var(--cl-green-500));
+  transform: scale(0);
+  transition: transform .9s cubic-bezier(.22, .61, .36, 1);
   pointer-events: none;
 }
+.cl-tabfill > .is-active > .cl-tabfill__circle { transform: scale(1); }
 
 /* ---------- 圖片 hover 放大 .cl-zoom ----------
    用法：圖片的裁切容器（overflow: hidden 的那層）加 class="cl-zoom"，裡面的 img 會在 hover 時以中心放大 1.1 倍。
