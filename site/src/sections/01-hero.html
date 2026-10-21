@@ -1,5 +1,5 @@
 <!-- ===== 01 首屏（含 header）· 負責人 A ===== -->
-<section class="cl-hero" data-figma="1695:20083" data-figma-s="1695:19588">
+<section class="cl-hero" id="top" data-figma="1695:20083" data-figma-s="1695:19588">
 
   <!-- 背景綠色弧線 curve_ani_hero -->
   <div class="cl-hero__curve-clip" data-figma="1695:20084" data-figma-s="1695:25448" aria-hidden="true">
@@ -8,7 +8,7 @@
 
   <!-- header_green -->
   <header class="cl-hero__header" data-figma="1695:20116" data-figma-s="1695:19591">
-    <a class="cl-hero__brand" href="#" aria-label="正隆 機密文件水銷服務">
+    <a class="cl-hero__brand" href="#top" aria-label="正隆 機密文件水銷服務">
       <span class="cl-hero__logo" aria-hidden="true">
         <span class="cl-hero__logo-mark"><img src="assets/01-hero/logo-mark.svg" alt=""></span>
         <span class="cl-hero__logo-zh"><img src="assets/01-hero/logo-zh.svg" alt=""></span>
@@ -17,23 +17,41 @@
       <span class="cl-hero__brand-service">機密文件水銷服務</span>
     </a>
     <nav class="cl-hero__nav" aria-label="主選單">
-      <a class="cl-hero__nav-link" href="#">關於正隆水銷服務</a>
-      <a class="cl-hero__nav-link" href="#">服務流程</a>
-      <a class="cl-hero__nav-link" href="#">綠點存摺與數位證明</a>
-      <a class="cl-hero__nav-link" href="#">常見問題</a>
+      <a class="cl-hero__nav-link" href="#about">關於正隆水銷服務</a>
+      <a class="cl-hero__nav-link" href="#process">服務流程</a>
+      <a class="cl-hero__nav-link" href="#green">綠點存摺與數位證明</a>
+      <a class="cl-hero__nav-link" href="#faq">常見問題</a>
       <a class="cl-hero__nav-link" href="#">服務條款</a>
     </nav>
     <div class="cl-hero__actions">
       <a class="cl-btn cl-btn--black cl-btn--sm cl-hero__login" href="#"><span class="cl-btn__circle"></span><span>企業登入</span></a>
       <a class="cl-btn cl-btn--green cl-btn--sm cl-hero__book" href="#"><span class="cl-btn__circle"></span><span class="cl-hero__book-l">免費預約</span><span class="cl-hero__book-s">預約</span><img class="cl-btn__arrow cl-hero__book-arrow" src="assets/common/icon-arrow-w-20.svg" alt=""></a>
-      <button class="cl-hero__menu" type="button" aria-label="開啟選單"><img src="assets/01-hero/icon-menu.svg" alt=""></button>
+      <button class="cl-hero__menu" type="button" aria-label="開啟選單" aria-expanded="false" aria-controls="cl-menu"><span class="cl-hero__menu-bars" aria-hidden="true"><span></span><span></span><span></span></span></button>
     </div>
   </header>
+
+  <!-- 手機／平板選單（R2 客戶）：漢堡變 X，面板由右滑入，選項依序進場；header 留在上面（品牌、預約可用） -->
+  <div class="cl-menu" id="cl-menu" hidden>
+    <div class="cl-menu__scrim" data-menu-close></div>
+    <nav class="cl-menu__panel" aria-label="主選單">
+      <ul class="cl-menu__list">
+        <li><a class="cl-menu__link" href="#about"><span>關於正隆水銷服務</span><img src="assets/common/icon-arrow-dark.svg" alt=""></a></li>
+        <li><a class="cl-menu__link" href="#process"><span>服務流程</span><img src="assets/common/icon-arrow-dark.svg" alt=""></a></li>
+        <li><a class="cl-menu__link" href="#green"><span>綠點存摺與數位證明</span><img src="assets/common/icon-arrow-dark.svg" alt=""></a></li>
+        <li><a class="cl-menu__link" href="#faq"><span>常見問題</span><img src="assets/common/icon-arrow-dark.svg" alt=""></a></li>
+        <li><a class="cl-menu__link" href="#"><span>服務條款</span><img src="assets/common/icon-arrow-dark.svg" alt=""></a></li>
+      </ul>
+      <div class="cl-menu__actions">
+        <a class="cl-btn cl-btn--black cl-menu__btn" href="#"><span class="cl-btn__circle"></span><span>企業登入</span></a>
+        <a class="cl-btn cl-btn--green cl-menu__btn" href="#"><span class="cl-btn__circle"></span><span>免費預約水銷</span><img class="cl-btn__arrow" src="assets/common/icon-arrow-w-20.svg" alt=""></a>
+      </div>
+    </nav>
+  </div>
 
   <div class="cl-hero__inner">
 
     <!-- cover_img：四張輪播，預設＝主畫面 property1="2"（10 秒換一張、點擊換下一張，0.6s ease-out） -->
-    <div class="cl-hero__cover cl-zoom" data-figma="1695:20086" data-figma-s="1695:19601" role="img" aria-label="正隆水銷工廠形象照">
+    <div class="cl-hero__cover cl-zoom cl-skeleton" data-figma="1695:20086" data-figma-s="1695:19601" role="img" aria-label="正隆水銷工廠形象照">
       <img class="cl-hero__slide cl-hero__slide--4" src="assets/01-hero/cover-4.jpg" alt="" data-slide="4">
       <img class="cl-hero__slide cl-hero__slide--3" src="assets/01-hero/cover-3.jpg" alt="" data-slide="3">
       <img class="cl-hero__slide cl-hero__slide--2 is-active" src="assets/01-hero/cover-2.jpg" alt="" data-slide="2">

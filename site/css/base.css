@@ -152,6 +152,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   50%  { stroke-dasharray: 1 1; stroke-dashoffset: 0; visibility: visible; }
   100% { stroke-dasharray: 0 1; stroke-dashoffset: -1; visibility: hidden; }
 }
+/* R2 客戶：各段弧線進到畫面才開始描線（原本載入就全部一起播，第二段的弧線會跟首屏同時出現）。
+   base.js 觀察弧線所在段落，段落上緣進到畫面 70% 處加 .is-inview；之前停在第 0 格（隱藏）。服務流程卡片弧線另有自己的控制 */
+.has-curve-io .cl-curve:not(.is-inview):not(.cl-process__card-curve) path { animation-play-state: paused; }
 .is-static .cl-curve path { stroke-dasharray: none; visibility: visible; }
 @media (prefers-reduced-motion: reduce) {
   .cl-curve path { animation: none; }
@@ -219,20 +222,21 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 
 /* ---------- 圖片載入 skeleton .cl-skeleton ----------
    用法：圖片容器加 class="cl-skeleton"；載入前顯示灰底流光，img 載入後淡入（base.js 加 .is-loaded）。 */
-.cl-skeleton { background: #ececec; }
+.cl-skeleton { background: #e9ebea; }
+/* R2 客戶：要看得出流動的漸層——深淺差拉大、光帶加寬，1.6s 一趟、ease-in-out 有呼吸感 */
 .cl-skeleton::after {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(100deg, transparent 20%, rgba(255, 255, 255, .55) 50%, transparent 80%) #ececec;
-  background-size: 200% 100%;
-  animation: cl-skeleton 1.4s linear infinite;
+  background: linear-gradient(100deg, #e6e9e7 0%, #e6e9e7 30%, #f8faf9 45%, #ffffff 50%, #f8faf9 55%, #e6e9e7 70%, #e6e9e7 100%);
+  background-size: 250% 100%;
+  animation: cl-skeleton 1.6s ease-in-out infinite;
   transition: opacity .5s ease;
   pointer-events: none;
 }
 .cl-skeleton.is-loaded::after { opacity: 0; animation: none; }
 @keyframes cl-skeleton {
-  from { background-position: 150% 0; }
-  to   { background-position: -50% 0; }
+  from { background-position: 100% 0; }
+  to   { background-position: 0 0; }
 }

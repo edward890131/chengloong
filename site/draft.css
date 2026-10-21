@@ -152,6 +152,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   50%  { stroke-dasharray: 1 1; stroke-dashoffset: 0; visibility: visible; }
   100% { stroke-dasharray: 0 1; stroke-dashoffset: -1; visibility: hidden; }
 }
+/* R2 客戶：各段弧線進到畫面才開始描線（原本載入就全部一起播，第二段的弧線會跟首屏同時出現）。
+   base.js 觀察弧線所在段落，段落上緣進到畫面 70% 處加 .is-inview；之前停在第 0 格（隱藏）。服務流程卡片弧線另有自己的控制 */
+.has-curve-io .cl-curve:not(.is-inview):not(.cl-process__card-curve) path { animation-play-state: paused; }
 .is-static .cl-curve path { stroke-dasharray: none; visibility: visible; }
 @media (prefers-reduced-motion: reduce) {
   .cl-curve path { animation: none; }
@@ -219,22 +222,23 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 
 /* ---------- 圖片載入 skeleton .cl-skeleton ----------
    用法：圖片容器加 class="cl-skeleton"；載入前顯示灰底流光，img 載入後淡入（base.js 加 .is-loaded）。 */
-.cl-skeleton { background: #ececec; }
+.cl-skeleton { background: #e9ebea; }
+/* R2 客戶：要看得出流動的漸層——深淺差拉大、光帶加寬，1.6s 一趟、ease-in-out 有呼吸感 */
 .cl-skeleton::after {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(100deg, transparent 20%, rgba(255, 255, 255, .55) 50%, transparent 80%) #ececec;
-  background-size: 200% 100%;
-  animation: cl-skeleton 1.4s linear infinite;
+  background: linear-gradient(100deg, #e6e9e7 0%, #e6e9e7 30%, #f8faf9 45%, #ffffff 50%, #f8faf9 55%, #e6e9e7 70%, #e6e9e7 100%);
+  background-size: 250% 100%;
+  animation: cl-skeleton 1.6s ease-in-out infinite;
   transition: opacity .5s ease;
   pointer-events: none;
 }
 .cl-skeleton.is-loaded::after { opacity: 0; animation: none; }
 @keyframes cl-skeleton {
-  from { background-position: 150% 0; }
-  to   { background-position: -50% 0; }
+  from { background-position: 100% 0; }
+  to   { background-position: 0 0; }
 }
 
 /* ==========================================================================
@@ -333,7 +337,10 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   font-weight: 500;
   line-height: 24px;
   white-space: nowrap;
+  transition: color .3s ease;
 }
+.cl-hero__nav-link:hover { color: var(--cl-green-500); }   /* R2 客戶：hover 變綠 */
+.cl-hero__nav-link:focus-visible { outline: 2px solid var(--cl-green-700); outline-offset: 4px; border-radius: 4px; }
 .cl-hero__actions {
   flex: none;
   display: flex;
@@ -591,18 +598,25 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 
 /* ---------- R2 電腦版 ≥1101：首屏高 75vh，內容依高度等比縮放（客戶 2026-10-21）----------
-   --cl-hero-hp＝「設計稿 1px」＝75vh / 800（0.09375vh），上下限 1px～1.2px（客戶 R2 修正：最矮 800、最高 960）：
-     · 視窗高 ≤ 1067（75vh ≤ 800）停在 1 → 段落高 800＝Figma 原尺寸
-     · 視窗高 ≥ 1280（例 2560×1440）停在 1.2 → 段落高 960
+   --cl-hero-hp＝「設計稿 1px」＝100vh / 800（0.125vh），上下限 1px～1.2px（客戶 R2：最矮 800、內容最高 960、首屏滿一個畫面）：
+     · 視窗高 ≤ 800 停在 1 → 段落高 800＝Figma 原尺寸
+     · 視窗高 800–960 → 段落＝100vh，內容等比
+     · 視窗高 > 960（例 1080、1440）內容停在 1.2（960），段落仍撐滿 100vh、內容垂直置中
    垂直位置、高度、字級、內距、圓角乘 hp；寬度方向維持原本規則（cover 75%／超寬貼右緣、數據區停在 1440 版心）。
    header 固定 62 不縮。14px 以下的小字另設 12px 下限（說明文、特色膠囊）。
    --cl-hero-kp＝照片 1px：cover 高跟 hp、寬跟視窗，照片取兩者較大者才蓋得滿 cover（1440×800 時＝1px）。
    平板與手機沒有定義 hp，fallback 1px＝原值，不受影響。 */
 @media (min-width: 1101px) {
   .cl-hero {
-    --cl-hero-hp: clamp(1px, .09375vh, 1.2px);   /* 客戶 R2 修正：最矮 800（＝Figma），75vh 超過 800 才等比放大，上限 960 */
+    /* 客戶 R2 再修正：大螢幕首屏太矮、第二段的弧線會跟著露出來 → 首屏改成滿一個畫面高（100vh／800＝.125vh），
+       仍是最矮 800、內容最多放大到 960；視窗比 960 高時段落撐滿畫面、內容（含弧線）垂直置中（--cl-hero-gap） */
+    --cl-hero-hp: clamp(1px, .125vh, 1.2px);
     --cl-hero-kp: max(var(--cl-hero-hp), calc(100vw / 1440));
+    --cl-hero-gap: max(0px, calc((100vh - 800 * var(--cl-hero-hp)) / 2));
+    height: max(calc(800 * var(--cl-hero-hp)), 100vh);
   }
+  .cl-hero__inner { top: var(--cl-hero-gap); height: calc(800 * var(--cl-hero-hp)); }
+  .cl-hero__curve-clip { top: var(--cl-hero-gap); }
   /* 背景弧線：等比縮放，裁切框至少滿版（hp 小時 2000 寬框會比螢幕窄，兩側會切出硬邊） */
   .cl-hero__curve-clip {
     width: max(calc(2000 * var(--cl-hero-hp, 1px)), 100vw);
@@ -670,6 +684,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 @media (max-width: 1200px) and (min-width: 1101px) {
   .cl-hero__nav { display: none; }   /* 中間導覽放不下時先隱藏，避免和 logo 重疊 */
   .cl-hero__actions { margin-left: auto; }
+  /* R2：導覽隱藏時改用漢堡選單（原本這段寬度兩者都沒有） */
+  .cl-hero__menu { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; }
 }
 
 /* ==========================================================================
@@ -698,7 +714,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     width: 40px;
     height: 40px;
   }
-  .cl-hero__menu img { width: 24px; height: 24px; }
 
   /* cover：右上 75% 寬，上緣距 header 56，下緣與白卡、數據區齊（距段落底 78，同電腦版）
      R1 灰線：cover 下緣和白卡下緣同一條線，縮放（iPad 預覽、瀏覽器縮放）時照片邊緣反鋸齒會從白卡下露出一條灰線；
@@ -851,7 +866,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     width: 40px;
     height: 40px;
   }
-  .cl-hero__menu img { width: 24px; height: 24px; }
 
   /* cover_img size=S：375 時 400×480、left 24、right -49 → 改成 vw 等比 */
   .cl-hero__cover {
@@ -965,6 +979,102 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   }
   .cl-hero__tip--end .cl-hero__tip-arrow { margin-left: 128.5px; }
 }
+
+/* ==========================================================================
+   漢堡選單（R2 客戶）：漢堡三橫線 → X；面板由右滑入、選項依序進場
+   面板從 header 下方開始（header 保留品牌與預約），電腦版不出現（≤1200 才有漢堡）
+   ========================================================================== */
+.cl-hero__menu { cursor: pointer; }
+.cl-hero__menu-bars { position: relative; display: block; width: 24px; height: 24px; }
+.cl-hero__menu-bars span {
+  position: absolute;
+  left: 5px;
+  width: 14px;
+  height: 1.6px;
+  border-radius: 1px;
+  background: var(--cl-ink-900);
+  transition: transform .45s cubic-bezier(.65, 0, .35, 1), opacity .25s ease;
+}
+.cl-hero__menu-bars span:nth-child(1) { top: 6.2px; }
+.cl-hero__menu-bars span:nth-child(2) { top: 11.2px; }
+.cl-hero__menu-bars span:nth-child(3) { top: 16.2px; }
+.cl-hero__menu[aria-expanded="true"] .cl-hero__menu-bars span:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+.cl-hero__menu[aria-expanded="true"] .cl-hero__menu-bars span:nth-child(2) { opacity: 0; transform: scaleX(.2); }
+.cl-hero__menu[aria-expanded="true"] .cl-hero__menu-bars span:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+
+.cl-menu {
+  position: fixed;
+  z-index: 9;               /* header（10）之下：header 與漢堡／X 一直在最上面 */
+  inset: 0;
+}
+.cl-menu[hidden] { display: none; }
+.cl-menu__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(17, 17, 17, .4);
+  opacity: 0;
+  transition: opacity .5s ease;
+}
+.cl-menu__panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  width: min(420px, 100%);
+  padding: calc(var(--cl-menu-top, 62px) + 16px) 40px 40px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--cl-white);
+  transform: translateX(100%);
+  transition: transform .6s cubic-bezier(.22, 1, .36, 1);
+}
+.cl-menu.is-open .cl-menu__scrim { opacity: 1; }
+.cl-menu.is-open .cl-menu__panel { transform: none; }
+.cl-menu__list { margin: 0; padding: 0; list-style: none; }
+.cl-menu__list li,
+.cl-menu__actions {
+  opacity: 0;
+  transform: translateX(32px);
+  transition: opacity .4s ease, transform .6s cubic-bezier(.22, 1, .36, 1);
+}
+.cl-menu.is-open .cl-menu__list li,
+.cl-menu.is-open .cl-menu__actions { opacity: 1; transform: none; }
+/* 依序進場：面板滑到一半開始，每個選項晚 .06s；關閉時一起收（不延遲） */
+.cl-menu.is-open .cl-menu__list li:nth-child(1) { transition-delay: .15s; }
+.cl-menu.is-open .cl-menu__list li:nth-child(2) { transition-delay: .21s; }
+.cl-menu.is-open .cl-menu__list li:nth-child(3) { transition-delay: .27s; }
+.cl-menu.is-open .cl-menu__list li:nth-child(4) { transition-delay: .33s; }
+.cl-menu.is-open .cl-menu__list li:nth-child(5) { transition-delay: .39s; }
+.cl-menu.is-open .cl-menu__actions { transition-delay: .45s; }
+.cl-menu__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--cl-ink-800-10);
+  color: var(--cl-ink-900);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: .4px;
+}
+.cl-menu__link img { width: 20px; height: 20px; flex: none; transition: transform .4s cubic-bezier(.22, 1, .36, 1); }
+@media (hover: hover) and (pointer: fine) {
+  .cl-menu__link:hover { color: var(--cl-green-700); }
+  .cl-menu__link:hover img { transform: translateX(4px); }
+}
+.cl-menu__actions { display: flex; flex-direction: column; gap: 12px; margin-top: auto; padding-top: 32px; }
+.cl-menu__btn { width: 100%; }
+@media (max-width: 640px) {
+  .cl-menu__panel { width: 100%; padding: calc(var(--cl-menu-top, 60px) + 8px) 16px 24px; }
+  .cl-menu__link { padding: 18px 8px; font-size: 18px; }
+}
+/* 選單按鈕是滿寬：base 的圓（寬 20%、bottom −48）會從下緣露出一截 → 固定 24px、貼在下緣外；hover 放大到蓋滿寬按鈕 */
+.cl-menu__btn .cl-btn__circle { left: calc(50% - 12px); top: 100%; bottom: auto; width: 24px; }
+.cl-menu__btn:hover .cl-btn__circle { transform: scale(18); }
 
 /* ==========================================================================
    02 什麼是水銷？（負責人 B）

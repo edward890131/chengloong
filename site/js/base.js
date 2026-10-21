@@ -74,6 +74,25 @@
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(size);
   });
 
+  /* ---------- 弧線進畫面才描線（R2）：以弧線所在段落為準，上緣進到畫面 70% 處開始；SVG 本身很大，不能直接觀察 ---------- */
+  if ('IntersectionObserver' in window) {
+    var curveMap = new Map();
+    [].forEach.call(document.querySelectorAll('.cl-curve:not(.cl-process__card-curve)'), function (svg) {
+      var sec = svg.closest('section') || svg.parentNode;
+      if (!curveMap.has(sec)) curveMap.set(sec, []);
+      curveMap.get(sec).push(svg);
+    });
+    document.documentElement.classList.add('has-curve-io');
+    var curveIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        curveMap.get(en.target).forEach(function (svg) { svg.classList.add('is-inview'); });
+        curveIO.unobserve(en.target);
+      });
+    }, { rootMargin: '0px 0px -30% 0px' });
+    curveMap.forEach(function (_, sec) { curveIO.observe(sec); });
+  }
+
   /* ---------- 圖片載入 skeleton ---------- */
   [].forEach.call(document.querySelectorAll('.cl-skeleton'), function (box) {
     var imgs = [].slice.call(box.querySelectorAll('img'));
