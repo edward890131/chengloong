@@ -31,8 +31,12 @@ def ease(x):                 # easeInOutSine
 def head(t):
     return TOTAL * ease(min(1, t / DRAW))
 
+# 退場尾巴的目標多走 TAIL_OVER px（夾在 TOTAL）：減速段落在看不到的地方，
+# 尾巴穿過圓幣、交會點箭頭時還保持速度，一口氣收掉，不在終點慢慢留一顆圓頭（約第 795 影格收完）
+TAIL_OVER = 80
+
 def tail(t):
-    return 0 if t <= EXIT0 else TOTAL * ease(min(1, (t - EXIT0) / (OP - EXIT0)))
+    return 0 if t <= EXIT0 else min(TOTAL, (TOTAL + TAIL_OVER) * ease(min(1, (t - EXIT0) / (OP - EXIT0))))
 
 def frac(seg, x):
     return max(0.0, min(1.0, (x - start[seg]) / LEN[seg]))
