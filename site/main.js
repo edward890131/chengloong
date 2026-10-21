@@ -208,7 +208,7 @@
 })();
 
 /* 02 關於正隆水銷服務：水銷價值循環的迴圈箭頭 Lottie（R1 客戶 2026-10-21）
-   infinity-breathe.json：1200×560、60fps、816 影格循環；影格 170–630 是四段全滿＋四個箭頭都在的停留段。
+   infinity-breathe.json：1200×560、60fps、936 影格循環（816 收完後全空停 2 秒）；影格 170–630 是四段全滿＋四個箭頭都在的停留段。
    ?static／prefers-reduced-motion：停在 STATIC_FRAME（完整可讀）。離開畫面時暫停。
    lottie 沒載到或 JSON 失敗：保留備援箭頭層（value-cycle-*-band.svg），畫面與 S0 相同。 */
 (function () {

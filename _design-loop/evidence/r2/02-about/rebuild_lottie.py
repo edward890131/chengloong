@@ -110,5 +110,11 @@ for k, tm in segs.items():
 mask['s'] = track(lambda t: min(mask_s(t), mask_e(t)))
 mask['e'] = track(mask_e)
 
+# 客戶 R2：收完後全空停留 PAUSE 影格（2 秒）再重播——整個時間軸與各圖層延長，尾段數值維持全空
+PAUSE = 2 * d['fr']
+d['op'] = OP + PAUSE
+for l in d['layers']:
+    l['op'] = max(l['op'], OP + PAUSE)
+
 json.dump(d, open(dst, 'w'), ensure_ascii=False, separators=(',', ':'))
 print('total', round(TOTAL, 1), {k: round(v, 1) for k, v in start.items()}, 'mask', round(mask_e(0), 3), '->', round(mask_e(DRAW), 3))
