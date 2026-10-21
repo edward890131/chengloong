@@ -52,6 +52,21 @@ MASK_B0 = MASK_S0 - MASK_K * LEN['B']
 def mask_val(x):
     return max(0.0, MASK_B0 + MASK_K * x)
 
+# 交會點箭頭（箭頭_seg4）剛好跨在遮罩路徑接縫：0.02–0.63% 與 49.57–50.81% 都會露出它（arrowmap.py 量得）。
+# 進場：遮罩起點夾在 SEAM_LO 之後，起點不先露箭頭；箭頭只在頭繞完一圈時出現。
+# 退場：尾巴離開起點多少，接縫處的頭端就同步往回收多少（收到 SEAM_HI 為止），箭頭跟著起點一起消失。
+SEAM_LO, SEAM_HI = 0.65, 49.55
+MASK_END = mask_val(TOTAL)
+
+def mask_s(t):
+    return max(SEAM_LO, mask_val(tail(t)))
+
+def mask_e(t):
+    e = max(SEAM_LO, mask_val(head(t)))
+    if t > EXIT0:
+        e = MASK_END - min(MASK_END - SEAM_HI, MASK_K * tail(t))
+    return e
+
 def track(fn):
     """逐影格線性關鍵影格；數值不變的連續影格合併，最後一格不帶緩動"""
     vals = [round(fn(t), 5) for t in range(OP + 1)]
@@ -82,12 +97,22 @@ segs = {
     'seg3': trims(by['段3_綠點存摺→綠色採購'])[0],
     'seg4': trims(by['段4_永續共好→交會'])[0],
 }
+# 段 4 終點穿出中間圓幣、停在交會點箭頭底下。退場時這一小段和箭頭一起從起點收掉
+# （尾巴走多少、段 4 終點就往回收多少，收到 SEG4_TUCK px 為止，剩下的藏在圓幣後面），不留圓頭到最後
+SEG4_TUCK = float(sys.argv[3]) if len(sys.argv) > 3 else 70.0
+
+def seg_e(k, t):
+    x = head(t)
+    if k == 'seg4' and t > EXIT0:
+        x = TOTAL - min(SEG4_TUCK, tail(t))
+    return seg_val(k, x)
+
 for k, tm in segs.items():
-    tm['s'] = track(lambda t, k=k: seg_val(k, tail(t)))
-    tm['e'] = track(lambda t, k=k: seg_val(k, head(t)))
+    tm['s'] = track(lambda t, k=k: min(seg_val(k, tail(t)), seg_e(k, t)))
+    tm['e'] = track(lambda t, k=k: seg_e(k, t))
 (mask,) = trims(by['箭頭遮罩'])
-mask['s'] = track(lambda t: mask_val(tail(t)))
-mask['e'] = track(lambda t: mask_val(head(t)))
+mask['s'] = track(lambda t: min(mask_s(t), mask_e(t)))   # s 不可超過 e（Lottie 會對調）
+mask['e'] = track(mask_e)
 
 json.dump(d, open(dst, 'w'), ensure_ascii=False, separators=(',', ':'))
 print('total', round(TOTAL, 1), {k: round(v, 1) for k, v in start.items()}, 'mask', round(MASK_B0, 3), '->', round(mask_val(TOTAL), 3))
