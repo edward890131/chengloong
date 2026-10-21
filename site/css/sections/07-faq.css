@@ -91,7 +91,7 @@
   border-radius: 100px;
   background: var(--cl-white);
 }
-.cl-faq__tab.is-active { color: var(--cl-white); }
+.cl-faq__tab.is-active { color: var(--cl-white); transition: color .35s ease .15s; }   /* 等圓長到文字處再轉白 */
 .cl-faq__tab.is-active .cl-faq__tab-dot { display: block; }
 
 /* 手風琴 list 1695:20394 */

@@ -63,7 +63,7 @@
     });
     function size() {
       tabs.forEach(function (tab) {
-        var d = Math.ceil(Math.hypot(tab.offsetWidth / 2, tab.offsetHeight) * 2) + 2;
+        var d = Math.ceil(Math.hypot(tab.offsetWidth / 2 + 24, tab.offsetHeight) * 2);   // 多留 24px：頁籤選中後可能變寬（例如多一個白點）
         tab.style.setProperty('--cl-tabfill-d', d + 'px');
       });
     }

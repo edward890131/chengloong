@@ -1,5 +1,7 @@
 /* 04 服務流程：四格卡 hover／點擊展開、詳細流程頁籤切換、手機版動線圖滑動提示
-   R1：滑鼠移開四格卡區域回到第 1 格；頁籤底色交給 base 的 .cl-jelly；切換頁籤時畫面內的 reveal 文字直接播放 */
+   R1：滑鼠移開四格卡區域回到第 1 格；切換頁籤時畫面內的 reveal 文字直接播放
+   R2：頁籤選中底色交給 base 的 .cl-tabfill（圓形填色）；展開卡弧線一展開就描線一次（CSS），
+       四格卡進畫面才加 .is-inview 開始播；頁籤 3 流程圖與說明分開滑動，提示只跟流程圖 */
 (function () {
   var root = document.querySelector('.cl-process');
   if (!root) return;
@@ -19,6 +21,21 @@
 
   // 滑鼠移開四格卡區域：回到預設的第 1 格（客戶 R1）。只在滑鼠裝置作用，觸控點選的狀態保留
   var cardList = root.querySelector('.cl-process__cards');
+
+  // 展開卡弧線描線：四格卡進到畫面才開始播（預設展開的第 1 格不會在畫面外先畫完）
+  if (cardList) {
+    var markInView = function () { cardList.classList.add('is-inview'); };
+    var skipAnim = document.documentElement.classList.contains('is-static') ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window);
+    if (skipAnim) markInView();
+    else {
+      var cardIO = new IntersectionObserver(function (entries) {
+        if (entries.some(function (e) { return e.isIntersecting; })) { markInView(); cardIO.disconnect(); }
+      }, { threshold: .3 });
+      cardIO.observe(cardList);
+    }
+  }
+
   if (cardList && cards.length) {
     cardList.addEventListener('mouseleave', function () { if (canHover.matches) activateCard(cards[0]); });
   }
@@ -77,9 +94,9 @@
     });
   });
 
-  /* ---------- 當天進場流程：滑動後淡出「可左右滑動查看」 ---------- */
+  /* ---------- 當天進場流程：滑動流程圖後淡出「可左右滑動查看」（R2：說明區另有自己的捲動區，不影響提示） ---------- */
   var route = root.querySelector('.cl-process__route');
-  var scroller = root.querySelector('.cl-process__route-scroll');
+  var scroller = root.querySelector('.cl-process__route-scroll--map');
   if (route && scroller) {
     scroller.addEventListener('scroll', function () {
       route.classList.toggle('is-scrolled', scroller.scrollLeft > 8);

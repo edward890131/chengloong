@@ -220,6 +220,28 @@
 .cl-process__card--3 .cl-process__card-curve { left: calc(50% - 757.82px); }
 .cl-process__card--4 .cl-process__card-curve { left: calc(50% - 1086.82px); } /* 稿的框位移 -689.63，與前三格間距差 10px（audit-source） */
 
+/* 展開卡弧線描線（客戶 R2）：不用 base 的 12s 循環描線（前半段從無畫到有，要等很久），
+   改成卡片一展開就從頭畫一次（1.4s ease-out），畫完停在完整狀態；換卡時弧線從 display:none 出現，動畫自動重播。
+   四格卡進畫面前（.is-inview 由 JS 加）先藏線，第 1 格不會在畫面外就畫完。?static／reduced-motion 直接顯示完整線 */
+.cl-process__card-curve path {
+  animation: none;
+  stroke-dasharray: 1 1;
+  stroke-dashoffset: 0;
+  visibility: visible;
+}
+.cl-process__cards:not(.is-inview) .cl-process__card-curve path { visibility: hidden; }
+.cl-process__cards.is-inview .cl-process__card.is-active .cl-process__card-curve path {
+  animation: cl-process-curve-draw 1.4s cubic-bezier(.22, .61, .36, 1) both;
+}
+@keyframes cl-process-curve-draw {
+  from { stroke-dashoffset: 1; }
+  to   { stroke-dashoffset: 0; }
+}
+.is-static .cl-process__cards .cl-process__card-curve path { stroke-dashoffset: 0; visibility: visible; }
+@media (prefers-reduced-motion: reduce) {
+  .cl-process__cards .cl-process__card-curve path { animation: none !important; stroke-dashoffset: 0; visibility: visible; }
+}
+
 /* ---------- 詳細服務流程_B ---------- */
 .cl-process__detail { margin-top: 120px; }
 
@@ -244,22 +266,13 @@
   line-height: 26px;
   letter-spacing: .36px;
   white-space: nowrap;
-  transition: background-color .25s, color .25s;
+  transition: color .3s ease;
 }
+/* R2：配合 .cl-tabfill 的圓（.9s）——選中時等圓長到文字處再轉白；取消選中時直接轉灰 */
+.cl-process__tab.is-active { transition: color .35s ease .15s; }
 .cl-process__tab:hover { color: var(--cl-ink-800-60); }
 .cl-process__tab.is-active { color: var(--cl-white); cursor: default; }
-/* 果凍頁籤 .cl-jelly（R1）：選中底色交給 base 的 .cl-jelly__pill。
-   頁籤灰底改畫在偽元素（z-index -1，落在 .cl-jelly 堆疊層最底），頁籤本身不設 z-index，
-   pill 滑過其他頁籤時才不會被灰底蓋住。::before 已用於選中頁籤的白點，灰底用 ::after */
-.cl-process__tab { background: transparent; }
-.cl-process__tab::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-radius: inherit;
-  background: #f6f6f6;
-}
+/* 頁籤圓形填色 .cl-tabfill（R2，取代 R1 果凍頁籤）：灰底留在頁籤本身，選中的綠底交給 base 的 .cl-tabfill__circle */
 .cl-process__tab.is-active::before {
   content: '';
   width: 6px;
@@ -523,9 +536,10 @@
   flex: none;
   width: 1056.528px;
   height: 539.352px;
-  margin-bottom: -20px;
   overflow: hidden;
 }
+/* 稿上流程圖底部 20px 疊進步驟區：R2 拆成兩個捲動區後，負邊距放在流程圖捲動區（放在流程圖上會在捲動區內產生垂直捲動） */
+.cl-process__route-scroll--map { margin-bottom: -20px; }
 .cl-process__map-part { position: absolute; max-width: none; }
 /* 圖層位置＝Group inset 再扣 img 外擴 inset，換算成相對 3D 流程圖 的百分比 */
 .cl-process__map-part--ground { left: 5.1499%; top: 8.4920%; width: 91.1601%; height: 89.2559%; }
@@ -813,15 +827,18 @@
    規則原樣從手機版搬出，≤640 的層疊順序不變
    ========================================================================== */
 @media (max-width: 1100px) {
-  /* 頁籤 3：依 2159:25259（1128 寬，可左右滑動；提示膠囊固定在左下） */
+  /* 頁籤 3：依 2159:25259（1128 寬，可左右滑動；提示膠囊固定在左下）。
+     R2 客戶：流程圖與下方 6 步驟說明分開滑動 → 兩個獨立捲動區，各自 1128 寬；提示跟著流程圖捲動區 */
   .cl-process__route-scroll {
     overflow-x: auto;
+    overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
     scrollbar-width: none;
   }
   .cl-process__route-scroll::-webkit-scrollbar { display: none; }
-  .cl-process__route-inner { width: 1128px; }
-  .cl-process__map-wrap { position: relative; display: block; height: 544.8px; }
+  .cl-process__route-scroll--map { margin-bottom: 0; }
+  .cl-process__map-wrap { position: relative; display: block; width: 1128px; height: 544.8px; }
   .cl-process__map {
     position: absolute;
     left: 30.002px;
@@ -862,7 +879,7 @@
   .cl-process__pin--4 { left: 688px; top: 247.2px; }
   .cl-process__pin--5 { left: 419.2px; top: 263.2px; width: 70.4px; }
   .cl-process__pin--6 { left: 239.2px; top: 156px; }
-  .cl-process__route-steps { gap: 24px; padding: 20px 0 16px 24px; }
+  .cl-process__route-steps { width: 1128px; gap: 24px; padding: 20px 0 16px 24px; }
   .cl-process__route-steps > li { flex: none; width: 164px; }
   .cl-process__route-num { font-size: 20px; line-height: 24px; }
   .cl-process__route-hint {
