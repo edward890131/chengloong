@@ -32,7 +32,23 @@
         if (e.isIntersecting) { show(e.target); io.unobserve(e.target); }
       });
     }, { rootMargin: '0px 0px -33.333% 0px' });
-    reveals.forEach(function (el) { io.observe(el); });
+    reveals.forEach(function (el) {
+      // 載入時已在畫面內的元素直接播放（首屏偏下的文字不必等捲動）
+      if (el.getBoundingClientRect().top < window.innerHeight) show(el);
+      else io.observe(el);
+    });
+    // 錨點跳轉、scrollIntoView 這類直接跳過觸發線的情況：已在觸發線上方的一律顯示
+    var pending = 0;
+    window.addEventListener('scroll', function () {
+      if (pending) return;
+      pending = requestAnimationFrame(function () {
+        pending = 0;
+        var line = window.innerHeight * 2 / 3;
+        reveals.forEach(function (el) {
+          if (!el.classList.contains('is-revealed') && el.getBoundingClientRect().top < line) { show(el); io.unobserve(el); }
+        });
+      });
+    }, { passive: true });
   }
 
   /* ---------- 果凍頁籤 .cl-jelly ---------- */
@@ -47,7 +63,9 @@
       var tab = list.querySelector(':scope > .is-active');
       if (!tab) { pill.style.opacity = '0'; return; }
       pill.style.opacity = '1';
-      var to = { x: tab.offsetLeft, y: tab.offsetTop, w: tab.offsetWidth, h: tab.offsetHeight };
+      // 用 rect 量小數座標（offset* 會取整，pill 偏 1px）；可橫捲的頁籤列要加上 scroll 位移
+      var lr = list.getBoundingClientRect(), tr = tab.getBoundingClientRect();
+      var to = { x: tr.left - lr.left - list.clientLeft + list.scrollLeft, y: tr.top - lr.top - list.clientTop + list.scrollTop, w: tr.width, h: tr.height };
       var from = current;
       pill.style.width = to.w + 'px';
       pill.style.height = to.h + 'px';
@@ -90,6 +108,9 @@
       預設＝主畫面 Property 1=2
    2. 首頁特色_B 垂直輪播（電腦版）：Property 1=1→2→3→1，AFTER_TIMEOUT 4s，0.6s ease-out，每格位移 36px
    3. 數據 tooltip：hover／focus 由 CSS 顯示；點擊切換 .is-open（觸控用），點外面關閉
+   4. 首屏 reveal：畫面內的直接在載入時播放（見下）
+   5. 數字計數（R1 客戶要求，參考 reactbits Count Up）：[data-count] 進入畫面時從 0 以 ease-out 數到 HTML 寫的目標值，
+      保留千分位逗號；計數中單位先隱藏、數完淡入（避免數字寬度變動讓單位左右跳）
    ?static（.is-static）與 prefers-reduced-motion 時不自動輪播，停在主畫面 */
 (function () {
   var root = document.querySelector('.cl-hero');
@@ -135,6 +156,48 @@
     }, 4000);
   }
 
+  /* ---------- 首屏 reveal：base.js 在元素捲過畫面 1/3 才播放；首屏在畫面內但位置偏下（矮視窗、手機）會等到捲動才出現，
+     這裡在載入時直接播放畫面內的首屏 reveal（只動自己段落） ---------- */
+  if (autoplay) {
+    requestAnimationFrame(function () {
+      root.querySelectorAll('[data-reveal]').forEach(function (el) {
+        if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('is-revealed');
+      });
+    });
+  }
+
+  /* ---------- 數字計數 Count Up ---------- */
+  var counters = [].slice.call(root.querySelectorAll('[data-count]'));
+  if (counters.length && autoplay && 'IntersectionObserver' in window) {
+    var DURATION = 2000;
+    var fmt = function (n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ','); };
+    var easeOut = function (t) { return 1 - Math.pow(1 - t, 4); };
+    // 計數中數字寬度一直變，旁邊的單位會左右跳：計數時先藏單位（.is-counting），數完再淡入
+    counters.forEach(function (el) {
+      el.dataset.target = el.textContent.replace(/[^\d]/g, '');
+      el.textContent = '0';
+      el.parentNode.classList.add('is-counting');
+    });
+    var run = function (el) {
+      var target = +el.dataset.target;
+      var start = null;
+      var tick = function (now) {
+        if (start === null) start = now;
+        var t = Math.min(1, (now - start) / DURATION);
+        el.textContent = fmt(Math.round(target * easeOut(t)));
+        if (t < 1) requestAnimationFrame(tick);
+        else el.parentNode.classList.remove('is-counting');
+      };
+      requestAnimationFrame(tick);
+    };
+    var cio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { run(e.target); cio.unobserve(e.target); }
+      });
+    }, { threshold: 0.6 });
+    counters.forEach(function (el) { cio.observe(el); });
+  }
+
   /* ---------- tooltip ---------- */
   var tips = root.querySelectorAll('.cl-hero__tip');
   var closeAll = function (except) {
@@ -160,6 +223,61 @@
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') closeAll(null);
   });
+})();
+
+/* 02 關於正隆水銷服務：水銷價值循環的迴圈箭頭 Lottie（R1 客戶 2026-10-21）
+   infinity-breathe.json：1200×560、60fps、816 影格循環；影格 170–630 是四段全滿＋四個箭頭都在的停留段。
+   ?static／prefers-reduced-motion：停在 STATIC_FRAME（完整可讀）。離開畫面時暫停。
+   lottie 沒載到或 JSON 失敗：保留備援箭頭層（value-cycle-*-band.svg），畫面與 S0 相同。 */
+(function () {
+  var root = document.querySelector('.cl-about');
+  if (!root) return;
+  var stage = root.querySelector('.cl-about__cycle-stage');
+  var host = root.querySelector('.cl-about__cycle-anim');
+  if (!stage || !host || !window.lottie) return;
+
+  var STATIC_FRAME = 400;
+  var html = document.documentElement;
+  var still = html.classList.contains('is-static') ||
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var anim = window.lottie.loadAnimation({
+    container: host,
+    renderer: 'svg',
+    loop: true,
+    autoplay: false,
+    path: host.getAttribute('data-lottie'),
+    rendererSettings: { preserveAspectRatio: 'xMidYMid meet' }
+  });
+
+  var visible = false;
+  var ready = false;
+  function update() {
+    if (!ready || still) return;
+    if (visible) anim.play(); else anim.pause();
+  }
+
+  anim.addEventListener('DOMLoaded', function () {
+    ready = true;
+    stage.classList.add('is-lottie');
+    if (still) anim.goToAndStop(STATIC_FRAME, true);
+    else update();
+  });
+  anim.addEventListener('data_failed', function () {
+    stage.classList.remove('is-lottie');
+    anim.destroy();
+  });
+
+  if (!still) {
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        visible = entries[0].isIntersecting;
+        update();
+      }, { threshold: 0.15 }).observe(stage);
+    } else {
+      visible = true;
+    }
+  }
 })();
 
 /* 03 從機密文件到日常用紙：手機版三張卡輪播（箭頭＋指示點，1695:19756） */
@@ -200,7 +318,8 @@
   sync();
 })();
 
-/* 04 服務流程：四格卡 hover／點擊展開、詳細流程頁籤切換、手機版動線圖滑動提示 */
+/* 04 服務流程：四格卡 hover／點擊展開、詳細流程頁籤切換、手機版動線圖滑動提示
+   R1：滑鼠移開四格卡區域回到第 1 格；頁籤底色交給 base 的 .cl-jelly；切換頁籤時畫面內的 reveal 文字直接播放 */
 (function () {
   var root = document.querySelector('.cl-process');
   if (!root) return;
@@ -216,6 +335,12 @@
       c.classList.toggle('is-active', on);
       c.setAttribute('aria-expanded', on ? 'true' : 'false');
     });
+  }
+
+  // 滑鼠移開四格卡區域：回到預設的第 1 格（客戶 R1）。只在滑鼠裝置作用，觸控點選的狀態保留
+  var cardList = root.querySelector('.cl-process__cards');
+  if (cardList && cards.length) {
+    cardList.addEventListener('mouseleave', function () { if (canHover.matches) activateCard(cards[0]); });
   }
 
   cards.forEach(function (card) {
@@ -240,6 +365,7 @@
       t.tabIndex = on ? 0 : -1;
       var panel = document.getElementById(t.getAttribute('aria-controls'));
       if (panel) panel.hidden = !on;
+      if (panel && on) revealInView(panel);
     });
     if (focus) tab.focus();
     // 手機版頁籤列可橫向捲動：把選中的頁籤捲進可視範圍
@@ -247,6 +373,16 @@
       var left = tab.offsetLeft - (tabList.clientWidth - tab.offsetWidth) / 2;
       tabList.scrollTo({ left: Math.max(0, left), behavior: document.documentElement.classList.contains('is-static') ? 'auto' : 'smooth' });
     }
+  }
+
+  // 切換頁籤：新面板裡已在畫面內的 [data-reveal] 直接播放（base 的觀察點在畫面 2/3，面板下半部不用等捲動）
+  function revealInView(panel) {
+    requestAnimationFrame(function () {
+      Array.prototype.forEach.call(panel.querySelectorAll('[data-reveal]:not(.is-revealed)'), function (el) {
+        var r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('is-revealed');
+      });
+    });
   }
 
   tabs.forEach(function (tab, i) {
@@ -274,7 +410,8 @@
 /* 05 綠點存摺與憑證（負責人 D）
    1. card_greebpt 兩張圖輪播：點擊切換，或每 6 秒自動切換（Figma：ON_CLICK／AFTER_TIMEOUT 6s，Smart animate 0.3s ease-out）
       ?static（.is-static）不自動切換，停在第一張。
-   2. 手機版卡片橫向捲動：左右箭頭與頁碼點跟著捲動位置更新。 */
+   2. 手機版卡片橫向捲動：左右箭頭與頁碼點跟著捲動位置更新。
+   3. R1：證明文件「查看」→ 彈窗（關閉鈕、點遮罩、Esc 關閉；開啟時鎖背景捲動、焦點移入，關閉後還原）。 */
 (function () {
   var root = document.querySelector('.cl-green');
   if (!root) return;
@@ -303,6 +440,78 @@
 
     slider.addEventListener('click', function () { show(current + 1); restart(); });
     restart();
+  }
+
+  /* ---------- 證明文件彈窗 ---------- */
+  var modal = root.querySelector('.cl-green__modal');
+  var viewBtn = root.querySelector('.cl-green__doc-view');
+  var doc = root.querySelector('.cl-green__doc');
+  if (modal && viewBtn) {
+    var closeBtn = modal.querySelector('.cl-green__modal-close');
+    var body = modal.querySelector('.cl-green__modal-body');
+    var img = modal.querySelector('.cl-green__modal-img');
+    var lastFocus = null;
+    var lock = { html: '', body: '', pad: '' };
+    var hideTimer = null;
+
+    var open = function () {
+      if (!modal.hidden && modal.classList.contains('is-open')) return;
+      clearTimeout(hideTimer);
+      lastFocus = document.activeElement;
+      // 鎖背景捲動：補上捲軸寬度避免版面跳動
+      var sbw = window.innerWidth - document.documentElement.clientWidth;
+      lock.html = document.documentElement.style.overflow;
+      lock.body = document.body.style.overflow;
+      lock.pad = document.body.style.paddingRight;
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+      if (sbw > 0) document.body.style.paddingRight = sbw + 'px';
+      modal.hidden = false;
+      modal.classList.remove('is-zoomed');
+      body.scrollTop = 0;
+      body.scrollLeft = 0;
+      modal.classList.toggle('is-zoomable', body.clientWidth < 920);
+      void modal.offsetWidth; // 先套用初始狀態再開，過場才會跑
+      modal.classList.add('is-open');
+      closeBtn.focus({ preventScroll: true });
+      document.addEventListener('keydown', onKey);
+    };
+    var close = function () {
+      if (modal.hidden) return;
+      modal.classList.remove('is-open');
+      document.removeEventListener('keydown', onKey);
+      var done = function () {
+        modal.hidden = true;
+        document.documentElement.style.overflow = lock.html;
+        document.body.style.overflow = lock.body;
+        document.body.style.paddingRight = lock.pad;
+        if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+      };
+      if (isStatic) done(); else hideTimer = setTimeout(done, 350);
+    };
+    var onKey = function (e) {
+      if (e.key === 'Escape') { e.preventDefault(); close(); return; }
+      if (e.key === 'Tab') { e.preventDefault(); closeBtn.focus(); } // 彈窗內只有一個可聚焦元素
+    };
+
+    viewBtn.addEventListener('click', function (e) { e.stopPropagation(); open(); });
+    // 觸控裝置：點整張證明圖也能開
+    if (doc) doc.addEventListener('click', function () { open(); });
+    [].forEach.call(modal.querySelectorAll('[data-close]'), function (el) { el.addEventListener('click', close); });
+    // 面板比原圖窄時，點圖切換原寸／符合寬度，放大後捲到點擊位置附近
+    img.addEventListener('click', function (e) {
+      if (!modal.classList.contains('is-zoomable')) return;
+      var r = img.getBoundingClientRect();
+      var fx = (e.clientX - r.left) / r.width, fy = (e.clientY - r.top) / r.height;
+      var zoomed = modal.classList.toggle('is-zoomed');
+      if (zoomed) {
+        body.scrollLeft = fx * img.offsetWidth - body.clientWidth / 2;
+        body.scrollTop = fy * img.offsetHeight - body.clientHeight / 2;
+      }
+    });
+    window.addEventListener('resize', function () {
+      if (!modal.hidden) modal.classList.toggle('is-zoomable', body.clientWidth < 920 || modal.classList.contains('is-zoomed'));
+    });
   }
 
   /* ---------- 手機版卡片捲動 ---------- */
@@ -337,27 +546,14 @@
   update();
 })();
 
-/* 07 faq（負責人 E）：分類頁籤切換＋手風琴展開收合 */
+/* 07 faq（負責人 E）：分類頁籤切換＋手風琴展開收合
+   頁籤選中底色由 base .cl-jelly 處理（只切 .is-active）；展開高度過場在 CSS（grid-template-rows） */
 (function () {
   var root = document.querySelector('.cl-faq');
   if (!root) return;
 
   var tabs = Array.prototype.slice.call(root.querySelectorAll('.cl-faq__tab'));
   var panels = Array.prototype.slice.call(root.querySelectorAll('.cl-faq__list'));
-
-  // 其他分類稿上沒有題目（待使用者補）：先複製第一組，題目全部收合
-  var source = panels[0];
-  panels.slice(1).forEach(function (panel) {
-    if (panel.children.length) return;
-    Array.prototype.forEach.call(source.children, function (item) {
-      var clone = item.cloneNode(true);
-      clone.classList.remove('is-open');
-      clone.removeAttribute('data-figma');
-      clone.removeAttribute('data-figma-s');
-      clone.querySelector('.cl-faq__q').setAttribute('aria-expanded', 'false');
-      panel.appendChild(clone);
-    });
-  });
 
   function select(index) {
     tabs.forEach(function (tab, i) {

@@ -1,4 +1,5 @@
-/* 04 服務流程：四格卡 hover／點擊展開、詳細流程頁籤切換、手機版動線圖滑動提示 */
+/* 04 服務流程：四格卡 hover／點擊展開、詳細流程頁籤切換、手機版動線圖滑動提示
+   R1：滑鼠移開四格卡區域回到第 1 格；頁籤底色交給 base 的 .cl-jelly；切換頁籤時畫面內的 reveal 文字直接播放 */
 (function () {
   var root = document.querySelector('.cl-process');
   if (!root) return;
@@ -14,6 +15,12 @@
       c.classList.toggle('is-active', on);
       c.setAttribute('aria-expanded', on ? 'true' : 'false');
     });
+  }
+
+  // 滑鼠移開四格卡區域：回到預設的第 1 格（客戶 R1）。只在滑鼠裝置作用，觸控點選的狀態保留
+  var cardList = root.querySelector('.cl-process__cards');
+  if (cardList && cards.length) {
+    cardList.addEventListener('mouseleave', function () { if (canHover.matches) activateCard(cards[0]); });
   }
 
   cards.forEach(function (card) {
@@ -38,6 +45,7 @@
       t.tabIndex = on ? 0 : -1;
       var panel = document.getElementById(t.getAttribute('aria-controls'));
       if (panel) panel.hidden = !on;
+      if (panel && on) revealInView(panel);
     });
     if (focus) tab.focus();
     // 手機版頁籤列可橫向捲動：把選中的頁籤捲進可視範圍
@@ -45,6 +53,16 @@
       var left = tab.offsetLeft - (tabList.clientWidth - tab.offsetWidth) / 2;
       tabList.scrollTo({ left: Math.max(0, left), behavior: document.documentElement.classList.contains('is-static') ? 'auto' : 'smooth' });
     }
+  }
+
+  // 切換頁籤：新面板裡已在畫面內的 [data-reveal] 直接播放（base 的觀察點在畫面 2/3，面板下半部不用等捲動）
+  function revealInView(panel) {
+    requestAnimationFrame(function () {
+      Array.prototype.forEach.call(panel.querySelectorAll('[data-reveal]:not(.is-revealed)'), function (el) {
+        var r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('is-revealed');
+      });
+    });
   }
 
   tabs.forEach(function (tab, i) {
