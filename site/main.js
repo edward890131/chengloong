@@ -351,26 +351,27 @@
   });
 
   /* ---------- 自動輪播（客戶 R2）：每 8 秒換到下一格，最後一格之後回到第 1 格 ----------
-     四格卡在畫面內才播；滑鼠停在四格卡上時暫停（移開會照 R1 回到第 1 格再重新計時）；
-     點擊／觸控／鍵盤選取後從那一格重新計時。?static 與減少動態不輪播。 */
+     四格卡在畫面內才播。滑鼠移到某格（展開它）、點擊、觸控、鍵盤選取，都從那一格重新計時 8 秒；
+     滑鼠停在卡上不暫停（四格卡很大，捲動時滑鼠幾乎一定停在上面，暫停會讓輪播永遠不動）。
+     ?static 與減少動態不輪播。 */
   var AUTOPLAY_MS = 8000;
   var autoplay = cardList && cards.length > 1 &&
     !document.documentElement.classList.contains('is-static') &&
     !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (autoplay) {
-    var timer = 0, inView = false, hovering = false;
+    var timer = 0, inView = false;
     var stop = function () { clearInterval(timer); timer = 0; };
     var start = function () {
       stop();
-      if (!inView || hovering) return;
+      if (!inView) return;
       timer = setInterval(function () {
         var i = cards.findIndex(function (c) { return c.classList.contains('is-active'); });
         activateCard(cards[(i + 1) % cards.length]);
       }, AUTOPLAY_MS);
     };
-    cardList.addEventListener('mouseenter', function () { if (canHover.matches) { hovering = true; stop(); } });
-    cardList.addEventListener('mouseleave', function () { hovering = false; start(); });
+    cardList.addEventListener('mouseleave', start);
     cards.forEach(function (card) {
+      card.addEventListener('mouseenter', function () { if (canHover.matches) start(); });
       card.addEventListener('click', start);
       card.addEventListener('focus', start);
     });

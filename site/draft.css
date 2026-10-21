@@ -1830,11 +1830,24 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   line-height: 20px;   /* Figma 140%＝19.6，文字框實際以 20px 行距排（2 行 40、4 行 80） */
   letter-spacing: .3px;
 }
-.cl-process__card.is-active .cl-process__card-body { background: #1fc36c; }
+/* 綠底由下往上長（客戶 R2）：綠色是 ::before 這層，展開時 scaleY 0→1（底部為原點），
+   換到下一張時從全滿縮回 0；文字內容疊在上面 */
+.cl-process__card-body { isolation: isolate; }
+.cl-process__card-body::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: #1fc36c;
+  transform: scaleY(0);
+  transform-origin: 50% 100%;
+  transition: transform .7s cubic-bezier(.65, 0, .35, 1);
+}
+.cl-process__card.is-active .cl-process__card-body::before { transform: scaleY(1); }
 .cl-process__card.is-active .cl-process__card-icon,
 .cl-process__card.is-active .cl-process__card-line,
 .cl-process__card.is-active .cl-process__card-desc { display: block; }
-.cl-process__card.is-active .cl-process__card-body > * { animation: cl-process-rise .45s cubic-bezier(.2, .7, .2, 1) both; }
+.cl-process__card.is-active .cl-process__card-body > * { animation: cl-process-rise .45s cubic-bezier(.2, .7, .2, 1) .25s both; }   /* 等綠底長上來再浮出 */
 @keyframes cl-process-rise {
   from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: none; }
@@ -2362,11 +2375,13 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   /* 服務流程B size=S（974:14698） */
   .cl-process__cards { flex-direction: column; }
   .cl-process__card { flex: none; height: 180px; }
+  /* 照片框撐滿卡寬（客戶 R2：原本固定 343，393 寬的手機兩側會露白），比例照稿 343×228.667＝3:2，垂直置中裁切 */
   .cl-process__media {
     left: 50%;
     top: calc(50% + .33px);
-    width: 343px;
-    height: 228.667px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
   }
   .cl-process__card-body {
     inset: 0 -1px 0 0;
