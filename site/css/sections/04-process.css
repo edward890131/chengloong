@@ -220,27 +220,10 @@
 .cl-process__card--3 .cl-process__card-curve { left: calc(50% - 757.82px); }
 .cl-process__card--4 .cl-process__card-curve { left: calc(50% - 1086.82px); } /* 稿的框位移 -689.63，與前三格間距差 10px（audit-source） */
 
-/* 展開卡弧線描線（客戶 R2）：不用 base 的 12s 循環描線（前半段從無畫到有，要等很久），
-   改成卡片一展開就從頭畫一次（1.4s ease-out），畫完停在完整狀態；換卡時弧線從 display:none 出現，動畫自動重播。
-   四格卡進畫面前（.is-inview 由 JS 加）先藏線，第 1 格不會在畫面外就畫完。?static／reduced-motion 直接顯示完整線 */
-.cl-process__card-curve path {
-  animation: none;
-  stroke-dasharray: 1 1;
-  stroke-dashoffset: 0;
-  visibility: visible;
-}
-.cl-process__cards:not(.is-inview) .cl-process__card-curve path { visibility: hidden; }
-.cl-process__cards.is-inview .cl-process__card.is-active .cl-process__card-curve path {
-  animation: cl-process-curve-draw 1.4s cubic-bezier(.22, .61, .36, 1) both;
-}
-@keyframes cl-process-curve-draw {
-  from { stroke-dashoffset: 1; }
-  to   { stroke-dashoffset: 0; }
-}
-.is-static .cl-process__cards .cl-process__card-curve path { stroke-dashoffset: 0; visibility: visible; }
-@media (prefers-reduced-motion: reduce) {
-  .cl-process__cards .cl-process__card-curve path { animation: none !important; stroke-dashoffset: 0; visibility: visible; }
-}
+/* 展開卡弧線（客戶 R2 修正）：速率和全站一樣用 base 的 cl-curve-trim（12s 循環描線），
+   只加「卡片一展開就從頭開始播」：弧線只在 .is-active 時從 display:none 出現，動畫會從 0% 重新開始。
+   四格卡進畫面前（.is-inview 由 JS 加）先不播，第 1 格不會在畫面外先跑掉一段。?static／reduced-motion 照 base 行為 */
+.cl-process__cards:not(.is-inview) .cl-process__card-curve path { animation: none; visibility: hidden; }
 
 /* ---------- 詳細服務流程_B ---------- */
 .cl-process__detail { margin-top: 120px; }

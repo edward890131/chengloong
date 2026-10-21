@@ -589,16 +589,16 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 
 /* ---------- R2 電腦版 ≥1101：首屏高 75vh，內容依高度等比縮放（客戶 2026-10-21）----------
-   --cl-hero-hp＝「設計稿 1px」＝75vh / 800（0.09375vh），上下限 0.75px～1.1px：
-     · 視窗高 < 800（例 1440×700、1280×720）停在 0.75 → 段落高 600，不再跟著縮，避免字太小
-     · 視窗高 > 1173（例 1920×1200、2560×1440）停在 1.1 → 段落高 880，避免字太大
+   --cl-hero-hp＝「設計稿 1px」＝75vh / 800（0.09375vh），上下限 1px～1.2px（客戶 R2 修正：最矮 800、最高 960）：
+     · 視窗高 ≤ 1067（75vh ≤ 800）停在 1 → 段落高 800＝Figma 原尺寸
+     · 視窗高 ≥ 1280（例 2560×1440）停在 1.2 → 段落高 960
    垂直位置、高度、字級、內距、圓角乘 hp；寬度方向維持原本規則（cover 75%／超寬貼右緣、數據區停在 1440 版心）。
    header 固定 62 不縮。14px 以下的小字另設 12px 下限（說明文、特色膠囊）。
    --cl-hero-kp＝照片 1px：cover 高跟 hp、寬跟視窗，照片取兩者較大者才蓋得滿 cover（1440×800 時＝1px）。
    平板與手機沒有定義 hp，fallback 1px＝原值，不受影響。 */
 @media (min-width: 1101px) {
   .cl-hero {
-    --cl-hero-hp: clamp(.75px, .09375vh, 1.1px);
+    --cl-hero-hp: clamp(1px, .09375vh, 1.2px);   /* 客戶 R2 修正：最矮 800（＝Figma），75vh 超過 800 才等比放大，上限 960 */
     --cl-hero-kp: max(var(--cl-hero-hp), calc(100vw / 1440));
   }
   /* 背景弧線：等比縮放，裁切框至少滿版（hp 小時 2000 寬框會比螢幕窄，兩側會切出硬邊） */
@@ -1856,27 +1856,10 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .cl-process__card--3 .cl-process__card-curve { left: calc(50% - 757.82px); }
 .cl-process__card--4 .cl-process__card-curve { left: calc(50% - 1086.82px); } /* 稿的框位移 -689.63，與前三格間距差 10px（audit-source） */
 
-/* 展開卡弧線描線（客戶 R2）：不用 base 的 12s 循環描線（前半段從無畫到有，要等很久），
-   改成卡片一展開就從頭畫一次（1.4s ease-out），畫完停在完整狀態；換卡時弧線從 display:none 出現，動畫自動重播。
-   四格卡進畫面前（.is-inview 由 JS 加）先藏線，第 1 格不會在畫面外就畫完。?static／reduced-motion 直接顯示完整線 */
-.cl-process__card-curve path {
-  animation: none;
-  stroke-dasharray: 1 1;
-  stroke-dashoffset: 0;
-  visibility: visible;
-}
-.cl-process__cards:not(.is-inview) .cl-process__card-curve path { visibility: hidden; }
-.cl-process__cards.is-inview .cl-process__card.is-active .cl-process__card-curve path {
-  animation: cl-process-curve-draw 1.4s cubic-bezier(.22, .61, .36, 1) both;
-}
-@keyframes cl-process-curve-draw {
-  from { stroke-dashoffset: 1; }
-  to   { stroke-dashoffset: 0; }
-}
-.is-static .cl-process__cards .cl-process__card-curve path { stroke-dashoffset: 0; visibility: visible; }
-@media (prefers-reduced-motion: reduce) {
-  .cl-process__cards .cl-process__card-curve path { animation: none !important; stroke-dashoffset: 0; visibility: visible; }
-}
+/* 展開卡弧線（客戶 R2 修正）：速率和全站一樣用 base 的 cl-curve-trim（12s 循環描線），
+   只加「卡片一展開就從頭開始播」：弧線只在 .is-active 時從 display:none 出現，動畫會從 0% 重新開始。
+   四格卡進畫面前（.is-inview 由 JS 加）先不播，第 1 格不會在畫面外先跑掉一段。?static／reduced-motion 照 base 行為 */
+.cl-process__cards:not(.is-inview) .cl-process__card-curve path { animation: none; visibility: hidden; }
 
 /* ---------- 詳細服務流程_B ---------- */
 .cl-process__detail { margin-top: 120px; }
