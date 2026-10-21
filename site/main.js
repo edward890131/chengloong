@@ -26,15 +26,18 @@
   if (isStatic || reduce || !('IntersectionObserver' in window)) {
     reveals.forEach(show);
   } else {
-    // 元素頂端捲到畫面 55% 高時播放（客戶 R2：比原本的 2/3 晚一點）
+    // 觸發線：元素頂端捲到畫面這個高度時播放。
+    // 電腦版 55%（客戶 R2：比原本的 2/3 晚一點）；平板與手機（≤1100）改回 2/3＝距畫面底部 1/3（客戶 R2：手機太晚出現）。
+    // 依載入時的寬度決定（IntersectionObserver 的 rootMargin 建好後不能改）
+    var LINE = window.matchMedia('(max-width: 1100px)').matches ? 2 / 3 : .55;
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (e.isIntersecting) { show(e.target); io.unobserve(e.target); }
       });
-    }, { rootMargin: '0px 0px -45% 0px' });
+    }, { rootMargin: '0px 0px -' + ((1 - LINE) * 100).toFixed(2) + '% 0px' });
     reveals.forEach(function (el) {
       // 載入時已在觸發線上方的元素直接播放
-      if (el.getBoundingClientRect().top < window.innerHeight * .55) show(el);
+      if (el.getBoundingClientRect().top < window.innerHeight * LINE) show(el);
       else io.observe(el);
     });
     // 錨點跳轉、scrollIntoView 這類直接跳過觸發線的情況：已在觸發線上方的一律顯示
@@ -43,7 +46,7 @@
       if (pending) return;
       pending = requestAnimationFrame(function () {
         pending = 0;
-        var line = window.innerHeight * .55;
+        var line = window.innerHeight * LINE;
         reveals.forEach(function (el) {
           if (!el.classList.contains('is-revealed') && el.getBoundingClientRect().top < line) { show(el); io.unobserve(el); }
         });
