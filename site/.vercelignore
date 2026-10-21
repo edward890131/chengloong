@@ -1,0 +1,5 @@
+# 只部署組好的成品：index.html、draft.css、main.js、assets、vendor、preview
+src
+css
+js
+build.py
