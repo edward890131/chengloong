@@ -28,28 +28,27 @@ MASK_S0, MASK_FULL = 1.3223337817305085, 52.113200929049775
 def ease(x):                 # easeInOutSine
     return -(math.cos(math.pi * x) - 1) / 2
 
+# 交會點箭頭的尖端在終點後 TIP px（遮罩 50.81%，見下方）：頭、尾都要多走這段，箭頭才會完整出現、完整收掉。
+# 箭頭遮罩的尾端比線段尾巴晚 lag(x) 收，線段的圓頭（線寬 37.4）一直藏在箭頭裡，不會先露出圓點。
+# 一路上 lag＝CAP（圓頭半徑）；最後 RAMP px 漸增到 LAG_END：交會點箭頭的遮罩路徑和線段終點差了一段，
+# lag 小時線段 s＝e 那一瞬間圓頭會露在箭頭外、跳一下（逐格量 18.7／30／45 都會露，60 乾淨）。
+# 線段走完後，同一條切線繼續把箭頭從尾推到尖收完——全程都是線段退場，不淡出。
+TIP, CAP, LAG_END, RAMP = 20.0, 18.7, 60.0, 200.0
+
+def lag(x):
+    return CAP + (LAG_END - CAP) * max(0.0, min(1.0, (x - (TOTAL - RAMP)) / RAMP))
+
 def head(t):
-    return TOTAL * ease(min(1, t / DRAW))
-
-# 退場收尾：尾巴的目標多走 TAIL_OVER px，減速段落在看不見處、尾巴保持速度進到圓幣後面（TOTAL − TUCK）就停住；
-# 剩下露在圓幣外的段 4 末端與交會點箭頭，在 FADE0–FADE1 一起淡出（用遮罩切箭頭會先露出線段圓頭、跳一下）。
-# 淡完後尾巴直接到終點（全空），兩層不透明度回 100，循環接回第 0 影格。
-TAIL_OVER, TUCK, FADE_LEN = 80, 70, 18
-
-def tail_raw(t):
-    return 0 if t <= EXIT0 else min(TOTAL, (TOTAL + TAIL_OVER) * ease(min(1, (t - EXIT0) / (OP - EXIT0))))
-
-FADE0 = next(t for t in range(EXIT0, OP + 1) if tail_raw(t) >= TOTAL - TUCK)
-FADE1 = FADE0 + FADE_LEN
+    return (TOTAL + TIP) * ease(min(1, t / DRAW))
 
 def tail(t):
-    return TOTAL if t > FADE1 else min(tail_raw(t), TOTAL - TUCK)
+    return 0 if t <= EXIT0 else (TOTAL + TIP + LAG_END) * ease(min(1, (t - EXIT0) / (OP - EXIT0)))
 
 def frac(seg, x):
     return max(0.0, min(1.0, (x - start[seg]) / LEN[seg]))
 
 def seg_val(seg, x):
-    f = frac(seg, x)
+    f = frac(seg, min(x, TOTAL))
     if seg == 'A': return A_START + (100 - A_START) * f
     if seg == 'B': return A_START * f
     return 100 * f
@@ -64,18 +63,15 @@ def mask_val(x):
     return max(0.0, MASK_B0 + MASK_K * x)
 
 # 交會點箭頭（箭頭_seg4）剛好跨在遮罩路徑接縫：0.02–0.63% 與 49.57–50.81% 都會露出它（arrowmap.py 量得）。
-# 遮罩下限夾在 SEAM_LO：進場起點不先露箭頭，箭頭只由第一圈結尾（49.57–50.81）帶出。
-# 頭／尾進入 SEAM_HI 之後按比例多推到 MASK_END（一圈只到 50.44 會切掉箭頭尖）；50.44–50.85 屬第二圈 B 段，只有這顆箭頭。
-# 頭尾用同一個換算：停留時箭頭完整；退場時箭頭留在原地，等尾巴走到才跟著線段一起收掉，最後一格 s＝e 全空。
-SEAM_LO, SEAM_HI = 0.65, 49.55
-MASK_LOOP = mask_val(TOTAL)
-MASK_END = 50.85
+# 遮罩下限夾在 SEAM_LO：進場起點不先露箭頭，箭頭只由第一圈結尾帶出（頭走到 TOTAL＋TIP＝50.89% 時完整）。
+# 50.44–50.89 屬第二圈 B 段，只有這顆箭頭（下一顆在 61.49）。
+SEAM_LO = 0.65
 
-def mask_at(x):
-    m = max(SEAM_LO, mask_val(x))
-    if m > SEAM_HI:
-        m = SEAM_HI + (m - SEAM_HI) * (MASK_END - SEAM_HI) / (MASK_LOOP - SEAM_HI)
-    return m
+def mask_s(t):
+    return max(SEAM_LO, mask_val(tail(t) - lag(tail(t))))
+
+def mask_e(t):
+    return max(SEAM_LO, mask_val(head(t)))
 
 def track(fn):
     """逐影格線性關鍵影格；數值不變的連續影格合併，最後一格不帶緩動"""
@@ -110,17 +106,9 @@ segs = {
 for k, tm in segs.items():
     tm['s'] = track(lambda t, k=k: seg_val(k, tail(t)))
     tm['e'] = track(lambda t, k=k: seg_val(k, head(t)))
-def fade_out():
-    hold = {'i': {'x': [1], 'y': [1]}, 'o': {'x': [0], 'y': [0]}, 'h': 1}
-    ease_o = {'i': {'x': [.58], 'y': [1]}, 'o': {'x': [.42], 'y': [0]}}
-    return {'a': 1, 'k': [dict(t=0, s=[100], **hold), dict(t=FADE0, s=[100], **ease_o),
-                          dict(t=FADE1, s=[0], **hold), {'t': FADE1 + 1, 's': [100]}]}
-for nm in ('箭頭', '段4_永續共好→交會'):
-    by[nm]['ks']['o'] = fade_out()
-
 (mask,) = trims(by['箭頭遮罩'])
-mask['s'] = track(lambda t: mask_at(tail(t)))
-mask['e'] = track(lambda t: mask_at(head(t)))
+mask['s'] = track(lambda t: min(mask_s(t), mask_e(t)))
+mask['e'] = track(mask_e)
 
 json.dump(d, open(dst, 'w'), ensure_ascii=False, separators=(',', ':'))
-print('fade', FADE0, FADE1, 'total', round(TOTAL, 1), {k: round(v, 1) for k, v in start.items()}, 'mask', round(mask_at(0), 3), '->', round(mask_at(TOTAL), 3))
+print('total', round(TOTAL, 1), {k: round(v, 1) for k, v in start.items()}, 'mask', round(mask_e(0), 3), '->', round(mask_e(DRAW), 3))

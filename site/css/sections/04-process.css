@@ -547,16 +547,22 @@
 }
 .cl-process__map-img.is-active { opacity: 1; }
 
-/* 家紙／工紙 toggle（2266:7859）：白底膠囊，選中綠底交給 .cl-tabfill 的圓（同頁籤） */
+/* 家紙／工紙 toggle（2266:7859）：白底膠囊；選中綠塊為 .cl-process__paper-thumb（Rubber Segment 移植，見 04-process.js）。
+   綠塊是一整層疊在上面的綠底白字副本，用 clip-path inset 只露出選中那格——拉長、回彈時文字不會變形 */
 .cl-process__paper {
   position: absolute;
   z-index: 1;
   left: 32px;
   top: 32px;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   padding: 4px;
   border-radius: 999px;
   background: var(--cl-white);
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 .cl-process__paper-btn {
   padding: 12px 24px;
@@ -566,12 +572,29 @@
   font-weight: 700;
   line-height: 26px;
   letter-spacing: .36px;
+  text-align: center;
   white-space: nowrap;
-  transition: color .3s ease;
+  transition: color .16s ease, transform .16s cubic-bezier(.23, 1, .32, 1);
 }
-.cl-process__paper-btn:hover { color: var(--cl-ink-800-60); }
-.cl-process__paper-btn.is-active { color: var(--cl-white); cursor: default; transition: color .35s ease .15s; }
+.cl-process__paper-btn[aria-checked="true"] { cursor: grab; }
+.cl-process__paper.is-held,
+.cl-process__paper.is-held .cl-process__paper-btn { cursor: grabbing; }
+.cl-process__paper-btn.is-pressed { transform: scale(.96); }
+@media (hover: hover) and (pointer: fine) {
+  .cl-process__paper-btn[aria-checked="false"]:hover { color: var(--cl-ink-800-60); }
+}
 .cl-process__paper-btn:focus-visible { outline: 2px solid var(--cl-green-700); outline-offset: 2px; }
+.cl-process__paper-thumb {
+  position: absolute;
+  inset: 4px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-radius: 999px;
+  background: var(--cl-green-500);
+  pointer-events: none;
+  clip-path: inset(0 50% 0 0 round 999px);   /* JS 量好後接手 */
+}
+.cl-process__paper-thumb .cl-process__paper-btn { color: var(--cl-white); }
 
 .cl-process__route-steps {
   display: flex;
@@ -809,7 +832,7 @@
     margin: 0;
   }
   /* toggle 2266:8749：在流程圖上方（y20、高 47），字 16、按鈕 8／16 */
-  .cl-process__paper { position: static; width: max-content; margin: 20px 0 0 16px; }
+  .cl-process__paper { position: relative; left: auto; top: auto; width: max-content; margin: 20px 0 0 16px; }
   .cl-process__paper-btn { padding: 8px 16px; font-size: 16px; line-height: 23px; letter-spacing: .32px; }
   .cl-process__route-inner { padding-top: 0; }
   .cl-process__route-steps { width: 1128px; gap: 24px; padding: 20px 0 16px 24px; }

@@ -475,9 +475,12 @@
       <!-- 頁籤 3：當天進場流程（R2 改版：電腦 2266:7813／7760、手機 2266:8736／8795，可左右滑動） -->
       <div class="cl-process__panel cl-process__route" role="tabpanel" id="cl-process-panel-3" aria-labelledby="cl-process-tab-3" hidden data-figma="2266:7826" data-figma-s="2266:8747">
         <!-- R2：家紙／工紙切換（電腦 toggle 2266:7859 疊在流程圖左上；≤1100 2266:8749 在流程圖上方）。只換流程圖，下方 01–06 說明固定 -->
-        <div class="cl-process__paper cl-tabfill" role="group" aria-label="用紙類型">
-          <button type="button" class="cl-process__paper-btn is-active" aria-pressed="true" data-paper="home">家紙</button>
-          <button type="button" class="cl-process__paper-btn" aria-pressed="false" data-paper="industrial">工紙</button>
+        <!-- 切換動態：Rubber Segment（React Bits，MIT＋Commons Clause，© David Haz）移植為原生 JS：
+             綠塊先拉長蓋住兩格、前緣彈簧落位、後緣 3px 回彈；選中文字由 clip-path 裁出白字；可拖曳 -->
+        <div class="cl-process__paper" role="radiogroup" aria-label="用紙類型">
+          <button type="button" class="cl-process__paper-btn" role="radio" aria-checked="true" data-paper="home">家紙</button>
+          <button type="button" class="cl-process__paper-btn" role="radio" aria-checked="false" tabindex="-1" data-paper="industrial">工紙</button>
+          <div class="cl-process__paper-thumb" aria-hidden="true"><span class="cl-process__paper-btn">家紙</span><span class="cl-process__paper-btn">工紙</span></div>
         </div>
         <div class="cl-process__route-inner">
           <!-- R2：≤1100 流程圖與步驟說明是兩個獨立的橫向捲動區，各自滑動 -->
