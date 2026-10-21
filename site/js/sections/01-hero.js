@@ -1,7 +1,7 @@
 /* 01 首屏 · 負責人 A
    1. cover_img 輪播：Figma 元件 cover_img Property 1=1→2→3→4→1，AFTER_TIMEOUT 10s／ON_CLICK，SMART_ANIMATE 0.6s ease-out
       預設＝主畫面 Property 1=2
-   2. 首頁特色_B 垂直輪播（電腦版）：Property 1=1→2→3→1，AFTER_TIMEOUT 4s，0.6s ease-out，每格位移 36px
+   2. 首頁特色_B 垂直輪播（電腦版）：Property 1=1→2→3→1，AFTER_TIMEOUT 4s，0.6s ease-out，每格位移 36px（R2 電腦版乘縮放比，見 CSS --cl-hero-step）
    3. 數據 tooltip：hover／focus 由 CSS 顯示；點擊切換 .is-open（觸控用），點外面關閉
    4. 首屏 reveal：畫面內的直接在載入時播放（見下）
    5. 數字計數（R1 客戶要求，參考 reactbits Count Up）：[data-count] 進入畫面時從 0 以 ease-out 數到 HTML 寫的目標值，
@@ -47,7 +47,7 @@
     var count = list.children.length;
     setInterval(function () {
       step = (step + 1) % count;
-      list.style.transform = 'translateY(' + (-36 * step) + 'px)';
+      list.style.setProperty('--cl-hero-step', step);   // R2：位移寫在 CSS（每格 36 × 縮放比）
     }, 4000);
   }
 

@@ -1,0 +1,23 @@
+const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim() + '/playwright');
+(async () => {
+  const b = await chromium.launch({args:['--proxy-server=https='+process.env.HTTPS_PROXY.replace('http://','')]});
+  const ctx = await b.newContext({ ignoreHTTPSErrors: true, viewport: { width: +(process.argv[2]||1440), height: 900 }, deviceScaleFactor: 1 });
+  const p = await ctx.newPage();
+  await p.goto('http://localhost:8131/index.html', { waitUntil: 'networkidle' });
+  await p.waitForTimeout(700);
+  await p.screenshot({ path: 'after/1440x900_countup_mid.png' });
+  console.log('mid nums', await p.$$eval('.cl-hero__metric-num', n => n.map(x => x.textContent)));
+  await p.waitForTimeout(3600);
+  const tr = await p.$eval('.cl-hero__feature-list', e => getComputedStyle(e).transform);
+  console.log('feature transform after ~4.3s', tr);
+  await p.hover('.cl-hero__tip--end .cl-hero__tip-btn'); await p.waitForTimeout(400);
+  const pop = await p.$eval('#cl-hero-tip-park', e => { const r = e.getBoundingClientRect(); return [getComputedStyle(e).opacity, Math.round(r.left), Math.round(r.right), Math.round(r.top)]; });
+  console.log('tooltip', pop);
+  await p.screenshot({ path: 'after/1440x900_tooltip.png' });
+  await p.mouse.move(10, 600);
+  const before = await p.$eval('.cl-hero__slide.is-active', e => e.dataset.slide);
+  await p.click('.cl-hero__cover', { position: { x: 100, y: 40 } });
+  const after = await p.$eval('.cl-hero__slide.is-active', e => e.dataset.slide);
+  console.log('cover click', before, '->', after);
+  await b.close();
+})();

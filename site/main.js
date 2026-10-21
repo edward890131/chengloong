@@ -26,15 +26,15 @@
   if (isStatic || reduce || !('IntersectionObserver' in window)) {
     reveals.forEach(show);
   } else {
-    // 元素頂端進入畫面上方 2/3（＝滾過畫面 1/3）時播放
+    // 元素頂端捲到畫面 55% 高時播放（客戶 R2：比原本的 2/3 晚一點）
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (e.isIntersecting) { show(e.target); io.unobserve(e.target); }
       });
-    }, { rootMargin: '0px 0px -33.333% 0px' });
+    }, { rootMargin: '0px 0px -45% 0px' });
     reveals.forEach(function (el) {
-      // 載入時已在畫面內的元素直接播放（首屏偏下的文字不必等捲動）
-      if (el.getBoundingClientRect().top < window.innerHeight) show(el);
+      // 載入時已在觸發線上方的元素直接播放
+      if (el.getBoundingClientRect().top < window.innerHeight * .55) show(el);
       else io.observe(el);
     });
     // 錨點跳轉、scrollIntoView 這類直接跳過觸發線的情況：已在觸發線上方的一律顯示
@@ -43,7 +43,7 @@
       if (pending) return;
       pending = requestAnimationFrame(function () {
         pending = 0;
-        var line = window.innerHeight * 2 / 3;
+        var line = window.innerHeight * .55;
         reveals.forEach(function (el) {
           if (!el.classList.contains('is-revealed') && el.getBoundingClientRect().top < line) { show(el); io.unobserve(el); }
         });
@@ -51,45 +51,25 @@
     }, { passive: true });
   }
 
-  /* ---------- 果凍頁籤 .cl-jelly ---------- */
-  [].forEach.call(document.querySelectorAll('.cl-jelly'), function (list) {
-    var pill = document.createElement('span');
-    pill.className = 'cl-jelly__pill';
-    pill.setAttribute('aria-hidden', 'true');
-    list.insertBefore(pill, list.firstChild);
-    var current = null;
-
-    function place(animate) {
-      var tab = list.querySelector(':scope > .is-active');
-      if (!tab) { pill.style.opacity = '0'; return; }
-      pill.style.opacity = '1';
-      // 用 rect 量小數座標（offset* 會取整，pill 偏 1px）；可橫捲的頁籤列要加上 scroll 位移
-      var lr = list.getBoundingClientRect(), tr = tab.getBoundingClientRect();
-      var to = { x: tr.left - lr.left - list.clientLeft + list.scrollLeft, y: tr.top - lr.top - list.clientTop + list.scrollTop, w: tr.width, h: tr.height };
-      var from = current;
-      pill.style.width = to.w + 'px';
-      pill.style.height = to.h + 'px';
-      pill.style.transform = 'translate(' + to.x + 'px,' + to.y + 'px)';
-      if (animate && from && pill.animate && !isStatic && !reduce && from.x !== to.x) {
-        // 果凍：先拉長壓扁朝目標衝過頭，再回彈
-        var dir = to.x > from.x ? 1 : -1;
-        pill.animate([
-          { width: from.w + 'px', transform: 'translate(' + from.x + 'px,' + from.y + 'px) scale(1, 1)' },
-          { width: (Math.abs(to.x - from.x) * .55 + Math.max(from.w, to.w)) + 'px',
-            transform: 'translate(' + (dir > 0 ? from.x : to.x) + 'px,' + to.y + 'px) scale(1, .82)', offset: .4 },
-          { width: to.w + 'px', transform: 'translate(' + (to.x + dir * 6) + 'px,' + to.y + 'px) scale(1.04, .94)', offset: .72 },
-          { width: to.w + 'px', transform: 'translate(' + to.x + 'px,' + to.y + 'px) scale(1, 1)' }
-        ], { duration: 650, easing: 'cubic-bezier(.3, .7, .3, 1)' });
-      }
-      current = to;
+  /* ---------- 頁籤圓形填色 .cl-tabfill（客戶 R2：取代果凍頁籤，效果同按鈕 hover 的圓） ----------
+     每個頁籤底部放一顆圓（.cl-tabfill__circle），選中時放大填滿頁籤；圓的直徑依頁籤對角線算，寬窄頁籤都填得滿 */
+  [].forEach.call(document.querySelectorAll('.cl-tabfill'), function (list) {
+    var tabs = [].slice.call(list.children);
+    tabs.forEach(function (tab) {
+      var c = document.createElement('span');
+      c.className = 'cl-tabfill__circle';
+      c.setAttribute('aria-hidden', 'true');
+      tab.insertBefore(c, tab.firstChild);
+    });
+    function size() {
+      tabs.forEach(function (tab) {
+        var d = Math.ceil(Math.hypot(tab.offsetWidth / 2 + 24, tab.offsetHeight) * 2);   // 多留 24px：頁籤選中後可能變寬（例如多一個白點）
+        tab.style.setProperty('--cl-tabfill-d', d + 'px');
+      });
     }
-
-    place(false);
-    // 段落 JS 只要切換 .is-active，pill 就會跟著走
-    new MutationObserver(function () { place(true); })
-      .observe(list, { subtree: true, attributes: true, attributeFilter: ['class'] });
-    window.addEventListener('resize', function () { place(false); });
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { place(false); });
+    size();
+    window.addEventListener('resize', size);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(size);
   });
 
   /* ---------- 圖片載入 skeleton ---------- */
@@ -106,7 +86,7 @@
 /* 01 首屏 · 負責人 A
    1. cover_img 輪播：Figma 元件 cover_img Property 1=1→2→3→4→1，AFTER_TIMEOUT 10s／ON_CLICK，SMART_ANIMATE 0.6s ease-out
       預設＝主畫面 Property 1=2
-   2. 首頁特色_B 垂直輪播（電腦版）：Property 1=1→2→3→1，AFTER_TIMEOUT 4s，0.6s ease-out，每格位移 36px
+   2. 首頁特色_B 垂直輪播（電腦版）：Property 1=1→2→3→1，AFTER_TIMEOUT 4s，0.6s ease-out，每格位移 36px（R2 電腦版乘縮放比，見 CSS --cl-hero-step）
    3. 數據 tooltip：hover／focus 由 CSS 顯示；點擊切換 .is-open（觸控用），點外面關閉
    4. 首屏 reveal：畫面內的直接在載入時播放（見下）
    5. 數字計數（R1 客戶要求，參考 reactbits Count Up）：[data-count] 進入畫面時從 0 以 ease-out 數到 HTML 寫的目標值，
@@ -152,7 +132,7 @@
     var count = list.children.length;
     setInterval(function () {
       step = (step + 1) % count;
-      list.style.transform = 'translateY(' + (-36 * step) + 'px)';
+      list.style.setProperty('--cl-hero-step', step);   // R2：位移寫在 CSS（每格 36 × 縮放比）
     }, 4000);
   }
 
@@ -319,7 +299,9 @@
 })();
 
 /* 04 服務流程：四格卡 hover／點擊展開、詳細流程頁籤切換、手機版動線圖滑動提示
-   R1：滑鼠移開四格卡區域回到第 1 格；頁籤底色交給 base 的 .cl-jelly；切換頁籤時畫面內的 reveal 文字直接播放 */
+   R1：滑鼠移開四格卡區域回到第 1 格；切換頁籤時畫面內的 reveal 文字直接播放
+   R2：頁籤選中底色交給 base 的 .cl-tabfill（圓形填色）；展開卡弧線一展開就描線一次（CSS），
+       四格卡進畫面才加 .is-inview 開始播；頁籤 3 流程圖與說明分開滑動，提示只跟流程圖 */
 (function () {
   var root = document.querySelector('.cl-process');
   if (!root) return;
@@ -339,6 +321,21 @@
 
   // 滑鼠移開四格卡區域：回到預設的第 1 格（客戶 R1）。只在滑鼠裝置作用，觸控點選的狀態保留
   var cardList = root.querySelector('.cl-process__cards');
+
+  // 展開卡弧線描線：四格卡進到畫面才開始播（預設展開的第 1 格不會在畫面外先畫完）
+  if (cardList) {
+    var markInView = function () { cardList.classList.add('is-inview'); };
+    var skipAnim = document.documentElement.classList.contains('is-static') ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window);
+    if (skipAnim) markInView();
+    else {
+      var cardIO = new IntersectionObserver(function (entries) {
+        if (entries.some(function (e) { return e.isIntersecting; })) { markInView(); cardIO.disconnect(); }
+      }, { threshold: .3 });
+      cardIO.observe(cardList);
+    }
+  }
+
   if (cardList && cards.length) {
     cardList.addEventListener('mouseleave', function () { if (canHover.matches) activateCard(cards[0]); });
   }
@@ -397,9 +394,9 @@
     });
   });
 
-  /* ---------- 當天進場流程：滑動後淡出「可左右滑動查看」 ---------- */
+  /* ---------- 當天進場流程：滑動流程圖後淡出「可左右滑動查看」（R2：說明區另有自己的捲動區，不影響提示） ---------- */
   var route = root.querySelector('.cl-process__route');
-  var scroller = root.querySelector('.cl-process__route-scroll');
+  var scroller = root.querySelector('.cl-process__route-scroll--map');
   if (route && scroller) {
     scroller.addEventListener('scroll', function () {
       route.classList.toggle('is-scrolled', scroller.scrollLeft > 8);
@@ -449,7 +446,6 @@
   if (modal && viewBtn) {
     var closeBtn = modal.querySelector('.cl-green__modal-close');
     var body = modal.querySelector('.cl-green__modal-body');
-    var img = modal.querySelector('.cl-green__modal-img');
     var lastFocus = null;
     var lock = { html: '', body: '', pad: '' };
     var hideTimer = null;
@@ -467,10 +463,8 @@
       document.body.style.overflow = 'hidden';
       if (sbw > 0) document.body.style.paddingRight = sbw + 'px';
       modal.hidden = false;
-      modal.classList.remove('is-zoomed');
       body.scrollTop = 0;
       body.scrollLeft = 0;
-      modal.classList.toggle('is-zoomable', body.clientWidth < 920);
       void modal.offsetWidth; // 先套用初始狀態再開，過場才會跑
       modal.classList.add('is-open');
       closeBtn.focus({ preventScroll: true });
@@ -498,20 +492,6 @@
     // 觸控裝置：點整張證明圖也能開
     if (doc) doc.addEventListener('click', function () { open(); });
     [].forEach.call(modal.querySelectorAll('[data-close]'), function (el) { el.addEventListener('click', close); });
-    // 面板比原圖窄時，點圖切換原寸／符合寬度，放大後捲到點擊位置附近
-    img.addEventListener('click', function (e) {
-      if (!modal.classList.contains('is-zoomable')) return;
-      var r = img.getBoundingClientRect();
-      var fx = (e.clientX - r.left) / r.width, fy = (e.clientY - r.top) / r.height;
-      var zoomed = modal.classList.toggle('is-zoomed');
-      if (zoomed) {
-        body.scrollLeft = fx * img.offsetWidth - body.clientWidth / 2;
-        body.scrollTop = fy * img.offsetHeight - body.clientHeight / 2;
-      }
-    });
-    window.addEventListener('resize', function () {
-      if (!modal.hidden) modal.classList.toggle('is-zoomable', body.clientWidth < 920 || modal.classList.contains('is-zoomed'));
-    });
   }
 
   /* ---------- 手機版卡片捲動 ---------- */
@@ -547,7 +527,7 @@
 })();
 
 /* 07 faq（負責人 E）：分類頁籤切換＋手風琴展開收合
-   頁籤選中底色由 base .cl-jelly 處理（只切 .is-active）；展開高度過場在 CSS（grid-template-rows） */
+   頁籤選中底色由 base .cl-tabfill 的圓形填色處理（只切 .is-active）；展開高度過場在 CSS（grid-template-rows） */
 (function () {
   var root = document.querySelector('.cl-faq');
   if (!root) return;
@@ -605,25 +585,39 @@
     });
   }
 
-  /* ---------- 標語跑馬燈（客戶 2026-10-20）----------
+  /* ---------- 標語跑馬燈（客戶 2026-10-20）＋寬螢幕放大填滿（客戶 R2 2026-10-21）----------
      句子在靜態排版下超出頁尾左右邊界就加 .is-marquee 輪播，速度固定 SPEED px/s；
      ?static 與減少動態不輪播。視窗縮放、字型載入後重新判斷。 */
   var SPEED = 37.2;   // 1339px／36s：手機版確認過的速度
   var text = root.querySelector('.cl-footer__slogan-text');
   if (!text) return;
 
+  /* 寬螢幕放大填滿（客戶 R2）：句子在靜態排版放得下時，字級等比放大到左右各留 FILL_GUTTER；
+     ?static 與減少動態也適用（這是排版，不是動態） */
+  var FILL_GUTTER = 24;
+
   function update() {
-    if (html.classList.contains('is-static') || reduce.matches) {
-      root.classList.remove('is-marquee');
-      return;
-    }
     // 先回到靜態排版量字形範圍（不含跑馬燈間隔）
-    root.classList.remove('is-marquee');
+    root.classList.remove('is-marquee', 'is-fill');
+    root.style.removeProperty('--cl-footer-slogan-fs');
     var range = document.createRange();
     range.selectNodeContents(text);
     var t = range.getBoundingClientRect();
     var box = root.getBoundingClientRect();
-    if (t.left < box.left - .5 || t.right > box.right + .5) {
+    var overflow = t.left < box.left - .5 || t.right > box.right + .5;
+    if (!overflow) {
+      var fs = parseFloat(getComputedStyle(text).fontSize);
+      var target = box.width - FILL_GUTTER * 2;
+      root.style.setProperty('--cl-footer-slogan-fs', (fs * target / t.width).toFixed(2) + 'px');
+      root.classList.add('is-fill');
+      // 字距是固定 px、不跟字級等比，第一次放大後再量一次校正
+      var t2 = range.getBoundingClientRect();
+      var fs2 = parseFloat(getComputedStyle(text).fontSize);
+      root.style.setProperty('--cl-footer-slogan-fs', (fs2 * target / t2.width).toFixed(2) + 'px');
+      return;
+    }
+    if (html.classList.contains('is-static') || reduce.matches) return;
+    if (overflow) {
       root.classList.add('is-marquee');
       // 一輪距離＝一句加間隔（.is-marquee 時的 span 寬）
       var loop = text.getBoundingClientRect().width;

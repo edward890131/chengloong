@@ -383,7 +383,7 @@
 
     <!-- 詳細服務流程_B：頁籤（線上預約步驟 1695:20312／送廠前的準備 1695:19585／當天進場流程 1695:19586） -->
     <div class="cl-process__detail" data-figma="1695:20312" data-figma-s="1695:19825">
-      <div class="cl-process__tabs cl-jelly" role="tablist" aria-label="詳細服務流程">
+      <div class="cl-process__tabs cl-tabfill" role="tablist" aria-label="詳細服務流程">
         <button class="cl-process__tab is-active" type="button" role="tab" id="cl-process-tab-1" aria-controls="cl-process-panel-1" aria-selected="true">線上預約步驟</button>
         <button class="cl-process__tab" type="button" role="tab" id="cl-process-tab-2" aria-controls="cl-process-panel-2" aria-selected="false" tabindex="-1">送廠前的準備</button>
         <button class="cl-process__tab" type="button" role="tab" id="cl-process-tab-3" aria-controls="cl-process-panel-3" aria-selected="false" tabindex="-1">當天進場流程</button>
@@ -474,8 +474,9 @@
 
       <!-- 頁籤 3：當天進場流程（電腦版 1695:19586；手機版依 動線圖+說明文字_w(new) 2159:25259，可左右滑動） -->
       <div class="cl-process__panel cl-process__route" role="tabpanel" id="cl-process-panel-3" aria-labelledby="cl-process-tab-3" hidden data-figma="I1695:19586;1615:16172" data-figma-s="2159:25259">
-        <div class="cl-process__route-scroll">
-          <div class="cl-process__route-inner">
+        <div class="cl-process__route-inner">
+          <!-- R2：≤1100 流程圖與步驟說明是兩個獨立的橫向捲動區，各自滑動 -->
+          <div class="cl-process__route-scroll cl-process__route-scroll--map">
             <div class="cl-process__map-wrap">
               <div class="cl-process__map" data-figma="1615:16173">
                 <img class="cl-process__map-part cl-process__map-part--ground" src="assets/04-process/map-ground.svg" alt="">
@@ -503,6 +504,8 @@
                 <span class="cl-process__pin cl-process__pin--6"><span class="cl-process__pin-pill">領過磅單離場</span><span class="cl-process__pin-badge">6</span></span>
               </div>
             </div>
+          </div>
+          <div class="cl-process__route-scroll cl-process__route-scroll--steps">
             <ol class="cl-process__route-steps">
               <li data-reveal-group><span class="cl-process__route-num" data-reveal>01</span><p class="cl-process__route-desc" data-reveal>抵達廠區後於警衛室報上公司名稱，核對預約資料後開放進場。</p></li>
               <li data-reveal-group><span class="cl-process__route-num" data-reveal>02</span><p class="cl-process__route-desc" data-reveal>載著文件的車輛先上地磅，記錄進場總重。</p></li>
@@ -636,7 +639,6 @@
       <div class="cl-green__modal-body">
         <img class="cl-green__modal-img" src="assets/05-green/certificate-full@2x.png" alt="機密文件水銷證明範例（全頁）" width="920" height="1447" loading="lazy" decoding="async">
       </div>
-      <p class="cl-green__modal-hint" aria-hidden="true">點圖片可放大</p>
     </div>
   </div>
 </section>
@@ -678,7 +680,7 @@
   </header>
 
   <div class="cl-faq__body" data-figma="1695:20385" data-figma-s="1695:19908">
-    <div class="cl-faq__tabs cl-jelly" role="tablist" aria-label="常見問題分類" data-figma="1695:20386" data-figma-s="1695:19909">
+    <div class="cl-faq__tabs cl-tabfill" role="tablist" aria-label="常見問題分類" data-figma="1695:20386" data-figma-s="1695:19909">
       <button class="cl-faq__tab is-active" type="button" role="tab" id="cl-faq-tab-1" aria-controls="cl-faq-panel-1" aria-selected="true" data-figma="1695:20387" data-figma-s="1695:19910"><span class="cl-faq__tab-dot" aria-hidden="true"></span>預約與到廠</button>
       <button class="cl-faq__tab cl-faq__tab--tall" type="button" role="tab" id="cl-faq-tab-2" aria-controls="cl-faq-panel-2" aria-selected="false" tabindex="-1" data-figma="1695:20390" data-figma-s="1695:19913"><span class="cl-faq__tab-dot" aria-hidden="true"></span>準備與分類</button>
       <button class="cl-faq__tab" type="button" role="tab" id="cl-faq-tab-3" aria-controls="cl-faq-panel-3" aria-selected="false" tabindex="-1" data-figma="1695:20392" data-figma-s="1695:19915"><span class="cl-faq__tab-dot" aria-hidden="true"></span>水銷證明與綠點回饋</button>
