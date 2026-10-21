@@ -1,0 +1,7 @@
+# Vercel 專案 Root Directory 用 repo 根目錄時：只需要 site/ 的成品（site/vercel.json 供 Root Directory＝site 時使用）
+.claude
+_design-loop
+site/src
+site/css
+site/js
+site/build.py
