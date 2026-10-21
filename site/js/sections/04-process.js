@@ -209,6 +209,7 @@
       });
       var key = btns[i].getAttribute('data-paper');
       mapImgs.forEach(function (img) { img.classList.toggle('is-active', img.getAttribute('data-paper') === key); });
+      resetMap();   // R2 客戶：切換家紙／工紙時，流程圖平滑捲回起始位置（見下方 placeMap）
       return true;
     }
 
@@ -314,7 +315,7 @@
         e.preventDefault();
         var from = current;
         if (select(next)) travel(from, next);
-        btns[next].focus();
+        btns[next].focus({ preventScroll: true });
       });
     });
 
@@ -323,11 +324,11 @@
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
   })();
 
-  /* ---------- 當天進場流程：滑動流程圖後淡出「可左右滑動查看」（R2：說明區另有自己的捲動區，不影響提示） ---------- */
+  /* ---------- 當天進場流程：手機版流程圖起始位置（「可左右滑動查看」提示固定顯示，R2） ---------- */
   var route = root.querySelector('.cl-process__route');
   var scroller = root.querySelector('.cl-process__route-scroll--map');
   // 手機版（≤640）流程圖起始位置對齊 Figma 2266:8754：圖在 343 框內 x −112.1 → 捲動區預設往左捲 30＋112.1。
-  // 使用者自己捲動過就不再重設；提示依「離開起始位置」判斷，預設捲動不會讓提示淡出
+  // 使用者自己捲動過就不再重設。「可左右滑動查看」提示固定顯示（R2 客戶），不再隨捲動淡出
   var mqPhone = window.matchMedia('(max-width: 640px)');
   var START = 142.1, startLeft = 0, userScrolled = false;
   function placeMap() {
@@ -335,11 +336,18 @@
     startLeft = mqPhone.matches ? START : 0;
     scroller.scrollLeft = startLeft;
   }
+  // 家紙／工紙切換：不管滑到哪，都平滑回到起始位置
+  function resetMap() {
+    if (!scroller) return;
+    userScrolled = false;
+    startLeft = mqPhone.matches ? START : 0;
+    var still = document.documentElement.classList.contains('is-static') ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    scroller.scrollTo({ left: startLeft, behavior: still ? 'auto' : 'smooth' });
+  }
   if (route && scroller) {
     scroller.addEventListener('scroll', function () {
-      var moved = Math.abs(scroller.scrollLeft - startLeft) > 8;
-      if (moved) userScrolled = true;
-      route.classList.toggle('is-scrolled', moved);
+      userScrolled = Math.abs(scroller.scrollLeft - startLeft) > 8;   // 捲回起始位置後視為沒捲過
     }, { passive: true });
     // 面板 3 預設隱藏（隱藏時設 scrollLeft 無效）：selectTab 每次切換後會呼叫 placeMap；視窗跨過 640 時也重放
     if (mqPhone.addEventListener) mqPhone.addEventListener('change', function () { userScrolled = false; placeMap(); });

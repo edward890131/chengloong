@@ -2606,9 +2606,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     letter-spacing: .6px;
     color: var(--cl-ink-900);
     pointer-events: none;
-    transition: opacity .3s;
+    z-index: 2;   /* R2 客戶：提示一直顯示、在最上層，不被流程圖蓋住（原本滑動後淡出） */
   }
-  .cl-process__route.is-scrolled .cl-process__route-hint { opacity: 0; }
 }
 
 /* ==========================================================================
