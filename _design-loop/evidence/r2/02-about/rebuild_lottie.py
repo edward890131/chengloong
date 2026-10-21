@@ -55,14 +55,19 @@ def mask_val(x):
 # 交會點箭頭（箭頭_seg4）剛好跨在遮罩路徑接縫：0.02–0.63% 與 49.57–50.81% 都會露出它（arrowmap.py 量得）。
 # 進場：遮罩起點夾在 SEAM_LO 之後，起點不先露箭頭；箭頭只在頭繞完一圈時出現。
 # 退場：尾巴離開起點多少，接縫處的頭端就同步往回收多少（收到 SEAM_HI 為止），箭頭跟著起點一起消失。
+# 停留時遮罩要蓋到 50.81 箭頭才完整（只到一圈 50.44 會切掉箭頭尖），所以頭進入箭頭範圍後按比例多推到 MASK_END；
+# 50.44–50.85 屬第二圈的 B 段，那裡只有這顆箭頭（下一顆在 61.49），不會多露東西。
 SEAM_LO, SEAM_HI = 0.65, 49.55
-MASK_END = mask_val(TOTAL)
+MASK_LOOP = mask_val(TOTAL)
+MASK_END = 50.85
 
 def mask_s(t):
     return max(SEAM_LO, mask_val(tail(t)))
 
 def mask_e(t):
     e = max(SEAM_LO, mask_val(head(t)))
+    if e > SEAM_HI:
+        e = SEAM_HI + (e - SEAM_HI) * (MASK_END - SEAM_HI) / (MASK_LOOP - SEAM_HI)
     if t > EXIT0:
         e = MASK_END - min(MASK_END - SEAM_HI, MASK_K * tail(t))
     return e
