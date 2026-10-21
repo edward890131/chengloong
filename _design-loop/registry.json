@@ -1,0 +1,33 @@
+{
+  "updated": "2026-10-20",
+  "note": "CSS class ↔ Guideline 章節 ↔ Figma 母版 ↔ 設計稿對照。token 對應看 Figma 變數 codeSyntax（token_diff.py），不寫在這裡。properties 的 key 含 # 後綴（setProperties 用完整 key；VARIANT 用屬性名）。status：synced｜gap｜web-only｜figma-only。pages[] 的 status：active｜removed（removed 要填 removed_on，同一個 code 只能有一筆不是 removed；見 core/figma-pages.md §2）。",
+  "components": [],
+  "pages": [
+    {
+      "code": "A-01",
+      "feature": "A",
+      "name": "首頁",
+      "html": "site/index.html",
+      "wireframe_ref": "",
+      "origin": "figma",
+      "source_node": {
+        "desktop": "1695:20082",
+        "mobile": "1695:19587",
+        "section": "1695:19584"
+      },
+      "capture_node": "",
+      "design_node": "",
+      "components": [],
+      "height": {
+        "source_desktop": 9799,
+        "source_mobile": 9626,
+        "html_desktop": 9797.92,
+        "html_mobile": 9625.78,
+        "capture": 0,
+        "design": 0
+      },
+      "status": "active",
+      "notes": "code A-01／feature A 已由使用者確認（2026-10-20）"
+    }
+  ]
+}

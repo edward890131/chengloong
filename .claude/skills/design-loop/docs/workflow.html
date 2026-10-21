@@ -1,0 +1,734 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>design-loop 工作流</title>
+<meta name="description" content="design-loop 的站別、agent 分工、各站輸入輸出與價值說明">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<style>
+:root{
+  --bg:#F3F5F2; --paper:#FBFCFA; --ink:#18201D; --muted:#5B6862; --line:#D3DAD5; --line-strong:#A9B4AE;
+  --html:#0B7A6A; --guide:#946300; --figma:#6A48C9; --stop:#B4411A;
+  --html-soft:#E1F1EE; --guide-soft:#F4ECDA; --figma-soft:#ECE6F8; --stop-soft:#F8E7E0; --hub-soft:#E7ECE9;
+  --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F1412; --paper:#151B18; --ink:#E1E7E3; --muted:#97A49E; --line:#2A342F; --line-strong:#4A5750;
+    --html:#52C4B1; --guide:#D8AB4E; --figma:#AB95F1; --stop:#EE8B65;
+    --html-soft:#14302B; --guide-soft:#33291A; --figma-soft:#262039; --stop-soft:#3A221A; --hub-soft:#1E2622;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F1412; --paper:#151B18; --ink:#E1E7E3; --muted:#97A49E; --line:#2A342F; --line-strong:#4A5750;
+  --html:#52C4B1; --guide:#D8AB4E; --figma:#AB95F1; --stop:#EE8B65;
+  --html-soft:#14302B; --guide-soft:#33291A; --figma-soft:#262039; --stop-soft:#3A221A; --hub-soft:#1E2622;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15.5px/1.75 var(--sans);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:40px 16px 96px;display:grid;grid-template-columns:minmax(0,1fr);gap:48px}
+@media (min-width:600px){.wrap{padding-left:24px;padding-right:24px}}
+@media (min-width:1000px){.wrap{grid-template-columns:190px minmax(0,1fr);gap:56px}}
+
+/* 側欄目錄 */
+.toc{font-size:13px}
+.toc nav{position:sticky;top:calc(env(safe-area-inset-top,0px) + 24px);display:grid;gap:4px}
+.toc b{font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.toc a{color:var(--muted);text-decoration:none;padding:3px 0;border-radius:4px}
+.toc a:hover{color:var(--ink)}
+.toc a:focus-visible{outline:2px solid var(--figma);outline-offset:2px}
+@media (max-width:999px){.toc nav{position:static;display:flex;flex-wrap:wrap;gap:6px 14px}.toc b{width:100%;margin:0}}
+
+main{min-width:0;display:grid;grid-template-columns:minmax(0,1fr);gap:72px}
+section{display:grid;grid-template-columns:minmax(0,1fr);gap:20px;scroll-margin-top:24px}
+.files > div{min-width:0}
+h1,h2,h3{margin:0;text-wrap:balance;font-weight:700;letter-spacing:.01em}
+h1{font-size:34px;line-height:1.3}
+h2{font-size:24px;line-height:1.4}
+h3{font-size:17px;line-height:1.5}
+p{margin:0;max-width:68ch}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+code,.mono{font-family:var(--mono);font-size:.88em}
+code{background:var(--hub-soft);padding:1px 5px;border-radius:4px}
+ul.plain{margin:0;padding:0;list-style:none;display:grid;gap:8px;max-width:72ch}
+ul.plain li{padding-left:18px;position:relative}
+ul.plain li::before{content:"";position:absolute;left:2px;top:.72em;width:6px;height:6px;border:1.5px solid var(--muted);transform:rotate(45deg)}
+
+/* 表頭資訊（工單式） */
+.sheet{display:grid;gap:18px;padding-bottom:28px;border-bottom:1px solid var(--line)}
+.sheet .lead{font-size:17px;color:var(--muted);max-width:60ch}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.meta div{background:var(--paper);padding:10px 14px;display:grid;gap:2px}
+.meta dt{font:500 11px/1.4 var(--mono);letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+.meta dd{margin:0;font-size:14px;font-weight:500;overflow-wrap:anywhere}
+
+/* 三邊色標 */
+.side{display:inline-flex;align-items:center;gap:6px;font-weight:500;white-space:nowrap}
+.side::before{content:"";width:9px;height:9px;border-radius:2px;background:currentColor}
+.side.html{color:var(--html)}.side.guide{color:var(--guide)}.side.figma{color:var(--figma)}.side.stop{color:var(--stop)}
+
+/* 價值 */
+.value{display:grid;gap:0;border-top:1px solid var(--line)}
+.value > div{display:grid;gap:4px 28px;padding:16px 0;border-bottom:1px solid var(--line)}
+@media (min-width:720px){.value > div{grid-template-columns:220px minmax(0,1fr)}}
+.value h3{font-size:15.5px}
+.value p{color:var(--muted)}
+.proof{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.proof div{padding:14px 0 0;border-top:2px solid var(--ink);display:grid;gap:4px}
+.proof strong{font:500 26px/1.2 var(--mono);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.proof span{font-size:13px;color:var(--muted)}
+
+
+/* 圖：HTML 流程圖。容器夠寬時橫排，窄時直排；字級不隨畫面縮小 */
+figure{margin:0;display:grid;gap:10px}
+figcaption{font-size:13.5px;color:var(--muted);max-width:80ch}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px}
+.dgm{container-type:inline-size;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 16px;display:grid;gap:14px}
+@media (min-width:600px){.dgm{padding:24px}}
+.lane{display:grid;gap:10px}
+.lane-h{font:500 12px/1.4 var(--mono);letter-spacing:.06em;color:var(--muted)}
+.lane-h b{color:var(--ink);font-weight:500}
+
+.node{background:var(--paper);border:1.5px solid var(--line-strong);border-radius:10px;padding:11px 14px 12px;display:grid;gap:3px;align-content:start;min-width:0}
+.node > b{font-size:15px;line-height:1.45;font-weight:700}
+.node > span{font-size:13.5px;line-height:1.55;color:var(--muted)}
+.node > .k{font:500 11.5px/1.3 var(--mono);letter-spacing:.04em;color:var(--muted)}
+.node .gate{font:500 12px/1.5 var(--mono);color:var(--muted);border-top:1px dashed var(--line-strong);padding-top:6px;margin-top:5px}
+.node .gate.stop,.stop-t{color:var(--stop)}
+.node .note{font-size:13px;line-height:1.5;border-radius:6px;padding:6px 9px;margin-top:6px;background:var(--bg);color:var(--muted)}
+.node .note.stop{background:var(--stop-soft);color:var(--stop)}
+.node.html{background:var(--html-soft);border-color:var(--html)}
+.node.guide{background:var(--guide-soft);border-color:var(--guide)}
+.node.figma{background:var(--figma-soft);border-color:var(--figma)}
+.node.hub{background:var(--hub-soft);border-color:var(--ink)}
+.node.stop{background:var(--stop-soft);border-color:var(--stop)}
+.node.stop > b{color:var(--stop)}
+.node.ghost{background:var(--bg);border-style:dashed}
+.node.center{text-align:center;justify-items:center}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chips i{font:500 12px/1.4 var(--mono);font-style:normal;padding:2px 8px;border:1px solid var(--line-strong);border-radius:99px;background:var(--paper);color:var(--ink)}
+
+/* 箭頭：預設直排（向下）；.flow.h 在容器夠寬時改橫排（向右） */
+.arr{position:relative;display:block;height:34px;min-width:0}
+.arr::before{content:"";position:absolute;left:50%;top:3px;bottom:9px;width:2px;margin-left:-1px;background:var(--ink)}
+.arr::after{content:"";position:absolute;left:50%;bottom:2px;margin-left:-5px;border:5px solid transparent;border-top:8px solid var(--ink);border-bottom:0}
+.arr.rev::before{top:9px;bottom:3px}
+.arr.rev::after{top:2px;bottom:auto;border-top:0;border-bottom:8px solid var(--ink)}
+.arr.both::before{top:9px}
+.arr.both > s{position:absolute;left:50%;top:2px;margin-left:-5px;border:5px solid transparent;border-bottom:8px solid var(--ink);border-top:0}
+.arr.dash::before{background:repeating-linear-gradient(to bottom,var(--ink) 0 5px,transparent 5px 9px)}
+.arr > em{position:absolute;left:calc(50% + 12px);top:50%;transform:translateY(-50%);font:normal 12.5px/1.35 var(--sans);color:var(--muted);max-width:calc(50% - 16px);width:max-content}
+.arr.lab{height:48px}
+.arr2{display:flex;justify-content:center;gap:96px}
+.arr2 .arr{width:2px;height:44px}
+.arr2 .arr > em{max-width:none;white-space:nowrap}
+.grid4.two{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+
+.flow{display:flex;flex-direction:column;align-items:stretch}
+@container (min-width:720px){
+  .flow.h{flex-direction:row;align-items:stretch}
+  .flow.h > .node{flex:1 1 0}
+  .flow.h > .arr,.flow.h > .arr2{flex:0 0 30px;height:auto}
+  .flow.h > .arr::before,.flow.h .arr2 .arr::before{left:2px;right:10px;top:50%;bottom:auto;width:auto;height:2px;margin:-1px 0 0}
+  .flow.h > .arr::after,.flow.h .arr2 .arr::after{left:auto;right:2px;top:50%;bottom:auto;margin:-5px 0 0;border:5px solid transparent;border-left:8px solid var(--ink);border-right:0}
+  .flow.h > .arr.lab{flex-basis:96px}
+  .flow.h > .arr > em,.flow.h .arr2 .arr > em{left:0;right:0;max-width:none;width:auto;top:auto;bottom:calc(50% + 6px);transform:none;text-align:center;white-space:normal}
+  .flow.h > .arr2{flex-basis:104px;flex-direction:column;justify-content:center;gap:34px;position:relative}
+  .flow.h .arr2 .arr{width:auto;height:2px}
+  .flow.h .arr2 .arr.rev::before{left:10px;right:2px}
+  .flow.h .arr2 .arr.rev::after{left:2px;right:auto;border-left:0;border-right:8px solid var(--ink)}
+  .flow.h .arr2 .arr.rev > em{bottom:auto;top:calc(50% + 6px)}
+}
+
+/* 回流：一條帶說明的虛線框 */
+.loop{display:flex;gap:10px;align-items:baseline;font-size:13.5px;line-height:1.55;color:var(--muted);border:1.5px dashed var(--line-strong);border-radius:8px;padding:8px 12px}
+.loop b{font:500 12px/1.4 var(--mono);color:var(--ink);white-space:nowrap}
+.loop.stop{border-color:var(--stop);color:var(--stop)}
+.loop.stop b{color:var(--stop)}
+
+/* 分岔：兩條路並排（窄時上下） */
+.fork{display:grid;gap:14px}
+@container (min-width:640px){.fork{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.fork.wide-r{grid-template-columns:minmax(0,1fr) minmax(0,2fr)}}
+.branch{display:grid;gap:0;align-content:start;border-top:2px solid var(--line-strong);padding-top:10px}
+.branch-h{font:500 12.5px/1.4 var(--mono);color:var(--muted);margin-bottom:8px}
+.branch-h b{color:var(--ink)}
+.grid4{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+
+/* 直排步驟（時間軸）：寬時說明放右欄 */
+.steps{list-style:none;margin:0;padding:0;counter-reset:st;display:grid;gap:0}
+.steps > li{counter-increment:st;position:relative;display:grid;gap:4px;padding:0 0 18px 46px}
+.steps > li::before{content:counter(st);position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font:500 13px/1 var(--mono);background:var(--paper);border:1.5px solid var(--ink);color:var(--ink)}
+.steps > li::after{content:"";position:absolute;left:15px;top:32px;bottom:2px;width:2px;margin-left:-1px;background:var(--line-strong)}
+.steps > li:last-child{padding-bottom:0}
+.steps > li:last-child::after{display:none}
+.steps > li.done::before{content:"";background:var(--hub-soft);border-color:var(--ink);box-shadow:inset 0 0 0 7px var(--hub-soft),inset 0 0 0 30px var(--ink)}
+.steps .who{font:500 11.5px/1.4 var(--mono);letter-spacing:.04em;color:var(--muted)}
+.steps .who.ds{color:var(--figma)}
+.steps b{font-size:15px;line-height:1.45}
+.steps p{font-size:14px;color:var(--muted);max-width:none}
+.steps .side-n{font-size:13px;line-height:1.5;border-radius:6px;padding:6px 10px;background:var(--bg);color:var(--muted);justify-self:start}
+.steps .side-n.stop{background:var(--stop-soft);color:var(--stop)}
+@container (min-width:720px){
+  .steps > li{grid-template-columns:minmax(0,1fr) 280px;column-gap:24px;align-items:start}
+  .steps > li > :not(.side-n){grid-column:1}
+  .steps > li > .side-n{grid-column:2;grid-row:1 / span 3}
+}
+
+/* Figma 側欄模擬 */
+.pagesplit{display:grid;gap:20px}
+@container (min-width:720px){.pagesplit{grid-template-columns:300px minmax(0,1fr);align-items:start}}
+.figside{border:1px solid var(--line-strong);border-radius:10px;background:var(--bg);padding:8px;display:grid;gap:2px;font-size:14px}
+.figside .ttl{font:500 11px/1.4 var(--mono);letter-spacing:.08em;color:var(--muted);padding:4px 8px 6px}
+.pg{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 8px;border-radius:6px;background:var(--paper)}
+.pg.div{background:none;font:500 12px/1.4 var(--mono);color:var(--muted);padding:9px 8px 3px}
+.pg.free{background:none;border:1px dashed var(--line-strong);color:var(--muted)}
+.pg.feat{border-left:3px solid var(--figma)}
+.tag{font:500 11px/1.4 var(--mono);font-style:normal;padding:1px 7px;border-radius:99px;white-space:nowrap;border:1px solid currentColor}
+.tag.ai{color:var(--html)}
+.tag.ro{color:var(--guide)}
+.tag.ds{color:var(--figma)}
+.tag.off{color:var(--muted)}
+.zones{display:grid;gap:12px}
+.zones > div{display:grid;gap:2px;padding-left:12px;border-left:3px solid var(--line-strong)}
+.zones > div.ai{border-color:var(--html)}
+.zones > div.ro{border-color:var(--guide)}
+.zones > div.ds{border-color:var(--figma)}
+.zones b{font-size:15px}
+.zones span{font-size:14px;color:var(--muted);line-height:1.6}
+/* 表格 */
+.table{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--paper)}
+table{border-collapse:collapse;width:100%;min-width:760px;font-size:13.5px;line-height:1.6}
+th,td{text-align:left;vertical-align:top;padding:11px 14px;border-bottom:1px solid var(--line)}
+th{font:500 11px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--bg)}
+tr:last-child td{border-bottom:0}
+td:first-child{font-family:var(--mono);font-weight:500;white-space:nowrap}
+td.note{color:var(--muted)}
+td.phase{color:var(--muted);white-space:nowrap}
+
+/* 檔案地圖 */
+.files{display:grid;gap:16px}
+@media (min-width:760px){.files{grid-template-columns:1fr 1fr}}
+.files pre{margin:0;padding:16px 18px;background:var(--paper);border:1px solid var(--line);border-radius:10px;overflow-x:auto;font:400 12.5px/1.8 var(--mono);color:var(--ink)}
+.files pre .k{color:var(--muted)}
+.files h3{margin-bottom:8px}
+
+.rules{counter-reset:r;margin:0;padding:0;list-style:none;display:grid;gap:10px;max-width:76ch}
+.rules li{counter-increment:r;display:grid;grid-template-columns:34px 1fr;gap:10px}
+.rules li::before{content:counter(r);font:500 13px/1.75 var(--mono);color:var(--muted)}
+
+footer{font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:20px}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+html{scroll-behavior:smooth}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <aside class="toc">
+    <nav aria-label="目錄">
+      <b>目錄</b>
+      <a href="#value">為什麼要這套</a>
+      <a href="#overview">三邊與中樞</a>
+      <a href="#plain">S0–S7 各代表什麼</a>
+      <a href="#stations">站別與輸入輸出</a>
+      <a href="#pages">Figma page 結構</a>
+      <a href="#start">場景一 · 開案</a>
+      <a href="#sync">場景二 · 三邊同步</a>
+      <a href="#adjust">場景三 · 設計師調整</a>
+      <a href="#extend">場景四 · 延伸與復盤</a>
+      <a href="#agents">Agent 之間的關係</a>
+      <a href="#evolve">方法怎麼長大</a>
+      <a href="#files">檔案地圖</a>
+      <a href="#rules">鐵律</a>
+    </nav>
+  </aside>
+
+  <main>
+    <header class="sheet">
+      <span class="eyebrow">design-loop · 產線 P7 · 工作流說明</span>
+      <h1>design-loop 工作流</h1>
+      <p class="lead">讓 <span class="side html">HTML 頁面</span>、<span class="side guide">HTML Guideline</span>、<span class="side figma">Figma 設計系統與設計稿</span> 三邊對得起來、驗得出來，而且任何一邊改了，另外兩邊一定跟上。</p>
+      <dl class="meta">
+        <div><dt>版本</dt><dd>0.6.0 · 2026-10-06</dd></div>
+        <div><dt>Web</dt><dd>stable</dd></div>
+        <div><dt>APP</dt><dd>stable</dd></div>
+        <div><dt>方法位置</dt><dd class="mono">~/.claude/skills/design-loop</dd></div>
+        <div><dt>專案資料</dt><dd class="mono">&lt;專案&gt;/_design-loop/</dd></div>
+      </dl>
+    </header>
+
+    <section id="value">
+      <span class="eyebrow">價值</span>
+      <h2>為什麼要這套</h2>
+      <p>AI 寫網頁很快，但網頁、手冊、Figma 各做各的，兩週後就對不上：手冊寫 48、網站實際 50、Figma 又是 48.5。design-loop 把「對得上」從靠記憶變成靠檔案與腳本。</p>
+      <div class="value">
+        <div><h3>HTML 當工作媒介</h3><p>瀏覽器量得到真實樣式，AI 延伸新畫面最快，也能擷取進 Figma。Figma key page 或 APP 起頭的案子，一樣先轉 HTML 再往下走。</p></div>
+        <div><h3>三邊有一張對照表</h3><p><code>registry.json</code> 把 CSS class、手冊章節、Figma 母版、設計稿串起來；每個畫面有固定的畫面代碼（例：<code>A-01</code>），Figma 變數用 codeSyntax 對到 CSS 變數。改一個元件時，受影響的頁面是查出來的，不是用猜的。</p></div>
+        <div><h3>驗收是腳本，不是感覺</h3><p><code>token_diff</code> 比數值、<code>figma_audit</code> 掃小數與未綁變數、頁高回歸、同 viewport 截圖並排。過站條件寫死在每一站，沒過就不往下。</p></div>
+        <div><h3>設計系統是 Figma 基礎建設</h3><p>設計稿只能用 Variables 與 Component instance 組成，母版一改、設計稿跟著動；新樣式要走收斂判斷樹，數量不會失控。設計師要調整時在調整區改，AI 套回正式稿並同步三邊。</p></div>
+        <div><h3>方法會跟著專案長大</h3><p>每個專案踩到的新坑先記在專案裡，驗證過再升級進方法本體，所有專案共用同一份、有版本號，每次改版都自動留下紀錄。</p></div>
+      </div>
+      <div class="proof" aria-label="首個實證專案的數字">
+        <div><strong>1008 → 0</strong><span>77 個元件母版的小數，整數化一輪後</span></div>
+        <div><strong>264 / 0</strong><span>Figma 變數比對 CSS 的 mode 值／不一致筆數</span></div>
+        <div><strong>71 · 9</strong><span>registry 登記的元件母版與設計稿頁數</span></div>
+        <div><strong>152 / 159</strong><span>Figma 變數寫入 codeSyntax，其餘 7 個登記例外</span></div>
+      </div>
+      <p class="mono" style="font-size:12px;color:var(--muted)">數字來源：品牌官網案 2026-09-15 的 REBUILD_LOG、token_diff 與 registry。</p>
+    </section>
+
+    <section id="overview">
+      <span class="eyebrow">全景</span>
+      <h2>三邊與中樞</h2>
+      <p>三邊之間的每一個箭頭都是某一站的工作；三邊之間的對照關係全部寫進 <code>_design-loop/</code>。任何一邊改了，就從對照表查出另外兩邊要動哪裡。</p>
+      <figure>
+        <div class="dgm">
+          <div class="flow h">
+            <div class="node html"><b>HTML 頁面</b><span>網站或原型，量測的真相</span><span class="mono">*.html · *.css</span></div>
+            <div class="arr2" aria-hidden="true"><i class="arr"><em>S1 量測萃取</em></i><i class="arr rev"><em>S2 頁面對齊</em></i></div>
+            <div class="node guide"><b>HTML Guideline</b><span>Ant Design 式手冊</span><span class="mono">tokens.json · components.css</span></div>
+            <i class="arr lab" aria-hidden="true"><em>S3 建 Variables 與母版</em></i>
+            <div class="node figma"><b>Figma</b><span>Variables · 母版 · 設計稿</span><span class="mono">依功能分 page</span></div>
+          </div>
+          <div class="loop"><b>HTML → Figma</b><span>S2 把對齊後的頁面擷取進 Figma 當底稿，S4 只用元件 instance 重建成設計稿。</span></div>
+          <i class="arr dash" aria-hidden="true"><em>三邊的對照都寫進這裡</em></i>
+          <div class="node hub">
+            <b>_design-loop/ 對照中樞</b>
+            <span>站別、例外、版本與每次同步的紀錄</span>
+            <div class="chips"><i>頁面 ↔ 設計稿：畫面代碼 A-01</i><i>CSS 變數 ↔ codeSyntax</i><i>class ↔ 母版 key</i></div>
+            <div class="chips"><i>manifest</i><i>registry</i><i>SYNC_LOG</i><i>DS_GAPS</i></div>
+          </div>
+        </div>
+        <figcaption>三邊各自是一種產物，對照關係全部落在專案的 <code>_design-loop/</code>。Figma 上只留元件 description，不把狀態藏在 Figma 裡。</figcaption>
+        <div class="legend"><span class="side html">HTML 頁面</span><span class="side guide">HTML Guideline</span><span class="side figma">Figma</span><span class="side stop">停下來問使用者</span></div>
+      </figure>
+    </section>
+
+    <section id="plain">
+      <span class="eyebrow">站別</span>
+      <h2>S0–S7 各代表什麼</h2>
+      <p>整個專案分成 8 站。S0–S4 是<b>首次建置</b>，開案時依序走一次；S5–S7 是<b>上線後的常駐循環</b>，網站還在改就一直跑。</p>
+      <div class="table">
+        <table>
+          <thead><tr><th>站</th><th>階段</th><th>白話說明</th><th>主要產出物</th></tr></thead>
+          <tbody>
+            <tr><td>S0 統一成 HTML</td><td class="phase">首次建置</td><td>不管起點是既有網站、Figma 設計稿還是 APP 截圖，一律先變成網頁。網頁量得到真實樣式、截得到每種螢幕寬度，之後也擷取得進 Figma。每個畫面在這一站拿到畫面代碼</td><td>每頁 HTML、各螢幕寬度對來源的截圖、實測樣式數據、畫面代碼</td></tr>
+            <tr><td>S1 萃取 Guideline</td><td class="phase">首次建置</td><td>量出網站現在用了幾種顏色、字級、間距，找出不一致，逐條決定標準（兩個選項都說得通時由使用者拍板），整理成 Ant Design 式手冊與機器讀得懂的 tokens</td><td><code>audit.md</code> 盤點與決策、<code>tokens.json</code>、<code>tokens.css</code>、<code>components.css</code>、16 章 Guideline</td></tr>
+            <tr><td>S2 頁面對齊</td><td class="phase">首次建置</td><td>回頭改網站，讓頁面真的引用 tokens，寫死的數值降到 0；再照 page 結構建好 Figma 的各個 page，把對齊後的頁面擷取進「HTML 擷取」</td><td>對齊後的 HTML、改前改後截圖、Figma page 結構與擷取稿</td></tr>
+            <tr><td>S3 Figma 設計系統</td><td class="phase">首次建置</td><td>在 Figma 建一份和 Guideline 章節一一對應的手冊，裡面有 Variables、文字與效果樣式、元件母版</td><td>3 組 Variables（含 codeSyntax）、元件母版、<code>registry.json</code></td></tr>
+            <tr><td>S4 重建設計稿</td><td class="phase">首次建置</td><td>只用 S3 的元件 instance 把每一頁重組成 Figma 設計稿，放在所屬功能的 page，像素對得上網頁、數值全是整數</td><td>依功能分 page 的正式稿、<code>DS_GAPS.md</code> 母版待補清單</td></tr>
+            <tr><td>S5 三邊同步</td><td class="phase">常駐</td><td>網頁、Guideline、Figma 任何一邊改了，另外兩邊都要跟上，腳本驗過才算完成；hook 會自動記下哪些檔案被改過，設計師在調整區改完也走這一站</td><td><code>SYNC_LOG.md</code> 同步紀錄、比對報告</td></tr>
+            <tr><td>S6 延伸新頁</td><td class="phase">常駐循環</td><td>依 Guideline 做新頁：能沿用就沿用，真的要新增時登記理由並回報數量</td><td>新頁 HTML 與設計稿、新增 token 與元件清單</td></tr>
+            <tr><td>S7 五視角復盤</td><td class="phase">常駐循環</td><td>每批新頁做完跑 5 輪：規範合規、像素對位、結構與整數、視覺層級（交給沒參與製作的 agent）、邊界情況</td><td><code>REVIEW_LOG.md</code>，每輪附證據</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Guideline 是中樞：它的資料來自網頁本身（S1 量測），定案後網頁回頭對齊它（S2），Figma 端全部從它往下建（S3、S4）。機器層面把三邊綁在一起的是 <code>tokens.json</code>、<code>registry.json</code> 與 Figma 變數的 <code>codeSyntax</code>。</p>
+    </section>
+
+    <section id="stations">
+      <span class="eyebrow">站別</span>
+      <h2>站別與輸入輸出</h2>
+      <p>S0 到 S4 只在開案時依序走一次，每一站有寫死的過站條件。S4 做完之後 <code>manifest.stage</code> 固定在 S5，之後新頁面走 S6 → S2–S4 → S7 的循環，異動都回到 S5 記錄。</p>
+      <figure>
+        <div class="dgm">
+          <div class="lane">
+            <span class="lane-h"><b>首次建置</b> · 依序過站，下面那行是過站條件</span>
+            <div class="flow h">
+              <div class="node html"><span class="k">S0</span><b>來源轉 HTML</b><span>網站／key page／APP</span><span class="gate">截圖對來源 ≤4px</span></div>
+              <i class="arr" aria-hidden="true"></i>
+              <div class="node guide"><span class="k">S1</span><b>Guideline</b><span>盤點、決策、tokens</span><span class="gate stop">使用者過目</span></div>
+              <i class="arr" aria-hidden="true"></i>
+              <div class="node html"><span class="k">S2</span><b>對齊＋擷取</b><span>寫死值改 token、建 page</span><span class="gate">寫死值 0</span></div>
+              <i class="arr" aria-hidden="true"></i>
+              <div class="node figma"><span class="k">S3</span><b>Figma DS</b><span>Variables、母版</span><span class="gate">audit 0 · diff 0</span></div>
+              <i class="arr" aria-hidden="true"></i>
+              <div class="node figma"><span class="k">S4</span><b>重建設計稿</b><span>只用 instance</span><span class="gate">逐段對擷取稿</span></div>
+            </div>
+            <div class="loop"><b>S4 → S3</b><span>母版不夠用時頁面 agent 不自己改，寫 DS_GAPS，由母版負責人回 S3 補齊。</span></div>
+          </div>
+          <i class="arr lab" aria-hidden="true"><em>首次建置完成，stage 固定 S5</em></i>
+          <div class="lane">
+            <span class="lane-h"><b>上線後</b> · 循環</span>
+            <div class="flow h">
+              <div class="node hub"><span class="k">S5</span><b>三邊同步（常駐）</b><span>hook、使用者、設計師調整、Figma 先動</span></div>
+              <i class="arr lab" aria-hidden="true"><em>新需求、wireframe</em></i>
+              <div class="node"><span class="k">S6</span><b>延伸新頁</b><span>收斂判斷樹 ①–⑥</span></div>
+              <i class="arr" aria-hidden="true"></i>
+              <div class="node ghost"><span class="k">S2–S4</span><b>再跑一次</b><span>擷取、補母版、重建</span></div>
+              <i class="arr" aria-hidden="true"></i>
+              <div class="node"><span class="k">S7</span><b>五視角復盤</b><span>R1–R5 各一輪</span></div>
+            </div>
+            <div class="loop"><b>S7 → S5</b><span>過程中三邊的每一筆異動，都回到 S5 記錄。</span></div>
+          </div>
+        </div>
+        <figcaption>S0–S4 是一次性的建置線，S5–S7 是上線後的循環。建置線唯一的回流是 S4 發現母版不夠用時寫 DS_GAPS，回 S3 補齊。</figcaption>
+      </figure>
+
+      <div class="table">
+        <table>
+          <thead><tr><th>站</th><th>輸入</th><th>產出</th><th>過站條件</th><th>腳本與工具</th></tr></thead>
+          <tbody>
+            <tr><td>S0</td><td>既有網站原始碼、Figma key page（唯讀）或 APP 截圖</td><td>每頁 HTML（支援 <code>?static</code>）、<code>audit-source.md</code>、<code>measure/*.json</code>、<code>registry.pages</code>（含畫面代碼）</td><td>每頁 × 每個 viewport 截圖對來源，位置差 ≤4px、斷行一致；每頁都有代碼</td><td class="note">extract_computed.js · s0_shoot.cjs · s0_compare.py · get_design_context</td></tr>
+            <tr><td>S1</td><td>S0 的 HTML 與量測</td><td><code>tokens.json</code>（DTCG）、<code>tokens.css</code>、<code>components.css</code>、手冊 parts 與組好的手冊、<code>audit.md</code></td><td>高嚴重度全部有決策；<span class="side stop">使用者過目</span>；benchmarks 與 forbidden 確認</td><td class="note">build_guideline.py · tokens_build.py · token_diff --json</td></tr>
+            <tr><td>S2</td><td>手冊與 tokens</td><td>對齊後的 HTML、Figma page 結構、「HTML 擷取」頁、<code>registry.capture_node</code></td><td>寫死值掃描 0；改前改後的差異都對得回決策</td><td class="note">figma_pages.js · capture_prep.js · generate_figma_design</td></tr>
+            <tr><td>S3</td><td><code>tokens.json</code>、<code>components.css</code>、手冊章節</td><td>Variables（含 codeSyntax）、文字與效果樣式、章節 frame、元件母版、<code>registry.components</code>、<code>FIGMA_DS_SPEC.md</code></td><td>figma_audit 0、token_diff 0、每個區塊層 class 都有母版</td><td class="note">figma_export_variables.js · token_diff.py · figma_audit.js · figma-use · figma-generate-library</td></tr>
+            <tr><td>S4</td><td>擷取稿、registry、網站資料來源</td><td>功能 page 上的正式稿（<code>A-01 登入</code>）、<code>REBUILD_PLAN.md</code>、<code>DS_GAPS.md</code>、頁高紀錄</td><td>逐段對位 ≤4px、audit 0、DS_GAPS 清空或經同意延後</td><td class="note">figma_audit.js · ratio_widths.py · r2_text_match.py</td></tr>
+            <tr><td>S5</td><td><code>SYNC_PENDING.md</code>、使用者描述、Figma 先動的異動、設計師的套回指令</td><td>三邊修改、<code>SYNC_LOG.md</code> 一筆、PENDING 清空</td><td>token_diff 0、audit 0、頁高回歸、異動處截圖並排</td><td class="note">sync_pending.py（hook）· adjust_diff.js · token_diff.py · figma_audit.js</td></tr>
+            <tr><td>S6</td><td>wireframe 或需求、手冊樣板章、benchmarks</td><td>新頁 HTML、手冊新章節、新母版與變體、判斷樹回報</td><td>新增 token、元件、變體的數量與理由已回報</td><td class="note">接 S2–S4 的工具</td></tr>
+            <tr><td>S7</td><td>這一批完成的頁面、benchmarks、forbidden</td><td><code>REVIEW_LOG.md</code> 五筆與修正</td><td>R1–R5 各自通過，沒發現也要寫查了什麼</td><td class="note">figma_audit.js · r2_text_match.py · contrast_on_image.py · 審查 agent</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="pages">
+      <span class="eyebrow">Figma</span>
+      <h2>Figma page 結構</h2>
+      <p>Figma 檔的 page 分成四區，每一區誰寫、AI 能不能動都是固定的。AI 用 <code>manifest</code> 記的 page id 找 page，不靠名稱；不在 manifest 裡的 page 一律當成設計師的自由 page，AI 不讀不寫。</p>
+      <figure>
+        <div class="dgm">
+          <div class="pagesplit">
+            <div class="figside" aria-label="Figma 左側 page 清單範例">
+              <span class="ttl">PAGES</span>
+              <div class="pg">Guideline <i class="tag ai">AI 寫</i></div>
+              <div class="pg div">--- 參考 ---</div>
+              <div class="pg">Wireframe <i class="tag ro">唯讀 · 選配</i></div>
+              <div class="pg">HTML 擷取 <i class="tag ai">AI 寫</i></div>
+              <div class="pg div">--- 正式稿 ---</div>
+              <div class="pg feat">A 登入註冊 <i class="tag ai">AI 維護</i></div>
+              <div class="pg feat">B 首頁 <i class="tag ai">AI 維護</i></div>
+              <div class="pg feat">C 商品購物 <i class="tag ai">AI 維護</i></div>
+              <div class="pg div">--- 工作區 ---</div>
+              <div class="pg">調整區 <i class="tag ds">設計師</i></div>
+              <div class="pg free">自由 page <i class="tag off">AI 不碰</i></div>
+            </div>
+            <div class="zones">
+              <div class="ai"><b>Guideline</b><span>S3 建的手冊與元件母版。設計師要改元件本身，直接跟 AI 說，走 S5。</span></div>
+              <div class="ro"><b>參考區</b><span>Wireframe：只有在 wireframe 是這個檔的 Figma frame 時才建，AI 只讀；網址只記連結、別的 Figma 檔只記 key 與 node。</span><span>HTML 擷取：S2 的對位底稿，依功能分 Section。</span></div>
+              <div class="ai"><b>正式稿區</b><span>一個功能一個 page，全部由元件 instance 與變數組成。設計師不直接改，要調整就複製到調整區。</span></div>
+              <div class="ds"><b>工作區</b><span>調整區：設計師複製正式稿來改，改完下指令由 AI 套回。</span><span>自由 page：其他自己開的 page，AI 不碰；要加進正式區時跟 AI 說，照正式流程重做。</span></div>
+            </div>
+          </div>
+          <div class="node"><b>畫面代碼：一個畫面＝代碼＋名稱</b><span>功能 page <code>A 登入註冊</code> → 正式稿 frame <code>A-01 登入</code>、手機版 <code>A-01 登入 · Mobile</code>、擷取稿 <code>A-01 登入 · HTML 擷取</code>。wireframe、HTML、擷取稿、正式稿、registry 共用同一個代碼；有 wireframe 就照 wireframe 的編號與名稱。</span></div>
+        </div>
+        <figcaption>結構用 <code>figma_pages.js</code> 建立與檢查：<code>apply</code> 補建缺的 page、分隔線與 Section 並排好順序，不刪不搬任何東西；<code>check</code> 列出缺漏、沒登記或放錯 page 的畫面。</figcaption>
+      </figure>
+      <p>wireframe 改版時，AI 逐筆對照 wireframe 與 registry 判斷每個畫面怎麼處理：</p>
+      <div class="table">
+        <table>
+          <thead><tr><th>wireframe 上</th><th>registry 上</th><th>判斷</th><th>做法</th></tr></thead>
+          <tbody>
+            <tr><td>代碼、名稱都相同</td><td>有</td><td>同一個畫面的內容異動</td><td>照 S6「wireframe 更新」改這個畫面</td></tr>
+            <tr><td>代碼相同、名稱不同</td><td>有</td><td>換了一個畫面（例：<code>A-03 忘記密碼</code> → <code>A-03 簡訊驗證</code>）</td><td>舊畫面標「已移除」，新畫面沿用代碼、當新頁做；結構看起來一樣、可能只是改名的，先問</td></tr>
+            <tr><td>新代碼</td><td>沒有</td><td>新畫面</td><td>S6 新頁</td></tr>
+            <tr><td>沒有</td><td>有</td><td>畫面拿掉</td><td><span class="side stop">先確認</span>再標「已移除」</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>代碼會重複使用，所以 SYNC_LOG、REVIEW_LOG、LESSONS 這些紀錄一律寫「代碼＋名稱」（例：<code>A-03 簡訊驗證</code>），舊紀錄才分得出是哪一個畫面。</p>
+    </section>
+
+    <section id="start">
+      <span class="eyebrow">場景一</span>
+      <h2>開案：從一句話到 S0</h2>
+      <p>在專案資料夾開新的 Claude Code session，說「用 design-loop 開新專案，平台 web」或「平台 app」。不需要手動複製任何範本，skill 會先判斷這是新案還是已經開過的案子。</p>
+      <figure>
+        <div class="dgm">
+          <div class="node center"><b>開新 session</b><span>「用 design-loop 開案」</span></div>
+          <i class="arr" aria-hidden="true"></i>
+          <div class="node hub center"><b>硬碟上已經有 _design-loop/manifest.json？</b></div>
+          <div class="fork wide-r">
+            <div class="branch">
+              <span class="branch-h"><b>有</b> · 已開案</span>
+              <div class="node"><b>續做</b><span>比對 loop_version，版本不同先讀 CHANGELOG；stage 是 S5 且有待同步就先跑 S5；否則依 stage 只讀當站文件。</span></div>
+            </div>
+            <div class="branch">
+              <span class="branch-h"><b>沒有</b> · 新案</span>
+              <div class="node hub"><b>init_project.py</b><span>建 _design-loop/、填平台預設、裝同步 hook</span></div>
+              <i class="arr lab" aria-hidden="true"><em>起點是哪一種？</em></i>
+              <div class="grid4 two">
+                <div class="node html"><b>A 既有網站</b><span>盤點頁面、補 ?static</span></div>
+                <div class="node figma"><b>B Figma key page</b><span>還原 HTML，對稿驗收</span></div>
+                <div class="node html"><b>C 既有 APP</b><span>依截圖還原 HTML</span></div>
+                <div class="node ghost"><b>D 只有 wireframe</b><span>先跑 beta-directions，選定一版後回 A</span></div>
+              </div>
+              <i class="arr" aria-hidden="true"></i>
+              <div class="node hub"><b>S0 驗收</b><span>每頁 × viewport 截圖對來源；每個畫面拿到畫面代碼</span></div>
+            </div>
+          </div>
+        </div>
+        <figcaption>開場判斷只看硬碟上的 <code>_design-loop/manifest.json</code>，不靠對話記憶；同一個專案換 session、換人接手，都從同一個狀態繼續。</figcaption>
+      </figure>
+      <ul class="plain">
+        <li><b>開案時會問你</b>：專案根目錄、CSS 前綴、專案名；APP 另外問 iOS／Android 要不要差異化、Dark mode 與平板是否確定要做、交接框架。還不確定就不建 mode，只保留結構。</li>
+        <li><b>畫面代碼</b>：有 wireframe 就照 wireframe 的編號；沒有的話 AI 依功能分組提案，你確認後寫進 registry。</li>
+        <li><b>Figma key page 起頭</b>：客戶的 Figma 檔只讀，記在 <code>figma.source_file_key</code>；設計系統與設計稿放另一個檔。稿子本身的不一致照做並記下來，等 S1 決策。</li>
+        <li><b>APP 設計師只畫一個平台</b>：另一個平台先照版面做，到 S1 做完平台差異表後，改對差異表驗收。</li>
+      </ul>
+    </section>
+
+    <section id="sync">
+      <span class="eyebrow">場景二</span>
+      <h2>三邊同步：任何一邊改了之後</h2>
+      <p>上線後最常發生的事。專案進入 S5 後，hook 會把改到的 HTML、CSS、tokens 記進 <code>SYNC_PENDING.md</code>，下次開場會先處理。hook 抓不到的（在 Figma 先改、用別的工具改、設計師在調整區改完），由使用者或設計師說一聲就走同一條流程。</p>
+      <figure>
+        <div class="dgm">
+          <div class="lane">
+            <span class="lane-h"><b>觸發</b> · 任一種都進同一條流程</span>
+            <div class="chips"><i>hook 記進 SYNC_PENDING</i><i>使用者：改完了</i><i>使用者：Figma 先動了</i><i>設計師：A-01 調整好了，套回去</i></div>
+          </div>
+          <ol class="steps">
+            <li><b>分類</b><p>T token 值 · C 元件 · V 新變體 · P 頁面 · G 規範文字，可能同時屬於多類。</p></li>
+            <li><b>先定真相</b><p>使用者親手改的那一邊就是新的意圖，其他邊跟上。</p><span class="side-n stop">量測和 token 對不上：查 box model，列選項問使用者，不自己挑一邊</span></li>
+            <li><b>影響分析</b><p>用 registry 從 class 查到母版、再查到用到它的畫面，列出有覆寫的 instance。</p></li>
+            <li><b>依序修改</b><p>預設原始碼 → 手冊 → Figma；Figma 先動時反過來，先讀出實際值再補 HTML。</p><span class="side-n stop">寫入任何正式稿前先比對文字；有人直接改過 Figma 的，先確認再寫，不蓋掉</span></li>
+            <li><b>驗證</b><p>token_diff 0、figma_audit 0、頁高回歸、異動處截圖並排。</p><span class="side-n stop">沒過：回到第 4 步</span></li>
+            <li><b>紀錄</b><p>SYNC_LOG 記一筆（畫面寫代碼＋名稱），清掉 SYNC_PENDING。</p></li>
+            <li class="done"><b>完成</b><p>三邊都改完、驗證全過才算。只改了一邊或兩邊，走不到這一步。</p></li>
+          </ol>
+        </div>
+        <figcaption>「完成」只有一個入口：驗證全過、SYNC_LOG 有這一筆。</figcaption>
+      </figure>
+      <div class="table">
+        <table>
+          <thead><tr><th>類型</th><th>判斷</th><th>至少要動</th></tr></thead>
+          <tbody>
+            <tr><td>T token 值</td><td>改的是 <code>--x-*</code> 本身的值，所有引用處都會變</td><td>tokens.json、tokens.css、Figma 變數、手冊色票與規格表。AI 主動想改全站 token 值時要先問</td></tr>
+            <tr><td>C 元件</td><td>元件改引用別的 token，或結構改變</td><td>components.css、手冊元件章、Figma 母版、受影響的設計稿</td></tr>
+            <tr><td>V 新變體</td><td>新 class 或新 modifier</td><td>C 類全部加 registry；照 S3 建構規則做，不必重新擷取</td></tr>
+            <tr><td>P 頁面</td><td>區塊順序、文案、版型</td><td>HTML、重新擷取該頁、更新該頁設計稿</td></tr>
+            <tr><td>G 規範文字</td><td>用法說明、Do／Don't</td><td>手冊 parts、Figma 規格文字</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><b>Figma 先動的時候</b>：讀出 Figma 上的實際值與綁定，對不到既有 token 的值先問規格，驗母版、更新 registry，再回頭補 components.css 與手冊示範，最後用手冊示範的渲染結果對 Figma 母版驗收。</p>
+    </section>
+
+    <section id="adjust">
+      <span class="eyebrow">場景三</span>
+      <h2>設計師在 Figma 調整之後</h2>
+      <p>正式稿裡有元件 instance、變數與樣式綁定，直接改容易打斷綁定，三邊也不會同步。所以設計師不直接改正式稿：複製到調整區改完，跟 AI 說一聲，AI 比對差異後套回正式稿，並同步回 HTML 與 Guideline。</p>
+      <figure>
+        <div class="dgm">
+          <ol class="steps">
+            <li><span class="who ds">設計師</span><b>複製正式稿到調整區再改</b><p>名稱保留畫面代碼（例：<code>A-01 登入 · 調整</code>），AI 靠代碼找回原畫面。多人時每人一個 Section。</p><span class="side-n">要改的是元件本身，直接跟 AI 說，走 S5，不在調整區改母版</span></li>
+            <li><span class="who ds">設計師</span><b>下指令</b><p>「A-01 調整好了，套回去」。只認指令：AI 不主動掃調整區，也不自動套用。</p></li>
+            <li><span class="who">AI</span><b>比對副本和正式稿</b><p><code>adjust_diff.js</code> 逐一列出文字、元件與變體、被 detach 的元件、綁定變成寫死的顏色、版面、增刪的圖層，再和設計師說的意圖對照。</p><span class="side-n stop">比對結果和說的不一樣（例：說只改標題，按鈕顏色也變了）：列出來問，不自己猜</span></li>
+            <li><span class="who">AI</span><b>衝突檢查</b><p>副本建立之後正式稿又被改過的話，列出兩邊各改了什麼。</p><span class="side-n stop">兩邊都有改：問設計師以哪邊為準</span></li>
+            <li><span class="who">AI</span><b>照 S5 寫回並同步三邊</b><p>套回元件 instance 與變數，不把副本的圖層原樣搬回去；寫死的數值先對既有 token，對不到的走 S6 判斷樹。</p></li>
+            <li class="done"><span class="who">AI</span><b>副本移到「已套用」</b><p>名稱加上套用日期，不刪除，由設計師自己清。SYNC_LOG 記下來源。</p></li>
+          </ol>
+        </div>
+        <figcaption>只改好 Figma 正式稿不算完成；三邊都改了、S5 驗證全過才算。</figcaption>
+      </figure>
+
+      <h3>防呆：有人直接改了正式稿</h3>
+      <p>正常做法是走調整區，但有人直接在正式稿改了一句文案，也要抓得到、同步得了，而且不能被 AI 蓋掉。</p>
+      <figure>
+        <div class="dgm">
+          <div class="lane">
+            <span class="lane-h"><b>什麼時候查</b></span>
+            <div class="chips"><i>AI 要寫入正式稿之前</i><i>S7 R2／R3 復盤</i><i>使用者說「檢查正式稿有沒有被改」</i></div>
+          </div>
+          <i class="arr lab" aria-hidden="true"><em>對不上，SYNC_LOG 也解釋不了</em></i>
+          <div class="node stop center"><b>先問設計師，不自己修</b><span>「A-01 登入 的標題，Figma 是『會員登入』、HTML 是『登入』，哪個是對的？」</span></div>
+          <div class="fork">
+            <div class="branch">
+              <span class="branch-h"><b>是刻意改的</b></span>
+              <div class="node figma"><b>當成 Figma 端異動</b><span>照 S5 同步回 HTML 與 Guideline；用到寫死值或 detach 的，順手套回 token 與元件。</span></div>
+            </div>
+            <div class="branch">
+              <span class="branch-h"><b>不是</b></span>
+              <div class="node html"><b>照 HTML 改回 Figma</b><span>記進 SYNC_LOG，並提醒設計師下次走調整區。</span></div>
+            </div>
+          </div>
+        </div>
+        <figcaption>復盤時發現對不上，也不會直接把 Figma 改回 HTML：先判斷哪一邊才是新的意圖。</figcaption>
+      </figure>
+    </section>
+
+    <section id="extend">
+      <span class="eyebrow">場景四</span>
+      <h2>延伸新頁與五視角復盤</h2>
+      <p>拿到新的 wireframe 或需求時，AI 依 Guideline 延伸畫面：先做 HTML，再還原成套元件的設計稿，最後用五個固定視角各復盤一輪。重點是能自主往前做，但每一個新樣式都要說得出理由。</p>
+      <figure>
+        <div class="dgm">
+          <div class="lane">
+            <span class="lane-h"><b>延伸</b> · 每個新畫面</span>
+            <div class="flow h">
+              <div class="node"><b>wireframe／需求</b><span>欄位只取稿上有的；代碼照 wireframe</span></div>
+              <i class="arr" aria-hidden="true"></i>
+              <div class="node guide"><b>收斂判斷樹</b><span>① 沿用 → ⑥ 新類別</span><span class="note stop">新欄位、IA、全站 token 值：停下來問</span></div>
+              <i class="arr" aria-hidden="true"></i>
+              <div class="node html"><b>HTML＋手冊</b><span>共用樣式進元件庫</span></div>
+              <i class="arr" aria-hidden="true"></i>
+              <div class="node figma"><b>S2 → S3 → S4</b><span>擷取、補母版、重建進功能 page</span></div>
+              <i class="arr" aria-hidden="true"></i>
+              <div class="node"><b>回報數量</b><span>新增的 token、元件、變體</span></div>
+            </div>
+          </div>
+          <i class="arr lab" aria-hidden="true"><em>這一批完成後，順序固定</em></i>
+          <div class="lane">
+            <span class="lane-h"><b>復盤</b> · 每輪查 → 修 → 記</span>
+            <div class="flow h">
+              <div class="node"><span class="k">R1</span><b>規範合規</b><span>寫死值、未綁變數</span></div>
+              <i class="arr" aria-hidden="true"></i>
+              <div class="node"><span class="k">R2</span><b>像素對位</b><span>全頁文字比對、同 viewport 並排</span></div>
+              <i class="arr" aria-hidden="true"></i>
+              <div class="node"><span class="k">R3</span><b>結構與整數</b><span>小數、覆寫、頁高</span></div>
+              <i class="arr" aria-hidden="true"></i>
+              <div class="node hub"><span class="k">R4</span><b>視覺層級</b><span>由另一個 agent 審</span></div>
+              <i class="arr" aria-hidden="true"></i>
+              <div class="node"><span class="k">R5</span><b>邊界</b><span>長標題、0 筆、其他裝置</span></div>
+            </div>
+            <div class="loop stop"><b>沒過</b><span>同一輪重查；第 3 次還沒過就停下回報。改到 Figma 就重跑 R1、R3 的機器檢查。</span></div>
+          </div>
+        </div>
+        <figcaption>五輪看的是五件不同的事，不是同一件事看五次。R4 刻意交給沒參與製作的 agent，只給截圖、基準頁、手冊與禁用清單，避免替自己的決定辯護。</figcaption>
+      </figure>
+      <div class="table">
+        <table>
+          <thead><tr><th>判斷樹</th><th>做法</th><th>權限</th></tr></thead>
+          <tbody>
+            <tr><td>①</td><td>既有元件直接用</td><td>自主</td></tr>
+            <tr><td>②</td><td>既有元件換變體或屬性值</td><td>自主</td></tr>
+            <tr><td>③</td><td>母版加變體、BOOLEAN、INSTANCE_SWAP，不動既有 key 與屬性名</td><td>自主</td></tr>
+            <tr><td>④</td><td>只用手冊既有的字級、色、線條、間距與子元件組新元件（例：時間軸）</td><td>自主</td></tr>
+            <tr><td>⑤</td><td>新增 token</td><td>自主，但在 REVIEW_LOG 寫需求、最接近的既有選項、為什麼不行；同一頁超過 3 個先停</td></tr>
+            <tr><td>⑥</td><td>帶進手冊沒有的形狀、版型類別或動態（例：斜切卡片、瀑布流）</td><td>同 ⑤</td></tr>
+            <tr><td>—</td><td>wireframe 以外的內容欄位、導覽或資訊架構、全站既有 token 值、一整類新 token</td><td><span class="side stop">停下來問</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><b>設計師自己補的畫面</b>：wireframe 上沒有、設計師自己畫的畫面，預設不同步。設計師指定要加進正式區時，當成沒有 wireframe 的新頁照這條流程重做，原稿只當參考，不直接搬進正式區。</p>
+    </section>
+
+    <section id="agents">
+      <span class="eyebrow">分工</span>
+      <h2>Agent 之間的關係</h2>
+      <p>design-loop 讓多個 agent 同時動工也不會互相覆蓋，靠的是兩件事：每一份產物只有一個負責人，而且所有人都把結果寫進同一個 <code>_design-loop/</code>，不存在對話記憶裡。</p>
+      <figure>
+        <div class="dgm">
+          <div class="node center"><b>使用者／設計師</b><span>拍板：欄位、IA、token 值、整數政策；設計師在調整區改稿</span></div>
+          <i class="arr both lab" aria-hidden="true"><s></s><em>決策、指令與回報</em></i>
+          <div class="fork">
+            <div class="node hub"><b>主 agent · 總控</b><span>讀 manifest、路由站別、派工、彙整</span></div>
+            <div class="node ghost"><b>另一個 Claude session</b><span>依產物擁有權分工，用 SendMessage 講清楚範圍；寫共用檔前先重讀</span></div>
+          </div>
+          <i class="arr lab" aria-hidden="true"><em>派工</em></i>
+          <div class="grid4">
+            <div class="node figma"><b>母版負責人</b><span>S3 母版、修 DS_GAPS</span><span class="gate">寫入：registry</span></div>
+            <div class="node figma"><b>頁面 agent × N</b><span>S4 只動自己的 frame</span><span class="gate">寫入：DS_GAPS</span></div>
+            <div class="node"><b>R4 審查 agent</b><span>只拿截圖與基準頁</span><span class="gate">寫入：REVIEW_LOG</span></div>
+            <div class="node html"><b>量測 agent</b><span>自裝 Playwright 平行量測</span><span class="gate">寫入：evidence</span></div>
+          </div>
+          <i class="arr dash lab" aria-hidden="true"><em>結果都寫進</em></i>
+          <div class="node center"><b>_design-loop/ 共用紀錄</b><div class="chips"><i>manifest</i><i>registry</i><i>DS_GAPS</i><i>SYNC_LOG</i><i>REVIEW_LOG</i><i>LESSONS</i><i>measure</i><i>evidence</i></div></div>
+        </div>
+        <figcaption>實線是派工與溝通，虛線是寫入。頁面 agent 發現母版不夠用時不自己改，寫 DS_GAPS 交給母版負責人；R4 審查者跟製作者分開，是刻意的。</figcaption>
+      </figure>
+      <div class="table">
+        <table>
+          <thead><tr><th>角色</th><th>做什麼</th><th>寫入</th><th>界線</th></tr></thead>
+          <tbody>
+            <tr><td>使用者</td><td>S1 手冊過目；決定欄位、資訊架構、全站 token 值、整數政策、Figma 檔放置</td><td class="note">—</td><td>AI 列選項，決定權在使用者</td></tr>
+            <tr><td>設計師</td><td>在調整區改稿、下指令套回；確認正式稿上被直接改過的地方是不是刻意的</td><td>調整區的副本、自由 page</td><td>不直接改正式稿；要改元件本身直接跟 AI 說</td></tr>
+            <tr><td>主 agent</td><td>開場判斷、站別路由、S0–S2 與 S5 主流程、調整區套回、派工與彙整回報</td><td><code>manifest</code>、<code>SYNC_LOG</code></td><td>該拍板的事不自己挑</td></tr>
+            <tr><td>母版負責人</td><td>S3 建 Variables 與母版、處理 DS_GAPS、S5 的母版修改</td><td>Figma 母版、<code>registry.components</code>、<code>FIGMA_DS_SPEC</code></td><td>同一個母版只有一個負責人；只有一個 agent 時就是它</td></tr>
+            <tr><td>頁面 agent</td><td>S4 依擷取稿重建指定頁面</td><td>自己的 frame、<code>DS_GAPS</code>、頁高</td><td>不改母版、不碰別人的 frame；Wireframe 與調整區唯讀</td></tr>
+            <tr><td>R4 審查 agent</td><td>S7 視覺層級與品質視角</td><td><code>REVIEW_LOG</code> 的 R4</td><td>不給製作過程，只給截圖、基準頁、手冊、禁用清單</td></tr>
+            <tr><td>量測 agent</td><td>多頁、多 viewport 平行截圖與 computed style</td><td><code>measure/</code>、<code>evidence/</code></td><td>Playwright MCP 只有一個瀏覽器，留給主 agent；其他 agent 自裝</td></tr>
+            <tr><td>另一個 session</td><td>依產物擁有權分工，例如一邊負責 Variables，一邊負責母版與手機版設計稿</td><td>自己擁有的產物；共用檔只改自己的列</td><td>寫共用檔前先重讀；範圍用 SendMessage 講清楚</td></tr>
+            <tr><td>外部 skill</td><td>figma-use、figma-generate-library 提供 Figma API 規則；beta-directions 是上游，產出第一版畫面</td><td class="note">—</td><td>API 規則以它們為準，design-loop 只補專案慣例與踩坑</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="evolve">
+      <span class="eyebrow">版本</span>
+      <h2>方法怎麼長大</h2>
+      <p>方法本體只有一份，所有專案都讀它、不複製。專案踩到的新坑先記在專案裡，驗證過才寫回方法、升版號；其他專案下次開場會看到版本差異，由使用者決定要不要跟上。</p>
+      <figure>
+        <div class="dgm">
+          <div class="flow h">
+            <div class="node"><b>專案 LESSONS</b><span>新坑標「待升級」</span></div>
+            <i class="arr" aria-hidden="true"></i>
+            <div class="node"><b>評估回流</b><span>四關分流：機制、原則、慣例、決策</span></div>
+            <i class="arr" aria-hidden="true"></i>
+            <div class="node"><b>寫進方法本體</b><span>同時升 VERSION、寫 CHANGELOG</span><span class="gate stop">沒升版就擋下</span></div>
+            <i class="arr" aria-hidden="true"></i>
+            <div class="node"><b>合併到 main</b><span>自動打 tag、建 Release</span><span class="gate">Releases 標 Latest</span></div>
+            <i class="arr" aria-hidden="true"></i>
+            <div class="node hub"><b>各專案開場</b><span>比對 loop_version，列出兩版之間的變更</span></div>
+          </div>
+          <div class="loop"><b>決定權</b><span>使用者決定專案要不要跟上，決定前照原版本做。</span></div>
+        </div>
+        <figcaption>想知道現在最新是哪一版：看 GitHub Releases 標 Latest 的那個。每次改版的內容與「專案要不要跟著改」都在 <code>CHANGELOG.md</code>，回流的來源與分流結果在 <code>docs/backflow/LOG.md</code>。</figcaption>
+      </figure>
+    </section>
+
+    <section id="files">
+      <span class="eyebrow">檔案</span>
+      <h2>檔案地圖</h2>
+      <div class="files">
+        <div>
+          <h3><span class="side guide">方法本體</span></h3>
+          <pre>design-loop/            <span class="k">git · 版本 tag</span>
+├─ SKILL.md             <span class="k">開場、站別路由、鐵律</span>
+├─ VERSION · CHANGELOG  <span class="k">版本號與每版變更</span>
+├─ core/                <span class="k">S0–S7、figma-pages、parallel</span>
+├─ platforms/           <span class="k">web.md · app.md</span>
+├─ references/          <span class="k">換算、整數、踩坑</span>
+├─ scripts/             <span class="k">開案、hook、量測、比對、page</span>
+├─ templates/project/   <span class="k">開案時複製進專案</span>
+├─ docs/                <span class="k">這份說明、backflow 回流紀錄</span>
+└─ .github/             <span class="k">版本檢查、自動 tag</span></pre>
+        </div>
+        <div>
+          <h3><span class="side html">專案資料</span></h3>
+          <pre>&lt;專案&gt;/_design-loop/
+├─ manifest.json        <span class="k">平台、Figma page、stage、例外</span>
+├─ registry.json        <span class="k">畫面代碼、class ↔ 母版 ↔ 設計稿</span>
+├─ SYNC_PENDING.md      <span class="k">hook 記的待同步</span>
+├─ SYNC_LOG.md          <span class="k">每次同步一筆</span>
+├─ DS_GAPS.md           <span class="k">母版待補</span>
+├─ REVIEW_LOG.md        <span class="k">五視角復盤</span>
+├─ LESSONS.md           <span class="k">待升級的新坑</span>
+└─ measure/ · evidence/ <span class="k">量測資料與截圖</span>
+&lt;專案&gt;/.claude/settings.json   <span class="k">同步 hook</span>
+&lt;專案&gt;/CLAUDE.md               <span class="k">指向 design-loop</span></pre>
+        </div>
+      </div>
+      <p>客戶資料（fileKey、截圖、文案、node id）只放在專案資料夾，不進方法本體的 repo。</p>
+    </section>
+
+    <section id="rules">
+      <span class="eyebrow">鐵律</span>
+      <h2>鐵律</h2>
+      <ol class="rules">
+        <li><span><b>HTML 是工作媒介，Web 和 APP 都一樣。</b>最後用 Flutter 或原生實作也先做 HTML；APP 的 HTML 是原型，交付的是 tokens.json 與設計稿。</span></li>
+        <li><span><b>Figma key page 起頭時，HTML 對 Figma 驗收。</b>稿子本身的不一致記下來等決策，不在 HTML 裡偷偷修掉。</span></li>
+        <li><span><b>不跳站，但可以驗收過站。</b>已經有手冊或 Figma DS 的專案，跑那一站的驗收，過了才往下。</span></li>
+        <li><span><b>狀態寫硬碟，不寫進 Figma。</b>對照關係全部在 registry；Figma 上只寫元件 description。</span></li>
+        <li><span><b>整數從建母版就守。</b>鎖比例寬度取倍數、網格餘數照專案政策、奇偶置中用 min-height 補。</span></li>
+        <li><span><b>改動一律走 S5。</b>三邊都改完、腳本驗過、SYNC_LOG 記下，才叫完成。</span></li>
+        <li><span><b>延伸先沿用。</b>可以自主新增，但要寫理由、回報數量；欄位、IA、全站 token 值要先問。</span></li>
+        <li><span><b>復盤是五個視角各一輪。</b>視覺層級交給沒參與製作的 agent。</span></li>
+        <li><span><b>新坑先記在專案。</b>驗證過才升級進方法本體。</span></li>
+      </ol>
+    </section>
+
+    <footer>design-loop 0.6.0 · <span class="mono">docs/workflow.html</span> · 依品牌官網案（2026-09-15～17，S0–S7）與 APP 案（2026-09-29，S0–S7）的實測紀錄整理。多 agent 並行做法見 <span class="mono">core/parallel.md</span>；Figma page 分區、畫面代碼與調整區見 <span class="mono">core/figma-pages.md</span>。</footer>
+  </main>
+</div>
+</body>
+</html>

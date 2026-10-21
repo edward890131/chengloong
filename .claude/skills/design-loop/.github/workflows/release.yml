@@ -1,0 +1,30 @@
+# main 上 VERSION 改了 → 自動打 tag、建 GitHub Release（過去漏打的也會補）
+name: release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: 設定 git 身分
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: 打 tag 與建 Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 .github/scripts/release_tags.py

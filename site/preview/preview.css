@@ -1,0 +1,186 @@
+/* ==========================================================================
+   RWD 預覽切換（預覽工具，不屬於網站設計；上線前移除 _head／_foot 的引用即可）
+   主控負責。只在 ≥1101 的電腦版 header 出現；?static 與 iframe 內（?embed）不出現。
+   ========================================================================== */
+
+/* ---------- 切換鈕：沿用網站膠囊按鈕（白底細框、選中主綠） ---------- */
+.cl-pv-switch {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 40px;
+  padding: 0 4px;
+  border: 1px solid var(--cl-ink-800-10);
+  border-radius: 999px;
+  background: var(--cl-white);
+}
+.cl-pv-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  color: var(--cl-ink-800-60);
+  transition: background-color .2s, color .2s;
+}
+.cl-pv-btn svg { width: 20px; height: 20px; }
+.cl-pv-btn:hover { background: #f6f6f6; color: var(--cl-ink-900); }
+.cl-pv-btn[aria-pressed="true"] { background: var(--cl-green-500); color: var(--cl-white); }
+.cl-pv-btn:focus-visible { outline: 2px solid var(--cl-green-700); outline-offset: 2px; }
+
+/* 1101–1439：收成一顆按鈕＋下拉選單 */
+.cl-pv-compact { position: relative; display: none; }
+.cl-pv-compact > .cl-pv-btn {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--cl-ink-800-10);
+  background: var(--cl-white);
+}
+.cl-pv-compact.is-on > .cl-pv-btn { border-color: var(--cl-green-500); background: var(--cl-green-500); color: var(--cl-white); }
+.cl-pv-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 6;
+  display: none;
+  min-width: 220px;
+  padding: 6px;
+  border-radius: 16px;
+  background: var(--cl-white);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .12);
+}
+.cl-pv-compact.is-open .cl-pv-menu { display: block; }
+.cl-pv-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 10px;
+  color: var(--cl-ink-800);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  text-align: left;
+  white-space: nowrap;
+}
+.cl-pv-item svg { width: 20px; height: 20px; flex: none; color: var(--cl-ink-800-60); }
+.cl-pv-item small { margin-left: auto; color: var(--cl-ink-800-60); font-family: var(--cl-font-num); font-size: 12px; }
+.cl-pv-item:hover { background: #f6f6f6; }
+.cl-pv-item[aria-pressed="true"] { color: var(--cl-green-700); }
+.cl-pv-item[aria-pressed="true"] svg { color: var(--cl-green-500); }
+
+.cl-pv-switch, .cl-pv-compact { display: none; }
+@media (min-width: 1440px) { .cl-pv-switch { display: flex; } }
+@media (min-width: 1101px) and (max-width: 1439px) { .cl-pv-compact { display: block; } }
+
+/* ---------- 預覽層：header 下方灰底＋裝置外框 ---------- */
+html.cl-pv-open { overflow: hidden; }
+.cl-pv-stage {
+  position: fixed;
+  z-index: 4;          /* header（z 5）留在最上層 */
+  top: 62px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 32px 40px 28px;
+  background: #f6f6f6;
+}
+html.cl-pv-open .cl-pv-stage { display: flex; }
+
+.cl-pv-fit { position: relative; flex: none; }
+.cl-pv-device {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: 0 0;
+  padding: var(--bezel);
+  border-radius: var(--radius);
+  background: #1f1f1f;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .18);
+}
+.cl-pv-screen {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: calc(var(--radius) - var(--bezel));
+  background: var(--cl-white);
+}
+.cl-pv-status {
+  position: relative;
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--status-pad);
+  height: var(--status-h);
+  background: var(--cl-white);
+  color: #000;
+  font-family: -apple-system, 'SF Pro Text', var(--cl-font-sans);
+  font-size: var(--status-fs);
+  font-weight: 600;
+}
+.cl-pv-status svg { height: calc(var(--status-fs) * .9); width: auto; }
+.cl-pv-icons { display: flex; align-items: center; gap: 5px; }
+.cl-pv-island {
+  position: absolute;
+  left: 50%;
+  top: 11px;
+  width: 126px;
+  height: 37px;
+  border-radius: 999px;
+  background: #000;
+  transform: translateX(-50%);
+}
+.cl-pv-frame { display: block; flex: 1 1 0; width: 100%; border: 0; background: var(--cl-white); }
+.cl-pv-home {
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  width: var(--home-w);
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, .8);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.cl-pv-bar {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 16px;
+  color: var(--cl-ink-800);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
+}
+.cl-pv-label { display: flex; align-items: center; gap: 8px; margin-right: 4px; }
+.cl-pv-label b { font-weight: 500; }
+.cl-pv-size { font-family: var(--cl-font-num); }
+.cl-pv-bar .cl-pv-act + .cl-pv-act { margin-left: -4px; }
+.cl-pv-act {
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 20px;
+  border: 1.5px solid var(--cl-green-500);
+  border-radius: 999px;
+  background: var(--cl-white);
+  color: var(--cl-green-700);
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color .2s, color .2s;
+}
+.cl-pv-act:hover { background: var(--cl-green-500); color: var(--cl-white); }
+
+/* iframe 內的頁面：隱藏捲軸，模擬裝置 */
+html.is-embed { scrollbar-width: none; }
+html.is-embed::-webkit-scrollbar { display: none; }

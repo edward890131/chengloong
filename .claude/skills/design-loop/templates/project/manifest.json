@@ -1,0 +1,56 @@
+{
+  "loop_version": "__VERSION__",
+  "project": "__NAME__",
+  "platform": "web",
+  "prefix": "__PREFIX__",
+  "figma_prefix": "__FIGMA_PREFIX__",
+  "stage": "S0",
+  "created": "__DATE__",
+  "source": "",
+  "paths": {
+    "html_root": "",
+    "tokens_json": "",
+    "tokens_css": "",
+    "components_css": "",
+    "guideline_src": "",
+    "guideline_out": ""
+  },
+  "viewports": [
+    { "name": "Desktop", "width": 1440, "height": 900 },
+    { "name": "Tablet", "width": 768, "height": 1024 },
+    { "name": "Mobile", "width": 390, "height": 844 }
+  ],
+  "modes": {
+    "Responsive": [
+      { "mode": "Desktop", "css": ":root" },
+      { "mode": "Tablet", "css": "@media (max-width:1100px)" },
+      { "mode": "Mobile", "css": "@media (max-width:640px)" }
+    ]
+  },
+  "options": { "dark": false, "tablet": true },
+  "static_param": "?static",
+  "figma": {
+    "source_file_key": "",
+    "file_key": "",
+    "same_file_note": "",
+    "pages": {
+      "guideline": "",
+      "wireframe": "",
+      "captures": "",
+      "design": {},
+      "adjust": ""
+    },
+    "pages_note": "design：功能代碼 → { name, id }，例 \"A\": { \"name\": \"A 登入註冊\", \"id\": \"\" }。舊格式是單一字串，照舊運作。結構見 core/figma-pages.md"
+  },
+  "font_weight_map": {},
+  "benchmarks": [],
+  "forbidden": [],
+  "integer_policy": {
+    "grid_remainder": "undecided",
+    "exceptions": ["__FIGMA_PREFIX__/Icon/* 內部向量"]
+  },
+  "token_map": [],
+  "token_diff_ignore": [],
+  "sync_watch": ["**/*.html", "**/*.css", "**/tokens.json"],
+  "sync_ignore": ["_design-loop/**", "node_modules/**", "**/guideline/index.html"]
+}

@@ -1,0 +1,610 @@
+/* ==========================================================================
+   05 綠點存摺與憑證（負責人 D）
+   電腦版 1695:20313（1440×1440）／手機版 1695:19826（375×1707.88）
+   ========================================================================== */
+
+.cl-green {
+  position: relative;
+  padding: 40px 0 120px;
+  /* Chrome 預設會擠壓相鄰全形標點（「下，「」），Figma 不會 → 斷行不同；關掉 */
+  text-spacing-trim: space-all;
+  background: var(--cl-white);
+}
+
+/* 行高：Figma 寫 140%／120%，但實際排版四捨五入成整數 px（16→22、14→20、32→45、48→58、24→34、28→34），
+   量 Figma 截圖的行距與 metadata 文字框高度都對得上，所以這裡寫整數 px */
+
+/* ---------- 標題區 Frame 4 ---------- */
+.cl-green__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  width: 640px;
+  max-width: calc(100% - 32px);
+  margin: 0 auto;
+  text-align: center;
+}
+.cl-green__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+.cl-green__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--cl-green-700);
+  font-family: var(--cl-font-num);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.cl-green__eyebrow-dot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 100px;
+  background: var(--cl-green-700);
+}
+.cl-green__title {
+  width: 100%;
+  color: var(--cl-ink-900);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 45px;
+  letter-spacing: 1px;
+}
+.cl-green__lead {
+  width: 100%;
+  color: var(--cl-ink-800-60);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: .3px;
+}
+
+/* ---------- 卡片區 cards ---------- */
+.cl-green__body {
+  width: 1280px;
+  max-width: calc(100% - 160px);
+  margin: 64px auto 0;
+}
+.cl-green__nav,
+.cl-green__pager { display: none; }
+
+.cl-green__cards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cl-green__card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 480px;
+  padding: 12px;
+  border-radius: 20px;
+  overflow: hidden;
+  isolation: isolate;
+}
+.cl-green__card--points { background: var(--cl-green-400); }
+.cl-green__card--cert   { background: var(--cl-ink-900); }
+
+/* 弧線 curve_ani_greenpts／curve_ani_certificate：
+   Figma 容器 2000×500 置中，內層 scaleY(-1)＋rotate(2.71deg)，位置換算成 SVG 左上角 */
+.cl-green__curve {
+  z-index: -1;
+  width: 5628.88px;
+  height: 1524.16px;
+  transform: scaleY(-1) rotate(2.71deg);
+}
+.cl-green__curve path { stroke: var(--cl-white); }
+.cl-green__curve--points { left: -1373.2425px; top: 57.82px; }
+.cl-green__curve--points path { stroke-opacity: .1; }
+.cl-green__curve--cert { left: -4054.2425px; top: -962.18px; }
+.cl-green__curve--cert path { stroke-opacity: .06; }
+
+/* 左側文字 Frame 2085663987 */
+.cl-green__intro {
+  display: flex;
+  flex: 1 1 512px;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: stretch;
+  padding: 28px 48px 48px;
+  border-radius: 16px;
+  color: var(--cl-white);
+}
+.cl-green__names {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.cl-green__en {
+  color: rgba(255, 255, 255, .32);
+  font-family: var(--cl-font-num);
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 58px;
+  letter-spacing: 2px;
+}
+.cl-green__name {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 45px;
+  letter-spacing: .5px;
+}
+.cl-green__desc {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: .3px;
+}
+
+/* 中間圖卡共用尺寸 */
+.cl-green__slider,
+.cl-green__doc {
+  position: relative;
+  flex: 0 1 360px;
+  min-width: 0;
+  height: 456px;
+  border-radius: 16px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* card_greebpt 輪播 */
+.cl-green__slider {
+  display: block;
+  text-align: left;
+  cursor: pointer;
+}
+.cl-green__slide {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 456px;
+  overflow: hidden;
+  background-image: linear-gradient(-23.25284002041225deg, rgb(222, 255, 223) 11.177%, rgb(232, 254, 238) 51.564%, rgb(228, 255, 235) 91.952%);
+  opacity: 0;
+  transition: opacity .3s ease-out;
+}
+.cl-green__slide.is-active { opacity: 1; }
+.cl-green__slide img { position: absolute; max-width: none; }
+/* green point_1 1：aspect 1759/1065，left calc(50% + 120.5px) 置中、top -3.73%、bottom -6.36%，object-position bottom */
+.cl-green__coins {
+  left: -114.0849px;
+  top: -17.0088px;
+  width: 829.1698px;
+  height: 502.0104px;
+  object-fit: cover;
+  object-position: bottom;
+}
+/* 蓋掉圖上邊角的兩塊色塊（Rectangle 10276／10277） */
+.cl-green__patch { position: absolute; }
+.cl-green__patch--bottom { left: 25%; right: 25%; bottom: 0; height: 66px; background: #e0ffe2; }
+.cl-green__patch--top { left: 63.06%; right: 0; top: 0; height: 67px; background: #e7feec; }
+/* paper_img「3」：aspect 4096/2731，left -69.17%、right -83.33%、中心 top calc(50% - 75px) */
+.cl-green__paper {
+  left: -249.012px;
+  top: -150.0389px;
+  width: 909px;
+  height: 606.0778px;
+  object-fit: cover;
+}
+
+.cl-green__info {
+  position: absolute;
+  left: 12px;
+  right: 133px;
+  bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  border-radius: 12px;
+  background: rgba(21, 102, 60, .6);
+  backdrop-filter: blur(52px);
+  -webkit-backdrop-filter: blur(52px);
+  color: var(--cl-white);
+}
+.cl-green__info-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  white-space: nowrap;
+}
+.cl-green__info-dot,
+.cl-green__pill-dot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 100px;
+  background: #85f0b7;
+}
+/* Line 22：0 高的線，stroke 畫在上方 1px（rgba 白 .2） */
+.cl-green__info-rule {
+  display: block;
+  height: 1px;
+  margin-top: -1px;
+  background: rgba(255, 255, 255, .2);
+}
+.cl-green__info-body {
+  display: block;
+  margin-right: -.3px; /* 瀏覽器把最後一字的字距算進行寬，Figma 不算；不補會多斷一行 */
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: .3px;
+}
+.cl-green__dots {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  display: flex;
+  gap: 8px;
+}
+.cl-green__dot,
+.cl-green__pager-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(17, 17, 17, .2);
+  transition: background-color .3s ease-out;
+}
+.cl-green__dot.is-active,
+.cl-green__pager-dot.is-active { background: var(--cl-green-400); }
+
+/* certificate_img：pdf 可視範圍，left 64、top 86.53（客戶 R2 微調證明書尺寸） */
+.cl-green__doc { background: #989898; }
+.cl-green__doc-img {
+  position: absolute;
+  left: 64px;
+  top: 86.5338px;
+  width: 296px;
+  height: 369.4662px;
+  max-width: none;
+}
+
+/* 右側兩格 */
+.cl-green__side {
+  display: flex;
+  flex: 0 1 360px;
+  min-width: 0;
+  flex-direction: column;
+  gap: 12px;
+  align-self: stretch;
+}
+.cl-green__tile {
+  display: flex;
+  flex: 1 1 0;
+  min-height: 0;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 20px;
+  border-radius: 16px;
+  overflow: hidden;
+  color: var(--cl-white);
+}
+.cl-green__tile--ink   { background: var(--cl-ink-800); }
+.cl-green__tile--green { background: var(--cl-green-600); }
+.cl-green__tile--gray  { flex: none; height: 222px; background: #444; }
+.cl-green__tile-icon,
+.cl-green__tile-icon img { display: block; flex: none; }
+.cl-green__tile-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+}
+.cl-green__pill {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, .24);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  white-space: nowrap;
+}
+.cl-green__pill--light { background: rgba(255, 255, 255, .24); }
+.cl-green__pill--dark  { background: rgba(0, 0, 0, .36); }
+.cl-green__tile-desc {
+  color: rgba(255, 255, 255, .8);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: .3px;
+}
+.cl-green__tile-desc--white { color: var(--cl-white); }
+
+/* esg_img：容器 222 高，內層 360×270 垂直置中。
+   底下的 Image 圖層（1600:16791）在兩個斷點都被 shutterstock 圖完全蓋住，不輸出 */
+.cl-green__esg {
+  position: relative;
+  flex: 1 1 0;
+  min-height: 0;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.cl-green__esg-inner {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 270px;
+  transform: translateY(-50%);
+  overflow: hidden;
+  background: #f6f6f6;
+}
+.cl-green__esg-inner img { position: absolute; max-width: none; object-fit: cover; }
+/* shutterstock：left -15%、right -21.67%、aspect 4096/2732、top -32 */
+.cl-green__esg-hand { left: -15%; top: -32px; width: 136.67%; aspect-ratio: 4096 / 2732; }
+
+/* ==========================================================================
+   R1（客戶 2026-10-21）：圖片 hover 放大、證明文件「查看」按鈕與彈窗
+   ========================================================================== */
+
+/* .cl-zoom：圖比容器大且偏移，transform-origin 對準容器中心。
+   圖卡／證明用 size container，origin 用 50cq 減掉圖的 left／top（各寬度都準） */
+.cl-green__slider,
+.cl-green__doc { container-type: size; }
+.cl-green__coins { transform-origin: calc(50cqw + 114.0849px) calc(50cqh + 17.0088px); }
+.cl-green__paper { transform-origin: calc(50cqw + 249.012px) calc(50cqh + 150.0389px); }
+.cl-green__doc-img { transform-origin: calc(50cqw - 64px) calc(50cqh - 86.5338px); }
+/* esg：內層 270 高垂直置中、img left -15%、top -32 → 容器中心在圖的 47.56%／167px */
+.cl-green__esg-hand { transform-origin: 47.56% 167px; }
+
+/* 「查看」：hover 時淡入（遮罩＋按鈕置中）；觸控裝置（hover: none 或 pointer: coarse）按鈕常駐 */
+.cl-green__doc { cursor: pointer; }
+.cl-green__doc-scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(17, 17, 17, .32);
+  opacity: 0;
+  transition: opacity .5s ease;
+  pointer-events: none;
+}
+.cl-green__doc-view {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  opacity: 0;
+  transform: translate(-50%, calc(-50% + 12px));
+  transition: opacity .5s ease, transform .6s cubic-bezier(.22, 1, .36, 1), color .5s ease;
+}
+.cl-green__doc:hover .cl-green__doc-scrim { opacity: 1; }
+.cl-green__doc:hover .cl-green__doc-view,
+.cl-green__doc-view:focus-visible { opacity: 1; transform: translate(-50%, -50%); }
+@media (hover: none), (pointer: coarse) {
+  .cl-green__doc-view { top: auto; bottom: 16px; opacity: 1; transform: translateX(-50%); }
+}
+
+/* 彈窗：遮罩＋白底圓角面板，面板內捲動看全圖 */
+.cl-green__modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  opacity: 0;
+  transition: opacity .35s ease;
+}
+.cl-green__modal[hidden] { display: none; }
+.cl-green__modal.is-open { opacity: 1; }
+.cl-green__modal-mask {
+  position: absolute;
+  inset: 0;
+  background: rgba(17, 17, 17, .72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.cl-green__modal-panel {
+  position: relative;
+  display: flex;
+  width: 100%;
+  max-width: 1019px;   /* 文件圖原寬（R2：1812:37717 改為 1019），圖本身已含白邊 */
+  max-height: 100%;
+  border-radius: 20px;
+  background: var(--cl-white);
+  overflow: hidden;
+  transform: translateY(24px) scale(.98);
+  transition: transform .45s cubic-bezier(.22, 1, .36, 1);
+}
+.cl-green__modal.is-open .cl-green__modal-panel { transform: none; }
+.cl-green__modal-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.cl-green__modal-img { width: 100%; height: auto; }
+.cl-green__modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background: var(--cl-ink-900);
+  color: var(--cl-white);
+  transition: background-color .3s ease, transform .4s cubic-bezier(.22, 1, .36, 1);
+}
+.cl-green__modal-close:hover { background: var(--cl-green-500); transform: rotate(90deg); }
+.cl-green__modal-close:focus-visible { outline: 2px solid var(--cl-green-400); outline-offset: 2px; }
+
+/* 641–1199：流動縮放，資訊框改為左右各 12 */
+@media (max-width: 1199px) and (min-width: 641px) {
+  .cl-green__body { max-width: calc(100% - 64px); }
+  .cl-green__intro { padding: 28px 24px 32px; }
+  .cl-green__en { font-size: clamp(24px, 3.2vw, 36px); line-height: 1.2; }
+  .cl-green__esg-hand { width: max(136.67%, 492px); }
+  .cl-green__info { right: 12px; }
+}
+
+/* ==========================================================================
+   平板 641–1100（S0_TABLET_CONTRACT：混合）
+   卡片內：文字區滿寬在上，下方「圖卡｜右側兩格」2 欄；兩張卡維持上下排。
+   版心左右 40，區段標題 28，卡片標題與內文照電腦版。
+   ========================================================================== */
+@media (min-width: 641px) and (max-width: 1100px) {
+  .cl-green__head { max-width: calc(100% - 80px); }
+  .cl-green__title { font-size: 28px; line-height: 39px; }
+
+  .cl-green__body { max-width: calc(100% - 80px); }
+
+  .cl-green__card {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 12px;
+    height: auto;
+  }
+  .cl-green__intro {
+    grid-column: 1 / -1;
+    gap: 32px;
+    padding: 28px 36px 36px;
+  }
+  .cl-green__en { font-size: 48px; line-height: 58px; }
+  .cl-green__desc { max-width: 640px; }
+
+  /* 圖卡與右側兩格同高 456（電腦版尺寸） */
+  .cl-green__slider,
+  .cl-green__doc { height: 456px; }
+  .cl-green__side { height: 456px; }
+  /* 證明圖是可視範圍（貼右下），欄寬改變時跟著右下角 */
+  .cl-green__doc-img { left: auto; right: 0; top: auto; bottom: 0; }
+  .cl-green__doc-img { transform-origin: calc(296px - 50cqw) calc(369.4662px - 50cqh); }
+  /* 資訊框左右 12（641–1199 規則）會蓋到右下點點：點點改到右上（同手機版位置） */
+  .cl-green__dots { top: 20px; bottom: auto; }
+}
+
+/* ==========================================================================
+   手機版 375（1695:19826）
+   ========================================================================== */
+@media (max-width: 640px) {
+  .cl-green { padding: 40px 0 64px; overflow: hidden; }
+
+  .cl-green__head { gap: 24px; width: auto; max-width: none; margin: 0 16px; }
+  .cl-green__heading { gap: 8px; }
+  .cl-green__title { font-size: 24px; line-height: 34px; }
+
+  .cl-green__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    width: auto;
+    max-width: none;
+    margin: 48px 16px 0;
+  }
+
+  .cl-green__nav { display: flex; gap: 16px; padding: 8px 0; }
+  .cl-green__arrow { display: block; width: 24px; height: 24px; }
+  .cl-green__arrow img { width: 24px; height: 24px; }
+  .cl-green__arrow--prev img { transform: rotate(180deg); }
+  .cl-green__arrow:disabled { opacity: .2; cursor: default; }
+
+  /* 卡片橫向捲動：Figma cards overflow HORIZONTAL，第二張露出到畫面右緣 */
+  .cl-green__cards {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 12px;
+    align-self: stretch;
+    margin: 0 -16px;
+    padding: 0 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0 16px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .cl-green__cards::-webkit-scrollbar { display: none; }
+
+  .cl-green__card {
+    flex: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    width: 320px;
+    height: auto;
+    padding: 8px;
+    scroll-snap-align: start;
+  }
+
+  /* 弧線：容器 400×1600 旋轉 90°，內層 0.8 倍 */
+  .cl-green__curve {
+    width: 4503.104px;
+    height: 1219.328px;
+    transform: rotate(90deg) scaleY(-1) rotate(2.71deg);
+  }
+  .cl-green__curve--points { left: -2515.472px; top: 390.294px; }
+  .cl-green__curve--cert { left: -1699.472px; top: -1754.506px; }
+
+  .cl-green__intro {
+    flex: none;
+    align-self: stretch;
+    height: 374px;
+    padding: 12px 16px 16px;
+  }
+  .cl-green__en { font-size: 28px; line-height: 34px; letter-spacing: 1px; }
+  .cl-green__name { font-size: 24px; line-height: 34px; }
+
+  .cl-green__slider,
+  .cl-green__doc {
+    flex: none;
+    width: 304px;
+    height: 384.8807px;
+    border-radius: 12px;
+  }
+  .cl-green__slide {
+    height: 414.2px;
+    background-image: linear-gradient(-24.80648577138929deg, rgb(222, 255, 223) 11.177%, rgb(232, 254, 238) 51.564%, rgb(228, 255, 235) 91.952%);
+  }
+  .cl-green__coins { left: -115.11px; top: -15.4497px; width: 753.1173px; height: 455.9852px; }
+  .cl-green__patch--bottom { height: 59.95px; }
+  .cl-green__patch--top { height: 60.858px; }
+  .cl-green__paper { left: -210.2768px; top: -116.9137px; width: 767.6px; height: 511.7856px; }
+
+  .cl-green__info { left: 12px; right: 12px; bottom: 11.88px; padding: 16px; border-radius: 8px; }
+  .cl-green__dots { top: 16px; right: 16px; bottom: auto; }
+
+  /* pdf：手機版為電腦版 0.9083 倍（311.56／343） */
+  .cl-green__doc-img { left: 46.6291px; top: 78.5016px; width: 268.8648px; height: 335.598px; }
+  .cl-green__doc-img { transform-origin: calc(50cqw - 46.6291px) calc(50cqh - 78.5016px); }
+  .cl-green__coins { transform-origin: calc(50cqw + 115.11px) calc(50cqh + 15.4497px); }
+  .cl-green__paper { transform-origin: calc(50cqw + 210.2768px) calc(50cqh + 116.9137px); }
+
+  .cl-green__modal { padding: 16px; }
+  .cl-green__modal-panel { border-radius: 16px; }
+  .cl-green__modal-close { top: 8px; right: 8px; width: 40px; height: 40px; }
+
+  .cl-green__side { flex: none; gap: 8px; width: 100%; }
+  .cl-green__tile { flex: none; height: 180px; padding: 16px; }
+  .cl-green__tile--gray { height: 180px; }
+  .cl-green__esg { flex: none; height: 180px; }
+  .cl-green__esg-hand { left: -15%; }
+
+  .cl-green__pager { display: flex; gap: 8px; }
+}

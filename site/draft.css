@@ -1,0 +1,4034 @@
+/* ==========================================================================
+   S0 draft · base（主控負責；段落負責人只讀，要改回報主控）
+   值照 Figma 1695:20082／1695:19587 寫，S1 才收斂成 tokens。
+   ========================================================================== */
+
+:root {
+  /* color（暫定，S1 收斂） */
+  --cl-green-500: #14a558;   /* 主按鈕底 */
+  --cl-green-600: #138248;   /* 數據區漸層、CTA 底 */
+  --cl-green-700: #15663c;   /* 主按鈕 hover 圓 */
+  --cl-green-400: #1fc36c;   /* 白按鈕 hover 圓 */
+  --cl-ink-900: #111;
+  --cl-ink-800: #1f1f1f;
+  --cl-ink-800-80: rgba(31, 31, 31, .8);
+  --cl-ink-800-60: rgba(31, 31, 31, .6);
+  --cl-ink-800-10: rgba(31, 31, 31, .1);
+  --cl-white: #fff;
+
+  /* font */
+  --cl-font-sans: 'Noto Sans TC', sans-serif;
+  --cl-font-num: 'Montserrat', 'Noto Sans TC', sans-serif;
+
+  /* layout */
+  --cl-page-max: 1440px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 62px; }   /* header 固定置頂（R1），錨點跳轉預留 header 高 */
+body {
+  margin: 0;
+  text-spacing-trim: space-all;   /* Chrome 預設會擠壓相鄰全形標點，和 Figma 斷行不同 */
+  background: var(--cl-white);
+  color: var(--cl-ink-800);
+  font-family: var(--cl-font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4, h5, h6, p, ul, ol, figure, blockquote { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+
+.cl-page { position: relative; overflow-x: clip; }
+
+/* static 模式（?static）：關掉動畫與過場，停在第一個狀態 */
+.is-static *, .is-static *::before, .is-static *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* ---------- 共用：主按鈕 main_btn（Figma 805:5510 等） ----------
+   .cl-btn               18px／寬 240（green 805:5510、white 805:5673、white20 805:5696）
+   .cl-btn--sm           14px／min-height 40（green 805:5579、black 805:5657）
+   顏色：--green --black --white --white20
+   底部藏一個圓（.cl-btn__circle），hover 放大填滿：Figma 只畫了圓的位置，放大行為待確認 */
+.cl-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 240px;
+  padding: 16px 20px;
+  border-radius: 999px;
+  overflow: hidden;
+  isolation: isolate;
+  font-family: var(--cl-font-sans);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: normal;
+  white-space: nowrap;
+  text-align: center;
+}
+.cl-btn__circle {
+  position: absolute;
+  z-index: -1;
+  left: 40.21%;
+  bottom: -48px;
+  width: 20%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  transition: transform .9s cubic-bezier(.22, .61, .36, 1);   /* 客戶 2026-10-21：hover 放慢（原 .5s） */
+}
+.cl-btn:hover .cl-btn__circle { transform: scale(12); }
+.cl-btn { transition: color .5s ease; }
+.cl-btn__arrow { width: 24px; height: 24px; flex: none; transition: filter .5s ease; }
+/* 箭頭 hover：往右滑出、從左滑回（客戶 2026-10-21） */
+.cl-btn:hover .cl-btn__arrow { animation: cl-btn-arrow .7s cubic-bezier(.65, 0, .35, 1); }
+@keyframes cl-btn-arrow {
+  0%   { transform: translateX(0);     opacity: 1; }
+  45%  { transform: translateX(120%);  opacity: 0; }
+  46%  { transform: translateX(-120%); opacity: 0; }
+  100% { transform: translateX(0);     opacity: 1; }
+}
+
+.cl-btn--sm {
+  gap: 8px;
+  width: auto;
+  min-height: 40px;
+  padding: 8.5px 20px;          /* Figma stroke 在內側：總高 40 = 21 + 8.5×2 + 1×2 */
+  border: 1px solid transparent;
+  font-size: 14px;
+  line-height: 21px;
+}
+.cl-btn--sm .cl-btn__circle { left: calc(40.87% - .18px); top: 40px; bottom: auto; width: 24px; }
+.cl-btn--sm .cl-btn__arrow { width: 20px; height: 20px; }
+
+/* 只在手機版縮成 --sm（主 CTA：電腦 18px、手機 14px）；箭頭用兩張 img 加 .cl-btn__arrow--l／--s 切換 */
+.cl-btn__arrow--s { display: none; }
+@media (max-width: 640px) {
+  .cl-btn--sm-s {
+    gap: 8px;
+    width: auto;
+    min-height: 40px;
+    padding: 8.5px 20px;
+    border: 1px solid transparent;
+    font-size: 14px;
+    line-height: 21px;
+  }
+  .cl-btn--sm-s .cl-btn__circle { left: calc(40.87% - .18px); top: 40px; bottom: auto; width: 24px; }
+  .cl-btn--sm-s .cl-btn__arrow { width: 20px; height: 20px; }
+  .cl-btn--sm-s .cl-btn__arrow--l { display: none; }
+  .cl-btn--sm-s .cl-btn__arrow--s { display: block; }
+}
+
+.cl-btn--green   { background: var(--cl-green-500); color: var(--cl-white); }
+.cl-btn--green   .cl-btn__circle { background: var(--cl-green-700); }
+.cl-btn--black   { background: var(--cl-ink-900); color: var(--cl-white); }
+.cl-btn--black   .cl-btn__circle { background: #454545; }
+.cl-btn--white   { background: var(--cl-white); color: var(--cl-ink-900); }
+.cl-btn--white   .cl-btn__circle { background: var(--cl-green-400); }
+/* 白底按鈕 hover 變綠底：文字與箭頭轉白（客戶 2026-10-21） */
+.cl-btn--white:hover { color: var(--cl-white); }
+.cl-btn--white:hover .cl-btn__arrow { filter: brightness(0) invert(1); }
+.cl-btn--white20 { background: rgba(255, 255, 255, .2); color: var(--cl-white); backdrop-filter: blur(42px); -webkit-backdrop-filter: blur(42px); }
+.cl-btn--white20 .cl-btn__circle { background: rgba(255, 255, 255, .2); }
+
+/* ---------- 共用：綠色弧線 curve_pattern（Figma 1656:28615） ----------
+   inline SVG：<svg class="cl-curve" viewBox="0 0 5628.88 1524.16"><path pathLength="1" d="…"/></svg>
+   path d 取自 assets/common/curve-pattern.svg；描線動畫照 get_motion_context：12s linear infinite */
+.cl-curve { position: absolute; pointer-events: none; overflow: visible; max-width: none; }
+.cl-curve path {
+  fill: none;
+  stroke: var(--cl-curve-color, var(--cl-green-400));   /* 灰色弧線（footer #F6F6F6）設 --cl-curve-color */
+  stroke-width: 48;
+  stroke-linecap: round;
+  stroke-opacity: var(--cl-curve-opacity, 1);
+  animation: cl-curve-trim 12s linear infinite;
+}
+@keyframes cl-curve-trim {
+  0%   { stroke-dasharray: 0 1; stroke-dashoffset: 0; visibility: hidden; }
+  50%  { stroke-dasharray: 1 1; stroke-dashoffset: 0; visibility: visible; }
+  100% { stroke-dasharray: 0 1; stroke-dashoffset: -1; visibility: hidden; }
+}
+/* R2 客戶：各段弧線進到畫面才開始描線（原本載入就全部一起播，第二段的弧線會跟首屏同時出現）。
+   base.js 觀察弧線所在段落，段落上緣進到畫面 70% 處加 .is-inview；之前停在第 0 格（隱藏）。服務流程卡片弧線另有自己的控制 */
+.has-curve-io .cl-curve:not(.is-inview):not(.cl-process__card-curve) path { animation-play-state: paused; }
+.is-static .cl-curve path { stroke-dasharray: none; visibility: visible; }
+@media (prefers-reduced-motion: reduce) {
+  .cl-curve path { animation: none; }
+}
+
+/* ==========================================================================
+   共用動態（客戶 2026-10-21）：段落負責人照下面的 API 套用，不要另寫
+   ?static 與 prefers-reduced-motion 時一律直接顯示最終狀態
+   ========================================================================== */
+
+/* ---------- 進場 mask reveal up：[data-reveal] ----------
+   用法：文字元素（標題、副標、牌卡內文字）加 data-reveal；base.js 會把內容包進 .cl-rv__in，
+   元素本身變成遮罩，內容由下往上滑入。元素頂端捲到畫面 2/3 處（＝滾過畫面 1/3）時播放，只播一次。
+   同一容器加 data-reveal-group，裡面的 [data-reveal] 依序錯開 80ms；也可在元素上寫 data-reveal-delay="160"（ms）。
+   卡片、圖片這類區塊用 data-reveal="fade"：淡入＋上移，不包遮罩。 */
+[data-reveal]:not([data-reveal="fade"]) { overflow: clip; overflow-clip-margin: .2em; }
+.cl-rv__in {
+  display: block;
+  transform: translateY(105%);
+  transition: transform .9s cubic-bezier(.22, 1, .36, 1);
+  transition-delay: var(--cl-rv-delay, 0ms);
+}
+[data-reveal="fade"] {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity .8s ease, transform .9s cubic-bezier(.22, 1, .36, 1);
+  transition-delay: var(--cl-rv-delay, 0ms);
+}
+.is-revealed > .cl-rv__in,
+[data-reveal="fade"].is-revealed { transform: none; opacity: 1; }
+.is-static [data-reveal] .cl-rv__in, .is-static [data-reveal="fade"] { transform: none; opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .cl-rv__in, [data-reveal="fade"] { transform: none !important; opacity: 1 !important; transition: none !important; }
+}
+
+/* ---------- 頁籤圓形填色 .cl-tabfill（客戶 R2，取代果凍頁籤） ----------
+   用法：頁籤列容器加 class="cl-tabfill"，選中的頁籤照舊加 .is-active。
+   base.js 會在每個頁籤裡放一顆 .cl-tabfill__circle：選中時從頁籤底部中央放大填滿（同按鈕 hover 的圓，.9s），
+   取消選中時縮回。頁籤自己的底色（例如灰底）照舊寫在頁籤上，選中時「不要」再改成綠底，綠色交給圓；
+   文字色照舊在 .is-active 切換。圓顏色預設主綠，可用 --cl-tabfill-color 改。 */
+.cl-tabfill > * { position: relative; overflow: hidden; isolation: isolate; }
+.cl-tabfill__circle {
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: 100%;
+  width: var(--cl-tabfill-d, 300px);
+  height: var(--cl-tabfill-d, 300px);
+  margin: calc(var(--cl-tabfill-d, 300px) / -2) 0 0 calc(var(--cl-tabfill-d, 300px) / -2);
+  border-radius: 50%;
+  background: var(--cl-tabfill-color, var(--cl-green-500));
+  transform: scale(0);
+  transition: transform .9s cubic-bezier(.22, .61, .36, 1);
+  pointer-events: none;
+}
+.cl-tabfill > .is-active > .cl-tabfill__circle { transform: scale(1); }
+
+/* ---------- 圖片 hover 放大 .cl-zoom ----------
+   用法：圖片的裁切容器（overflow: hidden 的那層）加 class="cl-zoom"，裡面的 img 會在 hover 時以中心放大 1.1 倍。
+   用的是 CSS scale 屬性，不會蓋掉 img 既有的 transform；img 比容器大、中心不在容器中心時，
+   在段落 CSS 設 img 的 transform-origin 讓放大中心對準容器中心。 */
+/* opacity 一起列：這條權重比段落的 img 規則高，只寫 scale 會蓋掉段落原本的淡入淡出（例：首屏輪播） */
+.cl-zoom img { transition: scale .8s cubic-bezier(.22, 1, .36, 1), opacity .6s ease-out; }
+@media (hover: hover) and (pointer: fine) { .cl-zoom:hover img { scale: 1.1; } }   /* 觸控裝置不放大，避免點過後一直停在放大 */
+
+/* ---------- 圖片載入 skeleton .cl-skeleton ----------
+   用法：圖片容器加 class="cl-skeleton"；載入前顯示灰底流光，img 載入後淡入（base.js 加 .is-loaded）。 */
+.cl-skeleton { background: #e9ebea; }
+/* R2 客戶：要看得出流動的漸層——深淺差拉大、光帶加寬，1.6s 一趟、ease-in-out 有呼吸感 */
+.cl-skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(100deg, #e6e9e7 0%, #e6e9e7 30%, #f8faf9 45%, #ffffff 50%, #f8faf9 55%, #e6e9e7 70%, #e6e9e7 100%);
+  background-size: 250% 100%;
+  animation: cl-skeleton 1.6s ease-in-out infinite;
+  transition: opacity .5s ease;
+  pointer-events: none;
+}
+.cl-skeleton.is-loaded::after { opacity: 0; animation: none; }
+@keyframes cl-skeleton {
+  from { background-position: 100% 0; }
+  to   { background-position: 0 0; }
+}
+
+/* ==========================================================================
+   01 首屏（含 header）· 負責人 A
+   電腦版 1695:20083（1440×800）／手機版 1695:19588（375×756）
+   值照 Figma 寫；行高 normal 依 metadata 文字框高度寫死 px
+   ========================================================================== */
+
+.cl-hero {
+  position: relative;
+  height: calc(800 * var(--cl-hero-hp, 1px));
+  overflow: hidden;
+  background: var(--cl-white);
+}
+
+/* ---------- 背景弧線 curve_ani_hero（1695:20084）----------
+   容器 2000×800 置中裁切；curve_pattern 容器 5644.395×1738.198 在 (-2870,-783)，
+   內部向量 5580.881×1476.159 旋轉 2.71deg 置中；SVG 含線寬外框 5628.88×1524.16 */
+.cl-hero__curve-clip {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: calc(2000 * var(--cl-hero-hp, 1px));
+  height: calc(800 * var(--cl-hero-hp, 1px));
+  margin-left: calc(-1000 * var(--cl-hero-hp, 1px));
+  overflow: hidden;
+  pointer-events: none;
+}
+.cl-hero__curve {
+  /* 中心點＝(-2870 + 5644.395/2, -783 + 1738.198/2)，相對 2000×800 容器 */
+  left: calc(-47.8025 * var(--cl-hero-hp, 1px));
+  top: calc(86.099 * var(--cl-hero-hp, 1px));
+  width: calc(5628.88 * var(--cl-hero-hp, 1px));
+  height: calc(1524.16 * var(--cl-hero-hp, 1px));
+  transform: translate(-50%, -50%) rotate(2.71deg);
+}
+
+/* ---------- header_green（805:5591 母版）----------
+   R1（客戶 2026-10-21）：固定置頂，捲動不消失（全寬度）。段落內原本就是 top 0 滿版，改 fixed 不影響首屏版面。
+   z-index 10：高於各段落內容（≤2）與 RWD 預覽層（4）；彈窗類請用 >10 */
+.cl-hero__header {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  height: 62px;
+  padding: 0 40px;
+  background: var(--cl-white);
+}
+/* 三塊用 flex 排：導覽置中在 logo 與右側按鈕之間（R1 導覽改 16px 後，1440 加上 RWD 預覽切換鈕會和置中導覽相撞）。
+   translateY(-.5px)＝原 Figma top: calc(50% - .5px) */
+.cl-hero__brand,
+.cl-hero__nav,
+.cl-hero__actions { transform: translateY(-.5px); }
+.cl-hero__brand {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 38px;
+  padding: 1px 0;
+}
+.cl-hero__logo {
+  position: relative;
+  flex: none;
+  width: 93.053px;
+  height: 32px;
+}
+.cl-hero__logo > span { position: absolute; }
+.cl-hero__logo img { width: 100%; height: 100%; max-width: none; }
+/* 三個 Group 位置：Figma inset 百分比再加上 SVG 外擴 */
+.cl-hero__logo-mark { left: .5845%;  top: 1.5595%;  width: 32.891%;  height: 95.631%; }
+.cl-hero__logo-zh   { left: 35.7714%; top: 2.9511%; width: 62.4709%; height: 70.3579%; }
+.cl-hero__logo-en   { left: 35.7763%; top: 83.1606%; width: 63.8474%; height: 12.7638%; }
+.cl-hero__brand-service {
+  padding-left: 13px;
+  border-left: 1px solid var(--cl-ink-800-10);
+  color: var(--cl-ink-800-60);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 15.6px;
+  white-space: nowrap;
+}
+.cl-hero__nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin: 0 auto;
+}
+.cl-hero__nav-link {
+  color: var(--cl-ink-900);
+  font-size: 16px;          /* R1 客戶要求 16px（Figma 14px） */
+  font-weight: 500;
+  line-height: 24px;
+  white-space: nowrap;
+  transition: color .3s ease;
+}
+.cl-hero__nav-link:hover { color: var(--cl-green-500); }   /* R2 客戶：hover 變綠 */
+.cl-hero__nav-link:focus-visible { outline: 2px solid var(--cl-green-700); outline-offset: 4px; border-radius: 4px; }
+.cl-hero__actions {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.cl-hero__book-s, .cl-hero__menu { display: none; }
+/* base .cl-btn--sm 的 1px 透明框線加在 padding 外，渲染 42 高、寬 +2；Figma（805:5579／805:5657）框線不占版面＝40 高。
+   暫時在段落內扣掉框線寬，已回報主控修 base */
+.cl-hero .cl-btn--sm { padding: 8.5px 20px; }
+
+/* ---------- 版心：1440 內容框（大於 1440 時置中）---------- */
+.cl-hero__inner {
+  position: relative;
+  max-width: var(--cl-page-max);
+  height: 100%;
+  margin: 0 auto;
+}
+
+/* ---------- cover_img（675:14948 元件，主畫面 Property 1=2）---------- */
+.cl-hero__cover {
+  position: absolute;
+  top: calc(182 * var(--cl-hero-hp, 1px));
+  right: 0;
+  width: 75%;            /* 1080 / 1440 */
+  max-width: 1080px;
+  height: calc(540 * var(--cl-hero-hp, 1px));
+  overflow: hidden;
+  border-top-left-radius: calc(40 * var(--cl-hero-hp, 1px));
+  background: var(--cl-white);
+  cursor: pointer;
+}
+.cl-hero__slide {
+  position: absolute;
+  max-width: none;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity .6s ease-out;
+}
+.cl-hero__slide.is-active { opacity: 1; }
+/* 每張圖的位置照各 variant 的 rectangle（電腦版） */
+/* R2：照片尺寸用 --cl-hero-kp（照片 1px），垂直以 cover 中心定位：top＝cover 高一半 − 中心點 y（1440×800 時＝原 px 值）。
+   cover 變矮時取景中心不變、上下多裁；cover 變窄時照片維持 ≥ cover 寬 */
+.cl-hero__slide--1 { left: 0;               top: calc(50% - 325 * var(--cl-hero-kp, 1px)); width: calc(1080 * var(--cl-hero-kp, 1px)); height: calc(619 * var(--cl-hero-kp, 1px)); }
+.cl-hero__slide--2 { left: calc(-146 * var(--cl-hero-kp, 1px)); top: calc(50% - 482 * var(--cl-hero-kp, 1px)); width: calc(1372 * var(--cl-hero-kp, 1px)); height: calc(915 * var(--cl-hero-kp, 1px)); }
+.cl-hero__slide--3 { left: calc(-32 * var(--cl-hero-kp, 1px));  top: calc(50% - 481 * var(--cl-hero-kp, 1px)); width: calc(1145 * var(--cl-hero-kp, 1px)); height: calc(763 * var(--cl-hero-kp, 1px)); }
+.cl-hero__slide--4 { left: calc(-32 * var(--cl-hero-kp, 1px));  top: calc(50% - 399 * var(--cl-hero-kp, 1px)); width: calc(1289 * var(--cl-hero-kp, 1px)); height: calc(859 * var(--cl-hero-kp, 1px)); }
+/* .cl-zoom 放大中心對準 cover 中心（照片比 cover 大且偏移） */
+.cl-hero__slide--1 { transform-origin: 50% 52.504%; }
+.cl-hero__slide--2 { transform-origin: 50% 52.678%; }
+.cl-hero__slide--3 { transform-origin: 49.956% 63.041%; }
+.cl-hero__slide--4 { transform-origin: 44.375% 46.449%; }
+.cl-hero__cover-noise {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, .12);
+  pointer-events: none;
+}
+
+/* ---------- 首頁特色_B（698:15167，電腦版垂直輪播）---------- */
+.cl-hero__feature {
+  position: absolute;
+  z-index: 2;
+  top: calc(222 * var(--cl-hero-hp, 1px));
+  right: 0;
+  width: calc(350 * var(--cl-hero-hp, 1px));
+  padding: calc(6 * var(--cl-hero-hp, 1px)) calc(20 * var(--cl-hero-hp, 1px)) calc(6 * var(--cl-hero-hp, 1px)) calc(12 * var(--cl-hero-hp, 1px));
+  border-radius: 999px 0 0 999px;
+  background: rgba(0, 0, 0, .24);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+}
+.cl-hero__feature-window {
+  position: relative;
+  width: calc(316 * var(--cl-hero-hp, 1px));
+  height: calc(20 * var(--cl-hero-hp, 1px));
+  overflow: hidden;
+}
+.cl-hero__feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: calc(16 * var(--cl-hero-hp, 1px));
+  transform: translateY(calc(var(--cl-hero-step, 0) * -36 * var(--cl-hero-hp, 1px)));   /* R2：JS 設 --cl-hero-step，每格 36（20＋gap 16）跟著縮放 */
+  transition: transform .6s ease-out;
+}
+.cl-hero__feature-item {
+  display: flex;
+  align-items: center;
+  gap: calc(8 * var(--cl-hero-hp, 1px));
+  height: calc(20 * var(--cl-hero-hp, 1px));
+}
+.cl-hero__feature-icon { width: calc(20 * var(--cl-hero-hp, 1px)); height: calc(20 * var(--cl-hero-hp, 1px)); flex: none; }
+.cl-hero__feature-text {
+  display: flex;
+  align-items: center;
+  gap: calc(8 * var(--cl-hero-hp, 1px));
+  color: rgba(255, 255, 255, .8);
+  font-size: max(12px, calc(14 * var(--cl-hero-hp, 1px)));
+  letter-spacing: .3px;
+  line-height: calc(20 * var(--cl-hero-hp, 1px));
+  white-space: nowrap;
+}
+.cl-hero__feature-text b { font-weight: 700; }
+.cl-hero__feature-divider {
+  flex: none;
+  width: .5px;
+  height: calc(15 * var(--cl-hero-hp, 1px));
+  background: rgba(255, 255, 255, .6);
+}
+.cl-hero__tags { display: none; }
+
+/* ---------- main：白卡＋數據區（1695:20087）---------- */
+.cl-hero__main {
+  position: absolute;
+  top: calc(360 * var(--cl-hero-hp, 1px));
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  /* 白卡文字左緣對齊下方段落版心左緣（客戶 R2）：版心左緣＝80（1440 版心內）；白卡左內距 64 → 外框往左退 */
+  padding-left: calc(80px - 64 * var(--cl-hero-hp, 1px));
+}
+.cl-hero__card {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(32 * var(--cl-hero-hp, 1px));
+  width: 47.0588%;          /* 640 / 1360 */
+  height: calc(363 * var(--cl-hero-hp, 1px));
+  padding: calc(64 * var(--cl-hero-hp, 1px)) calc(64 * var(--cl-hero-hp, 1px)) 0;
+  border-top-right-radius: calc(40 * var(--cl-hero-hp, 1px));
+  background: var(--cl-white);
+}
+.cl-hero__title {
+  width: 100%;
+  color: var(--cl-ink-800);
+  font-size: calc(40 * var(--cl-hero-hp, 1px));
+  font-weight: 700;
+  letter-spacing: calc(2 * var(--cl-hero-hp, 1px));
+  line-height: 1.4;
+}
+.cl-hero__desc {
+  width: 100%;
+  color: var(--cl-ink-800-80);
+  font-size: max(12px, calc(14 * var(--cl-hero-hp, 1px)));
+  font-weight: 400;
+  letter-spacing: .3px;
+  line-height: 1.4;
+}
+.cl-hero__cta-arrow-s { display: none; }
+/* 瀏覽器字寬比 Figma 窄，第 2 行會多吃一個「共」；照稿把「共榮。」綁在一起（手機斷行不受影響） */
+.cl-hero__nobr { white-space: nowrap; }
+
+.cl-hero__num {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, auto);
+  column-gap: calc(64 * var(--cl-hero-hp, 1px));
+  row-gap: calc(44 * var(--cl-hero-hp, 1px));
+  width: 52.9412%;          /* 720 / 1360 */
+  padding: calc(56 * var(--cl-hero-hp, 1px)) calc(80 * var(--cl-hero-hp, 1px));
+  background: linear-gradient(to bottom, rgba(19, 130, 72, 0), var(--cl-green-600));
+  color: var(--cl-white);
+}
+.cl-hero__metric {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(12 * var(--cl-hero-hp, 1px));
+  min-width: calc(133 * var(--cl-hero-hp, 1px));
+  white-space: nowrap;
+}
+.cl-hero__metric-label {
+  color: rgba(255, 255, 255, .8);
+  font-size: calc(16 * var(--cl-hero-hp, 1px));
+  font-weight: 400;
+  line-height: calc(19 * var(--cl-hero-hp, 1px));
+}
+.cl-hero__metric-label--tip {
+  display: flex;
+  align-items: center;
+  gap: calc(8 * var(--cl-hero-hp, 1px));
+}
+.cl-hero__metric-label--park { line-height: calc(23 * var(--cl-hero-hp, 1px)); }   /* metadata 文字框 23（同層其他 19），見 audit-source */
+.cl-hero__metric-value {
+  display: flex;
+  align-items: baseline;
+  gap: calc(12 * var(--cl-hero-hp, 1px));
+}
+.cl-hero__metric-num {
+  font-family: var(--cl-font-num);
+  font-size: calc(48 * var(--cl-hero-hp, 1px));
+  font-weight: 700;
+  letter-spacing: calc(2 * var(--cl-hero-hp, 1px));
+  line-height: 1.2;
+}
+.cl-hero__metric-unit {
+  font-size: calc(16 * var(--cl-hero-hp, 1px));
+  font-weight: 500;
+  line-height: calc(19 * var(--cl-hero-hp, 1px));
+}
+.cl-hero__metric-unit--co2 { line-height: calc(23 * var(--cl-hero-hp, 1px)); }
+/* R1 數字計數：計數中藏單位，數完淡入（JS 加減 .is-counting；?static 不會加） */
+.cl-hero__metric-unit { transition: opacity .5s ease; }
+.is-counting > .cl-hero__metric-unit { opacity: 0; }
+.cl-hero__metric-unit--bold { font-weight: 700; }
+
+/* ---------- tooltip（1695:38486 元件；文字取自 1750:33895）---------- */
+.cl-hero__tip {
+  position: relative;
+  display: flex;
+  width: calc(20 * var(--cl-hero-hp, 1px));
+  height: calc(20 * var(--cl-hero-hp, 1px));
+}
+.cl-hero__tip-btn { display: block; width: 100%; height: 100%; }
+.cl-hero__tip-btn img { width: 100%; height: 100%; }
+.cl-hero__tip-pop {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  bottom: calc(100% + 4px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 320px;
+  transform: translateX(-50%);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .2s ease-out, visibility .2s;
+  pointer-events: none;
+  white-space: normal;
+}
+.cl-hero__tip-body {
+  display: block;
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 4px;
+  background: var(--cl-ink-900);
+  color: var(--cl-white);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: .56px;
+  line-height: 20px;
+}
+.cl-hero__tip-arrow { width: 16px; height: 10px; flex: none; }
+.cl-hero__tip:hover .cl-hero__tip-pop,
+.cl-hero__tip-btn:focus-visible + .cl-hero__tip-pop,
+.cl-hero__tip.is-open .cl-hero__tip-pop {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ---------- R2 電腦版 ≥1101：首屏高 75vh，內容依高度等比縮放（客戶 2026-10-21）----------
+   --cl-hero-hp＝「設計稿 1px」＝100vh / 800（0.125vh），上下限 1px～1.2px（客戶 R2：最矮 800、內容最高 960、首屏滿一個畫面）：
+     · 視窗高 ≤ 800 停在 1 → 段落高 800＝Figma 原尺寸
+     · 視窗高 800–960 → 段落＝100vh，內容等比
+     · 視窗高 > 960（例 1080、1440）內容停在 1.2（960），段落仍撐滿 100vh、內容垂直置中
+   垂直位置、高度、字級、內距、圓角乘 hp；寬度方向維持原本規則（cover 75%／超寬貼右緣、數據區停在 1440 版心）。
+   header 固定 62 不縮。14px 以下的小字另設 12px 下限（說明文、特色膠囊）。
+   --cl-hero-kp＝照片 1px：cover 高跟 hp、寬跟視窗，照片取兩者較大者才蓋得滿 cover（1440×800 時＝1px）。
+   平板與手機沒有定義 hp，fallback 1px＝原值，不受影響。 */
+@media (min-width: 1101px) {
+  .cl-hero {
+    /* 客戶 R2 再修正：大螢幕首屏太矮、第二段的弧線會跟著露出來 → 首屏改成滿一個畫面高（100vh／800＝.125vh），
+       仍是最矮 800、內容最多放大到 960；視窗比 960 高時段落撐滿畫面、內容（含弧線）垂直置中（--cl-hero-gap） */
+    --cl-hero-hp: clamp(1px, .125vh, 1.2px);
+    --cl-hero-kp: max(var(--cl-hero-hp), calc(100vw / 1440));
+    --cl-hero-gap: max(0px, calc((100vh - 800 * var(--cl-hero-hp)) / 2));
+    height: max(calc(800 * var(--cl-hero-hp)), 100vh);
+  }
+  .cl-hero__inner { top: var(--cl-hero-gap); height: calc(800 * var(--cl-hero-hp)); }
+  .cl-hero__curve-clip { top: var(--cl-hero-gap); }
+  /* 背景弧線：等比縮放，裁切框至少滿版（hp 小時 2000 寬框會比螢幕窄，兩側會切出硬邊） */
+  .cl-hero__curve-clip {
+    width: max(calc(2000 * var(--cl-hero-hp, 1px)), 100vw);
+    margin-left: calc(max(calc(2000 * var(--cl-hero-hp, 1px)), 100vw) / -2);
+  }
+  .cl-hero__curve { left: calc(50% - 1047.8025 * var(--cl-hero-hp, 1px)); }   /* 原 -47.8025 相對 2000 框左緣＝中心往左 1047.8025 */
+  /* 主按鈕（base .cl-btn 18px／240 寬）跟著縮放，段落內覆寫；字級下限 14 */
+  .cl-hero__cta {
+    gap: calc(12 * var(--cl-hero-hp, 1px));
+    width: calc(240 * var(--cl-hero-hp, 1px));
+    padding: calc(16 * var(--cl-hero-hp, 1px)) calc(20 * var(--cl-hero-hp, 1px));
+    font-size: max(14px, calc(18 * var(--cl-hero-hp, 1px)));
+  }
+  .cl-hero__cta .cl-btn__circle { bottom: calc(-48 * var(--cl-hero-hp, 1px)); }
+  .cl-hero__cta .cl-btn__arrow { width: calc(24 * var(--cl-hero-hp, 1px)); height: calc(24 * var(--cl-hero-hp, 1px)); }
+  /* 特色膠囊：文字有 12px 下限，縮小時字比框大會被裁 → 寬度改成依內容撐開，至少原 316 等比 */
+  .cl-hero__feature { width: auto; }
+  .cl-hero__feature-window { width: max-content; min-width: calc(316 * var(--cl-hero-hp, 1px)); }
+}
+
+/* ---------- 超寬螢幕 ≥1441（R1 Figma 2240:30971 ①）----------
+   cover 右緣貼齊畫面右緣、寬度隨螢幕；特色膠囊跟著貼右緣。
+   數據區（數字）停在 1440 版心內，只把綠色漸層底延伸到畫面右緣，避免照片中間出現一條硬邊。
+   --cl-hero-bleed＝版心外右側留白寬；100vw 含捲軸的多出部分由 .cl-hero overflow:hidden 裁掉 */
+@media (min-width: 1441px) {
+  .cl-hero { --cl-hero-bleed: calc((100vw - var(--cl-page-max)) / 2); }
+  .cl-hero__cover {
+    left: 25%;
+    right: calc(var(--cl-hero-bleed) * -1);
+    width: auto;
+    max-width: none;
+  }
+  /* 照片改成填滿 cover，object-position 保留 1440 的取景 */
+  .cl-hero__slide { left: 0; top: 0; width: 100%; height: 100%; transform-origin: 50% 50%; }
+  .cl-hero__slide--1 { object-position: 50% 69.62%; }
+  .cl-hero__slide--2 { object-position: 50% 56.53%; }
+  .cl-hero__slide--3 { object-position: 49.23% 94.62%; }
+  .cl-hero__slide--4 { object-position: 15.31% 40.44%; }
+  .cl-hero__feature { right: calc(var(--cl-hero-bleed) * -1); }
+  .cl-hero__num::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 100%;
+    width: var(--cl-hero-bleed);
+    background: inherit;
+    pointer-events: none;
+  }
+}
+
+/* ---------- 1101–1439：流動縮放，避免數據區擠壞 ----------
+   導覽維持 16px（R1），窄時縮間距；放不下（≤1200）先隱藏，避免和 logo／按鈕重疊 */
+@media (max-width: 1366px) and (min-width: 1101px) {
+  .cl-hero__nav { gap: 24px; }
+}
+@media (max-width: 1240px) and (min-width: 1101px) {
+  .cl-hero__nav { gap: 16px; }
+  .cl-hero__card { padding: calc(48 * var(--cl-hero-hp, 1px)) calc(32 * var(--cl-hero-hp, 1px)) 0; }
+  .cl-hero__main { padding-left: calc(80px - 32 * var(--cl-hero-hp, 1px)); }   /* 文字對齊版心 80 */
+  .cl-hero__title { font-size: calc(32 * var(--cl-hero-hp, 1px)); }
+  .cl-hero__num { column-gap: calc(24 * var(--cl-hero-hp, 1px)); padding: calc(40 * var(--cl-hero-hp, 1px)) calc(32 * var(--cl-hero-hp, 1px)); }
+  .cl-hero__metric-num { font-size: calc(32 * var(--cl-hero-hp, 1px)); }
+}
+@media (max-width: 1200px) and (min-width: 1101px) {
+  .cl-hero__nav { display: none; }   /* 中間導覽放不下時先隱藏，避免和 logo 重疊 */
+  .cl-hero__actions { margin-left: auto; }
+  /* R2：導覽隱藏時改用漢堡選單（原本這段寬度兩者都沒有） */
+  .cl-hero__menu { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; }
+}
+
+/* ==========================================================================
+   平板 641–1100（S0 平板契約：電腦結構）
+   header 改手機樣式（logo＋預約＋漢堡）；cover 右上、白卡左下、數據區右下依比例縮；數據區 2×2
+   設計稿無平板版，值由 768 驗收寬推算
+   ========================================================================== */
+@media (max-width: 1100px) and (min-width: 641px) {
+  .cl-hero { height: 700px; }
+
+  /* header：版心留白 40；右側漢堡按鈕 40 框、icon 24，視覺右緣對齊 40 */
+  .cl-hero__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px 0 40px;
+  }
+  .cl-hero__brand { position: static; transform: none; }
+  .cl-hero__nav, .cl-hero__login, .cl-hero__book-l, .cl-hero__book-arrow { display: none; }
+  .cl-hero__actions { position: static; transform: none; gap: 8px; }
+  .cl-hero__book-s { display: inline; }
+  .cl-hero__menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+  }
+
+  /* cover：右上 75% 寬，上緣距 header 56，下緣與白卡、數據區齊（距段落底 78，同電腦版）
+     R1 灰線：cover 下緣和白卡下緣同一條線，縮放（iPad 預覽、瀏覽器縮放）時照片邊緣反鋸齒會從白卡下露出一條灰線；
+     cover 下緣收 2px 藏在白卡與數據區後面（數據區底部是不透明綠，看不出差異） */
+  .cl-hero__cover {
+    top: 118px;
+    bottom: 80px;
+    height: auto;
+    border-top-left-radius: 32px;
+  }
+  .cl-hero__slide {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .cl-hero__slide--1 { object-position: 50% 45%; }
+  .cl-hero__slide--2 { object-position: 40% 50%; }
+  .cl-hero__slide--3 { object-position: 30% 55%; }
+  .cl-hero__slide--4 { object-position: 30% 45%; }
+
+  .cl-hero__feature { top: 150px; }
+
+  /* main：白卡左下、數據區右下，底部對齊 cover 下緣 */
+  .cl-hero__main {
+    top: auto;
+    bottom: 78px;
+    padding-left: 8px;   /* 文字對齊下方段落版心 40（白卡左內距 32） */
+  }
+  .cl-hero__card {
+    flex: 1 1 0;
+    min-width: 0;
+    width: auto;
+    height: auto;
+    gap: 24px;
+    padding: 40px 32px 0;
+    border-top-right-radius: 32px;
+    margin-right: -1px;   /* R1 灰線：右緣多蓋 1px 數據區，縮放時接縫不露照片 */
+  }
+  .cl-hero__title { font-size: 32px; letter-spacing: 1.6px; }
+  .cl-hero__nobr { white-space: normal; }
+
+  /* R1：數據和左邊白卡太近 → 數據區左內距加大（32→56） */
+  .cl-hero__num {
+    flex: none;
+    grid-template-columns: repeat(2, minmax(max-content, 1fr));
+    column-gap: 24px;
+    row-gap: 32px;
+    width: 52.9412%;
+    padding: 40px 32px 40px 56px;
+  }
+  .cl-hero__metric { gap: 8px; min-width: 0; }
+  .cl-hero__metric-label,
+  .cl-hero__metric-label--park { font-size: 14px; line-height: 20px; }
+  .cl-hero__metric-value { gap: 6px; }
+  .cl-hero__metric-num { font-size: 32px; letter-spacing: 1px; }
+  .cl-hero__metric-unit,
+  .cl-hero__metric-unit--co2 { font-size: 14px; line-height: 20px; }
+
+  /* 右欄 tooltip 置中會超出畫面：改成靠右展開，箭頭仍對準 icon */
+  .cl-hero__tip--end .cl-hero__tip-pop {
+    left: auto;
+    right: -24px;
+    transform: none;
+    align-items: flex-end;
+  }
+  .cl-hero__tip--end .cl-hero__tip-arrow { margin-right: 26px; }
+}
+/* 900 以下：數據區加寬、字級再縮一級 */
+@media (max-width: 900px) and (min-width: 641px) {
+  .cl-hero__card { padding: 40px 24px 0; }
+  .cl-hero__main { padding-left: 16px; }   /* 文字對齊版心 40 */
+  .cl-hero__title { font-size: 28px; letter-spacing: 1.4px; }
+  .cl-hero__num { width: auto; padding: 40px 28px 40px 48px; column-gap: 20px; }
+  .cl-hero__metric-num { font-size: 28px; }
+  .cl-hero__tip-pop { width: 280px; }
+}
+/* 760 以下：維持 2×2 不擠字 */
+@media (max-width: 760px) and (min-width: 641px) {
+  .cl-hero__title { font-size: 24px; letter-spacing: 1.2px; }
+  .cl-hero__num { padding: 32px 20px 32px 40px; column-gap: 16px; }
+  .cl-hero__metric-num { font-size: 24px; }
+  .cl-hero__metric-label,
+  .cl-hero__metric-label--park,
+  .cl-hero__metric-unit,
+  .cl-hero__metric-unit--co2 { font-size: 13px; line-height: 18px; }
+  .cl-hero__metric-value { gap: 4px; }
+}
+@media (max-width: 700px) and (min-width: 641px) {
+  .cl-hero__card { padding: 32px 20px 0; }
+  .cl-hero__main { padding-left: 20px; }   /* 文字對齊版心 40 */
+  .cl-hero__title { font-size: 22px; letter-spacing: 1.1px; }
+}
+
+/* ==========================================================================
+   手機版 375（1695:19588）
+   ========================================================================== */
+@media (max-width: 640px) {
+  /* R1 Figma 2240:30971 ③：cover 與綠色數據牌卡依畫面寬等比縮放（375 時＝原稿值，比例 s＝100vw/375）。
+     白卡改成在文件流裡、段落高由白卡撐開（375 時 408＋281.6＋66.4＝756，同原稿） */
+  .cl-hero { height: auto; padding-bottom: 66.4px; }
+  .cl-hero__inner { display: flow-root; height: auto; }   /* 防止白卡 margin-top 穿出 inner */
+
+  /* curve_ani_hero 1600×640，位置 calc(50% + .5px)；curve_pattern 為電腦版 0.8 倍 */
+  .cl-hero__curve-clip {
+    width: 1600px;
+    height: 640px;
+    margin-left: -799.5px;
+  }
+  .cl-hero__curve {
+    /* 中心＝(-2296 + 4515.516/2, -626.4 + 1390.559/2) */
+    left: -38.242px;
+    top: 68.8795px;
+    transform: translate(-50%, -50%) rotate(2.71deg) scale(.8);
+  }
+
+  /* header（1695:19591） */
+  .cl-hero__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    padding: 10px 8px 10px 16px;
+  }
+  .cl-hero__brand {
+    position: static;
+    transform: none;
+    gap: 13.474px;
+    min-height: 32px;
+    padding: .842px 0;
+  }
+  .cl-hero__logo { width: 78.368px; height: 26.95px; }
+  .cl-hero__brand-service {
+    padding-left: 10.947px;
+    border-left-width: .842px;
+    font-size: 13.474px;
+    line-height: 13.137px;
+  }
+  .cl-hero__nav, .cl-hero__login, .cl-hero__book-l, .cl-hero__book-arrow { display: none; }
+  .cl-hero__actions {
+    position: static;
+    transform: none;
+    gap: 8px;
+  }
+  .cl-hero__book-s { display: inline; }
+  .cl-hero__menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+  }
+
+  /* cover_img size=S：375 時 400×480、left 24、right -49 → 改成 vw 等比 */
+  .cl-hero__cover {
+    top: 108px;
+    left: 6.4vw;             /* 24 / 375 */
+    right: auto;
+    width: 106.6667vw;       /* 400 / 375 */
+    max-width: none;
+    height: 128vw;           /* 480 / 375 */
+  }
+  /* 照片位置改成 cover 的百分比（原 px ÷ 400／480），放大中心對準 cover 中心 */
+  .cl-hero__slide--1 { left: -70.125%; top: -10.1854%; width: 240.25%;   height: 114.6292%; transform-origin: 50% 52.504%; }
+  .cl-hero__slide--2 { left: -23.315%; top: -23.9583%; width: 226.8475%; height: 126.0417%; transform-origin: 32.319% 58.678%; }
+  .cl-hero__slide--3 { left: -70%;     top: -42.2917%; width: 267.7175%; height: 148.75%;   transform-origin: 44.823% 62.045%; }
+  .cl-hero__slide--4 { left: -75.25%;  top: -23.9354%; width: 286.75%;   height: 159.1667%; transform-origin: 43.679% 46.452%; }
+
+  /* 首頁特色：手機改成三顆標籤（1695:19602） */
+  .cl-hero__feature { display: none; }
+  /* R1 ③：三顆 tag 貼齊 cover 左上圓角（cover 左上角往內 24），不超出照片 */
+  .cl-hero__tags {
+    position: absolute;
+    z-index: 2;
+    top: 132px;
+    left: calc(6.4vw + 24px);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cl-hero__tag {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px 6px 10px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, .24);
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
+    color: rgba(255, 255, 255, .8);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .3px;
+    line-height: 17px;
+    white-space: nowrap;
+  }
+  .cl-hero__tag img { width: 16px; height: 16px; flex: none; }
+
+  /* main 拆開：數據區疊在圖上、白卡在下 */
+  .cl-hero__main { position: static; display: block; padding: 0; }
+  .cl-hero__card {
+    position: relative;
+    margin-top: calc(108px + 80vw);   /* 375 時 408：cover 上緣 ＋ 300 等比 */
+    min-height: calc(48vw + 1px);     /* 寬螢幕時文字變短，仍要蓋住 cover 與數據牌卡下緣 */
+    width: calc(100% - 32px);  /* 375 時 343 */
+    height: auto;
+    padding: 32px 32px 0 24px;
+  }
+  .cl-hero__title {
+    font-size: 24px;
+    letter-spacing: 1.4px;
+  }
+  /* 主按鈕手機為 14px 小尺寸（805:5579）：base 的 --sm 不能隨斷點切換，暫時在段落覆寫，已回報主控 */
+  .cl-hero__cta {
+    gap: 8px;
+    width: auto;
+    min-height: 40px;
+    padding: 8.5px 20px;   /* 同上：扣掉 1px 框線，總高 40 */
+    border: 1px solid transparent;
+    font-size: 14px;
+    line-height: 21px;
+  }
+  .cl-hero__cta .cl-btn__circle { left: calc(40.87% - .18px); top: 39px; bottom: auto; width: 24px; }
+  .cl-hero__cta .cl-btn__arrow { width: 20px; height: 20px; }
+  .cl-hero__cta-arrow-l { display: none; }
+  .cl-hero__cta-arrow-s { display: block; }
+
+  /* 綠色數據牌卡：375 時 351×372、top 216，下緣＝cover 下緣 → vw 等比 */
+  .cl-hero__num {
+    position: absolute;
+    top: calc(108px + 28.8vw);   /* 108 ＋ 108 等比 */
+    right: 0;
+    width: 93.6vw;               /* 351 / 375 */
+    height: 99.2vw;              /* 372 / 375 */
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    column-gap: 12px;
+    row-gap: 16px;
+    padding: 16px 16px 54.4vw 24px;   /* 底部 204＝被白卡蓋住的區域，等比 */
+    background: linear-gradient(to bottom, rgba(19, 130, 72, 0), var(--cl-green-600) 67.073%);
+  }
+  .cl-hero__metric { gap: 8px; }
+  .cl-hero__metric-label,
+  .cl-hero__metric-label--park {
+    font-size: 12px;
+    line-height: 17px;
+  }
+  .cl-hero__metric-label--tip { gap: 4px; }
+  .cl-hero__metric-value { gap: 4px; }
+  .cl-hero__metric-num { font-size: min(28px, 7.4667vw); }   /* 375 以下跟著牌卡縮，避免 320 兩欄相撞 */
+  .cl-hero__metric-unit,
+  .cl-hero__metric-unit--co2 {
+    font-size: 12px;
+    line-height: 17px;
+  }
+
+  .cl-hero__tip { width: 12px; height: 12px; }
+  .cl-hero__tip-pop { width: 200px; }
+  /* 右欄 tooltip 置中會超出畫面：改成右緣距畫面 8px，箭頭仍對準 icon */
+  .cl-hero__tip--end .cl-hero__tip-pop {
+    left: -130.5px;
+    transform: none;
+    align-items: flex-start;
+  }
+  .cl-hero__tip--end .cl-hero__tip-arrow { margin-left: 128.5px; }
+}
+
+/* ==========================================================================
+   漢堡選單（R2 客戶）：漢堡三橫線 → X；面板由右滑入、選項依序進場
+   面板從 header 下方開始（header 保留品牌與預約），電腦版不出現（≤1200 才有漢堡）
+   ========================================================================== */
+.cl-hero__menu { cursor: pointer; }
+.cl-hero__menu-bars { position: relative; display: block; width: 24px; height: 24px; }
+.cl-hero__menu-bars span {
+  position: absolute;
+  left: 5px;
+  width: 14px;
+  height: 1.6px;
+  border-radius: 1px;
+  background: var(--cl-ink-900);
+  transition: transform .45s cubic-bezier(.65, 0, .35, 1), opacity .25s ease;
+}
+.cl-hero__menu-bars span:nth-child(1) { top: 6.2px; }
+.cl-hero__menu-bars span:nth-child(2) { top: 11.2px; }
+.cl-hero__menu-bars span:nth-child(3) { top: 16.2px; }
+.cl-hero__menu[aria-expanded="true"] .cl-hero__menu-bars span:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+.cl-hero__menu[aria-expanded="true"] .cl-hero__menu-bars span:nth-child(2) { opacity: 0; transform: scaleX(.2); }
+.cl-hero__menu[aria-expanded="true"] .cl-hero__menu-bars span:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+
+.cl-menu {
+  position: fixed;
+  z-index: 9;               /* header（10）之下：header 與漢堡／X 一直在最上面 */
+  inset: 0;
+}
+.cl-menu[hidden] { display: none; }
+.cl-menu__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(17, 17, 17, .4);
+  opacity: 0;
+  transition: opacity .5s ease;
+}
+.cl-menu__panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  width: min(420px, 100%);
+  padding: calc(var(--cl-menu-top, 62px) + 16px) 40px 40px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--cl-white);
+  transform: translateX(100%);
+  transition: transform .6s cubic-bezier(.22, 1, .36, 1);
+}
+.cl-menu.is-open .cl-menu__scrim { opacity: 1; }
+.cl-menu.is-open .cl-menu__panel { transform: none; }
+.cl-menu__list { margin: 0; padding: 0; list-style: none; }
+.cl-menu__list li,
+.cl-menu__actions {
+  opacity: 0;
+  transform: translateX(32px);
+  transition: opacity .4s ease, transform .6s cubic-bezier(.22, 1, .36, 1);
+}
+.cl-menu.is-open .cl-menu__list li,
+.cl-menu.is-open .cl-menu__actions { opacity: 1; transform: none; }
+/* 依序進場：面板滑到一半開始，每個選項晚 .06s；關閉時一起收（不延遲） */
+.cl-menu.is-open .cl-menu__list li:nth-child(1) { transition-delay: .15s; }
+.cl-menu.is-open .cl-menu__list li:nth-child(2) { transition-delay: .21s; }
+.cl-menu.is-open .cl-menu__list li:nth-child(3) { transition-delay: .27s; }
+.cl-menu.is-open .cl-menu__list li:nth-child(4) { transition-delay: .33s; }
+.cl-menu.is-open .cl-menu__list li:nth-child(5) { transition-delay: .39s; }
+.cl-menu.is-open .cl-menu__actions { transition-delay: .45s; }
+.cl-menu__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--cl-ink-800-10);
+  color: var(--cl-ink-900);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: .4px;
+}
+.cl-menu__link img { width: 20px; height: 20px; flex: none; transition: transform .4s cubic-bezier(.22, 1, .36, 1); }
+@media (hover: hover) and (pointer: fine) {
+  .cl-menu__link:hover { color: var(--cl-green-700); }
+  .cl-menu__link:hover img { transform: translateX(4px); }
+}
+.cl-menu__actions { display: flex; flex-direction: column; gap: 12px; margin-top: auto; padding-top: 32px; }
+.cl-menu__btn { width: 100%; }
+@media (max-width: 640px) {
+  .cl-menu__panel { width: 100%; padding: calc(var(--cl-menu-top, 60px) + 8px) 16px 24px; }
+  .cl-menu__link { padding: 18px 8px; font-size: 18px; }
+}
+/* 選單按鈕是滿寬：base 的圓（寬 20%、bottom −48）會從下緣露出一截 → 固定 24px、貼在下緣外；hover 放大到蓋滿寬按鈕 */
+.cl-menu__btn .cl-btn__circle { left: calc(50% - 12px); top: 100%; bottom: auto; width: 24px; }
+.cl-menu__btn:hover .cl-btn__circle { transform: scale(18); }
+
+/* ==========================================================================
+   02 什麼是水銷？（負責人 B）
+   電腦版 1695:20117（1440×1453）／手機版 1695:19642（375×1348）
+   Figma 百分比行高會四捨五入成整數 px（16px×1.4＝22、14px×1.4＝20…），這裡照 Figma 實際框高寫 px
+   ========================================================================== */
+.cl-about {
+  position: relative;
+  text-spacing-trim: space-all; /* Figma 不擠壓全形標點（Chrome 預設 normal 會擠壓「」，」），待主控決定是否移到 base */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 64px;
+  padding: 40px 0 140.64px;
+}
+.cl-about > :not(.cl-about__curve) { position: relative; z-index: 1; }
+
+/* ---------- 綠色弧線（curve_ani_*：2000×800 裁切框；path 變形取自 relativeTransform） ---------- */
+.cl-about__curve {
+  position: absolute;
+  left: calc(50% - 1000px);
+  width: 2000px;
+  height: 800px;
+  overflow: hidden;
+  pointer-events: none;
+}
+.cl-about__curve .cl-curve {
+  left: 0;
+  top: 0;
+  width: 5628.88px;
+  height: 1524.16px;
+  transform-origin: 0 0;
+}
+.cl-about__curve--whatis { top: -70px; }   /* 1695:20119 */
+.cl-about__curve--whatis .cl-curve {
+  transform: translate(-822px, -938px) matrix(.99888, .04725, -.04725, .99888, 69.74628, 0) translate(-24px, -24px);
+}
+.cl-about__curve--cycle { top: 816px; }    /* 1695:20118（curve_pattern 旋轉 152.59°） */
+.cl-about__curve--cycle .cl-curve {
+  transform: matrix(-.88773, -.46036, .46036, -.88773, 3325.70459, 2787.52002) matrix(.99888, .04725, -.04725, .99888, 69.74628, 0) translate(-24px, -24px);
+}
+
+/* ---------- 標題區 Frame 4（1695:20121） ---------- */
+.cl-about__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  width: 640px;
+  max-width: calc(100% - 32px);
+  text-align: center;
+}
+.cl-about__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+.cl-about__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--cl-font-num);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 15px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--cl-green-700);
+  white-space: nowrap;
+}
+.cl-about__eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 100px;
+  background: var(--cl-green-700);
+  flex: none;
+}
+.cl-about__title {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 45px;
+  letter-spacing: 1px;
+  color: var(--cl-ink-900);
+}
+.cl-about__lead {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: .3px;
+  color: var(--cl-ink-800-60);
+}
+
+/* ---------- 灰底容器（1695:20128） ---------- */
+.cl-about__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: calc(100% - 160px);
+  max-width: 1280px;
+  padding: 12px;
+  border-radius: 20px;
+  background: #f6f6f6;
+}
+
+/* ---------- 四張特色卡（1695:20152） ---------- */
+.cl-about__cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.cl-about__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 40px 32px 32px;
+  border-radius: 16px;
+  background: var(--cl-white);
+  overflow: hidden;
+}
+.cl-about__illus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 161.28px;
+  height: 111.36px;
+  flex: none;
+}
+.cl-about__art { position: relative; display: flex; align-items: center; justify-content: center; flex: none; }
+.cl-about__art img { max-width: none; }
+.cl-about__art--flow { width: 70.399px; height: 70.998px; }          /* Group 75646 旋轉 90° */
+.cl-about__art--flow img { width: 70.998px; height: 70.399px; flex: none; transform: rotate(90deg); }
+.cl-about__art--trace { width: 96.686px; height: 96.467px; }         /* Group 75646 旋轉 30° */
+.cl-about__art--trace img { width: 70.998px; height: 70.4px; flex: none; transform: rotate(30deg); }
+.cl-about__art--witness { display: block; width: 114px; height: 87px; } /* Group 見證雙圓 */
+.cl-about__witness-a, .cl-about__witness-b { position: absolute; top: 3.82px; width: 80px; height: 80px; }
+.cl-about__witness-a { left: 1.5px; }
+.cl-about__witness-b { left: 32.5px; }
+.cl-about__witness-dot { position: absolute; left: 48px; top: 34.5px; width: 18px; height: 18px; }
+.cl-about__art--renew { display: block; width: 87.04px; height: 87.04px; }
+/* 三層圓：inset 百分比照稿（Frame 627566 1695:20200） */
+.cl-about__art--renew img { position: absolute; }
+.cl-about__renew-dot   { left: 38.9%;  top: 77.16%; width: 22.89%; height: 22.84%; }
+.cl-about__renew-inner { left: 20.74%; top: 40.91%; width: 59.19%; height: 59.07%; }
+.cl-about__renew-outer { left: -.1%;   top: -.04%;  width: 100.21%; height: 100.02%; }
+
+.cl-about__card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  text-align: center;
+}
+.cl-about__card-title {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 25px;
+  letter-spacing: .6px;
+  color: var(--cl-ink-800);
+}
+.cl-about__card-desc {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: .3px;
+  color: var(--cl-ink-800-60);
+}
+.cl-about__only-s { display: none; }
+/* 稿上段尾 \r 字元：Figma 算進置中寬度（約 4px），照稿保留（audit-source） */
+.cl-about__cr { display: inline-block; width: 4px; }
+
+/* ---------- 圖_D 水銷價值循環（1695:20239） ---------- */
+.cl-about__cycle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 0 28.36px;
+  border-radius: 20px;
+  background: var(--cl-white);
+  overflow: hidden;
+}
+.cl-about__cycle-head {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  align-self: stretch;
+  padding: 0 24px;
+}
+.cl-about__pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex: none;
+  padding: 8px 20px;
+  border-radius: 999px;
+  background: #f6f6f6;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 25px;
+  letter-spacing: .6px;
+  color: var(--cl-ink-900);
+  white-space: nowrap;
+}
+.cl-about__pill::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 100px;
+  background: var(--cl-green-400);
+  flex: none;
+}
+.cl-about__cycle-sub {
+  padding-top: 1px; /* 稿上副標中心 y45、標籤中心 y44.5 */
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: .3px;
+  color: var(--cl-ink-800-60);
+}
+.cl-about__cycle-img { display: block; margin-top: 40.64px; }
+.cl-about__cycle-img img { width: 1200px; height: auto; }
+/* R1：三層疊放（下→上）：備援箭頭層 -band → Lottie → 圖示文字層 -nodes；-nodes 在流內撐出尺寸 */
+.cl-about__cycle-stage { position: relative; }
+.cl-about__cycle-band,
+.cl-about__cycle-anim { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+.cl-about__cycle-band img { width: 100%; height: 100%; }
+.cl-about__cycle-nodes { position: relative; display: block; }
+.cl-about__cycle-anim { overflow: hidden; pointer-events: none; }
+.cl-about__cycle-anim svg { display: block; }
+/* Lottie 準備好（02-about.js 加 .is-lottie）才藏備援箭頭層 */
+.cl-about__cycle-stage.is-lottie .cl-about__cycle-band { visibility: hidden; }
+
+/* ---------- 平板 641–1100（S0 平板契約：電腦結構）----------
+   版心左右留白 40；區段標題 28；四卡 2×2；循環圖用電腦版 SVG 等比縮 */
+@media (max-width: 1100px) and (min-width: 641px) {
+  .cl-about__head { max-width: calc(100% - 80px); }
+  .cl-about__title { font-size: 28px; line-height: 39px; }
+  .cl-about__panel { width: calc(100% - 80px); }
+  .cl-about__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cl-about__card-desc { text-wrap: balance; }   /* 置中短段落避免末行剩一兩字 */
+  .cl-about__cycle-head { gap: 24px; }
+  .cl-about__cycle-sub { flex: 1 1 0; min-width: 0; }
+  .cl-about__cycle-img { align-self: stretch; padding: 0 24px; }
+  .cl-about__cycle-img img { width: 100%; }
+}
+
+/* ---------- 手機版 ---------- */
+@media (max-width: 640px) {
+  .cl-about {
+    gap: 48px;
+    padding: 40px 16px 64px;
+  }
+  .cl-about__curve { left: calc(50% - 799.5px); width: 1600px; height: 640px; }
+  .cl-about__curve--whatis { top: -40px; }   /* 1695:19644 */
+  .cl-about__curve--whatis .cl-curve {
+    transform: scale(.8) translate(-822px, -938px) matrix(.99888, .04725, -.04725, .99888, 69.74628, 0) translate(-24px, -24px);
+  }
+  .cl-about__curve--cycle { top: 898px; }    /* 1695:19643 */
+  .cl-about__curve--cycle .cl-curve {
+    transform: scale(.8) matrix(-.88773, -.46036, .46036, -.88773, 3325.70459, 2787.52002) matrix(.99888, .04725, -.04725, .99888, 69.74628, 0) translate(-24px, -24px);
+  }
+
+  .cl-about__head { gap: 24px; width: 100%; max-width: 343px; }
+  .cl-about__heading { gap: 8px; }
+  .cl-about__title { font-size: 24px; line-height: 34px; }
+
+  /* scroll（1695:19652）＋灰底 Frame 2085663961（1695:19653） */
+  .cl-about__panel {
+    width: 100%;
+    max-width: 343px;
+    padding: 8px;
+  }
+  .cl-about__cards {
+    display: flex;
+    gap: 8px;
+    height: 300px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .cl-about__cards::-webkit-scrollbar { display: none; }
+  .cl-about__card {
+    flex: none;
+    width: 240px;
+    gap: 20px;
+    padding: 24px;
+    scroll-snap-align: start;
+  }
+  .cl-about__card-text { gap: 12px; }
+  .cl-about__art--renew { overflow: hidden; }
+  .cl-about__only-l { display: none; }
+  .cl-about__only-s { display: inline; }
+
+  /* 圖_D（1695:19741）327×655 */
+  .cl-about__cycle { padding: 24px 0; }
+  .cl-about__cycle-head {
+    flex-direction: column;
+    gap: 20px;
+    padding: 0;
+  }
+  .cl-about__pill { align-self: stretch; margin: 0 24px; }
+  .cl-about__cycle-sub { width: 247px; max-width: calc(100% - 48px); padding-top: 0; text-align: center; }
+  .cl-about__cycle-img { margin-top: 52px; }
+  .cl-about__cycle-img img { width: 327px; }
+  /* 手機版循環圖是電腦版順時針轉 90°、縮 0.47209（由兩版箭頭層座標擬合，誤差 < 0.01px）；
+     Lottie 維持 1200×560 原座標，用同一個矩陣對到直式的圖，箭頭流向跟著轉 */
+  .cl-about__cycle-anim {
+    width: 1200px;
+    height: 560px;
+    overflow: visible;
+    transform-origin: 0 0;
+    transform: matrix(0, .47209, -.47209, 0, 296.6746, -64.6607);
+  }
+  .cl-about__cycle-stage { overflow: hidden; }
+}
+
+/* ==========================================================================
+   03 從機密文件到日常用紙（負責人 B）
+   電腦版 1695:20245（1440×1730）／手機版 1695:19747（375×1203，手機版 clipsContent）
+   行高照 Figma 實際框高寫 px（百分比行高在 Figma 會四捨五入）
+   ========================================================================== */
+.cl-paper {
+  position: relative;
+  text-spacing-trim: space-all; /* Figma 不擠壓全形標點（Chrome 預設 normal 會擠壓「」，」），待主控決定是否移到 base */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 64px;
+  padding: 40px 0 120px;
+}
+.cl-paper > :not(.cl-paper__curve) { position: relative; z-index: 1; }
+
+/* ---------- 綠色弧線 curve_ani_paper（1695:20246） ---------- */
+.cl-paper__curve {
+  position: absolute;
+  left: calc(50% - 1000px);
+  top: 715px;
+  width: 2000px;
+  height: 800px;
+  overflow: hidden;
+  pointer-events: none;
+}
+.cl-paper__curve .cl-curve {
+  left: 0;
+  top: 0;
+  width: 5628.88px;
+  height: 1524.16px;
+  transform-origin: 0 0;
+  transform: translate(-199px, -808px) matrix(.99888, .04725, -.04725, .99888, 69.74628, 0) translate(-24px, -24px);
+}
+
+/* ---------- 標題區 Frame 4（1695:20247） ---------- */
+.cl-paper__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  width: 640px;
+  max-width: calc(100% - 32px);
+  text-align: center;
+}
+.cl-paper__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+.cl-paper__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--cl-font-num);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 15px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--cl-green-700);
+  white-space: nowrap;
+}
+.cl-paper__eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 100px;
+  background: var(--cl-green-700);
+  flex: none;
+}
+.cl-paper__title {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 45px;
+  letter-spacing: 1px;
+  color: var(--cl-ink-900);
+}
+.cl-paper__lead {
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: .3px;
+  color: var(--cl-ink-800-60);
+}
+
+/* ---------- 卡片格（card 1695:20254）：電腦版 2 欄圖文交錯 ---------- */
+.cl-paper__slider { width: calc(100% - 160px); max-width: 1280px; }
+.cl-paper__nav, .cl-paper__dots { display: none; }
+.cl-paper__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 12px;
+  border-radius: 20px;
+  background: #f6f6f6;
+  overflow: hidden;
+}
+.cl-paper__step { display: contents; }
+.cl-paper__step--1 .cl-paper__text  { grid-area: 1 / 1; }
+.cl-paper__step--1 .cl-paper__media { grid-area: 1 / 2; }
+.cl-paper__step--2 .cl-paper__media { grid-area: 2 / 1; }
+.cl-paper__step--2 .cl-paper__text  { grid-area: 2 / 2; }
+.cl-paper__step--3 .cl-paper__text  { grid-area: 3 / 1; }
+.cl-paper__step--3 .cl-paper__media { grid-area: 3 / 2; }
+
+.cl-paper__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 32px;
+  border-radius: 12px;
+  background: var(--cl-white);
+  overflow: hidden;
+}
+.cl-paper__no {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  font-family: var(--cl-font-num);
+  font-weight: 700;
+  white-space: nowrap;
+}
+.cl-paper__no-label { font-size: 32px; line-height: 38px; letter-spacing: 1px; color: var(--cl-ink-800); }
+.cl-paper__no-num   { font-size: 64px; line-height: 77px; letter-spacing: 2px; color: var(--cl-green-500); }
+.cl-paper__body {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.cl-paper__step-title {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 34px;
+  letter-spacing: .6px;
+  color: var(--cl-ink-800);
+}
+.cl-paper__hash { color: var(--cl-green-500); }
+.cl-paper__desc {
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: .3px;
+  color: var(--cl-ink-800-60);
+}
+.cl-paper__desc p + p { margin-top: 22px; } /* 稿上段落間是一行空白段落 */
+.cl-paper__cr { display: inline-block; width: 1em; } /* \r 字元在 Figma 顯示的空白寬 */
+.cl-paper__em {
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  text-underline-position: from-font;
+}
+
+/* 圖片格（paper_change_img/1–3，600×400 母版） */
+.cl-paper__media {
+  position: relative;
+  align-self: start;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.cl-paper__photo {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 600 / 400;
+  overflow: hidden;
+}
+.cl-paper__img {
+  position: absolute;
+  max-width: none;
+  height: auto;
+  object-fit: cover;
+  transform: translateY(-50%);
+}
+.cl-paper__img--pulper  { left: 0;     width: 99.83%;  top: 50%;     aspect-ratio: 4096 / 2731; } /* DSC00333 2 */
+.cl-paper__img--workers { left: -35%;  width: 151%;    top: 39.25%;  aspect-ratio: 4096 / 2731; } /* DSC03767 1：top 50%−43px（400 高） */
+.cl-paper__img--tissue  { left: -9.5%; width: 118.83%; top: 54.5%;   aspect-ratio: 4096 / 3072; } /* image 1478：top 50%+18px（400 高） */
+/* R1 .cl-zoom：img 用 translateY(-50%) 定位，scale 以 transform-origin（未位移前的框）為中心，
+   換算成「容器中心」在 img 框內的位置，放大時才會以畫面中心放大 */
+.cl-paper__img--pulper  { transform-origin: 50.09% 0; }
+.cl-paper__img--workers { transform-origin: 56.29% 7.12%; }
+.cl-paper__img--tissue  { transform-origin: 50.07% -3.37%; }
+/* 滑到 Step 03 說明卡上時照片維持放大 */
+.cl-paper__media:hover .cl-paper__img { scale: 1.1; }
+
+/* Step 03 說明卡（1695:20292） */
+.cl-paper__note {
+  position: absolute;
+  z-index: 2; /* 蓋在 .cl-skeleton 流光（z-index 1）上，圖片載入前說明卡也看得到 */
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  padding: 20px;
+  border-radius: 12px;
+  background: rgba(31, 31, 31, .2);
+  backdrop-filter: blur(52px);
+  -webkit-backdrop-filter: blur(52px);
+}
+.cl-paper__note-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 40px;
+}
+.cl-paper__note-text {
+  flex: 1 0 0;
+  min-width: 1px;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: .3px;
+  color: var(--cl-white);
+}
+.cl-paper__logos {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: none;
+}
+.cl-paper__logo { display: block; width: 40px; height: 40px; flex: none; }
+/* FSC（環保標章4 1695:20302）：R1 新版圖，白底框在 SVG 內（45×60 置中） */
+.cl-paper__logo--fsc { width: 60px; height: 60px; }
+
+/* ---------- 平板 641–1100（S0 平板契約：電腦結構）----------
+   版心左右留白 40；區段標題 28；2 欄圖文交錯，圖片填滿列高；Step 03 說明卡改直排 */
+@media (max-width: 1100px) and (min-width: 641px) {
+  .cl-paper__head { max-width: calc(100% - 80px); }
+  .cl-paper__title { font-size: 28px; line-height: 39px; }
+  .cl-paper__slider { width: calc(100% - 80px); }
+  .cl-paper__text { justify-content: flex-start; gap: 32px; padding: 32px 28px; }
+  .cl-paper__no-label { font-size: 28px; line-height: 34px; }
+  .cl-paper__no-num   { font-size: 48px; line-height: 58px; }
+  .cl-paper__step-title { text-wrap: balance; }
+  .cl-paper__desc { text-wrap: pretty; }
+  .cl-paper__media { align-self: stretch; min-height: 280px; }
+  .cl-paper__photo { position: absolute; inset: 0; height: 100%; aspect-ratio: auto; }
+  .cl-paper__img { left: 0; top: 0; width: 100%; height: 100%; aspect-ratio: auto; transform: none; }
+  .cl-paper__img--workers { object-position: 30% 50%; }
+  .cl-paper__img--pulper, .cl-paper__img--workers, .cl-paper__img--tissue { transform-origin: 50% 50%; }
+  .cl-paper__note-row { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .cl-paper__note-text { flex: none; width: 100%; text-wrap: pretty; }
+}
+
+/* ---------- 手機版：三張橫向卡輪播（1695:19756） ---------- */
+@media (max-width: 640px) {
+  .cl-paper {
+    gap: 48px;
+    padding: 40px 16px 64px;
+    overflow: clip;
+  }
+  .cl-paper__curve { left: calc(50% - 799.5px); top: 392px; width: 1600px; height: 640px; }
+  .cl-paper__curve .cl-curve {
+    transform: scale(.8) translate(-199px, -808px) matrix(.99888, .04725, -.04725, .99888, 69.74628, 0) translate(-24px, -24px);
+  }
+
+  .cl-paper__head { gap: 24px; width: 100%; max-width: 343px; }
+  .cl-paper__heading { gap: 8px; }
+  .cl-paper__title { font-size: 24px; line-height: 34px; }
+
+  .cl-paper__slider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+    max-width: 343px;
+  }
+  .cl-paper__nav {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 8px 0;
+  }
+  .cl-paper__arrow { display: block; width: 24px; height: 24px; }
+  .cl-paper__arrow img { width: 24px; height: 24px; }
+  .cl-paper__arrow--prev img { transform: rotate(180deg); }
+  .cl-paper__arrow:disabled { cursor: default; }
+  .cl-paper__arrow:disabled img { opacity: .2; }
+
+  .cl-paper__grid {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    padding: 0;
+    border: 8px solid #f6f6f6;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .cl-paper__grid::-webkit-scrollbar { display: none; }
+  .is-static .cl-paper__grid { scroll-behavior: auto; }
+  .cl-paper__step {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: none;
+    width: 100%;
+    height: 704px;
+    scroll-snap-align: start;
+  }
+  .cl-paper__text {
+    flex: 1 0 0;
+    min-height: 1px;
+    justify-content: flex-start;
+    gap: 40px;
+    padding: 16px;
+    border-radius: 16px;
+  }
+  .cl-paper__no-label { font-size: 24px; line-height: 29px; }
+  .cl-paper__no-num   { font-size: 36px; line-height: 43px; }
+  .cl-paper__cr { width: 4px; } /* 手機版稿上 \r 只佔約 4px（電腦版約 1em），照稿 */
+  .cl-paper__step-title { font-size: 20px; line-height: 28px; letter-spacing: 1px; }
+
+  .cl-paper__media {
+    flex: none;
+    align-self: stretch;
+    height: 320px;
+    border-radius: 16px;
+  }
+  /* 母版 600×400 縮成 480×320，水平置中裁切 */
+  .cl-paper__photo {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: auto;
+    height: 100%;
+    transform: translateX(-50%);
+  }
+  .cl-paper__note { padding: 16px; }
+  .cl-paper__note-row { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .cl-paper__note-text { flex: none; width: 100%; }
+  /* R1：手機也用 1、2、FSC，尺寸照替代 frame 1695:20018（28／28／48，gap 12） */
+  .cl-paper__logo { width: 28px; height: 28px; }
+  .cl-paper__logo--fsc { width: 48px; height: 48px; }
+
+  .cl-paper__dots {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cl-paper__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(17, 17, 17, .2);
+  }
+  .cl-paper__dot.is-active { background: var(--cl-green-400); }
+}
+
+/* ==========================================================================
+   04 服務流程 cl-process
+   電腦版 1695:20303（1440×1610）／手機版 1695:19816（375×2114）
+   值照 Figma 寫，S1 再收斂成 tokens
+   ========================================================================== */
+
+.cl-process {
+  position: relative;
+  padding: 40px 80px 160px;
+  color: var(--cl-ink-800);
+}
+.cl-process > :not(.cl-process__curve-clip) { position: relative; z-index: 1; }
+
+/* ---------- 背景弧線 curve_ani_process（1695:20304） ----------
+   裁切框 2000×800 在 (-280, 665)；curve_pattern 容器 5644.395×1738.198 在 (-2100,-648)，
+   中心＝(722.1975, 221.099)；內部向量旋轉 2.71deg；SVG 含線寬外框 5628.88×1524.16 */
+.cl-process__curve-clip {
+  position: absolute;
+  left: calc(50% - 1000px);
+  top: 665px;
+  width: 2000px;
+  height: 800px;
+  overflow: hidden;
+  pointer-events: none;
+}
+.cl-process__curve {
+  left: 722.1975px;
+  top: 221.099px;
+  width: 5628.88px;
+  height: 1524.16px;
+  transform: translate(-50%, -50%) rotate(2.71deg);
+}
+
+/* ---------- 標題 ---------- */
+.cl-process__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+.cl-process__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--cl-font-num);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 15px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--cl-green-700);
+}
+.cl-process__eyebrow::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 100px;
+  background: var(--cl-green-700);
+}
+.cl-process__title {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 45px;
+  letter-spacing: 1px;
+  color: var(--cl-ink-900);
+}
+
+.cl-process__body {
+  max-width: 1280px;
+  margin: 64px auto 0;
+}
+
+/* ---------- 服務流程B：四格卡（713:18070） ---------- */
+.cl-process__cards {
+  display: flex;
+  gap: 1px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+.cl-process__card {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  height: 400px;
+  overflow: hidden;
+  background: #5c5c5c;
+  cursor: pointer;
+  outline: none;
+}
+.cl-process__card--1 { background: var(--cl-white); }
+.cl-process__card:focus-visible { box-shadow: inset 0 0 0 3px var(--cl-white); }
+
+/* 照片框 process_img/N：600×400 置中（left calc(50% + .38px)），內層以百分比定位，手機版縮成 343×228.667 */
+.cl-process__media {
+  position: absolute;
+  left: calc(50% + .38px);
+  top: 50%;
+  width: 600px;
+  height: 400px;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  background: var(--cl-white);
+}
+.cl-process__photo {
+  position: absolute;
+  max-width: none;
+  object-fit: cover;
+}
+/* 1563:40745：最上層 shutterstock_2586719757（715×401 在 -11,0）完全蓋住下層，下層不輸出 */
+.cl-process__photo--1 { left: -1.8333%; top: 0; width: 119.1667%; height: 100.25%; }
+/* 1563:40777：DSC03721 1013.448×675.714 旋轉 1.61deg，外框 1032.076×703.989 在 (-196,-212) */
+.cl-process__photo--2 {
+  left: 53.3397%;
+  top: 34.9986%;
+  width: 168.908%;
+  height: 168.9285%;
+  transform: translate(-50%, -50%) rotate(1.61deg);
+}
+/* 1563:40794：DSC00341 782×521 在 (-180,-99) */
+.cl-process__photo--3 { left: -30%; top: -24.75%; width: 130.3333%; height: 130.25%; }
+/* 1563:40793：img04（筆電＋我的綠點畫面）完全蓋住 DSC03761，DSC03761 不輸出 */
+.cl-process__laptop {
+  position: absolute;
+  inset: -4.25% -9.83% -46.42% -40.83%;
+  overflow: hidden;
+  background: #e3dbd5;
+}
+.cl-process__laptop-photo {
+  position: absolute;
+  left: -10.94%;
+  top: -2.97%;
+  width: 110.96%;
+  height: 110.96%;
+  max-width: none;
+  object-fit: cover;
+}
+.cl-process__laptop-screen {
+  position: absolute;
+  left: 40.43%;
+  top: 13.32%;
+  width: 46.68%;
+  height: 55.78%;
+  max-width: none;
+  -webkit-mask: url('assets/04-process/card4-screen-mask.svg') no-repeat .11% .16% / 99.65% 99.66%;
+  mask: url('assets/04-process/card4-screen-mask.svg') no-repeat .11% .16% / 99.65% 99.66%;
+}
+
+/* .cl-zoom（R1）：img 比裁切框大、位置偏移，transform-origin 設成裁切框中心在 img 上的位置。
+   展開格的綠底會蓋住照片、未展開格 hover 即展開，電腦版實際上看不到放大，照全站規則仍加上 */
+.cl-process__photo--1 { transform-origin: 43.49% 49.88%; }
+/* photo--2 帶 rotate，改 transform-origin 會讓照片位移，維持預設（放大中心偏右上，展開時看不到） */
+.cl-process__photo--3 { transform-origin: 61.38% 57.39%; }
+.cl-zoom:hover .cl-process__laptop img { scale: none; }   /* 筆電照片＋螢幕兩張圖要一起放大：改放大外框 */
+.cl-zoom .cl-process__laptop { transform-origin: 60.29% 36%; transition: scale .8s cubic-bezier(.22, 1, .36, 1); }
+.cl-zoom:hover .cl-process__laptop { scale: 1.1; }
+
+/* 文字層：未展開＝漸層＋標題；展開（is-active）＝綠底＋icon＋標題＋分隔線＋說明 */
+.cl-process__card-body {
+  position: absolute;
+  z-index: 1;
+  inset: 0 -.75px 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 40px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 42.75%, #000 83.875%);
+  color: var(--cl-white);
+}
+.cl-process__card-icon { display: none; width: 64px; height: 64px; flex: none; }
+.cl-process__card-title {
+  width: 100%;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 34px;
+  letter-spacing: .6px;
+}
+.cl-process__card-line {
+  display: none;
+  width: 100%;
+  height: 1px;
+  margin-top: -1px;   /* Figma h-0 線條畫在上方 1px，不占版面 */
+  background: rgba(255, 255, 255, .4);
+}
+.cl-process__card--1 .cl-process__card-line { background: rgba(255, 255, 255, .6); } /* 稿：第 1 格 .6、其他 .4（audit-source） */
+.cl-process__card-desc {
+  display: none;
+  width: 100%;
+  height: 60px;
+  font-size: 14px;
+  line-height: 20px;   /* Figma 140%＝19.6，文字框實際以 20px 行距排（2 行 40、4 行 80） */
+  letter-spacing: .3px;
+}
+/* 綠底由下往上長（客戶 R2）：綠色是 ::before 這層，展開時 scaleY 0→1（底部為原點），
+   換到下一張時從全滿縮回 0；文字內容疊在上面 */
+.cl-process__card-body { isolation: isolate; }
+.cl-process__card-body::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: #1fc36c;
+  transform: scaleY(0);
+  transform-origin: 50% 100%;
+  transition: transform .7s cubic-bezier(.65, 0, .35, 1);
+}
+.cl-process__card.is-active .cl-process__card-body::before { transform: scaleY(1); }
+.cl-process__card.is-active .cl-process__card-icon,
+.cl-process__card.is-active .cl-process__card-line,
+.cl-process__card.is-active .cl-process__card-desc { display: block; }
+.cl-process__card.is-active .cl-process__card-body > * { animation: cl-process-rise .45s cubic-bezier(.2, .7, .2, 1) .25s both; }   /* 等綠底長上來再浮出 */
+@keyframes cl-process-rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* 展開卡內的白色弧線 curve_ani_service（1656:30776）：2000×400 裁切框，四格接成同一條線
+   pattern 中心＝卡片中心 + (框位移 − 397.19, 233.9)；總旋轉 −162.53 + 2.71 = −159.82deg */
+.cl-process__card-curve {
+  display: none;
+  z-index: 2;
+  left: calc(50% - 116.81px);
+  top: 433.9px;
+  width: 5628.88px;
+  height: 1524.16px;
+  transform: translate(-50%, -50%) rotate(-159.82deg);
+}
+.cl-process__card-curve path { stroke: var(--cl-white); stroke-opacity: .2; }
+.cl-process__card.is-active .cl-process__card-curve { display: block; }
+.cl-process__card--2 .cl-process__card-curve { left: calc(50% - 436.82px); }
+.cl-process__card--3 .cl-process__card-curve { left: calc(50% - 757.82px); }
+.cl-process__card--4 .cl-process__card-curve { left: calc(50% - 1086.82px); } /* 稿的框位移 -689.63，與前三格間距差 10px（audit-source） */
+
+/* 展開卡弧線（客戶 R2 修正）：速率和全站一樣用 base 的 cl-curve-trim（12s 循環描線），
+   只加「卡片一展開就從頭開始播」：弧線只在 .is-active 時從 display:none 出現，動畫會從 0% 重新開始。
+   四格卡進畫面前（.is-inview 由 JS 加）先不播，第 1 格不會在畫面外先跑掉一段。?static／reduced-motion 照 base 行為 */
+.cl-process__cards:not(.is-inview) .cl-process__card-curve path { animation: none; visibility: hidden; }
+
+/* ---------- 詳細服務流程_B ---------- */
+.cl-process__detail { margin-top: 120px; }
+
+.cl-process__tabs {
+  display: flex;
+  gap: 16px;
+  scrollbar-width: none;
+}
+.cl-process__tabs::-webkit-scrollbar { display: none; }
+.cl-process__tab {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 24px;
+  border-radius: 999px;
+  background: #f6f6f6;
+  color: #989898;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 26px;
+  letter-spacing: .36px;
+  white-space: nowrap;
+  transition: color .3s ease;
+}
+/* R2：配合 .cl-tabfill 的圓（.9s）——選中時等圓長到文字處再轉白；取消選中時直接轉灰 */
+.cl-process__tab.is-active { transition: color .35s ease .15s; }
+.cl-process__tab:hover { color: var(--cl-ink-800-60); }
+.cl-process__tab.is-active { color: var(--cl-white); cursor: default; }
+/* 頁籤圓形填色 .cl-tabfill（R2，取代 R1 果凍頁籤）：灰底留在頁籤本身，選中的綠底交給 base 的 .cl-tabfill__circle */
+.cl-process__tab.is-active::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 100px;
+  background: var(--cl-white);
+}
+.cl-process__tab:focus-visible { outline: 2px solid var(--cl-green-700); outline-offset: 2px; }
+
+.cl-process__panel { margin-top: 32px; }
+.cl-process__panel[hidden] { display: none; }
+
+/* 頁籤 1：線上預約步驟（713:18662） */
+.cl-process__booking {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 20px;
+  background: #f6f6f6;
+  overflow: hidden;
+}
+.cl-process__steps {
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
+  flex-direction: column;
+  gap: 12px;
+}
+.cl-process__step {
+  display: flex;
+  align-items: flex-start;
+  gap: 48px;   /* STEP｜gap 24｜分隔線（0 寬）｜gap 24｜文字 */
+  padding: 32px;
+  border-radius: 16px;
+  background: var(--cl-white);
+}
+.cl-process__step-no {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: 12px;
+  font-family: var(--cl-font-num);
+  font-weight: 700;
+  line-height: 1.2;
+  color: #1fc36c;
+}
+.cl-process__step-label {
+  display: flex;
+  align-items: center;
+  height: 25px;
+  font-size: 20px;
+  letter-spacing: .6px;
+  opacity: .4;
+}
+.cl-process__step-num {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  font-size: 40px;
+  letter-spacing: 2px;
+  white-space: nowrap;
+}
+.cl-process__step-text {
+  position: relative;
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
+  flex-direction: column;
+  gap: 12px;
+  align-self: stretch;
+}
+/* STEP 欄寬照稿：STEP 字框 55、數字框 01＝45、02／03＝53、04＝57（欄寬取較大者，04 那格文字右移 2px） */
+.cl-process__step-label { width: 55px; }
+.cl-process__step:nth-child(1) .cl-process__step-num { width: 45px; }
+.cl-process__step:nth-child(2) .cl-process__step-num,
+.cl-process__step:nth-child(3) .cl-process__step-num { width: 53px; }
+.cl-process__step:nth-child(4) .cl-process__step-num { width: 57px; }
+/* 直分隔線 Line 25（黑 8%）：Figma 是 0 寬節點、線畫在右側 1px，在文字左側 24px */
+.cl-process__step-text::before {
+  content: '';
+  position: absolute;
+  left: -24px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(0, 0, 0, .08);
+}
+.cl-process__step-title {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 25px;
+  letter-spacing: .5px;
+  color: var(--cl-ink-800);
+}
+.cl-process__step-title--info,
+.cl-process__step-title--info > .cl-rv__in { display: flex; align-items: center; gap: 8px; }   /* reveal 內層也要排成一列，info icon 才不會掉到下一行 */
+.cl-process__info { width: 20px; height: 20px; flex: none; }
+.cl-process__step-desc,
+.cl-process__step-list {
+  font-size: 14px;
+  line-height: 20px;   /* Figma 140%＝19.6，文字框實際以 20px 行距排（2 行 40、4 行 80） */
+  letter-spacing: .3px;
+  color: var(--cl-ink-800-60);
+}
+.cl-process__step-list { padding-left: 21px; }
+/* Figma list-disc 的圓點比瀏覽器 disc 小（約 2.5px、距文字 12px），改用偽元素照稿畫 */
+.cl-process__step-list li { position: relative; }   /* data-reveal 會把 li 包進 .cl-rv__in，用後代選擇器 */
+.cl-process__step-list li::before {
+  content: '';
+  position: absolute;
+  left: -13px;
+  top: 9px;
+  width: 2.5px;
+  height: 2.5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.cl-process__booking-img {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  align-self: stretch;
+  border-radius: 12px;
+  overflow: hidden;
+}
+/* booking_img 640×640：left/right -1.45%，垂直置中；內層 Mockup 2（3000×2250）
+   left -50.31%、寬 205.41%、中心下移 62/640。下層圖片被 Mockup 2 完全蓋住，不輸出 */
+.cl-process__booking-img { container-type: size; }
+.cl-process__booking-frame {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: max(102.9cqw, 100cqh);   /* 1440：622×1.029＝640（＝稿 left/right -1.45%）；欄位變高時改以高度撐滿 */
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+}
+.cl-process__booking-frame img {
+  position: absolute;
+  left: -50.31%;
+  top: calc(50% + 9.6875%);
+  width: 205.41%;
+  max-width: none;
+  transform: translateY(-50%);
+  transform-origin: 48.834% -6.288%;   /* .cl-zoom 放大中心＝框中心 */
+}
+
+/* 頁籤 2：送廠前的準備（1586:48503） */
+.cl-process__prepare {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 12px;
+  border-radius: 20px;
+  background: #f6f6f6;
+  overflow: hidden;
+}
+.cl-process__prep-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-self: start;
+  padding: 32px;
+  border-radius: 12px;
+  background: var(--cl-white);
+}
+.cl-process__prep-title {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 25px;
+  letter-spacing: .5px;
+  color: var(--cl-ink-800);
+}
+.cl-process__prep-line {
+  display: block;
+  height: 1px;
+  margin-top: -1px;
+  background: rgba(0, 0, 0, .08);
+}
+.cl-process__prep-group { display: flex; flex-direction: column; gap: 24px; }
+.cl-process__prep-item { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.cl-process__prep-sub {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: .5px;
+  color: var(--cl-ink-800);
+}
+.cl-process__prep-desc {
+  font-size: 14px;
+  line-height: 20px;   /* Figma 140%＝19.6，文字框實際以 20px 行距排（2 行 40、4 行 80） */
+  letter-spacing: .3px;
+  color: var(--cl-ink-800-60);
+}
+.cl-process__prep-line-name {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
+  color: var(--cl-green-500);
+  white-space: nowrap;
+}
+.cl-process__prep-line-name::before {
+  content: '';
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 100px;
+  background: #1fc36c;
+}
+.cl-process__prep-way {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  color: var(--cl-ink-800);
+  white-space: nowrap;
+}
+.cl-process__prep-note {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  letter-spacing: .3px;
+  color: var(--cl-ink-800);
+}
+.cl-process__prep-pair { display: flex; gap: 12px; align-self: stretch; }
+.cl-process__prep-img {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  align-self: stretch;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--cl-white);
+}
+.cl-process__prep-img img {
+  position: absolute;
+  left: 50%;
+  max-width: none;
+  aspect-ratio: 1536 / 1024;
+  transform: translateX(-50%);
+}
+.cl-process__prep-img--1 img { top: -3%; height: 105.75%; transform-origin: 0 50.12%; }
+.cl-process__prep-img--2 img { top: -4.38%; height: 112.75%; left: calc(50% + 21.25px); transform-origin: -21.25px 48.23%; }
+.cl-process__prep-img--3 img { top: -.93%; height: 103.09%; left: calc(50% - .72px); transform-origin: .72px 49.4%; }
+/* 上面三行 transform-origin：.cl-zoom 放大中心＝框中心 */
+
+/* 頁籤 3：當天進場流程（動線圖+說明文字_w(new) 1615:16172） */
+.cl-process__route {
+  position: relative;
+  border-radius: 20px;
+  background: #f6f6f6;
+  overflow: hidden;
+}
+.cl-process__route-inner { padding-top: 20px; }
+.cl-process__map-wrap { display: flex; justify-content: center; }
+.cl-process__map {
+  position: relative;
+  flex: none;
+  width: 1056.528px;
+  height: 539.352px;
+  overflow: hidden;
+}
+/* 稿上流程圖底部 20px 疊進步驟區：R2 拆成兩個捲動區後，負邊距放在流程圖捲動區（放在流程圖上會在捲動區內產生垂直捲動） */
+.cl-process__route-scroll--map { margin-bottom: -20px; }
+.cl-process__map-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  opacity: 0;
+  transition: opacity .5s ease;
+}
+.cl-process__map-img.is-active { opacity: 1; }
+
+/* 家紙／工紙 toggle（2266:7859）：白底膠囊；選中綠塊為 .cl-process__paper-thumb（Rubber Segment 移植，見 04-process.js）。
+   綠塊是一整層疊在上面的綠底白字副本，用 clip-path inset 只露出選中那格——拉長、回彈時文字不會變形 */
+.cl-process__paper {
+  position: absolute;
+  z-index: 1;
+  left: 32px;
+  top: 32px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--cl-white);
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.cl-process__paper-btn {
+  padding: 12px 24px;
+  border-radius: 999px;
+  color: #989898;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 26px;
+  letter-spacing: .36px;
+  text-align: center;
+  white-space: nowrap;
+  transition: color .16s ease, transform .16s cubic-bezier(.23, 1, .32, 1);
+}
+.cl-process__paper-btn[aria-checked="true"] { cursor: grab; }
+.cl-process__paper.is-held,
+.cl-process__paper.is-held .cl-process__paper-btn { cursor: grabbing; }
+.cl-process__paper-btn.is-pressed { transform: scale(.96); }
+@media (hover: hover) and (pointer: fine) {
+  .cl-process__paper-btn[aria-checked="false"]:hover { color: var(--cl-ink-800-60); }
+}
+.cl-process__paper-btn:focus-visible { outline: 2px solid var(--cl-green-700); outline-offset: 2px; }
+.cl-process__paper-thumb {
+  position: absolute;
+  inset: 4px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-radius: 999px;
+  background: var(--cl-green-500);
+  pointer-events: none;
+  clip-path: inset(0 50% 0 0 round 999px);   /* JS 量好後接手 */
+}
+.cl-process__paper-thumb .cl-process__paper-btn { color: var(--cl-white); }
+
+.cl-process__route-steps {
+  display: flex;
+  gap: 40px;
+  padding: 32px 48px;
+}
+.cl-process__route-steps > li {
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
+  flex-direction: column;
+  gap: 8px;
+}
+.cl-process__route-num {
+  font-family: var(--cl-font-num);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 29px;
+  letter-spacing: 1px;
+  color: var(--cl-ink-800);
+}
+.cl-process__route-desc {
+  font-size: 14px;
+  line-height: 20px;   /* Figma 140%＝19.6，文字框實際以 20px 行距排（2 行 40、4 行 80） */
+  letter-spacing: .3px;
+  color: var(--cl-ink-800-60);
+}
+.cl-process__route-note { text-decoration: underline; text-underline-position: from-font; text-decoration-skip-ink: none; }
+.cl-process__route-hint { display: none; }
+
+/* 1101–1439：流動縮放，避免水平捲軸（641–1100 的左右留白由下方平板區塊覆寫） */
+@media (max-width: 1439px) {
+  .cl-process { padding-left: max(16px, min(80px, 5.5vw)); padding-right: max(16px, min(80px, 5.5vw)); }
+  .cl-process__route-scroll { overflow-x: auto; scrollbar-width: none; }
+  .cl-process__route-scroll::-webkit-scrollbar { display: none; }
+}
+
+/* ==========================================================================
+   平板（641–1100，S0_TABLET_CONTRACT「混合」）
+   四格卡＝電腦版型（R1 客戶要求，取代 S0 平板的手機結構）；頁籤 1＝手機結構（步驟在上、圖在下）；
+   頁籤 2＝電腦 2 欄；頁籤 3＝手機結構（見下方 ≤1100 共用區塊）。
+   左右版心 40；區段標題 28；卡片標題、內文照電腦版
+   ========================================================================== */
+@media (min-width: 641px) and (max-width: 1100px) {
+  .cl-process { padding: 40px 40px 120px; }
+
+  /* 背景弧線：沿用 S0 平板位置（手機版座標）；R1 四格卡改橫排後段落變矮，弧線落在頁籤面板兩側，維持不動 */
+  .cl-process__curve-clip {
+    left: calc(50% - 799.5px);
+    top: 1087px;
+    width: 1600px;
+    height: 640px;
+  }
+  .cl-process__curve {
+    left: 577.758px;
+    top: 176.8792px;
+    transform: translate(-50%, -50%) rotate(2.71deg) scale(.8);
+  }
+
+  .cl-process__title { font-size: 28px; line-height: 39px; }   /* 介於 32／24，行高 140% 取整 */
+
+  /* 四格卡（R1）：改用電腦版型（四格橫排、hover／點擊展開，卡高 400、照片框 600×400 置中裁切）。
+     每格較窄（768 時約 171 寬），內距與標題字級縮小，展開格說明文字改自動高度 */
+  .cl-process__cards { container-type: inline-size; }   /* 給卡內弧線用 cqw（＝四格列寬） */
+  .cl-process__card-body { gap: 16px; padding: 32px 20px; }
+  .cl-process__card-icon { width: 48px; height: 48px; }
+  .cl-process__card-title { font-size: 20px; line-height: 28px; letter-spacing: .5px; text-wrap: balance; }   /* 手機版字級；balance 避免末行只剩一字 */
+  .cl-process__card-desc { height: auto; text-wrap: pretty; }
+
+  /* 展開卡弧線：照電腦版「四格接成同一條線」，整條線依列寬等比縮（s＝列寬／1280）。
+     電腦版 pattern 中心在列座標 (42.81, 433.9)、SVG 5628.88×1524.16；
+     以 (列左緣, 卡內 y 250) 為縮放基準點，線帶維持在卡片中段，左右位置與電腦版同比例。
+     第 k 格：left＝42.81·s − (k−1)(卡寬＋1)；top＝250 + 183.9·s。cqw 以四格列寬為基準 */
+  .cl-process__card-curve {
+    left: 3.3445cqw;
+    top: calc(250px + 14.3672cqw);
+    width: 439.756cqw;
+    height: 119.075cqw;
+  }
+  .cl-process__card--2 .cl-process__card-curve { left: calc(3.3445cqw - 100% - 1px); }
+  .cl-process__card--3 .cl-process__card-curve { left: calc(3.3445cqw - 200% - 2px); }
+  .cl-process__card--4 .cl-process__card-curve { left: calc(3.3445cqw - 300% - 3px); }
+}
+/* 平板窄端（641–760）：每格不到 150 寬，左右內距再縮，讓展開格說明多放幾字 */
+@media (min-width: 641px) and (max-width: 760px) {
+  .cl-process__card-body { padding-left: 16px; padding-right: 16px; }
+}
+@media (min-width: 641px) and (max-width: 1100px) {
+  .cl-process__detail { margin-top: 80px; }
+
+  /* 頁籤 1：步驟在上、圖在下；步驟卡照電腦版 */
+  .cl-process__booking { flex-direction: column; }
+  .cl-process__steps { flex: none; }
+  .cl-process__booking-img { flex: none; aspect-ratio: 3 / 2; max-height: 520px; align-self: stretch; }   /* 1024 時不讓圖過高 */
+
+  /* 頁籤 2：電腦 2 欄；欄寬變窄，產線名稱允許換行 */
+  .cl-process__prep-card { padding: 24px; }
+  .cl-process__prep-line-name { align-self: stretch; align-items: flex-start; white-space: normal; }
+  .cl-process__prep-line-name::before { margin-top: 8px; }
+  .cl-process__prep-way { white-space: normal; }
+}
+
+/* ==========================================================================
+   手機版（375，1695:19816）
+   ========================================================================== */
+@media (max-width: 640px) {
+  .cl-process { padding: 40px 16px 64px; }
+
+  /* curve_ani_process 1600×640 在 (-612, 1087)：instance 整體縮 0.8（SVG 4503.11×1219.33），
+     pattern 中心＝(722.1975, 221.099)×0.8 */
+  .cl-process__curve-clip {
+    left: calc(50% - 799.5px);
+    top: 1087px;
+    width: 1600px;
+    height: 640px;
+  }
+  .cl-process__curve {
+    left: 577.758px;
+    top: 176.8792px;
+    transform: translate(-50%, -50%) rotate(2.71deg) scale(.8);
+  }
+
+  .cl-process__head { gap: 8px; }
+  .cl-process__title { font-size: 24px; line-height: 34px; }
+  .cl-process__body { margin-top: 48px; }
+
+  /* 服務流程B size=S（974:14698） */
+  .cl-process__cards { flex-direction: column; }
+  .cl-process__card { flex: none; height: 180px; }
+  /* 照片框撐滿卡寬（客戶 R2：原本固定 343，393 寬的手機兩側會露白），比例照稿 343×228.667＝3:2，垂直置中裁切 */
+  .cl-process__media {
+    left: 50%;
+    top: calc(50% + .33px);
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+  }
+  .cl-process__card-body {
+    inset: 0 -1px 0 0;
+    gap: 12px;
+    padding: 24px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 36.944%, #000 83.875%);
+  }
+  .cl-process__card-icon { width: 32px; height: 32px; }
+  .cl-process__card-title { font-size: 20px; line-height: 28px; }
+  .cl-process__card-desc { height: auto; }
+
+  /* 手機版弧線：curve_ani_service 1600×320 旋轉 90deg，pattern 為電腦版 0.8 倍
+     中心＝(50% − .5 − 187.12, top + 800 − 317.75)；總旋轉 90 − 159.82 = −69.82deg */
+  .cl-process__card-curve {
+    left: calc(50% - 187.62px);
+    top: -217.75px;
+    transform: translate(-50%, -50%) rotate(-69.82deg) scale(.8);
+  }
+  .cl-process__card--2 .cl-process__card-curve { left: calc(50% - 187.62px); top: -409.75px; }
+  .cl-process__card--3 .cl-process__card-curve { left: calc(50% - 187.62px); top: -604.75px; }
+  .cl-process__card--4 .cl-process__card-curve { left: calc(50% - 187.62px); top: -794.75px; }
+
+  .cl-process__detail { margin-top: 64px; }
+
+  /* 頁籤列比 343 寬，可橫向捲動，右側貼齊螢幕邊 */
+  .cl-process__tabs {
+    gap: 12px;
+    margin: 0 -16px;
+    padding: 0 16px;
+    overflow-x: auto;
+  }
+  .cl-process__tab {
+    padding: 8px 16px;
+    font-size: 16px;
+    line-height: 23px;
+    letter-spacing: .32px;
+  }
+
+  /* 頁籤 1（995:18233） */
+  .cl-process__booking {
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px;
+  }
+  .cl-process__steps {
+    flex: none;
+    gap: 8px;
+    border-radius: 16px;
+    background: #f9f9f9;
+  }
+  .cl-process__step { gap: 32px; padding: 16px; }
+  .cl-process__step-num { height: auto; font-size: 24px; letter-spacing: 1.4px; line-height: 29px; }
+  .cl-process__step-text::before { left: -16px; }
+  .cl-process__booking-img {
+    flex: none;
+    height: 343px;
+    border-radius: 16px;
+  }
+  .cl-process__booking-frame { left: -2.75%; width: 102.75%; top: calc(50% - 3.5px); transform: translateY(-50%); }
+  .cl-process__booking-frame img { transform-origin: 49.485% calc(-6.288% + 3.5px); }
+
+  /* 頁籤 2（1586:49742） */
+  .cl-process__prepare {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px;
+  }
+  .cl-process__prep-card { gap: 12px; padding: 16px; border-radius: 16px; }
+  .cl-process__prep-group { gap: 20px; }
+  .cl-process__prep-pair { flex-direction: column; gap: 8px; }
+  .cl-process__prep-img { flex: none; aspect-ratio: 240 / 160; border-radius: 16px; }
+  .cl-process__prep-line-name { align-self: stretch; white-space: normal; }
+}
+
+/* ==========================================================================
+   平板＋手機共用（≤1100）：頁籤 3 當天進場流程用手機結構（1128 寬可左右滑動＋提示）
+   規則原樣從手機版搬出，≤640 的層疊順序不變
+   ========================================================================== */
+@media (max-width: 1100px) {
+  /* 頁籤 3：依 2159:25259（1128 寬，可左右滑動；提示膠囊固定在左下）。
+     R2 客戶：流程圖與下方 6 步驟說明分開滑動 → 兩個獨立捲動區，各自 1128 寬；提示跟著流程圖捲動區 */
+  .cl-process__route-scroll {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+  .cl-process__route-scroll::-webkit-scrollbar { display: none; }
+  .cl-process__route-scroll--map { margin-bottom: 0; }
+  .cl-process__map-wrap { position: relative; display: block; width: 1128px; height: 544.8px; }
+  .cl-process__map {
+    position: absolute;
+    left: 30.002px;
+    top: 0;
+    width: 1067.2px;
+    height: 544.8px;
+    margin: 0;
+  }
+  /* toggle 2266:8749：在流程圖上方（y20、高 47），字 16、按鈕 8／16 */
+  .cl-process__paper { position: relative; left: auto; top: auto; width: max-content; margin: 20px 0 0 16px; }
+  .cl-process__paper-btn { padding: 8px 16px; font-size: 16px; line-height: 23px; letter-spacing: .32px; }
+  .cl-process__route-inner { padding-top: 0; }
+  .cl-process__route-steps { width: 1128px; gap: 24px; padding: 20px 0 16px 24px; }
+  .cl-process__route-steps > li { flex: none; width: 164px; }
+  .cl-process__route-num { font-size: 20px; line-height: 24px; }
+  .cl-process__route-hint {
+    position: absolute;
+    left: 19px;
+    top: 558px;   /* 流程圖區 y67 ＋ 提示 y491 */
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: rgba(31, 31, 31, .1);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: .6px;
+    color: var(--cl-ink-900);
+    pointer-events: none;
+    transition: opacity .3s;
+  }
+  .cl-process__route.is-scrolled .cl-process__route-hint { opacity: 0; }
+}
+
+/* ==========================================================================
+   05 綠點存摺與憑證（負責人 D）
+   電腦版 1695:20313（1440×1440）／手機版 1695:19826（375×1707.88）
+   ========================================================================== */
+
+.cl-green {
+  position: relative;
+  padding: 40px 0 120px;
+  /* Chrome 預設會擠壓相鄰全形標點（「下，「」），Figma 不會 → 斷行不同；關掉 */
+  text-spacing-trim: space-all;
+  background: var(--cl-white);
+}
+
+/* 行高：Figma 寫 140%／120%，但實際排版四捨五入成整數 px（16→22、14→20、32→45、48→58、24→34、28→34），
+   量 Figma 截圖的行距與 metadata 文字框高度都對得上，所以這裡寫整數 px */
+
+/* ---------- 標題區 Frame 4 ---------- */
+.cl-green__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  width: 640px;
+  max-width: calc(100% - 32px);
+  margin: 0 auto;
+  text-align: center;
+}
+.cl-green__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+.cl-green__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--cl-green-700);
+  font-family: var(--cl-font-num);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.cl-green__eyebrow-dot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 100px;
+  background: var(--cl-green-700);
+}
+.cl-green__title {
+  width: 100%;
+  color: var(--cl-ink-900);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 45px;
+  letter-spacing: 1px;
+}
+.cl-green__lead {
+  width: 100%;
+  color: var(--cl-ink-800-60);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: .3px;
+}
+
+/* ---------- 卡片區 cards ---------- */
+.cl-green__body {
+  width: 1280px;
+  max-width: calc(100% - 160px);
+  margin: 64px auto 0;
+}
+.cl-green__nav,
+.cl-green__pager { display: none; }
+
+.cl-green__cards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cl-green__card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 480px;
+  padding: 12px;
+  border-radius: 20px;
+  overflow: hidden;
+  isolation: isolate;
+}
+.cl-green__card--points { background: var(--cl-green-400); }
+.cl-green__card--cert   { background: var(--cl-ink-900); }
+
+/* 弧線 curve_ani_greenpts／curve_ani_certificate：
+   Figma 容器 2000×500 置中，內層 scaleY(-1)＋rotate(2.71deg)，位置換算成 SVG 左上角 */
+.cl-green__curve {
+  z-index: -1;
+  width: 5628.88px;
+  height: 1524.16px;
+  transform: scaleY(-1) rotate(2.71deg);
+}
+.cl-green__curve path { stroke: var(--cl-white); }
+.cl-green__curve--points { left: -1373.2425px; top: 57.82px; }
+.cl-green__curve--points path { stroke-opacity: .1; }
+.cl-green__curve--cert { left: -4054.2425px; top: -962.18px; }
+.cl-green__curve--cert path { stroke-opacity: .06; }
+
+/* 左側文字 Frame 2085663987 */
+.cl-green__intro {
+  display: flex;
+  flex: 1 1 512px;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: stretch;
+  padding: 28px 48px 48px;
+  border-radius: 16px;
+  color: var(--cl-white);
+}
+.cl-green__names {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.cl-green__en {
+  color: rgba(255, 255, 255, .32);
+  font-family: var(--cl-font-num);
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 58px;
+  letter-spacing: 2px;
+}
+.cl-green__name {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 45px;
+  letter-spacing: .5px;
+}
+.cl-green__desc {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: .3px;
+}
+
+/* 中間圖卡共用尺寸 */
+.cl-green__slider,
+.cl-green__doc {
+  position: relative;
+  flex: 0 1 360px;
+  min-width: 0;
+  height: 456px;
+  border-radius: 16px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* card_greebpt 輪播 */
+.cl-green__slider {
+  display: block;
+  text-align: left;
+  cursor: pointer;
+}
+.cl-green__slide {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 456px;
+  overflow: hidden;
+  background-image: linear-gradient(-23.25284002041225deg, rgb(222, 255, 223) 11.177%, rgb(232, 254, 238) 51.564%, rgb(228, 255, 235) 91.952%);
+  opacity: 0;
+  transition: opacity .3s ease-out;
+}
+.cl-green__slide.is-active { opacity: 1; }
+.cl-green__slide img { position: absolute; max-width: none; }
+/* green point_1 1：aspect 1759/1065，left calc(50% + 120.5px) 置中、top -3.73%、bottom -6.36%，object-position bottom */
+.cl-green__coins {
+  left: -114.0849px;
+  top: -17.0088px;
+  width: 829.1698px;
+  height: 502.0104px;
+  object-fit: cover;
+  object-position: bottom;
+}
+/* 蓋掉圖上邊角的兩塊色塊（Rectangle 10276／10277） */
+.cl-green__patch { position: absolute; }
+.cl-green__patch--bottom { left: 25%; right: 25%; bottom: 0; height: 66px; background: #e0ffe2; }
+.cl-green__patch--top { left: 63.06%; right: 0; top: 0; height: 67px; background: #e7feec; }
+/* paper_img「3」：aspect 4096/2731，left -69.17%、right -83.33%、中心 top calc(50% - 75px) */
+.cl-green__paper {
+  left: -249.012px;
+  top: -150.0389px;
+  width: 909px;
+  height: 606.0778px;
+  object-fit: cover;
+}
+
+.cl-green__info {
+  position: absolute;
+  left: 12px;
+  right: 133px;
+  bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  border-radius: 12px;
+  background: rgba(21, 102, 60, .6);
+  backdrop-filter: blur(52px);
+  -webkit-backdrop-filter: blur(52px);
+  color: var(--cl-white);
+}
+.cl-green__info-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  white-space: nowrap;
+}
+.cl-green__info-dot,
+.cl-green__pill-dot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 100px;
+  background: #85f0b7;
+}
+/* Line 22：0 高的線，stroke 畫在上方 1px（rgba 白 .2） */
+.cl-green__info-rule {
+  display: block;
+  height: 1px;
+  margin-top: -1px;
+  background: rgba(255, 255, 255, .2);
+}
+.cl-green__info-body {
+  display: block;
+  margin-right: -.3px; /* 瀏覽器把最後一字的字距算進行寬，Figma 不算；不補會多斷一行 */
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: .3px;
+}
+.cl-green__dots {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  display: flex;
+  gap: 8px;
+}
+.cl-green__dot,
+.cl-green__pager-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(17, 17, 17, .2);
+  transition: background-color .3s ease-out;
+}
+.cl-green__dot.is-active,
+.cl-green__pager-dot.is-active { background: var(--cl-green-400); }
+
+/* certificate_img：pdf 可視範圍，left 64、top 86.53（客戶 R2 微調證明書尺寸） */
+.cl-green__doc { background: #989898; }
+.cl-green__doc-img {
+  position: absolute;
+  left: 64px;
+  top: 86.5338px;
+  width: 296px;
+  height: 369.4662px;
+  max-width: none;
+}
+
+/* 右側兩格 */
+.cl-green__side {
+  display: flex;
+  flex: 0 1 360px;
+  min-width: 0;
+  flex-direction: column;
+  gap: 12px;
+  align-self: stretch;
+}
+.cl-green__tile {
+  display: flex;
+  flex: 1 1 0;
+  min-height: 0;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 20px;
+  border-radius: 16px;
+  overflow: hidden;
+  color: var(--cl-white);
+}
+.cl-green__tile--ink   { background: var(--cl-ink-800); }
+.cl-green__tile--green { background: var(--cl-green-600); }
+.cl-green__tile--gray  { flex: none; height: 222px; background: #444; }
+.cl-green__tile-icon,
+.cl-green__tile-icon img { display: block; flex: none; }
+.cl-green__tile-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+}
+.cl-green__pill {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, .24);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  white-space: nowrap;
+}
+.cl-green__pill--light { background: rgba(255, 255, 255, .24); }
+.cl-green__pill--dark  { background: rgba(0, 0, 0, .36); }
+.cl-green__tile-desc {
+  color: rgba(255, 255, 255, .8);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: .3px;
+}
+.cl-green__tile-desc--white { color: var(--cl-white); }
+
+/* esg_img：容器 222 高，內層 360×270 垂直置中。
+   底下的 Image 圖層（1600:16791）在兩個斷點都被 shutterstock 圖完全蓋住，不輸出 */
+.cl-green__esg {
+  position: relative;
+  flex: 1 1 0;
+  min-height: 0;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.cl-green__esg-inner {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 270px;
+  transform: translateY(-50%);
+  overflow: hidden;
+  background: #f6f6f6;
+}
+.cl-green__esg-inner img { position: absolute; max-width: none; object-fit: cover; }
+/* shutterstock：left -15%、right -21.67%、aspect 4096/2732、top -32 */
+.cl-green__esg-hand { left: -15%; top: -32px; width: 136.67%; aspect-ratio: 4096 / 2732; }
+
+/* ==========================================================================
+   R1（客戶 2026-10-21）：圖片 hover 放大、證明文件「查看」按鈕與彈窗
+   ========================================================================== */
+
+/* .cl-zoom：圖比容器大且偏移，transform-origin 對準容器中心。
+   圖卡／證明用 size container，origin 用 50cq 減掉圖的 left／top（各寬度都準） */
+.cl-green__slider,
+.cl-green__doc { container-type: size; }
+.cl-green__coins { transform-origin: calc(50cqw + 114.0849px) calc(50cqh + 17.0088px); }
+.cl-green__paper { transform-origin: calc(50cqw + 249.012px) calc(50cqh + 150.0389px); }
+.cl-green__doc-img { transform-origin: calc(50cqw - 64px) calc(50cqh - 86.5338px); }
+/* esg：內層 270 高垂直置中、img left -15%、top -32 → 容器中心在圖的 47.56%／167px */
+.cl-green__esg-hand { transform-origin: 47.56% 167px; }
+
+/* 「查看」：hover 時淡入（遮罩＋按鈕置中）；觸控裝置（hover: none 或 pointer: coarse）按鈕常駐 */
+.cl-green__doc { cursor: pointer; }
+.cl-green__doc-scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(17, 17, 17, .32);
+  opacity: 0;
+  transition: opacity .5s ease;
+  pointer-events: none;
+}
+.cl-green__doc-view {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  opacity: 0;
+  transform: translate(-50%, calc(-50% + 12px));
+  transition: opacity .5s ease, transform .6s cubic-bezier(.22, 1, .36, 1), color .5s ease;
+}
+.cl-green__doc:hover .cl-green__doc-scrim { opacity: 1; }
+.cl-green__doc:hover .cl-green__doc-view,
+.cl-green__doc-view:focus-visible { opacity: 1; transform: translate(-50%, -50%); }
+@media (hover: none), (pointer: coarse) {
+  .cl-green__doc-view { top: auto; bottom: 16px; opacity: 1; transform: translateX(-50%); }
+}
+
+/* 彈窗：遮罩＋白底圓角面板，面板內捲動看全圖 */
+.cl-green__modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  opacity: 0;
+  transition: opacity .35s ease;
+}
+.cl-green__modal[hidden] { display: none; }
+.cl-green__modal.is-open { opacity: 1; }
+.cl-green__modal-mask {
+  position: absolute;
+  inset: 0;
+  background: rgba(17, 17, 17, .72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.cl-green__modal-panel {
+  position: relative;
+  display: flex;
+  width: 100%;
+  max-width: 1019px;   /* 文件圖原寬（R2：1812:37717 改為 1019），圖本身已含白邊 */
+  max-height: 100%;
+  border-radius: 20px;
+  background: var(--cl-white);
+  overflow: hidden;
+  transform: translateY(24px) scale(.98);
+  transition: transform .45s cubic-bezier(.22, 1, .36, 1);
+}
+.cl-green__modal.is-open .cl-green__modal-panel { transform: none; }
+.cl-green__modal-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.cl-green__modal-img { width: 100%; height: auto; }
+.cl-green__modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background: var(--cl-ink-900);
+  color: var(--cl-white);
+  transition: background-color .3s ease, transform .4s cubic-bezier(.22, 1, .36, 1);
+}
+.cl-green__modal-close:hover { background: var(--cl-green-500); transform: rotate(90deg); }
+.cl-green__modal-close:focus-visible { outline: 2px solid var(--cl-green-400); outline-offset: 2px; }
+
+/* 641–1199：流動縮放，資訊框改為左右各 12 */
+@media (max-width: 1199px) and (min-width: 641px) {
+  .cl-green__body { max-width: calc(100% - 64px); }
+  .cl-green__intro { padding: 28px 24px 32px; }
+  .cl-green__en { font-size: clamp(24px, 3.2vw, 36px); line-height: 1.2; }
+  .cl-green__esg-hand { width: max(136.67%, 492px); }
+  .cl-green__info { right: 12px; }
+}
+
+/* ==========================================================================
+   平板 641–1100（S0_TABLET_CONTRACT：混合）
+   卡片內：文字區滿寬在上，下方「圖卡｜右側兩格」2 欄；兩張卡維持上下排。
+   版心左右 40，區段標題 28，卡片標題與內文照電腦版。
+   ========================================================================== */
+@media (min-width: 641px) and (max-width: 1100px) {
+  .cl-green__head { max-width: calc(100% - 80px); }
+  .cl-green__title { font-size: 28px; line-height: 39px; }
+
+  .cl-green__body { max-width: calc(100% - 80px); }
+
+  .cl-green__card {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 12px;
+    height: auto;
+  }
+  .cl-green__intro {
+    grid-column: 1 / -1;
+    gap: 32px;
+    padding: 28px 36px 36px;
+  }
+  .cl-green__en { font-size: 48px; line-height: 58px; }
+  .cl-green__desc { max-width: 640px; }
+
+  /* 圖卡與右側兩格同高 456（電腦版尺寸） */
+  .cl-green__slider,
+  .cl-green__doc { height: 456px; }
+  .cl-green__side { height: 456px; }
+  /* 證明圖是可視範圍（貼右下），欄寬改變時跟著右下角 */
+  .cl-green__doc-img { left: auto; right: 0; top: auto; bottom: 0; }
+  .cl-green__doc-img { transform-origin: calc(296px - 50cqw) calc(369.4662px - 50cqh); }
+  /* 資訊框左右 12（641–1199 規則）會蓋到右下點點：點點改到右上（同手機版位置） */
+  .cl-green__dots { top: 20px; bottom: auto; }
+}
+
+/* ==========================================================================
+   手機版 375（1695:19826）
+   ========================================================================== */
+@media (max-width: 640px) {
+  .cl-green { padding: 40px 0 64px; overflow: hidden; }
+
+  .cl-green__head { gap: 24px; width: auto; max-width: none; margin: 0 16px; }
+  .cl-green__heading { gap: 8px; }
+  .cl-green__title { font-size: 24px; line-height: 34px; }
+
+  .cl-green__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    width: auto;
+    max-width: none;
+    margin: 48px 16px 0;
+  }
+
+  .cl-green__nav { display: flex; gap: 16px; padding: 8px 0; }
+  .cl-green__arrow { display: block; width: 24px; height: 24px; }
+  .cl-green__arrow img { width: 24px; height: 24px; }
+  .cl-green__arrow--prev img { transform: rotate(180deg); }
+  .cl-green__arrow:disabled { opacity: .2; cursor: default; }
+
+  /* 卡片橫向捲動：Figma cards overflow HORIZONTAL，第二張露出到畫面右緣 */
+  .cl-green__cards {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 12px;
+    align-self: stretch;
+    margin: 0 -16px;
+    padding: 0 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0 16px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .cl-green__cards::-webkit-scrollbar { display: none; }
+
+  .cl-green__card {
+    flex: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    width: 320px;
+    height: auto;
+    padding: 8px;
+    scroll-snap-align: start;
+  }
+
+  /* 弧線：容器 400×1600 旋轉 90°，內層 0.8 倍 */
+  .cl-green__curve {
+    width: 4503.104px;
+    height: 1219.328px;
+    transform: rotate(90deg) scaleY(-1) rotate(2.71deg);
+  }
+  .cl-green__curve--points { left: -2515.472px; top: 390.294px; }
+  .cl-green__curve--cert { left: -1699.472px; top: -1754.506px; }
+
+  .cl-green__intro {
+    flex: none;
+    align-self: stretch;
+    height: 374px;
+    padding: 12px 16px 16px;
+  }
+  .cl-green__en { font-size: 28px; line-height: 34px; letter-spacing: 1px; }
+  .cl-green__name { font-size: 24px; line-height: 34px; }
+
+  .cl-green__slider,
+  .cl-green__doc {
+    flex: none;
+    width: 304px;
+    height: 384.8807px;
+    border-radius: 12px;
+  }
+  .cl-green__slide {
+    height: 414.2px;
+    background-image: linear-gradient(-24.80648577138929deg, rgb(222, 255, 223) 11.177%, rgb(232, 254, 238) 51.564%, rgb(228, 255, 235) 91.952%);
+  }
+  .cl-green__coins { left: -115.11px; top: -15.4497px; width: 753.1173px; height: 455.9852px; }
+  .cl-green__patch--bottom { height: 59.95px; }
+  .cl-green__patch--top { height: 60.858px; }
+  .cl-green__paper { left: -210.2768px; top: -116.9137px; width: 767.6px; height: 511.7856px; }
+
+  .cl-green__info { left: 12px; right: 12px; bottom: 11.88px; padding: 16px; border-radius: 8px; }
+  .cl-green__dots { top: 16px; right: 16px; bottom: auto; }
+
+  /* pdf：手機版為電腦版 0.9083 倍（311.56／343） */
+  .cl-green__doc-img { left: 46.6291px; top: 78.5016px; width: 268.8648px; height: 335.598px; }
+  .cl-green__doc-img { transform-origin: calc(50cqw - 46.6291px) calc(50cqh - 78.5016px); }
+  .cl-green__coins { transform-origin: calc(50cqw + 115.11px) calc(50cqh + 15.4497px); }
+  .cl-green__paper { transform-origin: calc(50cqw + 210.2768px) calc(50cqh + 116.9137px); }
+
+  .cl-green__modal { padding: 16px; }
+  .cl-green__modal-panel { border-radius: 16px; }
+  .cl-green__modal-close { top: 8px; right: 8px; width: 40px; height: 40px; }
+
+  .cl-green__side { flex: none; gap: 8px; width: 100%; }
+  .cl-green__tile { flex: none; height: 180px; padding: 16px; }
+  .cl-green__tile--gray { height: 180px; }
+  .cl-green__esg { flex: none; height: 180px; }
+  .cl-green__esg-hand { left: -15%; }
+
+  .cl-green__pager { display: flex; gap: 8px; }
+}
+
+/* ==========================================================================
+   06 串場（負責人 D）
+   電腦版 1695:20376（1440×582）／手機版 1695:19897（375×300）
+   照片帶：元件 713:17828（L：713:17827→713:17868→713:17886；S：1000:20132→1000:20150→1000:20168）
+   ========================================================================== */
+
+.cl-strip {
+  position: relative;
+  height: 582px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* curve_ani_connect：容器 2000×800 置中；curve_pattern rotate(163.58deg) scaleY(-1)，內層 rotate(2.71deg) */
+.cl-strip__curve {
+  z-index: -1;
+  left: -1635.671px;
+  top: -781.65px;
+  width: 5628.88px;
+  height: 1524.16px;
+  transform: rotate(163.58deg) scaleY(-1) rotate(2.71deg);
+}
+
+.cl-strip__viewport {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.cl-strip__track {
+  position: absolute;
+  left: 0;
+  top: 151px;
+  display: flex;
+  align-items: flex-end;
+  gap: 40px;
+  animation: cl-strip-loop 22.4s linear infinite;
+}
+.cl-strip__item { display: flex; flex: none; align-items: center; }
+.cl-strip__item--up   { padding-bottom: 40px; }
+.cl-strip__item--down { padding-top: 40px; }
+
+.cl-strip__photo {
+  position: relative;
+  width: 400px;
+  height: 240px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--cl-white);
+}
+.cl-strip__img {
+  position: absolute;
+  max-width: none;
+  object-fit: cover;
+}
+/* 位置用照片框的百分比（手機版正好是電腦版 0.4 倍，同一組值） */
+.cl-strip__img--forklift { left: -2.5%; top: 47.5%; width: 105%; aspect-ratio: 4096 / 2731; transform: translateY(-50%); }
+.cl-strip__img--windmill { left: -2.25%; top: 42.5%; width: 132%; aspect-ratio: 4096 / 2731; transform: translateY(-50%); }
+.cl-strip__img--seedling { left: -2.5%; top: 0; width: 105.19%; height: 128.03%; }
+.cl-strip__img--lab      { left: -23.75%; top: -49.5833%; width: 151.5%; height: 168.3333%; }
+.cl-strip__img--pulp     { left: -9.75%; top: -4.5833%; width: 119.5%; height: 132.9167%; }
+.cl-strip__img--roll     { left: 0; top: -4.5833%; width: 100%; height: 111.25%; }
+
+/* R1：平移終點＝最後一張右緣切齊畫面右緣：100cqw －照片帶寬（電腦 6×400＋5×40＝2600），中點取一半；
+   畫面比照片帶還寬時不平移（min 0）。
+   時間軸 22.4s：淡入 0.4s →(10s)→ 中點，停 0.8s →(10s)→ 終點，停 0.8s → 淡出 0.4s，透明時回到起點。
+   ?static／reduced motion：animation none → x 0、不透明（＝主畫面） */
+.cl-strip__viewport { container-type: inline-size; }
+.cl-strip__track {
+  --cl-strip-w: 2600px;
+  --cl-strip-end: min(0px, calc(100cqw - var(--cl-strip-w)));
+  --cl-strip-mid: min(0px, calc(50cqw - var(--cl-strip-w) / 2));
+}
+@keyframes cl-strip-loop {
+  0%       { transform: translateX(0); opacity: 0; }
+  1.7857%  { transform: translateX(0); opacity: 1; }
+  46.4286% { transform: translateX(var(--cl-strip-mid)); opacity: 1; }
+  50%      { transform: translateX(var(--cl-strip-mid)); opacity: 1; }
+  94.6429% { transform: translateX(var(--cl-strip-end)); opacity: 1; }
+  98.2143% { transform: translateX(var(--cl-strip-end)); opacity: 1; }
+  100%     { transform: translateX(var(--cl-strip-end)); opacity: 0; }
+}
+
+/* .cl-zoom：transform-origin 對準照片框中心（換算成各圖自身的百分比，三種寬度通用；translate 不受 origin 影響） */
+.cl-strip__img--forklift { transform-origin: 50% 52.14%; }
+.cl-strip__img--windmill { transform-origin: 39.58% 55.11%; }
+.cl-strip__img--seedling { transform-origin: 49.91% 39.05%; }
+.cl-strip__img--lab      { transform-origin: 48.68% 59.16%; }
+.cl-strip__img--pulp     { transform-origin: 50% 41.07%; }
+.cl-strip__img--roll     { transform-origin: 50% 49.06%; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cl-strip__track { animation: none; }
+}
+
+/* ==========================================================================
+   平板 641–1100（S0_TABLET_CONTRACT：電腦結構，照片框 280×168、間距 28＝電腦版 0.7 倍）
+   平移距離跟著換算：照片帶 6×280＋5×28＝1820
+   ========================================================================== */
+@media (min-width: 641px) and (max-width: 1100px) {
+  .cl-strip { height: 408px; }   /* 582×0.7，照片帶上下各留 106 */
+
+  /* 弧線：用手機版 0.8 倍尺寸，改成以段落中心定位（寬度會變） */
+  .cl-strip__curve {
+    left: calc(50% - 1884.057px);
+    top: calc(50% - 857.998px);
+    width: 4503.104px;
+    height: 1219.328px;
+  }
+
+  .cl-strip__track { --cl-strip-w: 1820px; top: 106px; gap: 28px; }
+  .cl-strip__item--up   { padding-bottom: 28px; }
+  .cl-strip__item--down { padding-top: 28px; }
+  .cl-strip__photo { width: 280px; height: 168px; border-radius: 14px; }
+}
+/* ==========================================================================
+   手機版 375（1695:19897）
+   ========================================================================== */
+@media (max-width: 640px) {
+  .cl-strip { height: 300px; }
+
+  /* 容器 1600×640，內層 0.8 倍 */
+  .cl-strip__curve {
+    left: -1696.557px;
+    top: -707.998px;
+    width: 4503.104px;
+    height: 1219.328px;
+  }
+
+  .cl-strip__track { --cl-strip-w: 1040px; top: 94px; gap: 16px; }   /* 6×160＋5×16 */
+  .cl-strip__item--up   { padding-bottom: 16px; }
+  .cl-strip__item--down { padding-top: 16px; }
+  .cl-strip__photo { width: 160px; height: 96px; border-radius: 8px; }
+}
+
+/* ==========================================================================
+   07 faq（負責人 E）　電腦版 1695:20379／手機版 1695:19900
+   ========================================================================== */
+.cl-faq {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 64px;
+  padding: 40px 280px 120px;
+  background: var(--cl-white);
+  /* Chrome 預設 text-spacing-trim 會壓縮相鄰全形標點（「）。」），Figma 不壓縮 → 斷行不同 */
+  text-spacing-trim: space-all;
+}
+
+/* 標題組 1695:20380 */
+.cl-faq__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 640px;
+  max-width: 100%;
+}
+.cl-faq__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--cl-font-num);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 15px; /* Figma normal，文字框高 15 */
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--cl-green-700);
+}
+.cl-faq__eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 100px;
+  background: var(--cl-green-700);
+}
+.cl-faq__title {
+  width: 100%;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 1px;
+  text-align: center;
+  color: var(--cl-ink-900);
+}
+
+/* 內容 1695:20385 */
+.cl-faq__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 36px;
+  width: 100%;
+  max-width: 880px;
+}
+
+/* 分類頁籤 a.btn 1695:20387 等 */
+.cl-faq__tabs {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.cl-faq__tab {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 24px;
+  position: relative;
+  border-radius: 999px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 22px; /* Figma normal，文字框高 22 */
+  letter-spacing: .36px;
+  white-space: nowrap;
+  color: #989898;
+  transition: color .3s ease;
+}
+/* 頁籤圓形填色（R2 客戶 2026-10-21）：灰底在頁籤本身，選中時 base 的 .cl-tabfill__circle 從底部放大填成綠色 */
+.cl-faq__tab { background: #f6f6f6; }
+.cl-faq__tab-dot {
+  display: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 100px;
+  background: var(--cl-white);
+}
+.cl-faq__tab.is-active { color: var(--cl-white); transition: color .35s ease .15s; }   /* 等圓長到文字處再轉白 */
+.cl-faq__tab.is-active .cl-faq__tab-dot { display: block; }
+
+/* 手風琴 list 1695:20394 */
+.cl-faq__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+.cl-faq__list[hidden] { display: none; }
+
+/* list_faq_card（unfold=true／false） */
+.cl-faq__item {
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+  border-radius: 16px;
+  background: #f6f6f6;
+  overflow: hidden;
+}
+.cl-faq__q {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  text-align: left;
+}
+.cl-faq__num {
+  display: flex;
+  flex: none;
+  align-items: center;
+  width: 40px;
+  height: 22px;
+  font-family: var(--cl-font-num);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 2px;
+  white-space: nowrap;
+  color: var(--cl-green-500);
+}
+.cl-faq__question {
+  flex: 1 0 0;
+  min-width: 1px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: .5px;
+  color: var(--cl-ink-800);
+}
+.cl-faq__icon {
+  display: grid;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+.cl-faq__icon img { width: 32px; height: 32px; }
+/* ＋／− 轉換（R1）：兩張 Figma icon 疊在同一格，＋轉半圈淡出、−轉半圈淡入，停點＝稿上的 icon */
+.cl-faq__icon > picture {
+  grid-area: 1 / 1;
+  display: block;
+  transition: transform .5s cubic-bezier(.22, 1, .36, 1), opacity .3s ease;
+}
+.cl-faq__icon-minus { opacity: 0; transform: rotate(-180deg); }
+.cl-faq__item.is-open .cl-faq__icon-minus { opacity: 1; transform: none; }
+.cl-faq__item.is-open .cl-faq__icon-add { opacity: 0; transform: rotate(180deg); }
+
+/* 答案展開收合（R1）：grid-template-rows 0fr↔1fr 做高度過場。
+   原本題目與答案的 gap 12 併進答案上方留白（12＋4），收合時一起收掉 */
+.cl-faq__a {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition: grid-template-rows .5s cubic-bezier(.22, 1, .36, 1), visibility 0s linear .5s;
+}
+.cl-faq__item.is-open .cl-faq__a {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  transition: grid-template-rows .5s cubic-bezier(.22, 1, .36, 1), visibility 0s;
+}
+.cl-faq__a-in { min-height: 0; overflow: hidden; }
+.cl-faq__answer {
+  padding: 16px 56px 4px 64px;
+  opacity: 0;
+  transition: opacity .3s ease;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: .3px;
+  color: var(--cl-ink-800-80);
+}
+.cl-faq__item.is-open .cl-faq__answer { opacity: 1; transition: opacity .4s ease .1s; }
+
+/* 641–1439：流動縮放，不出水平捲軸 */
+@media (max-width: 1439px) and (min-width: 641px) {
+  .cl-faq { padding-left: clamp(40px, 19.44vw, 280px); padding-right: clamp(40px, 19.44vw, 280px); }
+  .cl-faq__tabs { flex-wrap: wrap; justify-content: center; }
+}
+
+/* 平板 641–1100（S0_TABLET_CONTRACT：電腦結構，左右留白 40，區段標題 28；頁籤放得下就一列） */
+@media (min-width: 641px) and (max-width: 1100px) {
+  .cl-faq { padding-left: 40px; padding-right: 40px; }
+  .cl-faq__title { font-size: 28px; }
+}
+
+/* ---------- 手機 375（1695:19900） ---------- */
+@media (max-width: 640px) {
+  .cl-faq {
+    align-items: flex-start;
+    gap: 48px;
+    padding: 40px 16px 64px;
+    overflow: hidden;
+  }
+  .cl-faq__head { gap: 8px; width: 100%; }
+  .cl-faq__title { font-size: 24px; }
+
+  .cl-faq__body { align-items: flex-start; gap: 32px; }
+  /* 頁籤列超出版心：右側延伸到螢幕邊、可橫向捲動（稿上第三顆被裁切） */
+  .cl-faq__tabs {
+    gap: 12px;
+    width: calc(100% + 16px);
+    margin-right: -16px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .cl-faq__tabs::-webkit-scrollbar { display: none; }
+  .cl-faq__tab {
+    padding: 8px 16px;
+    font-size: 16px;
+    line-height: 19px; /* Figma normal，文字框高 19 */
+    letter-spacing: .32px;
+  }
+  /* 稿上第二顆文字框高 23（其他 19），頁籤高 39／35：照稿做，見 audit-source */
+  .cl-faq__tab--tall { line-height: 23px; }
+
+  .cl-faq__item { padding: 20px; }
+  .cl-faq__q { gap: 16px; }
+  .cl-faq__icon img { width: 24px; height: 24px; }
+  .cl-faq__answer { padding: 16px 40px 4px 56px; }
+}
+
+/* ==========================================================================
+   08 cta（負責人 E）　電腦版 1695:20404／手機版 1695:19927
+   ========================================================================== */
+.cl-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 80px 120px;
+  background: var(--cl-white);
+  /* Chrome 預設 text-spacing-trim 會壓縮相鄰全形標點（「）。」），Figma 不壓縮 → 斷行不同 */
+  text-spacing-trim: space-all;
+}
+.cl-cta__card {
+  position: relative;
+  width: 100%;
+  max-width: 1280px;   /* R1 客戶 2026-10-21：大螢幕不再往外長，和其他段落版心一致 */
+  height: 600px;
+  border-radius: 20px;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--cl-green-600);
+}
+
+/* cta_bg 1695:20406：1280×600 置中；照片＋疊層已由 Figma 合成（ctabg_img/l 1600:16009 1x 輸出） */
+.cl-cta__bg {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1280px;
+  height: 600px;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  background: var(--cl-green-600);
+  pointer-events: none;
+}
+.cl-cta__bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+/* time=1 → time=2：SMART_ANIMATE linear 10s 放大到 1536×720（scale 1.2 置中）；
+   time=2 停 2s 後 DISSOLVE ease-in-out .3s 回 time=1（底下那張 scale 1 的圖露出） */
+.cl-cta__bg-img--zoom {
+  transform-origin: 50% 50%;
+  animation: cl-cta-bg-zoom 12.3s infinite;
+}
+@keyframes cl-cta-bg-zoom {
+  0%      { transform: scale(1);   opacity: 1; animation-timing-function: linear; }
+  81.301% { transform: scale(1.2); opacity: 1; animation-timing-function: step-end; }
+  97.561% { transform: scale(1.2); opacity: 1; animation-timing-function: ease-in-out; }
+  100%    { transform: scale(1.2); opacity: 0; }
+}
+.cl-cta__bg-black {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, .48);
+}
+
+/* 內容 1695:20413 */
+.cl-cta__content {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 56px;
+  width: 640px;
+  max-width: calc(100% - 48px);
+}
+.cl-cta__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  text-align: center;
+  color: var(--cl-white);
+}
+.cl-cta__title {
+  width: 100%;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 1px;
+}
+.cl-cta__desc {
+  width: 100%;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: .3px;
+}
+.cl-cta__actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.cl-cta__actions .cl-btn { flex: none; }
+
+/* 弧線容器 curve_ani_cta-left／right（2000×600，overflow clip）；
+   svg 以 curve-pattern.svg 原尺寸放在容器左上，matrix 由 Figma absoluteTransform 換算（含 stroke 外擴 24） */
+.cl-cta__curve {
+  position: absolute;
+  top: 0;
+  width: 2000px;
+  height: 600px;
+  overflow: hidden;
+  pointer-events: none;
+}
+.cl-cta__curve--left { left: 0; }
+.cl-cta__curve--right { right: 0; }
+.cl-cta__curve .cl-curve { left: 0; top: 0; transform-origin: 0 0; }
+.cl-cta__curve--left .cl-curve { transform: matrix(-0.764393, 0.644751, 0.644751, 0.764393, 1560.157, -2397.420); }
+.cl-cta__curve--right .cl-curve { transform: matrix(0.672907, -0.739727, -0.739727, -0.672907, 1027.014, 3022.867); }
+
+/* 641–1439：流動縮放 */
+@media (max-width: 1439px) and (min-width: 641px) {
+  .cl-cta { padding-left: clamp(24px, 5.56vw, 80px); padding-right: clamp(24px, 5.56vw, 80px); }
+}
+
+/* 平板 641–1100（S0_TABLET_CONTRACT：電腦結構，左右留白 40，標題 28，按鈕維持 18px 並排） */
+@media (min-width: 641px) and (max-width: 1100px) {
+  .cl-cta { padding-left: 40px; padding-right: 40px; }
+  .cl-cta__title { font-size: 28px; }
+}
+
+/* ---------- 手機 375（1695:19927） ---------- */
+@media (max-width: 640px) {
+  .cl-cta { flex-direction: row; padding: 0 16px 64px; }
+  .cl-cta__bg { left: calc(50% + .5px); }
+  .cl-cta__content {
+    top: calc(50% + .12px);
+    gap: 48px;
+    width: 263px;
+  }
+  .cl-cta__text { gap: 16px; }
+  .cl-cta__title { font-size: 24px; }
+  .cl-cta__actions {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
+  }
+  /* 手機用 main_btn 14px（805:5702／805:5679）＝base 的 .cl-btn--sm 尺寸；
+     同一份 HTML 無法換 class，這裡照 base --sm 的值覆寫（已回報主控：需要可隨斷點切換的 sm） */
+  .cl-cta__actions .cl-btn {
+    gap: 8px;
+    width: 100%;
+    min-height: 40px;
+    padding: 8.5px 20px; /* Figma stroke INSIDE：padding 9.5／21 扣框線 1 → 總高 40（base --sm 是 42，已回報） */
+    border: 1px solid transparent;
+    font-size: 14px;
+    line-height: 21px;
+  }
+  .cl-cta__actions .cl-btn__circle { left: calc(40.87% - .18px); top: 40px; bottom: auto; width: 24px; } /* base 39 會在 40 高的按鈕露 1px */
+  /* 白底 sm 箭頭 20px：common 沒有深色 20 版，24 版等比縮小形狀相同 */
+  .cl-cta__actions .cl-btn__arrow { width: 20px; height: 20px; }
+
+  .cl-cta__curve { width: 1600px; height: 480px; }
+  .cl-cta__curve--left { left: -140px; top: .12px; }
+  .cl-cta__curve--right { right: -160px; top: auto; bottom: -.12px; }
+  .cl-cta__curve--left .cl-curve { transform: matrix(-0.611514, 0.515801, 0.515801, 0.611514, 1248.125, -1917.936); }
+  .cl-cta__curve--right .cl-curve { transform: matrix(0.538326, -0.591781, -0.591781, -0.538326, 821.611, 2418.294); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cl-cta__bg-img--zoom { animation: none; }
+}
+
+/* ==========================================================================
+   09 footer（負責人 E）　電腦版 1695:29473 footer/l／手機版 1695:29472 footer/s
+   ========================================================================== */
+.cl-footer {
+  position: relative;
+  height: 490px;
+  overflow: hidden;
+  background: var(--cl-white);
+  /* Chrome 預設 text-spacing-trim 會壓縮相鄰全形標點（「）。」），Figma 不壓縮 → 斷行不同 */
+  text-spacing-trim: space-all;
+}
+.cl-footer__only-s { display: none; }
+
+/* curve_ani_footer（2000×800 置中，overflow clip）；弧線色 #F6F6F6（base 是綠色，段落內覆寫，已回報主控） */
+.cl-footer__curve {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 2000px;
+  height: 800px;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  pointer-events: none;
+}
+.cl-footer__curve .cl-curve {
+  left: 0;
+  top: 0;
+  transform-origin: 0 0;
+  transform: matrix(-0.842191, 0.539180, 0.539180, 0.842191, 3068.520, -1961.922);
+}
+.cl-footer__curve .cl-curve path { stroke: #f6f6f6; }
+
+/* div.public-site__footer-inner */
+.cl-footer__inner {
+  position: absolute;
+  left: 80px;
+  right: 80px;
+  top: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 64px;
+  padding-bottom: 40px;
+}
+
+/* logo/b 139.579×48：三個 Group，位置照 Figma 百分比 */
+.cl-footer__logo {
+  position: relative;
+  display: block;
+  flex: none;
+  width: 139.579px;
+  height: 48px;
+  overflow: hidden;
+}
+.cl-footer__logo-part { position: absolute; }
+.cl-footer__logo-part img { position: absolute; max-width: none; }
+.cl-footer__logo-part--mark { top: 1.75%; right: 66.59%; bottom: 3%; left: .65%; }
+.cl-footer__logo-part--mark img { left: -.2%; top: -.2%; width: 100.4%; height: 100.4%; }
+.cl-footer__logo-part--zh { top: 3.14%; right: 1.82%; bottom: 26.88%; left: 35.84%; }
+.cl-footer__logo-part--zh img { left: -.11%; top: -.27%; width: 100.21%; height: 100.54%; }
+.cl-footer__logo-part--en { top: 83.35%; right: .44%; bottom: 4.27%; left: 35.84%; }
+.cl-footer__logo-part--en img { left: -.1%; top: -1.53%; width: 100.2%; height: 103.1%; }
+
+.cl-footer__row {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  width: 100%;
+}
+.cl-footer__tagline {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 1px;
+}
+.cl-footer__brand {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: .16px;
+  color: var(--cl-ink-800);
+}
+.cl-footer__sub {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px; /* Figma normal，文字框高 20 */
+  color: var(--cl-ink-800-60);
+}
+.cl-footer__copy {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  color: var(--cl-ink-800-60);
+}
+
+.cl-footer__info {
+  display: flex;
+  flex: none;
+  align-items: flex-start;
+  gap: 40px;
+}
+.cl-footer__item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 200px;
+}
+.cl-footer__label {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 23px; /* Figma normal，文字框高 23 */
+  letter-spacing: .32px;
+  color: var(--cl-ink-800);
+}
+.cl-footer__value {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: .32px;
+  color: var(--cl-ink-800-60);
+}
+.cl-footer__value--num {
+  font-family: 'Zalando Sans Expanded', var(--cl-font-sans);
+  letter-spacing: .5px;
+}
+
+/* main_btn_black 14px：右上 */
+.cl-footer__top { position: absolute; top: 0; right: 0; }
+/* base .cl-btn--sm 的 border 加在 padding 外，總高 42、寬 86；Figma stroke INSIDE 是 40×84。
+   段落內暫時扣掉框線覆寫，已回報主控改 base */
+.cl-footer .cl-footer__top { padding: 8.5px 20px; }
+.cl-footer .cl-footer__top .cl-btn__circle { top: 40px; } /* Figma 805:5658 圓在按鈕下緣外（y=40），base 是 39 會露 1px */
+
+/* Line 14：白 20%，貼頂 */
+.cl-footer__line {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 1px;
+  max-width: none;
+}
+
+/* 底部標語 Montserrat Bold 86 */
+.cl-footer__slogan {
+  position: absolute;
+  left: calc(50% - 727px);
+  bottom: 44.5px;
+  transform: translateY(50%);
+  font-family: var(--cl-font-num);
+  font-size: 86px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #000;
+}
+.cl-footer__slogan-hl { color: var(--cl-green-400); }
+/* 跑馬燈用的第二份文字：只在 .is-marquee 時顯示 */
+.cl-footer__slogan-text--dup { display: none; }
+
+/* 寬螢幕放大填滿（客戶 R2 2026-10-21）：句子放得下時（不輪播），09-footer.js 算出 --cl-footer-slogan-fs，
+   字級等比放大到左右各留 24px；與底部距離照電腦版比例（中心距底 0.5174em），
+   頁尾高度跟著字級增加（字框頂到底 1.1174em，86px 時是 96），內容不被標語蓋到 */
+.cl-footer.is-fill {
+  height: calc(490px + (var(--cl-footer-slogan-fs) - 86px) * 1.1174);
+}
+.cl-footer.is-fill .cl-footer__slogan {
+  left: 50%;
+  bottom: .5174em;
+  font-size: var(--cl-footer-slogan-fs);
+  transform: translate(-50%, 50%);
+}
+
+/* 641–1439：流動縮放 */
+@media (max-width: 1439px) and (min-width: 641px) {
+  .cl-footer { height: auto; min-height: 490px; padding-bottom: 150px; }
+  .cl-footer__inner { position: relative; left: auto; right: auto; top: auto; margin: 80px clamp(24px, 5.56vw, 80px) 0; }
+  .cl-footer__row { flex-wrap: wrap; }
+  .cl-footer__info { flex-wrap: wrap; flex-shrink: 1; }
+  .cl-footer__slogan { left: -7px; font-size: clamp(40px, 5.97vw, 86px); }
+}
+
+/* 平板 641–1100（S0_TABLET_CONTRACT：電腦結構，左右留白 40，資訊欄可換行）
+   標語照電腦版比例跟寬度縮放：86／1440＝5.972vw、left -7／1440＝-0.486vw、中心距底 44.5／86＝0.5174em */
+@media (min-width: 641px) and (max-width: 1100px) {
+  .cl-footer { min-height: 0; padding-bottom: calc(5.972vw * 1.2 + 56px); }
+  .cl-footer__inner { margin: 80px 40px 0; }
+  /* R1 修 820 爆版：資訊三欄（200×3＋40×2）會把品牌文字擠成一字一行 →
+     品牌文字滿寬在上、三欄資訊在下（版心 561–1020 都放得下） */
+  .cl-footer__row { flex-direction: column; gap: 40px; }
+  .cl-footer__tagline { flex: none; width: 100%; }
+  .cl-footer__info {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 200px));   /* 放得下維持電腦版欄寬 200，窄於 680 時等比縮 */
+    gap: 40px;
+    width: 100%;
+  }
+  .cl-footer__item { width: auto; }
+  .cl-footer__slogan {
+    left: -.486vw;
+    bottom: calc(5.972vw * .5174);
+    font-size: 5.972vw;
+  }
+}
+
+/* ---------- 手機 375（1695:29472） ---------- */
+@media (max-width: 640px) {
+  .cl-footer { height: 705px; }
+  .cl-footer__only-l { display: none; }
+  .cl-footer__only-s { display: inline; }
+
+  .cl-footer__curve {
+    left: calc(50% + .5px);
+    top: auto;
+    bottom: -.12px;
+    width: 1600px;
+    height: 640px;
+    transform: translateX(-50%);
+  }
+  .cl-footer__curve .cl-curve { transform: matrix(-0.673753, 0.431344, 0.431344, 0.673753, 2454.818, -1569.539); }
+
+  .cl-footer__inner { left: 16px; right: 16px; top: 64px; gap: 24px; }
+  .cl-footer__row { flex-direction: column; gap: 56px; }
+  .cl-footer__tagline { flex: none; width: 100%; }
+  .cl-footer__info {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    width: 100%;
+  }
+  .cl-footer__item { gap: 4px; width: auto; }
+  /* Figma 文字框高把 n×19.6 進位（40／120），auto layout 用進位後的高；照稿補齊，按鈕才會落在同一位置 */
+  .cl-footer__item--addr .cl-footer__value { min-height: 40px; }
+  .cl-footer__item--hours .cl-footer__value { min-height: 120px; }
+  .cl-footer__top { top: auto; bottom: 40px; }
+  .cl-footer__line { display: none; }
+
+  /* 標語：客戶決定（2026-10-20）手機改用與電腦版相同的完整句子，字級維持 75，跑馬燈定速循環。
+     Figma 手機稿 1695:29201 只有「NEW LIFE.」，此處與來源不同（記在 audit-source「使用者決策」） */
+  /* 垂直位置照電腦版比例：中心距底 0.5174em（44.5／86），避免逗點下緣被裁（客戶 2026-10-20） */
+  .cl-footer__slogan { left: 0; bottom: .5174em; font-size: 75px; }
+}
+
+/* ---------- 標語跑馬燈（客戶 2026-10-20：句子超出畫面寬就輪播，所有寬度適用） ----------
+   是否超出由 09-footer.js 量測後加 .is-marquee；速度固定約 37px/s，
+   JS 依一句的寬度（含間隔）算出 --cl-footer-marquee-dur。
+   ?static 與減少動態不加 .is-marquee，維持各寬度的靜態排版（電腦版＝Figma 稿） */
+.cl-footer.is-marquee .cl-footer__slogan { left: 0; }
+.cl-footer.is-marquee .cl-footer__slogan-track {
+  display: flex;
+  width: max-content;
+  animation: cl-footer-marquee var(--cl-footer-marquee-dur, 36s) linear infinite;
+}
+.cl-footer.is-marquee .cl-footer__slogan-text { padding-right: .5em; }   /* 兩句之間的間隔 */
+.cl-footer.is-marquee .cl-footer__slogan-text--dup { display: inline; }
+/* 兩份文字等寬，平移 -50% 剛好接回起點，形成無縫循環 */
+@keyframes cl-footer-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
