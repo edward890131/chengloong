@@ -176,6 +176,17 @@
 @media (min-width: 641px) and (max-width: 1100px) {
   .cl-footer { min-height: 0; padding-bottom: calc(5.972vw * 1.2 + 56px); }
   .cl-footer__inner { margin: 80px 40px 0; }
+  /* R1 修 820 爆版：資訊三欄（200×3＋40×2）會把品牌文字擠成一字一行 →
+     品牌文字滿寬在上、三欄資訊在下（版心 561–1020 都放得下） */
+  .cl-footer__row { flex-direction: column; gap: 40px; }
+  .cl-footer__tagline { flex: none; width: 100%; }
+  .cl-footer__info {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 200px));   /* 放得下維持電腦版欄寬 200，窄於 680 時等比縮 */
+    gap: 40px;
+    width: 100%;
+  }
+  .cl-footer__item { width: auto; }
   .cl-footer__slogan {
     left: -.486vw;
     bottom: calc(5.972vw * .5174);

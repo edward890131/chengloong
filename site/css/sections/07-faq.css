@@ -72,15 +72,27 @@
   justify-content: center;
   gap: 12px;
   padding: 16px 24px;
+  position: relative;
   border-radius: 999px;
-  background: #f6f6f6;
   font-size: 18px;
   font-weight: 700;
   line-height: 22px; /* Figma normal，文字框高 22 */
   letter-spacing: .36px;
   white-space: nowrap;
   color: #989898;
-  transition: background-color .2s, color .2s;
+  transition: color .3s ease;
+}
+/* 果凍頁籤（R1 客戶 2026-10-21）：選中底色交給 base 的 .cl-jelly__pill。
+   未選頁籤的灰底改用 ::before 畫在 pill 底下（z-index -1 落在 .cl-jelly 的 stacking context），
+   pill 滑過其他頁籤時才看得到；頁籤本身取消 base 給的 z-index，讓 ::before 能沉到 pill 之下 */
+.cl-faq__tabs.cl-jelly > .cl-faq__tab { z-index: auto; }
+.cl-faq__tab::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: #f6f6f6;
 }
 .cl-faq__tab-dot {
   display: none;
@@ -89,7 +101,7 @@
   border-radius: 100px;
   background: var(--cl-white);
 }
-.cl-faq__tab.is-active { background: var(--cl-green-500); color: var(--cl-white); }
+.cl-faq__tab.is-active { color: var(--cl-white); transition-delay: .15s; }   /* 等 pill 滑到再轉白 */
 .cl-faq__tab.is-active .cl-faq__tab-dot { display: block; }
 
 /* 手風琴 list 1695:20394 */
@@ -105,7 +117,6 @@
 .cl-faq__item {
   display: flex;
   flex-direction: column;
-  gap: 12px;
   padding: 32px;
   border-radius: 16px;
   background: #f6f6f6;
@@ -142,26 +153,48 @@
   color: var(--cl-ink-800);
 }
 .cl-faq__icon {
-  display: flex;
+  display: grid;
   flex: none;
   align-items: center;
   justify-content: center;
   border-radius: 4px;
 }
 .cl-faq__icon img { width: 32px; height: 32px; }
-.cl-faq__icon-minus { display: none; }
-.cl-faq__item.is-open .cl-faq__icon-minus { display: block; }
-.cl-faq__item.is-open .cl-faq__icon-add { display: none; }
+/* ＋／− 轉換（R1）：兩張 Figma icon 疊在同一格，＋轉半圈淡出、−轉半圈淡入，停點＝稿上的 icon */
+.cl-faq__icon > picture {
+  grid-area: 1 / 1;
+  display: block;
+  transition: transform .5s cubic-bezier(.22, 1, .36, 1), opacity .3s ease;
+}
+.cl-faq__icon-minus { opacity: 0; transform: rotate(-180deg); }
+.cl-faq__item.is-open .cl-faq__icon-minus { opacity: 1; transform: none; }
+.cl-faq__item.is-open .cl-faq__icon-add { opacity: 0; transform: rotate(180deg); }
 
-.cl-faq__a { display: none; padding: 4px 56px 4px 64px; }
-.cl-faq__item.is-open .cl-faq__a { display: block; }
+/* 答案展開收合（R1）：grid-template-rows 0fr↔1fr 做高度過場。
+   原本題目與答案的 gap 12 併進答案上方留白（12＋4），收合時一起收掉 */
+.cl-faq__a {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition: grid-template-rows .5s cubic-bezier(.22, 1, .36, 1), visibility 0s linear .5s;
+}
+.cl-faq__item.is-open .cl-faq__a {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  transition: grid-template-rows .5s cubic-bezier(.22, 1, .36, 1), visibility 0s;
+}
+.cl-faq__a-in { min-height: 0; overflow: hidden; }
 .cl-faq__answer {
+  padding: 16px 56px 4px 64px;
+  opacity: 0;
+  transition: opacity .3s ease;
   font-size: 14px;
   font-weight: 400;
   line-height: 1.4;
   letter-spacing: .3px;
   color: var(--cl-ink-800-80);
 }
+.cl-faq__item.is-open .cl-faq__answer { opacity: 1; transition: opacity .4s ease .1s; }
 
 /* 641–1439：流動縮放，不出水平捲軸 */
 @media (max-width: 1439px) and (min-width: 641px) {
@@ -208,5 +241,5 @@
   .cl-faq__item { padding: 20px; }
   .cl-faq__q { gap: 16px; }
   .cl-faq__icon img { width: 24px; height: 24px; }
-  .cl-faq__a { padding: 4px 40px 4px 56px; }
+  .cl-faq__answer { padding: 16px 40px 4px 56px; }
 }

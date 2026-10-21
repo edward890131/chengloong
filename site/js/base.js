@@ -47,7 +47,9 @@
       var tab = list.querySelector(':scope > .is-active');
       if (!tab) { pill.style.opacity = '0'; return; }
       pill.style.opacity = '1';
-      var to = { x: tab.offsetLeft, y: tab.offsetTop, w: tab.offsetWidth, h: tab.offsetHeight };
+      // 用 rect 量小數座標（offset* 會取整，pill 偏 1px）；可橫捲的頁籤列要加上 scroll 位移
+      var lr = list.getBoundingClientRect(), tr = tab.getBoundingClientRect();
+      var to = { x: tr.left - lr.left - list.clientLeft + list.scrollLeft, y: tr.top - lr.top - list.clientTop + list.scrollTop, w: tr.width, h: tr.height };
       var from = current;
       pill.style.width = to.w + 'px';
       pill.style.height = to.h + 'px';

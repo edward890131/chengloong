@@ -191,12 +191,13 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
    用法：頁籤列容器加 class="cl-jelly"，選中的頁籤照舊加 .is-active。
    base.js 會在容器裡放一顆 .cl-jelly__pill 當選中底色，切換時滑過去並有果凍形變；
    段落 CSS 要把「選中頁籤自己的底色」改成透明（文字色照舊），底色交給 pill。
-   pill 顏色預設主綠，可用 --cl-jelly-color 改。 */
+   pill 顏色預設主綠，可用 --cl-jelly-color 改。
+   未選頁籤若有底色（例如灰底膠囊），底色要改用 ::before 畫並設 z-index: -1，
+   否則會蓋住滑過去的 pill（頁籤本身不要設 z-index，文字會自然疊在 pill 上）。 */
 .cl-jelly { position: relative; isolation: isolate; }
-.cl-jelly > * { position: relative; z-index: 1; }
+.cl-jelly > * { position: relative; }
 .cl-jelly > .cl-jelly__pill {
   position: absolute;
-  z-index: 0;
   left: 0;
   top: 0;
   border-radius: 999px;

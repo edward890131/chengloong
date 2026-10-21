@@ -1,24 +1,11 @@
-/* 07 faq（負責人 E）：分類頁籤切換＋手風琴展開收合 */
+/* 07 faq（負責人 E）：分類頁籤切換＋手風琴展開收合
+   頁籤選中底色由 base .cl-jelly 處理（只切 .is-active）；展開高度過場在 CSS（grid-template-rows） */
 (function () {
   var root = document.querySelector('.cl-faq');
   if (!root) return;
 
   var tabs = Array.prototype.slice.call(root.querySelectorAll('.cl-faq__tab'));
   var panels = Array.prototype.slice.call(root.querySelectorAll('.cl-faq__list'));
-
-  // 其他分類稿上沒有題目（待使用者補）：先複製第一組，題目全部收合
-  var source = panels[0];
-  panels.slice(1).forEach(function (panel) {
-    if (panel.children.length) return;
-    Array.prototype.forEach.call(source.children, function (item) {
-      var clone = item.cloneNode(true);
-      clone.classList.remove('is-open');
-      clone.removeAttribute('data-figma');
-      clone.removeAttribute('data-figma-s');
-      clone.querySelector('.cl-faq__q').setAttribute('aria-expanded', 'false');
-      panel.appendChild(clone);
-    });
-  });
 
   function select(index) {
     tabs.forEach(function (tab, i) {
