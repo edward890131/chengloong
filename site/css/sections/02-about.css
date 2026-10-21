@@ -222,6 +222,16 @@
 }
 .cl-about__cycle-img { display: block; margin-top: 40.64px; }
 .cl-about__cycle-img img { width: 1200px; height: auto; }
+/* R1：三層疊放（下→上）：備援箭頭層 -band → Lottie → 圖示文字層 -nodes；-nodes 在流內撐出尺寸 */
+.cl-about__cycle-stage { position: relative; }
+.cl-about__cycle-band,
+.cl-about__cycle-anim { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+.cl-about__cycle-band img { width: 100%; height: 100%; }
+.cl-about__cycle-nodes { position: relative; display: block; }
+.cl-about__cycle-anim { overflow: hidden; pointer-events: none; }
+.cl-about__cycle-anim svg { display: block; }
+/* Lottie 準備好（02-about.js 加 .is-lottie）才藏備援箭頭層 */
+.cl-about__cycle-stage.is-lottie .cl-about__cycle-band { visibility: hidden; }
 
 /* ---------- 平板 641–1100（S0 平板契約：電腦結構）----------
    版心左右留白 40；區段標題 28；四卡 2×2；循環圖用電腦版 SVG 等比縮 */
@@ -297,4 +307,14 @@
   .cl-about__cycle-sub { width: 247px; max-width: calc(100% - 48px); padding-top: 0; text-align: center; }
   .cl-about__cycle-img { margin-top: 52px; }
   .cl-about__cycle-img img { width: 327px; }
+  /* 手機版循環圖是電腦版順時針轉 90°、縮 0.47209（由兩版箭頭層座標擬合，誤差 < 0.01px）；
+     Lottie 維持 1200×560 原座標，用同一個矩陣對到直式的圖，箭頭流向跟著轉 */
+  .cl-about__cycle-anim {
+    width: 1200px;
+    height: 560px;
+    overflow: visible;
+    transform-origin: 0 0;
+    transform: matrix(0, .47209, -.47209, 0, 296.6746, -64.6607);
+  }
+  .cl-about__cycle-stage { overflow: hidden; }
 }

@@ -37,6 +37,18 @@
       if (el.getBoundingClientRect().top < window.innerHeight) show(el);
       else io.observe(el);
     });
+    // 錨點跳轉、scrollIntoView 這類直接跳過觸發線的情況：已在觸發線上方的一律顯示
+    var pending = 0;
+    window.addEventListener('scroll', function () {
+      if (pending) return;
+      pending = requestAnimationFrame(function () {
+        pending = 0;
+        var line = window.innerHeight * 2 / 3;
+        reveals.forEach(function (el) {
+          if (!el.classList.contains('is-revealed') && el.getBoundingClientRect().top < line) { show(el); io.unobserve(el); }
+        });
+      });
+    }, { passive: true });
   }
 
   /* ---------- 果凍頁籤 .cl-jelly ---------- */
