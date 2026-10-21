@@ -356,6 +356,126 @@
 /* shutterstock：left -15%、right -21.67%、aspect 4096/2732、top -32 */
 .cl-green__esg-hand { left: -15%; top: -32px; width: 136.67%; aspect-ratio: 4096 / 2732; }
 
+/* ==========================================================================
+   R1（客戶 2026-10-21）：圖片 hover 放大、證明文件「查看」按鈕與彈窗
+   ========================================================================== */
+
+/* .cl-zoom：圖比容器大且偏移，transform-origin 對準容器中心。
+   圖卡／證明用 size container，origin 用 50cq 減掉圖的 left／top（各寬度都準） */
+.cl-green__slider,
+.cl-green__doc { container-type: size; }
+.cl-green__coins { transform-origin: calc(50cqw + 114.0849px) calc(50cqh + 17.0088px); }
+.cl-green__paper { transform-origin: calc(50cqw + 249.012px) calc(50cqh + 150.0389px); }
+.cl-green__doc-img { transform-origin: calc(50cqw - 64px) calc(50cqh - 59.4734px); }
+/* esg：內層 270 高垂直置中、img left -15%、top -32 → 容器中心在圖的 47.56%／167px */
+.cl-green__esg-hand { transform-origin: 47.56% 167px; }
+
+/* 「查看」：hover 時淡入（遮罩＋按鈕置中）；觸控裝置（hover: none 或 pointer: coarse）按鈕常駐 */
+.cl-green__doc { cursor: pointer; }
+.cl-green__doc-scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(17, 17, 17, .32);
+  opacity: 0;
+  transition: opacity .5s ease;
+  pointer-events: none;
+}
+.cl-green__doc-view {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  opacity: 0;
+  transform: translate(-50%, calc(-50% + 12px));
+  transition: opacity .5s ease, transform .6s cubic-bezier(.22, 1, .36, 1), color .5s ease;
+}
+.cl-green__doc:hover .cl-green__doc-scrim { opacity: 1; }
+.cl-green__doc:hover .cl-green__doc-view,
+.cl-green__doc-view:focus-visible { opacity: 1; transform: translate(-50%, -50%); }
+@media (hover: none), (pointer: coarse) {
+  .cl-green__doc-view { top: auto; bottom: 16px; opacity: 1; transform: translateX(-50%); }
+}
+
+/* 彈窗：遮罩＋白底圓角面板，面板內捲動看全圖 */
+.cl-green__modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  opacity: 0;
+  transition: opacity .35s ease;
+}
+.cl-green__modal[hidden] { display: none; }
+.cl-green__modal.is-open { opacity: 1; }
+.cl-green__modal-mask {
+  position: absolute;
+  inset: 0;
+  background: rgba(17, 17, 17, .72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.cl-green__modal-panel {
+  position: relative;
+  display: flex;
+  width: 100%;
+  max-width: 920px;   /* 文件圖原寬，圖本身已含白邊 */
+  max-height: 100%;
+  border-radius: 20px;
+  background: var(--cl-white);
+  overflow: hidden;
+  transform: translateY(24px) scale(.98);
+  transition: transform .45s cubic-bezier(.22, 1, .36, 1);
+}
+.cl-green__modal.is-open .cl-green__modal-panel { transform: none; }
+.cl-green__modal-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.cl-green__modal-img { width: 100%; height: auto; }
+/* 面板比原圖窄（平板、手機）時：點圖切換原寬 920（可上下左右捲動）／符合面板寬 */
+.cl-green__modal-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  z-index: 1;
+  display: none;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(17, 17, 17, .72);
+  color: var(--cl-white);
+  font-size: 13px;
+  line-height: 18px;
+  white-space: nowrap;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.cl-green__modal.is-zoomable .cl-green__modal-img { cursor: zoom-in; }
+.cl-green__modal.is-zoomable .cl-green__modal-hint { display: block; }
+.cl-green__modal.is-zoomed .cl-green__modal-body { overflow: auto; }
+.cl-green__modal.is-zoomed .cl-green__modal-img { width: 920px; max-width: none; cursor: zoom-out; }
+.cl-green__modal.is-zoomed .cl-green__modal-hint { display: none; }
+.cl-green__modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background: var(--cl-ink-900);
+  color: var(--cl-white);
+  transition: background-color .3s ease, transform .4s cubic-bezier(.22, 1, .36, 1);
+}
+.cl-green__modal-close:hover { background: var(--cl-green-500); transform: rotate(90deg); }
+.cl-green__modal-close:focus-visible { outline: 2px solid var(--cl-green-400); outline-offset: 2px; }
+
 /* 641–1199：流動縮放，資訊框改為左右各 12 */
 @media (max-width: 1199px) and (min-width: 641px) {
   .cl-green__body { max-width: calc(100% - 64px); }
@@ -397,6 +517,7 @@
   .cl-green__side { height: 456px; }
   /* 證明圖是可視範圍（貼右下），欄寬改變時跟著右下角 */
   .cl-green__doc-img { left: auto; right: 0; top: auto; bottom: -.1401px; }
+  .cl-green__doc-img { transform-origin: calc(296px - 50cqw) calc(396.6667px - 50cqh - .1401px); }
   /* 資訊框左右 12（641–1199 規則）會蓋到右下點點：點點改到右上（同手機版位置） */
   .cl-green__dots { top: 20px; bottom: auto; }
 }
@@ -493,6 +614,13 @@
 
   /* pdf：手機版為電腦版 0.9083 倍（311.56／343） */
   .cl-green__doc-img { left: 46.6291px; top: 51px; width: 268.8648px; height: 360.2955px; }
+  .cl-green__doc-img { transform-origin: calc(50cqw - 46.6291px) calc(50cqh - 51px); }
+  .cl-green__coins { transform-origin: calc(50cqw + 115.11px) calc(50cqh + 15.4497px); }
+  .cl-green__paper { transform-origin: calc(50cqw + 210.2768px) calc(50cqh + 116.9137px); }
+
+  .cl-green__modal { padding: 16px; }
+  .cl-green__modal-panel { border-radius: 16px; }
+  .cl-green__modal-close { top: 8px; right: 8px; width: 40px; height: 40px; }
 
   .cl-green__side { flex: none; gap: 8px; width: 100%; }
   .cl-green__tile { flex: none; height: 180px; padding: 16px; }
