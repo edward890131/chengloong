@@ -454,7 +454,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
-  padding-left: 5.5556%;   /* 80 / 1440 */
+  /* 白卡文字左緣對齊下方段落版心左緣（客戶 R2）：版心左緣＝80（1440 版心內）；白卡左內距 64 → 外框往左退 */
+  padding-left: calc(80px - 64 * var(--cl-hero-hp, 1px));
 }
 .cl-hero__card {
   position: relative;
@@ -661,6 +662,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 @media (max-width: 1240px) and (min-width: 1101px) {
   .cl-hero__nav { gap: 16px; }
   .cl-hero__card { padding: calc(48 * var(--cl-hero-hp, 1px)) calc(32 * var(--cl-hero-hp, 1px)) 0; }
+  .cl-hero__main { padding-left: calc(80px - 32 * var(--cl-hero-hp, 1px)); }   /* 文字對齊版心 80 */
   .cl-hero__title { font-size: calc(32 * var(--cl-hero-hp, 1px)); }
   .cl-hero__num { column-gap: calc(24 * var(--cl-hero-hp, 1px)); padding: calc(40 * var(--cl-hero-hp, 1px)) calc(32 * var(--cl-hero-hp, 1px)); }
   .cl-hero__metric-num { font-size: calc(32 * var(--cl-hero-hp, 1px)); }
@@ -724,7 +726,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .cl-hero__main {
     top: auto;
     bottom: 78px;
-    padding-left: 40px;
+    padding-left: 8px;   /* 文字對齊下方段落版心 40（白卡左內距 32） */
   }
   .cl-hero__card {
     flex: 1 1 0;
@@ -768,6 +770,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 /* 900 以下：數據區加寬、字級再縮一級 */
 @media (max-width: 900px) and (min-width: 641px) {
   .cl-hero__card { padding: 40px 24px 0; }
+  .cl-hero__main { padding-left: 16px; }   /* 文字對齊版心 40 */
   .cl-hero__title { font-size: 28px; letter-spacing: 1.4px; }
   .cl-hero__num { width: auto; padding: 40px 28px 40px 48px; column-gap: 20px; }
   .cl-hero__metric-num { font-size: 28px; }
@@ -786,6 +789,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 @media (max-width: 700px) and (min-width: 641px) {
   .cl-hero__card { padding: 32px 20px 0; }
+  .cl-hero__main { padding-left: 20px; }   /* 文字對齊版心 40 */
   .cl-hero__title { font-size: 22px; letter-spacing: 1.1px; }
 }
 
