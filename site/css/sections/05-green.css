@@ -266,14 +266,14 @@
 .cl-green__dot.is-active,
 .cl-green__pager-dot.is-active { background: var(--cl-green-400); }
 
-/* certificate_img：pdf 可視範圍，left 64、top 59.47 */
+/* certificate_img：pdf 可視範圍，left 64、top 86.53（客戶 R2 微調證明書尺寸） */
 .cl-green__doc { background: #989898; }
 .cl-green__doc-img {
   position: absolute;
   left: 64px;
-  top: 59.4734px;
+  top: 86.5338px;
   width: 296px;
-  height: 396.6667px;
+  height: 369.4662px;
   max-width: none;
 }
 
@@ -366,7 +366,7 @@
 .cl-green__doc { container-type: size; }
 .cl-green__coins { transform-origin: calc(50cqw + 114.0849px) calc(50cqh + 17.0088px); }
 .cl-green__paper { transform-origin: calc(50cqw + 249.012px) calc(50cqh + 150.0389px); }
-.cl-green__doc-img { transform-origin: calc(50cqw - 64px) calc(50cqh - 59.4734px); }
+.cl-green__doc-img { transform-origin: calc(50cqw - 64px) calc(50cqh - 86.5338px); }
 /* esg：內層 270 高垂直置中、img left -15%、top -32 → 容器中心在圖的 47.56%／167px */
 .cl-green__esg-hand { transform-origin: 47.56% 167px; }
 
@@ -421,7 +421,7 @@
   position: relative;
   display: flex;
   width: 100%;
-  max-width: 920px;   /* 文件圖原寬，圖本身已含白邊 */
+  max-width: 1019px;   /* 文件圖原寬（R2：1812:37717 改為 1019），圖本身已含白邊 */
   max-height: 100%;
   border-radius: 20px;
   background: var(--cl-white);
@@ -494,8 +494,8 @@
   .cl-green__doc { height: 456px; }
   .cl-green__side { height: 456px; }
   /* 證明圖是可視範圍（貼右下），欄寬改變時跟著右下角 */
-  .cl-green__doc-img { left: auto; right: 0; top: auto; bottom: -.1401px; }
-  .cl-green__doc-img { transform-origin: calc(296px - 50cqw) calc(396.6667px - 50cqh - .1401px); }
+  .cl-green__doc-img { left: auto; right: 0; top: auto; bottom: 0; }
+  .cl-green__doc-img { transform-origin: calc(296px - 50cqw) calc(369.4662px - 50cqh); }
   /* 資訊框左右 12（641–1199 規則）會蓋到右下點點：點點改到右上（同手機版位置） */
   .cl-green__dots { top: 20px; bottom: auto; }
 }
@@ -591,8 +591,8 @@
   .cl-green__dots { top: 16px; right: 16px; bottom: auto; }
 
   /* pdf：手機版為電腦版 0.9083 倍（311.56／343） */
-  .cl-green__doc-img { left: 46.6291px; top: 51px; width: 268.8648px; height: 360.2955px; }
-  .cl-green__doc-img { transform-origin: calc(50cqw - 46.6291px) calc(50cqh - 51px); }
+  .cl-green__doc-img { left: 46.6291px; top: 78.5016px; width: 268.8648px; height: 335.598px; }
+  .cl-green__doc-img { transform-origin: calc(50cqw - 46.6291px) calc(50cqh - 78.5016px); }
   .cl-green__coins { transform-origin: calc(50cqw + 115.11px) calc(50cqh + 15.4497px); }
   .cl-green__paper { transform-origin: calc(50cqw + 210.2768px) calc(50cqh + 116.9137px); }
 
