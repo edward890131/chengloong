@@ -200,34 +200,16 @@
       if (!drag) { gen++; clearTimeout(handoffTimer); jump(L, slots[current].l); jump(R, slots[current].r); paint(); }
     }
 
-    // 切換時流程圖留在使用者滑到的位置（R2 客戶：手機上切換會跳回預設位置）。
-    // 換圖前記下捲動位置，換圖後與接下來幾格都還原：Safari 換圖重排、按鈕取得焦點時可能重設 scrollLeft
-    var mapScroller = root.querySelector('.cl-process__route-scroll--map');
-    function keepScroll(fn) {
-      var left = mapScroller ? mapScroller.scrollLeft : 0;
-      fn();
-      if (!mapScroller) return;
-      var n = 0, userMoved = false;
-      var stopHold = function () { userMoved = true; };   // 使用者這時自己滑動就不再拉回
-      mapScroller.addEventListener('touchstart', stopHold, { once: true, passive: true });
-      mapScroller.addEventListener('wheel', stopHold, { once: true, passive: true });
-      (function hold() {
-        if (userMoved) return;
-        if (Math.abs(mapScroller.scrollLeft - left) > 1) mapScroller.scrollLeft = left;
-        if (++n < 20) requestAnimationFrame(hold);
-      })();
-    }
     function select(i) {
       if (i === current) return false;
       current = i;
-      keepScroll(function () {
-        btns.forEach(function (b, j) {
-          b.setAttribute('aria-checked', j === i ? 'true' : 'false');
-          b.tabIndex = j === i ? 0 : -1;
-        });
-        var key = btns[i].getAttribute('data-paper');
-        mapImgs.forEach(function (img) { img.classList.toggle('is-active', img.getAttribute('data-paper') === key); });
+      btns.forEach(function (b, j) {
+        b.setAttribute('aria-checked', j === i ? 'true' : 'false');
+        b.tabIndex = j === i ? 0 : -1;
       });
+      var key = btns[i].getAttribute('data-paper');
+      mapImgs.forEach(function (img) { img.classList.toggle('is-active', img.getAttribute('data-paper') === key); });
+      resetMap();   // R2 客戶：切換家紙／工紙時，流程圖平滑捲回起始位置（見下方 placeMap）
       return true;
     }
 
@@ -354,9 +336,18 @@
     startLeft = mqPhone.matches ? START : 0;
     scroller.scrollLeft = startLeft;
   }
+  // 家紙／工紙切換：不管滑到哪，都平滑回到起始位置
+  function resetMap() {
+    if (!scroller) return;
+    userScrolled = false;
+    startLeft = mqPhone.matches ? START : 0;
+    var still = document.documentElement.classList.contains('is-static') ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    scroller.scrollTo({ left: startLeft, behavior: still ? 'auto' : 'smooth' });
+  }
   if (route && scroller) {
     scroller.addEventListener('scroll', function () {
-      if (Math.abs(scroller.scrollLeft - startLeft) > 8) userScrolled = true;
+      userScrolled = Math.abs(scroller.scrollLeft - startLeft) > 8;   // 捲回起始位置後視為沒捲過
     }, { passive: true });
     // 面板 3 預設隱藏（隱藏時設 scrollLeft 無效）：selectTab 每次切換後會呼叫 placeMap；視窗跨過 640 時也重放
     if (mqPhone.addEventListener) mqPhone.addEventListener('change', function () { userScrolled = false; placeMap(); });
