@@ -536,80 +536,42 @@
 }
 /* 稿上流程圖底部 20px 疊進步驟區：R2 拆成兩個捲動區後，負邊距放在流程圖捲動區（放在流程圖上會在捲動區內產生垂直捲動） */
 .cl-process__route-scroll--map { margin-bottom: -20px; }
-.cl-process__map-part { position: absolute; max-width: none; }
-/* 圖層位置＝Group inset 再扣 img 外擴 inset，換算成相對 3D 流程圖 的百分比 */
-.cl-process__map-part--ground { left: 5.1499%; top: 8.4920%; width: 91.1601%; height: 89.2559%; }
-.cl-process__map-part--b1 { left: 16.6341%; top: 2.3896%; width: 43.1118%; height: 50.4811%; }
-.cl-process__map-part--b2 { left: 9.5668%; top: 27.4884%; width: 17.8765%; height: 22.2507%; }
-.cl-process__map-part--b3 { left: 57.6163%; top: 29.4379%; width: 17.9774%; height: 25.8702%; }
-.cl-process__map-part--b4 { left: 45.0058%; top: 37.2676%; width: 22.9284%; height: 30.7114%; }
-.cl-process__map-part--b5 { left: 27.4658%; top: 49.3681%; width: 18.4684%; height: 20.1798%; }
-.cl-process__map-part--b6 { left: 72.7371%; top: 44.9773%; width: 19.9058%; height: 27.7612%; }
-.cl-process__map-part--b7 { left: 51.8870%; top: 55.0481%; width: 29.7959%; height: 37.4512%; }
-
-.cl-process__map-label {
-  /* 座標取 absoluteBoundingBox（get_design_context 給的 label／pin 位置有誤，見 LESSONS） */
+.cl-process__map-img {
   position: absolute;
-  font-size: 11.88px;
-  font-weight: 700;
-  line-height: 17px;   /* Figma 文字框高 17 */
-  white-space: nowrap;
-  color: #9aa0a6;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  opacity: 0;
+  transition: opacity .5s ease;
 }
-.cl-process__map-label--green { color: var(--cl-green-700); opacity: .6; }
-.cl-process__map-label--1 { left: 341.35px; top: 84.74px; }
-.cl-process__map-label--2 { left: 430.05px; top: 150.48px; }
-.cl-process__map-label--3 { left: 191.66px; top: 197.21px; }
-.cl-process__map-label--4 { left: 691.42px; top: 198.79px; }
-.cl-process__map-label--5 { left: 584.5px; top: 254.23px; }
-.cl-process__map-label--6 { left: 369.87px; top: 308.09px; }
-.cl-process__map-label--7 { left: 861.7px; top: 288.29px; }
-.cl-process__map-label--8 { left: 663.7px; top: 383.33px; }
-.cl-process__map-label--9 { left: 689.04px; top: 327.89px; }
+.cl-process__map-img.is-active { opacity: 1; }
 
-.cl-process__pin {
+/* 家紙／工紙 toggle（2266:7859）：白底膠囊，選中綠底交給 .cl-tabfill 的圓（同頁籤） */
+.cl-process__paper {
   position: absolute;
+  z-index: 1;
+  left: 32px;
+  top: 32px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 7.128px;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--cl-white);
 }
-.cl-process__pin-pill {
-  display: flex;
-  align-items: center;
-  height: 27.72px;
-  padding: 5.544px 11.088px 6.336px;
-  border-radius: 6px;
-  background: var(--cl-ink-800);
-  box-shadow: 0 2.376px 6.336px rgba(0, 0, 0, .18);
-  font-size: 11.88px;
+.cl-process__paper-btn {
+  padding: 12px 24px;
+  border-radius: 999px;
+  color: #989898;
+  font-size: 18px;
   font-weight: 700;
-  line-height: 15.84px;
-  color: var(--cl-white);
+  line-height: 26px;
+  letter-spacing: .36px;
   white-space: nowrap;
+  transition: color .3s ease;
 }
-.cl-process__pin-badge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 28.512px;
-  height: 28.512px;
-  border: 2.376px solid var(--cl-white);
-  border-radius: 18px;
-  background: var(--cl-ink-800);
-  filter: drop-shadow(0 1.584px 3.168px rgba(0, 0, 0, .2));
-  font-family: 'Zalando Sans Expanded', var(--cl-font-num);
-  font-size: 12.67px;
-  font-weight: 700;
-  line-height: 15.84px;
-  color: var(--cl-white);
-}
-.cl-process__pin--1 { left: 108.5px; top: 144.94px; }
-.cl-process__pin--2 { left: 304.13px; top: 244.73px; width: 60.984px; }
-.cl-process__pin--3 { left: 555.98px; top: 313.63px; }
-.cl-process__pin--4 { left: 681.12px; top: 244.73px; }
-.cl-process__pin--5 { left: 415.01px; top: 260.57px; width: 69.696px; }
-.cl-process__pin--6 { left: 236.81px; top: 154.44px; }
+.cl-process__paper-btn:hover { color: var(--cl-ink-800-60); }
+.cl-process__paper-btn.is-active { color: var(--cl-white); cursor: default; transition: color .35s ease .15s; }
+.cl-process__paper-btn:focus-visible { outline: 2px solid var(--cl-green-700); outline-offset: 2px; }
 
 .cl-process__route-steps {
   display: flex;
@@ -637,6 +599,7 @@
   letter-spacing: .3px;
   color: var(--cl-ink-800-60);
 }
+.cl-process__route-note { text-decoration: underline; text-underline-position: from-font; text-decoration-skip-ink: none; }
 .cl-process__route-hint { display: none; }
 
 /* 1101–1439：流動縮放，避免水平捲軸（641–1100 的左右留白由下方平板區塊覆寫） */
@@ -845,45 +808,17 @@
     height: 544.8px;
     margin: 0;
   }
-  .cl-process__map-label { font-size: 12px; }
-  .cl-process__map-label--1 { left: 344.8px; top: 85.6px; }
-  .cl-process__map-label--2 { left: 434.4px; top: 152px; }
-  .cl-process__map-label--3 { left: 193.6px; top: 199.2px; }
-  .cl-process__map-label--4 { left: 698.4px; top: 200.8px; }
-  .cl-process__map-label--5 { left: 590.4px; top: 256.8px; }
-  .cl-process__map-label--6 { left: 373.6px; top: 311.2px; }
-  .cl-process__map-label--7 { left: 870.4px; top: 291.2px; }
-  .cl-process__map-label--8 { left: 670.4px; top: 387.2px; }
-  .cl-process__map-label--9 { left: 696px; top: 331.2px; }
-  .cl-process__pin { gap: 7.2px; }
-  .cl-process__pin-pill {
-    height: 28px;
-    padding: 5.6px 11.2px 6.4px;
-    box-shadow: 0 2.4px 6.4px rgba(0, 0, 0, .18);
-    font-size: 12px;
-    line-height: 16px;
-  }
-  .cl-process__pin-badge {
-    width: 28.8px;
-    height: 28.8px;
-    border-width: 2.4px;
-    filter: drop-shadow(0 1.6px 3.2px rgba(0, 0, 0, .2));
-    font-size: 12.8px;
-    line-height: 16px;
-  }
-  .cl-process__pin--1 { left: 109.6px; top: 146.4px; }
-  .cl-process__pin--2 { left: 307.2px; top: 247.2px; width: 61.6px; }
-  .cl-process__pin--3 { left: 561.6px; top: 316.8px; }
-  .cl-process__pin--4 { left: 688px; top: 247.2px; }
-  .cl-process__pin--5 { left: 419.2px; top: 263.2px; width: 70.4px; }
-  .cl-process__pin--6 { left: 239.2px; top: 156px; }
+  /* toggle 2266:8749：在流程圖上方（y20、高 47），字 16、按鈕 8／16 */
+  .cl-process__paper { position: static; width: max-content; margin: 20px 0 0 16px; }
+  .cl-process__paper-btn { padding: 8px 16px; font-size: 16px; line-height: 23px; letter-spacing: .32px; }
+  .cl-process__route-inner { padding-top: 0; }
   .cl-process__route-steps { width: 1128px; gap: 24px; padding: 20px 0 16px 24px; }
   .cl-process__route-steps > li { flex: none; width: 164px; }
   .cl-process__route-num { font-size: 20px; line-height: 24px; }
   .cl-process__route-hint {
     position: absolute;
     left: 19px;
-    top: 511px;
+    top: 558px;   /* 流程圖區 y67 ＋ 提示 y491 */
     display: flex;
     align-items: center;
     padding: 8px 16px;

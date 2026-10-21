@@ -31,12 +31,19 @@ def ease(x):                 # easeInOutSine
 def head(t):
     return TOTAL * ease(min(1, t / DRAW))
 
-# 退場尾巴的目標多走 TAIL_OVER px（夾在 TOTAL）：減速段落在看不到的地方，
-# 尾巴穿過圓幣、交會點箭頭時還保持速度，一口氣收掉，不在終點慢慢留一顆圓頭（約第 795 影格收完）
-TAIL_OVER = 80
+# 退場收尾：尾巴的目標多走 TAIL_OVER px，減速段落在看不見處、尾巴保持速度進到圓幣後面（TOTAL − TUCK）就停住；
+# 剩下露在圓幣外的段 4 末端與交會點箭頭，在 FADE0–FADE1 一起淡出（用遮罩切箭頭會先露出線段圓頭、跳一下）。
+# 淡完後尾巴直接到終點（全空），兩層不透明度回 100，循環接回第 0 影格。
+TAIL_OVER, TUCK, FADE_LEN = 80, 70, 18
+
+def tail_raw(t):
+    return 0 if t <= EXIT0 else min(TOTAL, (TOTAL + TAIL_OVER) * ease(min(1, (t - EXIT0) / (OP - EXIT0))))
+
+FADE0 = next(t for t in range(EXIT0, OP + 1) if tail_raw(t) >= TOTAL - TUCK)
+FADE1 = FADE0 + FADE_LEN
 
 def tail(t):
-    return 0 if t <= EXIT0 else min(TOTAL, (TOTAL + TAIL_OVER) * ease(min(1, (t - EXIT0) / (OP - EXIT0))))
+    return TOTAL if t > FADE1 else min(tail_raw(t), TOTAL - TUCK)
 
 def frac(seg, x):
     return max(0.0, min(1.0, (x - start[seg]) / LEN[seg]))
@@ -103,9 +110,17 @@ segs = {
 for k, tm in segs.items():
     tm['s'] = track(lambda t, k=k: seg_val(k, tail(t)))
     tm['e'] = track(lambda t, k=k: seg_val(k, head(t)))
+def fade_out():
+    hold = {'i': {'x': [1], 'y': [1]}, 'o': {'x': [0], 'y': [0]}, 'h': 1}
+    ease_o = {'i': {'x': [.58], 'y': [1]}, 'o': {'x': [.42], 'y': [0]}}
+    return {'a': 1, 'k': [dict(t=0, s=[100], **hold), dict(t=FADE0, s=[100], **ease_o),
+                          dict(t=FADE1, s=[0], **hold), {'t': FADE1 + 1, 's': [100]}]}
+for nm in ('箭頭', '段4_永續共好→交會'):
+    by[nm]['ks']['o'] = fade_out()
+
 (mask,) = trims(by['箭頭遮罩'])
 mask['s'] = track(lambda t: mask_at(tail(t)))
 mask['e'] = track(lambda t: mask_at(head(t)))
 
 json.dump(d, open(dst, 'w'), ensure_ascii=False, separators=(',', ':'))
-print('total', round(TOTAL, 1), {k: round(v, 1) for k, v in start.items()}, 'mask', round(mask_at(0), 3), '->', round(mask_at(TOTAL), 3))
+print('fade', FADE0, FADE1, 'total', round(TOTAL, 1), {k: round(v, 1) for k, v in start.items()}, 'mask', round(mask_at(0), 3), '->', round(mask_at(TOTAL), 3))

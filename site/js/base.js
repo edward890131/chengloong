@@ -69,6 +69,8 @@
     }
     size();
     window.addEventListener('resize', size);
+    // 頁籤列放在隱藏的面板裡時（例：服務流程頁籤 3 的家紙／工紙），載入時量到的寬是 0：顯示出來、尺寸改變時重量
+    if ('ResizeObserver' in window) new ResizeObserver(size).observe(list);
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(size);
   });
 

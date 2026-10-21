@@ -69,6 +69,8 @@
     }
     size();
     window.addEventListener('resize', size);
+    // 頁籤列放在隱藏的面板裡時（例：服務流程頁籤 3 的家紙／工紙），載入時量到的寬是 0：顯示出來、尺寸改變時重量
+    if ('ResizeObserver' in window) new ResizeObserver(size).observe(list);
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(size);
   });
 
@@ -427,6 +429,21 @@
       else if (e.key === 'Home') next = tabs[0];
       else if (e.key === 'End') next = tabs[tabs.length - 1];
       if (next) { e.preventDefault(); selectTab(next, true); }
+    });
+  });
+
+  /* ---------- 當天進場流程：家紙／工紙切換（R2）——只換流程圖（交叉淡入），下方 01–06 說明固定 ---------- */
+  var paperBtns = Array.prototype.slice.call(root.querySelectorAll('.cl-process__paper-btn'));
+  var mapImgs = Array.prototype.slice.call(root.querySelectorAll('.cl-process__map-img'));
+  paperBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var paper = btn.getAttribute('data-paper');
+      paperBtns.forEach(function (b) {
+        var on = b === btn;
+        b.classList.toggle('is-active', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      mapImgs.forEach(function (img) { img.classList.toggle('is-active', img.getAttribute('data-paper') === paper); });
     });
   });
 

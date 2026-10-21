@@ -157,36 +157,21 @@
         <div class="cl-process__prep-img cl-process__prep-img--3 cl-zoom"><img src="assets/04-process/prepare-3.png" alt="將白紙整疊放入紙箱"></div>
       </div>
 
-      <!-- 頁籤 3：當天進場流程（電腦版 1695:19586；手機版依 動線圖+說明文字_w(new) 2159:25259，可左右滑動） -->
-      <div class="cl-process__panel cl-process__route" role="tabpanel" id="cl-process-panel-3" aria-labelledby="cl-process-tab-3" hidden data-figma="I1695:19586;1615:16172" data-figma-s="2159:25259">
+      <!-- 頁籤 3：當天進場流程（R2 改版：電腦 2266:7813／7760、手機 2266:8736／8795，可左右滑動） -->
+      <div class="cl-process__panel cl-process__route" role="tabpanel" id="cl-process-panel-3" aria-labelledby="cl-process-tab-3" hidden data-figma="2266:7826" data-figma-s="2266:8747">
+        <!-- R2：家紙／工紙切換（電腦 toggle 2266:7859 疊在流程圖左上；≤1100 2266:8749 在流程圖上方）。只換流程圖，下方 01–06 說明固定 -->
+        <div class="cl-process__paper cl-tabfill" role="group" aria-label="用紙類型">
+          <button type="button" class="cl-process__paper-btn is-active" aria-pressed="true" data-paper="home">家紙</button>
+          <button type="button" class="cl-process__paper-btn" aria-pressed="false" data-paper="industrial">工紙</button>
+        </div>
         <div class="cl-process__route-inner">
           <!-- R2：≤1100 流程圖與步驟說明是兩個獨立的橫向捲動區，各自滑動 -->
           <div class="cl-process__route-scroll cl-process__route-scroll--map">
             <div class="cl-process__map-wrap">
-              <div class="cl-process__map" data-figma="1615:16173">
-                <img class="cl-process__map-part cl-process__map-part--ground" src="assets/04-process/map-ground.svg" alt="">
-                <img class="cl-process__map-part cl-process__map-part--b1" src="assets/04-process/map-b1-main.svg" alt="">
-                <span class="cl-process__map-label cl-process__map-label--1">廠房</span>
-                <span class="cl-process__map-label cl-process__map-label--2 cl-process__map-label--green">家紙水銷廠房</span>
-                <img class="cl-process__map-part cl-process__map-part--b2" src="assets/04-process/map-b2-guard.svg" alt="">
-                <span class="cl-process__map-label cl-process__map-label--3 cl-process__map-label--green">警衛室</span>
-                <img class="cl-process__map-part cl-process__map-part--b3" src="assets/04-process/map-b3-factory.svg" alt="">
-                <span class="cl-process__map-label cl-process__map-label--4">廠房</span>
-                <img class="cl-process__map-part cl-process__map-part--b4" src="assets/04-process/map-b4-factory.svg" alt="">
-                <span class="cl-process__map-label cl-process__map-label--5">廠房</span>
-                <img class="cl-process__map-part cl-process__map-part--b5" src="assets/04-process/map-b5-scale.svg" alt="">
-                <span class="cl-process__map-label cl-process__map-label--6 cl-process__map-label--green">地磅區</span>
-                <img class="cl-process__map-part cl-process__map-part--b6" src="assets/04-process/map-b6-factory.svg" alt="">
-                <span class="cl-process__map-label cl-process__map-label--7">廠房</span>
-                <img class="cl-process__map-part cl-process__map-part--b7" src="assets/04-process/map-b7-industrial.svg" alt="">
-                <span class="cl-process__map-label cl-process__map-label--8">廠房</span>
-                <span class="cl-process__map-label cl-process__map-label--9 cl-process__map-label--green">工紙水銷廠房</span>
-                <span class="cl-process__pin cl-process__pin--1"><span class="cl-process__pin-pill">警衛室報到</span><span class="cl-process__pin-badge">1</span></span>
-                <span class="cl-process__pin cl-process__pin--2"><span class="cl-process__pin-pill">重車過磅</span><span class="cl-process__pin-badge">2</span></span>
-                <span class="cl-process__pin cl-process__pin--3"><span class="cl-process__pin-pill">進入作業區</span><span class="cl-process__pin-badge">3</span></span>
-                <span class="cl-process__pin cl-process__pin--4"><span class="cl-process__pin-pill">投入水銷產線</span><span class="cl-process__pin-badge">4</span></span>
-                <span class="cl-process__pin cl-process__pin--5"><span class="cl-process__pin-pill">空車過磅</span><span class="cl-process__pin-badge">5</span></span>
-                <span class="cl-process__pin cl-process__pin--6"><span class="cl-process__pin-pill">領過磅單離場</span><span class="cl-process__pin-badge">6</span></span>
+              <!-- 3D 流程圖／家紙 2266:7827、／工紙 2266:7774：整張匯出 @2x（含標籤與 1–6 圖釘、灰底同面板） -->
+              <div class="cl-process__map">
+                <img class="cl-process__map-img is-active" data-paper="home" src="assets/04-process/route-home@2x.png" width="1057" height="540" alt="家紙當天進場動線：1 警衛室報到、2 重車過磅、3 進入作業區、4 投入家紙水銷產線、5 空車過磅、6 領過磅單離場">
+                <img class="cl-process__map-img" data-paper="industrial" src="assets/04-process/route-industrial@2x.png" width="1057" height="540" alt="工紙當天進場動線：1 警衛室報到、2 重車過磅、3 進入作業區、4 投入工紙水銷產線、5 空車過磅、6 領過磅單離場" loading="lazy">
               </div>
             </div>
           </div>
@@ -195,7 +180,7 @@
               <li data-reveal-group><span class="cl-process__route-num" data-reveal>01</span><p class="cl-process__route-desc" data-reveal>抵達廠區後於警衛室報上公司名稱，核對預約資料後開放進場。</p></li>
               <li data-reveal-group><span class="cl-process__route-num" data-reveal>02</span><p class="cl-process__route-desc" data-reveal>載著文件的車輛先上地磅，記錄進場總重。</p></li>
               <li data-reveal-group><span class="cl-process__route-num" data-reveal>03</span><p class="cl-process__route-desc" data-reveal>跟隨現場指引，將車輛開入家庭/工業用紙作業廠區。</p></li>
-              <li data-reveal-group><span class="cl-process__route-num" data-reveal>04</span><p class="cl-process__route-desc" data-reveal>將要水銷的文件投入輸送帶，運送至水銷設備中進行銷毀。</p></li>
+              <li data-reveal-group><span class="cl-process__route-num" data-reveal>04</span><p class="cl-process__route-desc" data-reveal>將要水銷的文件投入輸送帶，運送至水銷設備中進行銷毀。<span class="cl-process__route-note">若現場判定產線與預約不同，現場人員會先說明。</span></p></li>
               <li data-reveal-group><span class="cl-process__route-num" data-reveal>05</span><p class="cl-process__route-desc" data-reveal>車輛離開水銷廠區，開至入口處空車再次過磅，與進場總重的差額即為本次水銷淨重。</p></li>
               <li data-reveal-group><span class="cl-process__route-num" data-reveal>06</span><p class="cl-process__route-desc" data-reveal>磅單紙本正本當場領取，載明總重、空車重與淨重。</p></li>
             </ol>

@@ -130,6 +130,21 @@
     });
   });
 
+  /* ---------- 當天進場流程：家紙／工紙切換（R2）——只換流程圖（交叉淡入），下方 01–06 說明固定 ---------- */
+  var paperBtns = Array.prototype.slice.call(root.querySelectorAll('.cl-process__paper-btn'));
+  var mapImgs = Array.prototype.slice.call(root.querySelectorAll('.cl-process__map-img'));
+  paperBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var paper = btn.getAttribute('data-paper');
+      paperBtns.forEach(function (b) {
+        var on = b === btn;
+        b.classList.toggle('is-active', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      mapImgs.forEach(function (img) { img.classList.toggle('is-active', img.getAttribute('data-paper') === paper); });
+    });
+  });
+
   /* ---------- 當天進場流程：滑動流程圖後淡出「可左右滑動查看」（R2：說明區另有自己的捲動區，不影響提示） ---------- */
   var route = root.querySelector('.cl-process__route');
   var scroller = root.querySelector('.cl-process__route-scroll--map');
