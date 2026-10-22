@@ -23,8 +23,9 @@
       <span class="cl-hero__logo-zh"><img src="assets/01-hero/logo-zh.svg" alt=""></span>
       <span class="cl-hero__logo-en"><img src="assets/01-hero/logo-en.svg" alt=""></span>
     </span>
+    <span class="cl-loader__pct"><span class="cl-loader__num">0</span><span class="cl-loader__unit">%</span></span>
     <span class="cl-loader__bar"><span class="cl-loader__fill"></span></span>
-    <span class="cl-loader__meta"><span class="cl-loader__label">載入中</span><span class="cl-loader__pct">0%</span></span>
+    <span class="cl-loader__label">載入中</span>
   </div>
 </div>
 <script>
@@ -43,7 +44,7 @@
   var MIN = 600, MAX = 15000, CONC = 6, t0 = performance.now();
   var total = 0, got = {}, done = 0, finished = false;
   LIST.forEach(function (it) { total += it[1]; });
-  var fill = el.querySelector('.cl-loader__fill'), pct = el.querySelector('.cl-loader__pct');
+  var fill = el.querySelector('.cl-loader__fill'), pct = el.querySelector('.cl-loader__num');
   function loadedBytes() { var n = 0; for (var k in got) n += got[k]; return n; }
   function settle(i) { got[i] = LIST[i][1]; done++; next(); }
   var idx = 0, canStream = !!(window.fetch && window.ReadableStream && window.TextDecoder);
@@ -76,7 +77,7 @@
     if (shown > target) shown = target;
     var v = Math.floor(shown);
     fill.style.transform = 'scaleX(' + (shown / 100) + ')';
-    pct.textContent = v + '%';
+    pct.textContent = v;
     el.setAttribute('aria-valuenow', v);
     if (shown >= 100 && now - t0 >= MIN) return leave();
     requestAnimationFrame(frame);

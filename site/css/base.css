@@ -257,20 +257,33 @@ html.is-loading { overflow: hidden; }
 }
 .cl-loader.is-done { transform: translateY(-100%); pointer-events: none; }
 .is-static .cl-loader { display: none; }
+/* R2 客戶修正：數字放大、進度條加長、logo 縮小（同 header logo 大小） */
 .cl-loader__inner {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 28px;
+  width: min(720px, 84vw);
   transition: opacity .4s ease, transform .6s cubic-bezier(.76, 0, .24, 1);
 }
 .cl-loader.is-done .cl-loader__inner { opacity: 0; transform: translateY(-24px); }
-.cl-loader .cl-loader__logo { width: 139.58px; height: 48px; }   /* 首屏 logo 1.5 倍 */
+.cl-loader .cl-loader__logo { width: 93.053px; height: 32px; }
+.cl-loader__pct {
+  display: flex;
+  align-items: flex-start;
+  margin: clamp(24px, 4vh, 48px) 0 clamp(16px, 2.5vh, 28px);
+  font-family: var(--cl-font-num);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--cl-ink-900);
+  line-height: 1;
+}
+.cl-loader__num { font-size: clamp(72px, 12vw, 160px); letter-spacing: -.03em; }
+.cl-loader__unit { margin: .3em 0 0 .08em; font-size: clamp(24px, 3.6vw, 48px); color: var(--cl-green-500); }
 .cl-loader__bar {
   position: relative;
-  width: 240px;
-  height: 3px;
-  border-radius: 3px;
+  width: 100%;
+  height: 4px;
+  border-radius: 4px;
   background: rgba(31, 31, 31, .08);
   overflow: hidden;
 }
@@ -282,14 +295,11 @@ html.is-loading { overflow: hidden; }
   transform: scaleX(0);
   transform-origin: 0 50%;
 }
-.cl-loader__meta {
-  display: flex;
-  justify-content: space-between;
-  width: 240px;
-  margin-top: -16px;
+.cl-loader__label {
+  align-self: flex-start;
+  margin-top: 12px;
   color: var(--cl-ink-800-60);
-  font-size: 13px;
+  font-size: 14px;
   line-height: 20px;
-  letter-spacing: .4px;
+  letter-spacing: .6px;
 }
-.cl-loader__pct { font-family: var(--cl-font-num); font-weight: 600; font-variant-numeric: tabular-nums; color: var(--cl-ink-900); }
