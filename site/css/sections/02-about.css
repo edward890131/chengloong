@@ -147,15 +147,18 @@
 .cl-about__renew-outer { left: -.1%;   top: -.04%;  width: 100.21%; height: 100.02%; }
 
 /* ---------- 四張卡 icon 動態（R2 客戶）----------
-   進場：卡片文字進場時（觸發區 .cl-about__cards，02-about.js 收到 cl:reveal 加 .is-play）各自「長出來」；
-   之後進入輕量循環；滑鼠移到卡片上重播進場。JS 啟用時才加 .is-armed 收起初始狀態，?static／減少動態直接顯示完成狀態。 */
+   卡片文字進場時（觸發區 .cl-about__cards，02-about.js 收到 cl:reveal 加 .is-play）開始；滑鼠移到卡片上從頭重播。
+   JS 啟用時才加 .is-armed 收起初始狀態，?static／減少動態直接顯示完成狀態。
+   · 流程／追溯：點與線依序長出 → 停住 → 依同樣順序從起點收掉 → 全空 → 重來，6s 一輪（--d＝各自在輪內的起點）。
+     一輪內：0–7.5% 長出、60–67.5% 收掉；最後一個元素收完（約 5.4s）才輪到第一個重新長出
+   · 見證：兩圓左右會合、圓點出現後在兩圓交疊區繞橢圓（水平 ±9、垂直 ±16，5s 一圈）
+   · 再生：大圓展開、小圓帶圓點滾入，之後沿大圓內緣慢慢繞 */
 .cl-about__dots { overflow: visible; }
 .cl-about__ln { fill: none; stroke: var(--cl-green-500); stroke-width: .64; stroke-dasharray: 1 1; }
 .cl-about__dt { fill: var(--cl-green-500); transform-box: fill-box; transform-origin: center; }
-.cl-about__witness-ring {
-  position: absolute; left: 48px; top: 34.5px; width: 18px; height: 18px;
-  border: 1px solid var(--cl-green-500); border-radius: 50%; opacity: 0; pointer-events: none;
-}
+.cl-about__witness-orb { position: absolute; left: 48px; top: 34.5px; width: 18px; height: 18px; }
+.cl-about__witness-orb-y, .cl-about__witness-orb .cl-about__witness-dot { display: block; width: 18px; height: 18px; }
+.cl-about__witness-orb .cl-about__witness-dot { position: static; }
 .cl-about__renew-roll, .cl-about__renew-orbit { position: absolute; inset: 0; }
 
 /* 初始（尚未進場） */
@@ -167,36 +170,58 @@
 .is-armed .cl-about__card:not(.is-play) .cl-about__renew-roll { opacity: 0; }
 .is-armed .cl-about__card:not(.is-play) .cl-about__witness-dot { transform: scale(0); }
 
-/* 進場 */
-.cl-about__card.is-play .cl-about__dt {
-  animation: cl-ab-pop .5s cubic-bezier(.34, 1.56, .64, 1) var(--d) both,
-             cl-ab-pulse 4s ease-in-out calc(1.8s + var(--p)) infinite;
+/* 流程／追溯：輪播 */
+.cl-about__card.is-play .cl-about__dt { animation: cl-ab-dot-loop 6s linear var(--d) infinite both; }
+.cl-about__card.is-play .cl-about__ln { animation: cl-ab-ln-loop 6s linear var(--d) infinite both; }
+@keyframes cl-ab-dot-loop {
+  0%    { transform: scale(0); animation-timing-function: cubic-bezier(.34, 1.56, .64, 1); }
+  8%    { transform: scale(1); }
+  60%   { transform: scale(1); animation-timing-function: cubic-bezier(.55, 0, .45, 1); }
+  67%   { transform: scale(0); }
+  100%  { transform: scale(0); }
 }
-.cl-about__card.is-play .cl-about__ln { animation: cl-ab-draw .45s cubic-bezier(.65, 0, .35, 1) var(--d) both; }
-.cl-about__card.is-play .cl-about__ln--open {
-  animation: cl-ab-draw .45s cubic-bezier(.65, 0, .35, 1) var(--d) both,
-             cl-ab-grow 4s cubic-bezier(.65, 0, .35, 1) calc(var(--d) + 1.2s) infinite;
+@keyframes cl-ab-ln-loop {
+  0%    { stroke-dashoffset: 1; animation-timing-function: cubic-bezier(.65, 0, .35, 1); }
+  7.5%  { stroke-dashoffset: 0; }
+  60%   { stroke-dashoffset: 0; animation-timing-function: cubic-bezier(.65, 0, .35, 1); }
+  67.5% { stroke-dashoffset: -1; }   /* 從起點收掉（跟長出同方向） */
+  100%  { stroke-dashoffset: -1; }
 }
+
+/* 見證 */
 .cl-about__card.is-play .cl-about__witness-a { animation: cl-ab-in-l .9s cubic-bezier(.22, 1, .36, 1) both; }
 .cl-about__card.is-play .cl-about__witness-b {
   animation: cl-ab-in-r .9s cubic-bezier(.22, 1, .36, 1) both,
              cl-ab-spin 24s linear .9s infinite;
 }
 .cl-about__card.is-play .cl-about__witness-dot { animation: cl-ab-pop .5s cubic-bezier(.34, 1.56, .64, 1) .6s both; }
-.cl-about__card.is-play .cl-about__witness-ring { animation: cl-ab-ring 2.8s ease-out 1.2s infinite; }
+.cl-about__card.is-play .cl-about__witness-orb { animation: cl-ab-orb-x 5s 1.1s infinite both; }
+.cl-about__card.is-play .cl-about__witness-orb-y { animation: cl-ab-orb-y 5s 1.1s infinite both; }
+/* 正弦近似：每 1/4 圈一段，峰值用 ease-out、過中線用 ease-in；x 從中線出發、y 從最上方出發 → 橢圓 */
+@keyframes cl-ab-orb-x {
+  0%   { transform: translateX(0);   animation-timing-function: cubic-bezier(.61, 1, .88, 1); }
+  25%  { transform: translateX(9px); animation-timing-function: cubic-bezier(.12, 0, .39, 0); }
+  50%  { transform: translateX(0);   animation-timing-function: cubic-bezier(.61, 1, .88, 1); }
+  75%  { transform: translateX(-9px); animation-timing-function: cubic-bezier(.12, 0, .39, 0); }
+  100% { transform: translateX(0); }
+}
+@keyframes cl-ab-orb-y {
+  0%   { transform: translateY(-16px); animation-timing-function: cubic-bezier(.12, 0, .39, 0); }
+  25%  { transform: translateY(0);     animation-timing-function: cubic-bezier(.61, 1, .88, 1); }
+  50%  { transform: translateY(16px);  animation-timing-function: cubic-bezier(.12, 0, .39, 0); }
+  75%  { transform: translateY(0);     animation-timing-function: cubic-bezier(.61, 1, .88, 1); }
+  100% { transform: translateY(-16px); }
+}
+
+/* 再生 */
 .cl-about__card.is-play .cl-about__renew-outer { animation: cl-ab-grow-in .8s cubic-bezier(.22, 1, .36, 1) both; }
 .cl-about__card.is-play .cl-about__renew-roll { animation: cl-ab-roll-in 1.2s cubic-bezier(.22, 1, .36, 1) .2s both; }
 .cl-about__card.is-play .cl-about__renew-orbit { animation: cl-ab-spin 12s linear 1.4s infinite; }
 
 @keyframes cl-ab-pop   { from { transform: scale(0); } to { transform: scale(1); } }
-@keyframes cl-ab-pulse { 0%, 14%, 100% { transform: scale(1); } 7% { transform: scale(1.22); } }
-@keyframes cl-ab-draw  { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
-/* 未完的線：收回到起點再長出來（資料持續累積） */
-@keyframes cl-ab-grow  { 0%, 50% { stroke-dashoffset: 0; } 70% { stroke-dashoffset: 1; } 90%, 100% { stroke-dashoffset: 0; } }
 @keyframes cl-ab-in-l  { from { opacity: 0; transform: translateX(-14px); } to { opacity: 1; transform: none; } }
 @keyframes cl-ab-in-r  { from { opacity: 0; transform: translateX(14px); } to { opacity: 1; transform: none; } }
 @keyframes cl-ab-spin  { to { transform: rotate(360deg); } }
-@keyframes cl-ab-ring  { 0% { opacity: .7; transform: scale(1); } 60%, 100% { opacity: 0; transform: scale(2.6); } }
 @keyframes cl-ab-grow-in { from { opacity: 0; transform: scale(.7); } to { opacity: 1; transform: none; } }
 @keyframes cl-ab-roll-in { from { opacity: 0; transform: rotate(-150deg); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) {

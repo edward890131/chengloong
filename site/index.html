@@ -161,7 +161,7 @@
       <li class="cl-about__card" data-reveal-group data-figma="1695:20153" data-figma-s="2133:24365">
         <div class="cl-about__illus" data-figma="1695:20155" data-figma-s="2133:24367">
           <span class="cl-about__art cl-about__art--flow" data-figma="1695:20169" data-figma-s="2133:24381">
-            <!-- R2 動態：card1-dots.svg 內嵌，點依序出現、線依序描出（02-about.css「四張卡 icon 動態」） -->
+            <!-- R2 動態：card1-dots.svg 內嵌，點與線依序長出、停住、再依序收掉，6 秒一輪不斷輪播（02-about.css「四張卡 icon 動態」） -->
             <svg class="cl-about__dots" viewBox="0 0 70.9979 70.3995" width="70.998" height="70.399" aria-hidden="true">
               <path class="cl-about__ln" style="--d:.15s" pathLength="1" d="M7.41766 7.5673L35.1591 45.4843"/>
               <path class="cl-about__ln" style="--d:.65s" pathLength="1" d="M34.755 45.9583L69.062 63.5255"/>
@@ -181,8 +181,8 @@
           <span class="cl-about__art cl-about__art--witness" data-figma="1695:20181" data-figma-s="2133:24393">
             <img class="cl-about__witness-a" src="assets/02-about/card2-ellipse-a.svg" alt="" width="80" height="80">
             <img class="cl-about__witness-b" src="assets/02-about/card2-ellipse-b.png" alt="" width="80" height="80">
-            <span class="cl-about__witness-ring" aria-hidden="true"></span>
-            <img class="cl-about__witness-dot" src="assets/02-about/card2-dot.svg" alt="" width="18" height="18">
+            <!-- R2 動態：圓點在兩圓交疊區繞橢圓（外層管水平、內層管垂直，兩個正弦錯開 1/4 拍） -->
+            <span class="cl-about__witness-orb"><span class="cl-about__witness-orb-y"><img class="cl-about__witness-dot" src="assets/02-about/card2-dot.svg" alt="" width="18" height="18"></span></span>
           </span>
         </div>
         <div class="cl-about__card-text" data-figma="1695:20194" data-figma-s="2133:24406">
@@ -209,12 +209,12 @@
       <li class="cl-about__card" data-reveal-group data-figma="1695:20216" data-figma-s="2133:24428">
         <div class="cl-about__illus" data-figma="1695:20218" data-figma-s="2133:24430">
           <span class="cl-about__art cl-about__art--trace" data-figma="1695:20219" data-figma-s="2133:24431">
-            <!-- R2 動態：card4-dots.svg 內嵌，從右下的點往回描到左上、右上，最後一段未完的線反覆收回再長出 -->
+            <!-- R2 動態：card4-dots.svg 內嵌，從右下的點往回描到左上、右上再往下，停住後依序收掉，6 秒一輪不斷輪播 -->
             <svg class="cl-about__dots" viewBox="0 0 70.998 70.4003" width="70.998" height="70.4" aria-hidden="true">
               <path class="cl-about__ln" style="--d:.1s" pathLength="1" d="M69.2074 63.5591L7.16106 63.5591"/>
               <path class="cl-about__ln" style="--d:.5s" pathLength="1" d="M7.48209 63.2386L7.48209 7.75485"/>
               <path class="cl-about__ln" style="--d:.9s" pathLength="1" d="M8.35361 7.43614L61.4509 7.43613"/>
-              <path class="cl-about__ln cl-about__ln--open" style="--d:1.3s" pathLength="1" d="M63.5607 7.75458V31.0219"/>
+              <path class="cl-about__ln" style="--d:1.3s" pathLength="1" d="M63.5607 7.75458V31.0219"/>
               <circle class="cl-about__dt" style="--d:0s;--p:0s" cx="63.5387" cy="62.9428" r="7.4575"/>
               <circle class="cl-about__dt" style="--d:.4s;--p:.25s" cx="7.45932" cy="62.9417" r="7.4575"/>
               <circle class="cl-about__dt" style="--d:.8s;--p:.5s" cx="7.45763" cy="7.45749" r="7.4575"/>
