@@ -37,6 +37,7 @@
     if (!list || t.__clRevealed) return;
     t.__clRevealed = true;
     list.forEach(show);
+    t.dispatchEvent(new CustomEvent('cl:reveal'));   // 段落 JS 可跟著觸發區一起播自己的動態（例：關於四張卡 icon）
   };
   // 給段落 JS 用：把某個 reveal 元素所在的整個觸發區一起播放（例：切換頁籤時新面板已在畫面內）
   window.clRevealWith = function (el) {

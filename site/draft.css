@@ -1209,9 +1209,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .cl-about__art { position: relative; display: flex; align-items: center; justify-content: center; flex: none; }
 .cl-about__art img { max-width: none; }
 .cl-about__art--flow { width: 70.399px; height: 70.998px; }          /* Group 75646 旋轉 90° */
-.cl-about__art--flow img { width: 70.998px; height: 70.399px; flex: none; transform: rotate(90deg); }
+.cl-about__art--flow .cl-about__dots { width: 70.998px; height: 70.399px; flex: none; transform: rotate(90deg); }
 .cl-about__art--trace { width: 96.686px; height: 96.467px; }         /* Group 75646 旋轉 30° */
-.cl-about__art--trace img { width: 70.998px; height: 70.4px; flex: none; transform: rotate(30deg); }
+.cl-about__art--trace .cl-about__dots { width: 70.998px; height: 70.4px; flex: none; transform: rotate(30deg); }
 .cl-about__art--witness { display: block; width: 114px; height: 87px; } /* Group 見證雙圓 */
 .cl-about__witness-a, .cl-about__witness-b { position: absolute; top: 3.82px; width: 80px; height: 80px; }
 .cl-about__witness-a { left: 1.5px; }
@@ -1223,6 +1223,63 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .cl-about__renew-dot   { left: 38.9%;  top: 77.16%; width: 22.89%; height: 22.84%; }
 .cl-about__renew-inner { left: 20.74%; top: 40.91%; width: 59.19%; height: 59.07%; }
 .cl-about__renew-outer { left: -.1%;   top: -.04%;  width: 100.21%; height: 100.02%; }
+
+/* ---------- 四張卡 icon 動態（R2 客戶）----------
+   進場：卡片文字進場時（觸發區 .cl-about__cards，02-about.js 收到 cl:reveal 加 .is-play）各自「長出來」；
+   之後進入輕量循環；滑鼠移到卡片上重播進場。JS 啟用時才加 .is-armed 收起初始狀態，?static／減少動態直接顯示完成狀態。 */
+.cl-about__dots { overflow: visible; }
+.cl-about__ln { fill: none; stroke: var(--cl-green-500); stroke-width: .64; stroke-dasharray: 1 1; }
+.cl-about__dt { fill: var(--cl-green-500); transform-box: fill-box; transform-origin: center; }
+.cl-about__witness-ring {
+  position: absolute; left: 48px; top: 34.5px; width: 18px; height: 18px;
+  border: 1px solid var(--cl-green-500); border-radius: 50%; opacity: 0; pointer-events: none;
+}
+.cl-about__renew-roll, .cl-about__renew-orbit { position: absolute; inset: 0; }
+
+/* 初始（尚未進場） */
+.is-armed .cl-about__card:not(.is-play) .cl-about__dt { transform: scale(0); }
+.is-armed .cl-about__card:not(.is-play) .cl-about__ln { stroke-dashoffset: 1; }
+.is-armed .cl-about__card:not(.is-play) .cl-about__witness-a,
+.is-armed .cl-about__card:not(.is-play) .cl-about__witness-b,
+.is-armed .cl-about__card:not(.is-play) .cl-about__renew-outer,
+.is-armed .cl-about__card:not(.is-play) .cl-about__renew-roll { opacity: 0; }
+.is-armed .cl-about__card:not(.is-play) .cl-about__witness-dot { transform: scale(0); }
+
+/* 進場 */
+.cl-about__card.is-play .cl-about__dt {
+  animation: cl-ab-pop .5s cubic-bezier(.34, 1.56, .64, 1) var(--d) both,
+             cl-ab-pulse 4s ease-in-out calc(1.8s + var(--p)) infinite;
+}
+.cl-about__card.is-play .cl-about__ln { animation: cl-ab-draw .45s cubic-bezier(.65, 0, .35, 1) var(--d) both; }
+.cl-about__card.is-play .cl-about__ln--open {
+  animation: cl-ab-draw .45s cubic-bezier(.65, 0, .35, 1) var(--d) both,
+             cl-ab-grow 4s cubic-bezier(.65, 0, .35, 1) calc(var(--d) + 1.2s) infinite;
+}
+.cl-about__card.is-play .cl-about__witness-a { animation: cl-ab-in-l .9s cubic-bezier(.22, 1, .36, 1) both; }
+.cl-about__card.is-play .cl-about__witness-b {
+  animation: cl-ab-in-r .9s cubic-bezier(.22, 1, .36, 1) both,
+             cl-ab-spin 24s linear .9s infinite;
+}
+.cl-about__card.is-play .cl-about__witness-dot { animation: cl-ab-pop .5s cubic-bezier(.34, 1.56, .64, 1) .6s both; }
+.cl-about__card.is-play .cl-about__witness-ring { animation: cl-ab-ring 2.8s ease-out 1.2s infinite; }
+.cl-about__card.is-play .cl-about__renew-outer { animation: cl-ab-grow-in .8s cubic-bezier(.22, 1, .36, 1) both; }
+.cl-about__card.is-play .cl-about__renew-roll { animation: cl-ab-roll-in 1.2s cubic-bezier(.22, 1, .36, 1) .2s both; }
+.cl-about__card.is-play .cl-about__renew-orbit { animation: cl-ab-spin 12s linear 1.4s infinite; }
+
+@keyframes cl-ab-pop   { from { transform: scale(0); } to { transform: scale(1); } }
+@keyframes cl-ab-pulse { 0%, 14%, 100% { transform: scale(1); } 7% { transform: scale(1.22); } }
+@keyframes cl-ab-draw  { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+/* 未完的線：收回到起點再長出來（資料持續累積） */
+@keyframes cl-ab-grow  { 0%, 50% { stroke-dashoffset: 0; } 70% { stroke-dashoffset: 1; } 90%, 100% { stroke-dashoffset: 0; } }
+@keyframes cl-ab-in-l  { from { opacity: 0; transform: translateX(-14px); } to { opacity: 1; transform: none; } }
+@keyframes cl-ab-in-r  { from { opacity: 0; transform: translateX(14px); } to { opacity: 1; transform: none; } }
+@keyframes cl-ab-spin  { to { transform: rotate(360deg); } }
+@keyframes cl-ab-ring  { 0% { opacity: .7; transform: scale(1); } 60%, 100% { opacity: 0; transform: scale(2.6); } }
+@keyframes cl-ab-grow-in { from { opacity: 0; transform: scale(.7); } to { opacity: 1; transform: none; } }
+@keyframes cl-ab-roll-in { from { opacity: 0; transform: rotate(-150deg); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .cl-about__card.is-play * { animation: none !important; }
+}
 
 .cl-about__card-text {
   display: flex;
