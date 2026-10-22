@@ -23,32 +23,58 @@
     if (delay) el.style.setProperty('--cl-rv-delay', delay + 'ms');
   });
   var show = function (el) { el.classList.add('is-revealed'); };
+  /* R2 客戶：觸發時機以「區塊」為單位，不再每個元素各自計算。
+     觸發區＝最近的 [data-reveal-trigger]（例：一整排牌卡），沒有就用最近的 [data-reveal-group]（例：段落標題＋副標），
+     都沒有才是元素自己。區塊上緣捲到觸發線時，區塊內所有 [data-reveal] 一起開始（各自的 --cl-rv-delay 照舊，群組內 .08s 錯開） */
+  var triggers = new Map();
+  reveals.forEach(function (el) {
+    var t = el.closest('[data-reveal-trigger]') || el.closest('[data-reveal-group]') || el;
+    if (!triggers.has(t)) triggers.set(t, []);
+    triggers.get(t).push(el);
+  });
+  var fire = function (t) {
+    var list = triggers.get(t);
+    if (!list || t.__clRevealed) return;
+    t.__clRevealed = true;
+    list.forEach(show);
+  };
+  // 給段落 JS 用：把某個 reveal 元素所在的整個觸發區一起播放（例：切換頁籤時新面板已在畫面內）
+  window.clRevealWith = function (el) {
+    var t = el.closest('[data-reveal-trigger]') || el.closest('[data-reveal-group]') || el;
+    if (triggers.has(t)) { fire(t); if (io) io.unobserve(t); } else show(el);
+  };
+  var io = null;
   if (isStatic || reduce || !('IntersectionObserver' in window)) {
     reveals.forEach(show);
   } else {
-    // 觸發線：元素頂端捲到畫面這個高度時播放。
+    // 觸發線：區塊上緣捲到畫面這個高度時播放。
     // 電腦版 55%（客戶 R2：比原本的 2/3 晚一點）；平板與手機（≤1100）改回 2/3＝距畫面底部 1/3（客戶 R2：手機太晚出現）。
     // 依載入時的寬度決定（IntersectionObserver 的 rootMargin 建好後不能改）
     var LINE = window.matchMedia('(max-width: 1100px)').matches ? 2 / 3 : .55;
-    var io = new IntersectionObserver(function (entries) {
+    // 區塊在隱藏面板裡（頁籤）時量不到位置：用第一個看得到的子元素位置代表，都看不到就等 IO
+    var topOf = function (t) {
+      var r = t.getBoundingClientRect();
+      return r.height || r.width ? r.top : Infinity;
+    };
+    io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) { show(e.target); io.unobserve(e.target); }
+        if (e.isIntersecting) { fire(e.target); io.unobserve(e.target); }
       });
     }, { rootMargin: '0px 0px -' + ((1 - LINE) * 100).toFixed(2) + '% 0px' });
-    reveals.forEach(function (el) {
-      // 載入時已在觸發線上方的元素直接播放
-      if (el.getBoundingClientRect().top < window.innerHeight * LINE) show(el);
-      else io.observe(el);
+    triggers.forEach(function (_, t) {
+      // 載入時已在觸發線上方的區塊直接播放
+      if (topOf(t) < window.innerHeight * LINE) fire(t);
+      else io.observe(t);
     });
-    // 錨點跳轉、scrollIntoView 這類直接跳過觸發線的情況：已在觸發線上方的一律顯示
+    // 錨點跳轉、scrollIntoView 這類直接跳過觸發線的情況：已在觸發線上方的區塊一律播放
     var pending = 0;
     window.addEventListener('scroll', function () {
       if (pending) return;
       pending = requestAnimationFrame(function () {
         pending = 0;
         var line = window.innerHeight * LINE;
-        reveals.forEach(function (el) {
-          if (!el.classList.contains('is-revealed') && el.getBoundingClientRect().top < line) { show(el); io.unobserve(el); }
+        triggers.forEach(function (_, t) {
+          if (!t.__clRevealed && topOf(t) < line) { fire(t); io.unobserve(t); }
         });
       });
     }, { passive: true });
