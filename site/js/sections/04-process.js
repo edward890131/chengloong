@@ -109,12 +109,12 @@
     }
   }
 
-  // 切換頁籤：新面板裡已在畫面內的 [data-reveal] 直接播放（base 的觀察點在畫面 2/3，面板下半部不用等捲動）
+  // 切換頁籤：新面板裡已在畫面內的 [data-reveal] 連同所在觸發區直接播放（不用等捲動到觸發線）
   function revealInView(panel) {
     requestAnimationFrame(function () {
       Array.prototype.forEach.call(panel.querySelectorAll('[data-reveal]:not(.is-revealed)'), function (el) {
         var r = el.getBoundingClientRect();
-        if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('is-revealed');
+        if (r.top < window.innerHeight && r.bottom > 0) window.clRevealWith(el);   // 同一觸發區（例：整排步驟）一起播
       });
     });
   }
