@@ -37,6 +37,7 @@
     if (!list || t.__clRevealed) return;
     t.__clRevealed = true;
     list.forEach(show);
+    t.dispatchEvent(new CustomEvent('cl:reveal'));   // 段落 JS 可跟著觸發區一起播自己的動態（例：關於四張卡 icon）
   };
   // 給段落 JS 用：把某個 reveal 元素所在的整個觸發區一起播放（例：切換頁籤時新面板已在畫面內）
   window.clRevealWith = function (el) {
@@ -393,6 +394,31 @@
       visible = true;
     }
   }
+})();
+
+/* 02 關於：四張卡 icon 動態（R2 客戶）——跟卡片文字同一個觸發區（.cl-about__cards）一起進場，滑鼠移到卡片上重播。
+   ?static／減少動態：不加 .is-armed，icon 維持完成狀態。CSS 見 02-about.css「四張卡 icon 動態」 */
+(function () {
+  var list = document.querySelector('.cl-about__cards');
+  if (!list) return;
+  var html = document.documentElement;
+  if (html.classList.contains('is-static') || window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+      !('IntersectionObserver' in window)) return;
+  var cards = Array.prototype.slice.call(list.querySelectorAll('.cl-about__card'));
+  list.classList.add('is-armed');
+  var play = function () { cards.forEach(function (c) { c.classList.add('is-play'); }); };
+  list.addEventListener('cl:reveal', play);
+  // 載入時觸發區已在觸發線上方：base.js 比這裡早跑完，事件已錯過 → 看文字是否已進場
+  if (list.querySelector('[data-reveal].is-revealed')) play();
+  var canHover = window.matchMedia('(hover: hover) and (pointer: fine)');
+  cards.forEach(function (card) {
+    card.addEventListener('mouseenter', function () {
+      if (!canHover.matches || !card.classList.contains('is-play')) return;
+      card.classList.remove('is-play');
+      void card.offsetWidth;   // 重新套用初始狀態，動畫才會從頭播
+      card.classList.add('is-play');
+    });
+  });
 })();
 
 /* 03 從機密文件到日常用紙：手機版三張卡輪播（箭頭＋指示點，1695:19756） */

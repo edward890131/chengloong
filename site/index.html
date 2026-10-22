@@ -160,7 +160,16 @@
     <ul class="cl-about__cards" data-reveal-trigger data-figma="1695:20152" data-figma-s="2133:24364">
       <li class="cl-about__card" data-reveal-group data-figma="1695:20153" data-figma-s="2133:24365">
         <div class="cl-about__illus" data-figma="1695:20155" data-figma-s="2133:24367">
-          <span class="cl-about__art cl-about__art--flow" data-figma="1695:20169" data-figma-s="2133:24381"><img src="assets/02-about/card1-dots.svg" alt="" width="70.998" height="70.399"></span>
+          <span class="cl-about__art cl-about__art--flow" data-figma="1695:20169" data-figma-s="2133:24381">
+            <!-- R2 動態：card1-dots.svg 內嵌，點與線依序長出、停住、再依序收掉，6 秒一輪不斷輪播（02-about.css「四張卡 icon 動態」） -->
+            <svg class="cl-about__dots" viewBox="0 0 70.9979 70.3995" width="70.998" height="70.399" aria-hidden="true">
+              <path class="cl-about__ln" style="--d:.15s" pathLength="1" d="M7.41766 7.5673L35.1591 45.4843"/>
+              <path class="cl-about__ln" style="--d:.65s" pathLength="1" d="M34.755 45.9583L69.062 63.5255"/>
+              <circle class="cl-about__dt" style="--d:0s;--p:0s" cx="7.45752" cy="7.45749" r="7.4575"/>
+              <circle class="cl-about__dt" style="--d:.5s;--p:.25s" cx="34.9013" cy="45.6731" r="7.4575"/>
+              <circle class="cl-about__dt" style="--d:1s;--p:.5s" cx="63.5403" cy="62.9419" r="7.4575"/>
+            </svg>
+          </span>
         </div>
         <div class="cl-about__card-text" data-figma="1695:20175" data-figma-s="2133:24387">
           <h3 class="cl-about__card-title" data-reveal data-figma="1695:20176" data-figma-s="2133:24388">完善的銷毀流程</h3>
@@ -172,7 +181,8 @@
           <span class="cl-about__art cl-about__art--witness" data-figma="1695:20181" data-figma-s="2133:24393">
             <img class="cl-about__witness-a" src="assets/02-about/card2-ellipse-a.svg" alt="" width="80" height="80">
             <img class="cl-about__witness-b" src="assets/02-about/card2-ellipse-b.png" alt="" width="80" height="80">
-            <img class="cl-about__witness-dot" src="assets/02-about/card2-dot.svg" alt="" width="18" height="18">
+            <!-- R2 動態：圓點在兩圓交疊區繞橢圓（外層管水平、內層管垂直，兩個正弦錯開 1/4 拍） -->
+            <span class="cl-about__witness-orb"><span class="cl-about__witness-orb-y"><img class="cl-about__witness-dot" src="assets/02-about/card2-dot.svg" alt="" width="18" height="18"></span></span>
           </span>
         </div>
         <div class="cl-about__card-text" data-figma="1695:20194" data-figma-s="2133:24406">
@@ -183,9 +193,12 @@
       <li class="cl-about__card" data-reveal-group data-figma="1695:20197" data-figma-s="2133:24409">
         <div class="cl-about__illus" data-figma="1695:20199" data-figma-s="2133:24411">
           <span class="cl-about__art cl-about__art--renew" data-figma="1695:20200" data-figma-s="2133:24412">
-            <img class="cl-about__renew-dot" src="assets/02-about/card3-dot.svg" alt="">
-            <img class="cl-about__renew-inner" src="assets/02-about/card3-ellipse-inner.png" alt="">
             <img class="cl-about__renew-outer" src="assets/02-about/card3-ellipse-outer.svg" alt="">
+            <!-- R2 動態：虛線小圓＋圓點一起繞大圓圓心轉（滾進來後持續慢慢繞）；外層管進場、內層管循環 -->
+            <span class="cl-about__renew-roll"><span class="cl-about__renew-orbit">
+              <img class="cl-about__renew-inner" src="assets/02-about/card3-ellipse-inner.png" alt="">
+              <img class="cl-about__renew-dot" src="assets/02-about/card3-dot.svg" alt="">
+            </span></span>
           </span>
         </div>
         <div class="cl-about__card-text" data-figma="1695:20213" data-figma-s="2133:24425">
@@ -195,7 +208,19 @@
       </li>
       <li class="cl-about__card" data-reveal-group data-figma="1695:20216" data-figma-s="2133:24428">
         <div class="cl-about__illus" data-figma="1695:20218" data-figma-s="2133:24430">
-          <span class="cl-about__art cl-about__art--trace" data-figma="1695:20219" data-figma-s="2133:24431"><img src="assets/02-about/card4-dots.svg" alt="" width="70.998" height="70.4"></span>
+          <span class="cl-about__art cl-about__art--trace" data-figma="1695:20219" data-figma-s="2133:24431">
+            <!-- R2 動態：card4-dots.svg 內嵌，從右下的點往回描到左上、右上再往下，停住後依序收掉，6 秒一輪不斷輪播 -->
+            <svg class="cl-about__dots" viewBox="0 0 70.998 70.4003" width="70.998" height="70.4" aria-hidden="true">
+              <path class="cl-about__ln" style="--d:.1s" pathLength="1" d="M69.2074 63.5591L7.16106 63.5591"/>
+              <path class="cl-about__ln" style="--d:.5s" pathLength="1" d="M7.48209 63.2386L7.48209 7.75485"/>
+              <path class="cl-about__ln" style="--d:.9s" pathLength="1" d="M8.35361 7.43614L61.4509 7.43613"/>
+              <path class="cl-about__ln" style="--d:1.3s" pathLength="1" d="M63.5607 7.75458V31.0219"/>
+              <circle class="cl-about__dt" style="--d:0s;--p:0s" cx="63.5387" cy="62.9428" r="7.4575"/>
+              <circle class="cl-about__dt" style="--d:.4s;--p:.25s" cx="7.45932" cy="62.9417" r="7.4575"/>
+              <circle class="cl-about__dt" style="--d:.8s;--p:.5s" cx="7.45763" cy="7.45749" r="7.4575"/>
+              <circle class="cl-about__dt" style="--d:1.2s;--p:.75s" cx="63.5405" cy="7.45836" r="7.4575"/>
+            </svg>
+          </span>
         </div>
         <div class="cl-about__card-text" data-figma="1695:20236" data-figma-s="2133:24448">
           <!-- 稿上電腦版「永續數據追溯」、手機版「ESG 數據追溯」，照稿各自顯示（audit-source） -->
