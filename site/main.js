@@ -1,3 +1,4 @@
+(window.clWhenReady || function (fn) { fn(); })(function () {
 /* ==========================================================================
    base.js（主控負責）：全站共用動態，用法見 base.css 同名區塊
    ========================================================================== */
@@ -1053,3 +1054,5 @@
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(schedule);
   update();
 })();
+
+});

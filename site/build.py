@@ -7,6 +7,8 @@
   site/js/base.js + site/js/sections/*.js（依檔名排序）→ site/main.js
 組好的 index.html／draft.css／main.js 不要直接改，改 partial 再 build。
 """
+import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -20,11 +22,36 @@ def cat(first, folder, last=None, sep='\n'):
     return sep.join(parts)
 
 
+def preload_list(html, css):
+    """進場載入清單：頁面裡用到的 assets（img src／srcset、data-lottie、CSS url()），照出現順序、去重，附檔案大小"""
+    urls = []
+    for m in re.finditer(r'(?:src|data-lottie)="(assets/[^"]+)"|srcset="([^"]+)"|url\([\'"]?(assets/[^)\'"]+)', html + css):
+        if m.group(2):
+            urls += [part.strip().split(' ')[0] for part in m.group(2).split(',')]
+        else:
+            urls.append(m.group(1) or m.group(3))
+    seen, out = set(), []
+    for u in urls:
+        f = ROOT / u
+        if u in seen or not u.startswith('assets/') or not f.is_file():
+            continue
+        seen.add(u)
+        out.append([u, f.stat().st_size])
+    return out
+
+
 def main():
     src = ROOT / 'src'
-    (ROOT / 'index.html').write_text(cat(src / '_head.html', src / 'sections', src / '_foot.html'))
-    (ROOT / 'draft.css').write_text(cat(ROOT / 'css' / 'base.css', ROOT / 'css' / 'sections'))
-    (ROOT / 'main.js').write_text(cat(ROOT / 'js' / 'base.js', ROOT / 'js' / 'sections'))
+    html = cat(src / '_head.html', src / 'sections', src / '_foot.html')
+    css = cat(ROOT / 'css' / 'base.css', ROOT / 'css' / 'sections')
+    pre = preload_list(html, css)
+    html = html.replace('/*CL_PRELOAD*/[]', json.dumps(pre, separators=(',', ':')), 1)
+    (ROOT / 'index.html').write_text(html)
+    (ROOT / 'draft.css').write_text(css)
+    # 頁面 JS 整包等進場載入完成才跑（_head 的 window.clWhenReady；沒有載入畫面時立刻跑）
+    js = cat(ROOT / 'js' / 'base.js', ROOT / 'js' / 'sections')
+    (ROOT / 'main.js').write_text('(window.clWhenReady || function (fn) { fn(); })(function () {\n' + js + '\n});\n')
+    print('preload: %d files, %.1f MB' % (len(pre), sum(p[1] for p in pre) / 1048576))
     print('built site/index.html, site/draft.css, site/main.js')
 
 
