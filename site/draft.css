@@ -241,6 +241,68 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   to   { background-position: 0 0; }
 }
 
+/* ---------- 進場載入畫面 .cl-loader（R2 客戶）----------
+   _head.html 內嵌：logo＋進度條＋百分比；載完後整片往上收起（.is-done），收起同時頁面動態開始。
+   載入中鎖住捲動（html.is-loading）。?static 與沒有 JS 時不顯示 */
+html.is-loading { overflow: hidden; }
+.cl-loader {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--cl-white);
+  transition: transform .9s cubic-bezier(.76, 0, .24, 1);
+}
+.cl-loader.is-done { transform: translateY(-100%); pointer-events: none; }
+.is-static .cl-loader { display: none; }
+/* R2 客戶修正：數字放大、進度條加長、logo 縮小（同 header logo 大小） */
+.cl-loader__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(720px, 84vw);
+  transition: opacity .4s ease, transform .6s cubic-bezier(.76, 0, .24, 1);
+}
+.cl-loader.is-done .cl-loader__inner { opacity: 0; transform: translateY(-24px); }
+.cl-loader .cl-loader__logo { width: 93.053px; height: 32px; }
+.cl-loader__pct {
+  display: flex;
+  align-items: baseline;   /* R2 客戶：% 靠下對齊數字 */
+  margin: clamp(24px, 4vh, 48px) 0 clamp(16px, 2.5vh, 28px);
+  font-family: var(--cl-font-num);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--cl-ink-900);
+  line-height: 1;
+}
+.cl-loader__num { font-size: clamp(72px, 12vw, 160px); letter-spacing: -.03em; }
+.cl-loader__unit { margin-left: .08em; font-size: clamp(24px, 3.6vw, 48px); color: var(--cl-green-500); }
+.cl-loader__bar {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  border-radius: 4px;
+  background: rgba(31, 31, 31, .08);
+  overflow: hidden;
+}
+.cl-loader__fill {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--cl-green-500);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+.cl-loader__label {
+  margin-top: 12px;   /* R2 客戶：置中 */
+  color: var(--cl-ink-800-60);
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: .6px;
+}
+
 /* ==========================================================================
    01 首屏（含 header）· 負責人 A
    電腦版 1695:20083（1440×800）／手機版 1695:19588（375×756）

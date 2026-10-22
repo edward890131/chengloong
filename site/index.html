@@ -11,8 +11,88 @@
 <!-- RWD 預覽切換（預覽工具，上線前移除這行與 _foot 的 preview.js） -->
 <link rel="stylesheet" href="preview/preview.css">
 <script>if (/[?&]static\b/.test(location.search)) document.documentElement.classList.add('is-static');</script>
+<noscript><style>.cl-loader { display: none; }</style></noscript>
 </head>
 <body>
+<!-- 進場載入畫面（R2 客戶）：預先下載圖片與 Lottie，進度條顯示已下載百分比（依位元組計算）。
+     清單由 build.py 掃 index.html／draft.css 產生（CL_PRELOAD）；載完後畫面往上收起，main.js 才開始跑頁面動態 -->
+<div class="cl-loader" id="cl-loader" role="progressbar" aria-label="網頁載入中" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+  <div class="cl-loader__inner">
+    <span class="cl-hero__logo cl-loader__logo" aria-hidden="true">
+      <span class="cl-hero__logo-mark"><img src="assets/01-hero/logo-mark.svg" alt=""></span>
+      <span class="cl-hero__logo-zh"><img src="assets/01-hero/logo-zh.svg" alt=""></span>
+      <span class="cl-hero__logo-en"><img src="assets/01-hero/logo-en.svg" alt=""></span>
+    </span>
+    <span class="cl-loader__pct"><span class="cl-loader__num">0</span><span class="cl-loader__unit">%</span></span>
+    <span class="cl-loader__bar"><span class="cl-loader__fill"></span></span>
+    <span class="cl-loader__label">載入中</span>
+  </div>
+</div>
+<script>
+/* 進場載入：清單逐一 fetch（同時 6 個，照頁面順序＝首屏先），用串流讀取累計位元組算百分比；
+   顯示值平滑追上實際值、不倒退。最少顯示 0.6s、最多等 15s（逾時直接進站，剩下的背景繼續下載）。
+   ?static 或瀏覽器不支援 fetch 串流時改用 Image 計件。完成後呼叫 window.clWhenReady 排隊的函式（main.js 整包） */
+(function () {
+  var d = document.documentElement, el = document.getElementById('cl-loader');
+  var queue = [], ready = false;
+  window.clWhenReady = function (fn) { if (ready) fn(); else queue.push(fn); };
+  function boot() { if (ready) return; ready = true; d.classList.remove('is-loading'); queue.splice(0).forEach(function (fn) { fn(); }); }
+  if (d.classList.contains('is-static') || !el) { if (el) el.remove(); boot(); return; }
+  d.classList.add('is-loading');
+
+  var LIST = [["assets/01-hero/logo-mark.svg",4858],["assets/01-hero/logo-zh.svg",5519],["assets/01-hero/logo-en.svg",8959],["assets/common/icon-arrow-w-20.svg",705],["assets/common/icon-arrow-dark.svg",705],["assets/01-hero/cover-4.jpg",702975],["assets/01-hero/cover-3.jpg",301099],["assets/01-hero/cover-2.jpg",657969],["assets/01-hero/cover-1.jpg",145571],["assets/01-hero/icon-safe.svg",1689],["assets/01-hero/icon-leaf.svg",1502],["assets/01-hero/icon-recycle.svg",4489],["assets/common/icon-arrow-w.svg",703],["assets/01-hero/icon-info.svg",2192],["assets/01-hero/tooltip-arrow.svg",350],["assets/02-about/card2-ellipse-a.svg",425],["assets/02-about/card2-ellipse-b.png",3567],["assets/02-about/card2-dot.svg",453],["assets/02-about/card3-ellipse-outer.svg",693],["assets/02-about/card3-ellipse-inner.png",2250],["assets/02-about/card3-dot.svg",852],["assets/02-about/value-cycle-s-band.svg",3054],["assets/02-about/value-cycle-l-band.svg",3024],["assets/02-about/infinity-breathe.json",61823],["assets/02-about/value-cycle-s-nodes.svg",244089],["assets/02-about/value-cycle-l-nodes.svg",242051],["assets/03-paper/arrow.svg",705],["assets/03-paper/step1-pulper.png",1208070],["assets/03-paper/step2-workers.png",1091122],["assets/03-paper/step3-tissue.png",1066789],["assets/03-paper/ecolabel-1.svg",3407],["assets/03-paper/ecolabel-2.svg",23883],["assets/03-paper/ecolabel-fsc.svg",24928],["assets/04-process/card1-typing.png",807324],["assets/04-process/icon-files.svg",2045],["assets/04-process/card2-truck.png",1128857],["assets/04-process/icon-truck.svg",2867],["assets/04-process/card3-pulper.png",1305129],["assets/04-process/icon-drop.svg",1611],["assets/04-process/card4-laptop.png",1224851],["assets/04-process/card4-screen.png",125810],["assets/04-process/icon-recycle.svg",2217],["assets/04-process/icon-info.svg",2194],["assets/04-process/booking-mockup2.png",6327901],["assets/04-process/prepare-1.png",1955904],["assets/04-process/prepare-2.png",2015458],["assets/04-process/prepare-3.png",2109014],["assets/04-process/route-home@2x.png",207120],["assets/04-process/route-industrial@2x.png",201757],["assets/05-green/m-arrow-next.svg",705],["assets/05-green/greenpts-coins.png",210512],["assets/05-green/paper-dandelion.png",1011798],["assets/05-green/m-icon-cart.svg",1651],["assets/05-green/icon-cart.svg",1837],["assets/05-green/m-icon-hand-heart.svg",2975],["assets/05-green/icon-hand-heart.svg",3159],["assets/05-green/certificate-pdf@3x.png",109463],["assets/05-green/m-icon-badge-check.svg",3534],["assets/05-green/icon-badge-check.svg",3797],["assets/05-green/esg-hand.png",878081],["assets/05-green/certificate-full@2x.png",358736],["assets/06-strip/photo-forklift.png",1195296],["assets/06-strip/photo-windmill.png",863372],["assets/06-strip/photo-seedling.png",949081],["assets/06-strip/photo-lab.png",1102214],["assets/06-strip/photo-pulp-stack.png",1025901],["assets/06-strip/photo-paper-roll.png",1011460],["assets/07-faq/icon-minus-24.svg",289],["assets/07-faq/icon-minus-32.svg",302],["assets/07-faq/icon-add-24.svg",309],["assets/07-faq/icon-add-32.svg",309],["assets/08-cta/bg-composite.jpg",129839],["assets/09-footer/logo-mark.svg",4865],["assets/09-footer/logo-zh.svg",5534],["assets/09-footer/logo-en.svg",8800],["assets/09-footer/line-top.svg",248],["assets/04-process/card4-screen-mask.svg",765]];
+  var MIN = 600, MAX = 15000, CONC = 6, t0 = performance.now();
+  var total = 0, got = {}, done = 0, finished = false;
+  LIST.forEach(function (it) { total += it[1]; });
+  var fill = el.querySelector('.cl-loader__fill'), pct = el.querySelector('.cl-loader__num');
+  function loadedBytes() { var n = 0; for (var k in got) n += got[k]; return n; }
+  function settle(i) { got[i] = LIST[i][1]; done++; next(); }
+  var idx = 0, canStream = !!(window.fetch && window.ReadableStream && window.TextDecoder);
+  function next() {
+    if (idx >= LIST.length) return;
+    var i = idx++, url = LIST[i][0];
+    if (!canStream) {
+      var im = new Image(); im.onload = im.onerror = function () { settle(i); }; im.src = url; return;
+    }
+    fetch(url).then(function (res) {
+      if (!res.ok || !res.body) { settle(i); return; }
+      var reader = res.body.getReader(), n = 0;
+      return (function pump() {
+        return reader.read().then(function (r) {
+          if (r.done) { settle(i); return; }
+          n += r.value.length; got[i] = Math.min(n, LIST[i][1]);
+          return pump();
+        });
+      })();
+    }).catch(function () { settle(i); });
+  }
+  for (var c = 0; c < CONC; c++) next();
+
+  var shown = 0;
+  (function frame(now) {
+    var real = total ? loadedBytes() / total * 100 : 100;
+    var all = done >= LIST.length, late = now - t0 > MAX;
+    var target = all || late ? 100 : Math.min(99, real);
+    shown += Math.max((target - shown) * .08, target > shown ? .15 : 0);
+    if (shown > target) shown = target;
+    var v = Math.floor(shown);
+    fill.style.transform = 'scaleX(' + (shown / 100) + ')';
+    pct.textContent = v;
+    el.setAttribute('aria-valuenow', v);
+    if (shown >= 100 && now - t0 >= MIN) return leave();
+    requestAnimationFrame(frame);
+  })(t0);
+
+  function leave() {
+    if (finished) return; finished = true;
+    setTimeout(function () {
+      el.classList.add('is-done');
+      boot();   // 頁面動態跟著載入畫面收起一起開始
+      setTimeout(function () { el.remove(); }, 1000);
+    }, 250);
+  }
+})();
+</script>
 <div class="cl-page" data-screen data-figma="1695:20082" data-figma-s="1695:19587">
 
 <!-- ===== 01 首屏（含 header）· 負責人 A ===== -->
