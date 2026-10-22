@@ -269,7 +269,7 @@ html.is-loading { overflow: hidden; }
 .cl-loader .cl-loader__logo { width: 93.053px; height: 32px; }
 .cl-loader__pct {
   display: flex;
-  align-items: flex-start;
+  align-items: baseline;   /* R2 客戶：% 靠下對齊數字 */
   margin: clamp(24px, 4vh, 48px) 0 clamp(16px, 2.5vh, 28px);
   font-family: var(--cl-font-num);
   font-weight: 700;
@@ -278,7 +278,7 @@ html.is-loading { overflow: hidden; }
   line-height: 1;
 }
 .cl-loader__num { font-size: clamp(72px, 12vw, 160px); letter-spacing: -.03em; }
-.cl-loader__unit { margin: .3em 0 0 .08em; font-size: clamp(24px, 3.6vw, 48px); color: var(--cl-green-500); }
+.cl-loader__unit { margin-left: .08em; font-size: clamp(24px, 3.6vw, 48px); color: var(--cl-green-500); }
 .cl-loader__bar {
   position: relative;
   width: 100%;
@@ -296,8 +296,7 @@ html.is-loading { overflow: hidden; }
   transform-origin: 0 50%;
 }
 .cl-loader__label {
-  align-self: flex-start;
-  margin-top: 12px;
+  margin-top: 12px;   /* R2 客戶：置中 */
   color: var(--cl-ink-800-60);
   font-size: 14px;
   line-height: 20px;
