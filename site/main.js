@@ -49,10 +49,9 @@
   if (isStatic || reduce || !('IntersectionObserver' in window)) {
     reveals.forEach(show);
   } else {
-    // 觸發線：區塊上緣捲到畫面這個高度時播放。
-    // 電腦版 55%（客戶 R2：比原本的 2/3 晚一點）；平板與手機（≤1100）改回 2/3＝距畫面底部 1/3（客戶 R2：手機太晚出現）。
-    // 依載入時的寬度決定（IntersectionObserver 的 rootMargin 建好後不能改）
-    var LINE = window.matchMedia('(max-width: 1100px)').matches ? 2 / 3 : .55;
+    // 觸發線：區塊上緣捲到畫面 2/3 高（距畫面底部 1/3）時播放，全寬度一致
+    // （客戶 R2：電腦版原本 55% 太晚，改回與平板、手機相同）
+    var LINE = 2 / 3;
     // 區塊在隱藏面板裡（頁籤）時量不到位置：用第一個看得到的子元素位置代表，都看不到就等 IO
     var topOf = function (t) {
       var r = t.getBoundingClientRect();
