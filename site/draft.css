@@ -277,8 +277,8 @@ html.is-loading { overflow: hidden; }
   color: var(--cl-ink-900);
   line-height: 1;
 }
-.cl-loader__num { font-size: clamp(72px, 12vw, 160px); letter-spacing: -.03em; }
-.cl-loader__unit { margin-left: .08em; font-size: clamp(24px, 3.6vw, 48px); color: var(--cl-green-500); }
+.cl-loader__num { font-size: clamp(48px, 7vw, 96px); letter-spacing: -.03em; }   /* R2 客戶：再調小（原 72–160） */
+.cl-loader__unit { margin-left: .08em; font-size: clamp(18px, 2.2vw, 30px); color: var(--cl-green-500); }
 .cl-loader__bar {
   position: relative;
   width: 100%;
