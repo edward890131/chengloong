@@ -814,6 +814,15 @@
     if (mqPhone.addEventListener) mqPhone.addEventListener('change', function () { userScrolled = false; placeMap(); });
     placeMap();
   }
+
+  /* ---------- 「挑選到廠日期與時段」info tooltip（R2 客戶）：hover／focus 由 CSS 顯示；點擊切換（觸控用），點外面或 Esc 關閉 ---------- */
+  Array.prototype.forEach.call(root.querySelectorAll('.cl-process__tip'), function (tip) {
+    var btn = tip.querySelector('.cl-process__tip-btn');
+    var set = function (open) { tip.classList.toggle('is-open', open); btn.setAttribute('aria-expanded', open ? 'true' : 'false'); };
+    btn.addEventListener('click', function (e) { e.stopPropagation(); set(!tip.classList.contains('is-open')); });
+    document.addEventListener('click', function () { set(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
+  });
 })();
 
 /* 05 綠點存摺與憑證（負責人 D）

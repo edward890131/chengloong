@@ -106,3 +106,4 @@
 | 2026-10-23 | 進場載入畫面數字 | 72–160px | 調小為 48–96px（% 18–30px） | 客戶（R2） |
 | 2026-10-23 | 網站 favicon／描述 | Figma logo_clc 2318:34353 | favicon（svg、ico 16+32、apple-touch 180、512）、site.webmanifest、theme-color；meta description 與 og:title／og:description 摘自首屏；og:image 待封面圖（Figma 2319:34354）確認後加 | 客戶（R2） |
 | 2026-10-23 | 分享封面圖 | Figma og-cover 1200×630（2322:34392） | 匯出 og-cover.jpg（119KB），加 og:image／twitter:card summary_large_image | 客戶（R2） |
+| 2026-10-23 | 04 線上預約 STEP 3 info icon | 1695:33037（無 tooltip） | 加 tooltip「廠區保養與國定假日除外，請以線上預約時段為準」，樣式同首屏數據 tooltip；hover／focus 顯示、觸控點擊切換、點外面或 Esc 關閉；手機改靠 icon 右側往左展開；標題 reveal 只包文字避免裁切 tooltip | 客戶（R2） |

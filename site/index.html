@@ -555,7 +555,9 @@
           <li class="cl-process__step" data-reveal-group>
             <p class="cl-process__step-no"><span class="cl-process__step-label" data-reveal>STEP</span><span class="cl-process__step-num" data-reveal>03</span></p>
             <div class="cl-process__step-text">
-              <h3 class="cl-process__step-title cl-process__step-title--info" data-reveal>挑選到廠日期與時段<img class="cl-process__info" src="assets/04-process/icon-info.svg" alt="說明" data-figma="1695:33037"></h3>
+              <h3 class="cl-process__step-title cl-process__step-title--info"><span data-reveal>挑選到廠日期與時段</span><!--
+                R2 客戶：info icon 加 tooltip（樣式同首屏數據 tooltip）。標題的 reveal 只包文字：[data-reveal] 會裁切溢出，tooltip 放在外面才不會被切
+              --><span class="cl-process__tip" data-reveal="fade"><button class="cl-process__tip-btn" type="button" aria-label="到廠日期與時段說明" aria-expanded="false" aria-describedby="cl-process-tip-date"><img class="cl-process__info" src="assets/04-process/icon-info.svg" alt="" data-figma="1695:33037"></button><span class="cl-process__tip-pop" id="cl-process-tip-date" role="tooltip"><span class="cl-process__tip-body">廠區保養與國定假日除外，請以線上預約時段為準</span><img class="cl-process__tip-arrow" src="assets/01-hero/tooltip-arrow.svg" alt=""></span></span></h3>
               <p class="cl-process__step-desc" data-reveal>週一～週五開放上午 8:30–11:00、下午 13:00–16:00 時段，請於到廠日三天前完成預約。</p>
             </div>
           </li>
