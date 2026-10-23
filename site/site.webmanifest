@@ -1,0 +1,19 @@
+{
+  "name": "正隆機密文件水銷服務",
+  "short_name": "正隆水銷",
+  "icons": [
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#14a558",
+  "background_color": "#ffffff",
+  "display": "browser"
+}

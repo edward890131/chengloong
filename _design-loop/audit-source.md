@@ -104,3 +104,4 @@
 | 2026-10-22 | 全站圖片格式 | PNG／JPG | 全部轉 WebP（解析度不變；照片 q82、含文字的 UI 圖 q90，保留透明），30.0MB → 3.1MB；原 PNG／JPG 刪除 | 客戶（R2） |
 | 2026-10-22 | 文字 reveal 觸發點（電腦） | 55% | 改為 2/3（距畫面底部 1/3），全寬度一致 | 客戶（R2） |
 | 2026-10-23 | 進場載入畫面數字 | 72–160px | 調小為 48–96px（% 18–30px） | 客戶（R2） |
+| 2026-10-23 | 網站 favicon／描述 | Figma logo_clc 2318:34353 | favicon（svg、ico 16+32、apple-touch 180、512）、site.webmanifest、theme-color；meta description 與 og:title／og:description 摘自首屏；og:image 待封面圖（Figma 2319:34354）確認後加 | 客戶（R2） |
