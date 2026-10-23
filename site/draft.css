@@ -277,8 +277,8 @@ html.is-loading { overflow: hidden; }
   color: var(--cl-ink-900);
   line-height: 1;
 }
-.cl-loader__num { font-size: clamp(72px, 12vw, 160px); letter-spacing: -.03em; }
-.cl-loader__unit { margin-left: .08em; font-size: clamp(24px, 3.6vw, 48px); color: var(--cl-green-500); }
+.cl-loader__num { font-size: clamp(48px, 7vw, 96px); letter-spacing: -.03em; }   /* R2 客戶：再調小（原 72–160） */
+.cl-loader__unit { margin-left: .08em; font-size: clamp(18px, 2.2vw, 30px); color: var(--cl-green-500); }
 .cl-loader__bar {
   position: relative;
   width: 100%;
@@ -2261,6 +2261,47 @@ html.is-loading { overflow: hidden; }
 .cl-process__step-title--info,
 .cl-process__step-title--info > .cl-rv__in { display: flex; align-items: center; gap: 8px; }   /* reveal 內層也要排成一列，info icon 才不會掉到下一行 */
 .cl-process__info { width: 20px; height: 20px; flex: none; }
+/* 「挑選到廠日期與時段」info tooltip（R2 客戶）：樣式同首屏 .cl-hero__tip；hover／focus 顯示，觸控點擊切換 .is-open */
+.cl-process__tip { position: relative; display: flex; flex: none; }
+.cl-process__tip-btn { display: block; width: 20px; height: 20px; cursor: help; }
+.cl-process__tip-btn:focus-visible { outline: 2px solid var(--cl-green-700); outline-offset: 2px; border-radius: 50%; }
+.cl-process__tip-pop {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  bottom: calc(100% + 4px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: max-content;
+  max-width: 260px;
+  transform: translateX(-50%);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .2s ease-out, visibility .2s;
+  pointer-events: none;
+}
+.cl-process__tip-body {
+  display: block;
+  padding: 8px 10px;
+  border-radius: 4px;
+  background: var(--cl-ink-900);
+  color: var(--cl-white);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: .56px;
+  line-height: 20px;
+  white-space: normal;
+}
+.cl-process__tip-arrow { width: 16px; height: 10px; flex: none; }
+.cl-process__tip:hover .cl-process__tip-pop,
+.cl-process__tip-btn:focus-visible + .cl-process__tip-pop,
+.cl-process__tip.is-open .cl-process__tip-pop { opacity: 1; visibility: visible; }
+/* 手機：icon 靠近右緣，置中會超出面板 → 改成靠 icon 右側往左展開，箭頭跟著對齊 icon */
+@media (max-width: 640px) {
+  .cl-process__tip-pop { left: auto; right: -8px; align-items: flex-end; transform: none; max-width: min(260px, calc(100vw - 64px)); }
+  .cl-process__tip-arrow { margin-right: 10px; }
+}
 .cl-process__step-desc,
 .cl-process__step-list {
   font-size: 14px;

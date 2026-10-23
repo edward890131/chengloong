@@ -4,6 +4,26 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>正隆機密文件水銷服務</title>
+<!-- 網站描述（摘自首屏標題與說明）：搜尋結果與分享預覽用 -->
+<meta name="description" content="透過機密水銷，賦予紙張再生的機會。正隆多年來無償協助政府機關、民營企業、金融機構、國防單位等超過 400 家合作夥伴，將機密文件循環再製成多元再生紙品，推動資源全循環，落實多贏共榮。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="正隆機密文件水銷服務">
+<meta property="og:title" content="正隆機密文件水銷服務｜透過機密水銷，賦予紙張再生的機會">
+<meta property="og:description" content="正隆多年來無償協助政府機關、民營企業、金融機構、國防單位等超過 400 家合作夥伴，將機密文件循環再製成多元再生紙品，推動資源全循環，落實多贏共榮。">
+<meta property="og:url" content="https://clc-doc-destruction.vercel.app/">
+<meta property="og:locale" content="zh_TW">
+<!-- 分享封面圖：Figma og-cover 1200×630（2322:34392），匯出 JPG。og:image 需絕對網址 -->
+<meta property="og:image" content="https://clc-doc-destruction.vercel.app/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="正隆機密文件水銷服務：RECIRCULATE PAPER, NEW LIFE.">
+<meta name="twitter:card" content="summary_large_image">
+<!-- favicon：Figma logo_clc（2318:34353） -->
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#14a558">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&family=Zalando+Sans+Expanded:wght@400;700&display=swap">
@@ -535,7 +555,9 @@
           <li class="cl-process__step" data-reveal-group>
             <p class="cl-process__step-no"><span class="cl-process__step-label" data-reveal>STEP</span><span class="cl-process__step-num" data-reveal>03</span></p>
             <div class="cl-process__step-text">
-              <h3 class="cl-process__step-title cl-process__step-title--info" data-reveal>挑選到廠日期與時段<img class="cl-process__info" src="assets/04-process/icon-info.svg" alt="說明" data-figma="1695:33037"></h3>
+              <h3 class="cl-process__step-title cl-process__step-title--info"><span data-reveal>挑選到廠日期與時段</span><!--
+                R2 客戶：info icon 加 tooltip（樣式同首屏數據 tooltip）。標題的 reveal 只包文字：[data-reveal] 會裁切溢出，tooltip 放在外面才不會被切
+              --><span class="cl-process__tip" data-reveal="fade"><button class="cl-process__tip-btn" type="button" aria-label="到廠日期與時段說明" aria-expanded="false" aria-describedby="cl-process-tip-date"><img class="cl-process__info" src="assets/04-process/icon-info.svg" alt="" data-figma="1695:33037"></button><span class="cl-process__tip-pop" id="cl-process-tip-date" role="tooltip"><span class="cl-process__tip-body">廠區保養與國定假日除外，請以線上預約時段為準</span><img class="cl-process__tip-arrow" src="assets/01-hero/tooltip-arrow.svg" alt=""></span></span></h3>
               <p class="cl-process__step-desc" data-reveal>週一～週五開放上午 8:30–11:00、下午 13:00–16:00 時段，請於到廠日三天前完成預約。</p>
             </div>
           </li>
