@@ -77,3 +77,26 @@
     });
   });
 })();
+
+/* 02 關於：手機版循環圖「直式／橫式滑動」切換（R3 客戶，比對用；切換鈕只在手機顯示）
+   預設橫式滑動：開場把捲動位置放到中間圓幣（∞ 交會點）。電腦與平板不受影響（一律橫式圖）。 */
+(function () {
+  var cycle = document.querySelector('.cl-about__cycle');
+  if (!cycle) return;
+  var btns = Array.prototype.slice.call(cycle.querySelectorAll('.cl-about__cycle-mode-btn'));
+  var scroller = cycle.querySelector('.cl-about__cycle-img');
+  var stage = cycle.querySelector('.cl-about__cycle-stage');
+  function center() {
+    if (!cycle.classList.contains('is-h') || scroller.scrollWidth <= scroller.clientWidth) return;
+    // 圓幣在 1200 寬圖的 x≈600（中線）
+    scroller.scrollLeft = stage.offsetLeft + stage.offsetWidth / 2 - scroller.clientWidth / 2;
+  }
+  function setMode(m) {
+    cycle.classList.toggle('is-h', m === 'h');
+    btns.forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-mode') === m ? 'true' : 'false'); });
+    requestAnimationFrame(function () { center(); window.dispatchEvent(new Event('resize')); });   // resize：讓 Lottie 依新尺寸重算
+  }
+  btns.forEach(function (b) { b.addEventListener('click', function () { setMode(b.getAttribute('data-mode')); }); });
+  setMode('h');
+  window.addEventListener('load', center);
+})();

@@ -309,6 +309,10 @@
 .cl-about__cycle-band,
 .cl-about__cycle-anim { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
 .cl-about__cycle-band img { width: 100%; height: 100%; }
+.cl-about__cycle-band, .cl-about__cycle-nodes { line-height: 0; }
+/* 直式圖只在手機直式模式顯示；其餘一律用橫式（電腦版）圖 */
+.cl-about__cycle-v { display: none; }
+.cl-about__cycle-mode, .cl-about__cycle-hint { display: none; }
 .cl-about__cycle-nodes { position: relative; display: block; }
 .cl-about__cycle-anim { overflow: hidden; pointer-events: none; }
 .cl-about__cycle-anim svg { display: block; }
@@ -399,4 +403,61 @@
     transform: matrix(0, .47209, -.47209, 0, 296.6746, -64.6607);
   }
   .cl-about__cycle-stage { overflow: hidden; }
+}
+
+/* ---------- 手機版循環圖：直式／橫式滑動切換（R3 客戶，比對用）----------
+   預設橫式滑動（.is-h，JS 加）：電腦版圖放大到 900 寬、可左右滑，開場置中在中間圓幣；Lottie 不轉向。
+   直式（.is-v）：維持原本手機版（-s 圖＋Lottie 轉 90°）。 */
+@media (max-width: 640px) {
+  .cl-about__cycle-mode {
+    display: flex;
+    gap: 4px;
+    margin-top: 20px;
+    padding: 4px;
+    border-radius: 999px;
+    background: #f6f6f6;
+  }
+  .cl-about__cycle-mode-btn {
+    padding: 6px 14px;
+    border-radius: 999px;
+    color: var(--cl-ink-800-60);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 18px;
+    transition: background-color .25s ease, color .25s ease;
+  }
+  .cl-about__cycle-mode-btn[aria-pressed="true"] { background: var(--cl-green-500); color: var(--cl-white); }
+  .cl-about__cycle-mode-btn:focus-visible { outline: 2px solid var(--cl-green-700); outline-offset: 2px; }
+
+  /* 直式 */
+  .cl-about__cycle:not(.is-h) .cl-about__cycle-v { display: block; }
+  .cl-about__cycle:not(.is-h) .cl-about__cycle-h { display: none; }
+
+  /* 橫式滑動 */
+  .cl-about__cycle.is-h .cl-about__cycle-img {
+    align-self: stretch;
+    margin-top: 32px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .cl-about__cycle.is-h .cl-about__cycle-img::-webkit-scrollbar { display: none; }
+  .cl-about__cycle.is-h .cl-about__cycle-stage { width: 900px; overflow: visible; margin: 0 16px; }
+  .cl-about__cycle.is-h .cl-about__cycle-img img { width: 100%; }
+  .cl-about__cycle.is-h .cl-about__cycle-anim { width: 100%; height: 100%; overflow: hidden; transform: none; }
+  .cl-about__cycle.is-h .cl-about__cycle-hint {
+    display: flex;
+    align-self: flex-start;
+    margin: 16px 0 0 24px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: rgba(31, 31, 31, .1);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: .4px;
+    color: var(--cl-ink-900);
+  }
 }

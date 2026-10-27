@@ -107,7 +107,8 @@
 .cl-hero__book-s, .cl-hero__menu { display: none; }
 /* base .cl-btn--sm 的 1px 透明框線加在 padding 外，渲染 42 高、寬 +2；Figma（805:5579／805:5657）框線不占版面＝40 高。
    暫時在段落內扣掉框線寬，已回報主控修 base */
-.cl-hero .cl-btn--sm { padding: 8.5px 20px; }
+.cl-hero .cl-btn--sm,
+.cl-hero__header .cl-btn--sm { padding: 8.5px 20px; }   /* 服務條款頁的 header 不在 .cl-hero 裡，一起套 */
 
 /* ---------- 版心：1440 內容框（大於 1440 時置中）---------- */
 .cl-hero__inner {
@@ -832,3 +833,46 @@
 /* 選單按鈕是滿寬：base 的圓（寬 20%、bottom −48）會從下緣露出一截 → 固定 24px、貼在下緣外；hover 放大到蓋滿寬按鈕 */
 .cl-menu__btn .cl-btn__circle { left: calc(50% - 12px); top: 100%; bottom: auto; width: 24px; }
 .cl-menu__btn:hover .cl-btn__circle { transform: scale(18); }
+
+/* ---------- 手機版三顆標籤：點擊往下展開說明（R3 客戶）----------
+   標籤是 button；說明泡泡放在標籤列下方（.cl-hero__tags 的最後一格，絕對定位），箭頭 x 由 JS 寫 --cl-tag-x 對準點的那顆 */
+.cl-hero__tag-tip { display: none; }
+@media (max-width: 640px) {
+  .cl-hero__tag { cursor: pointer; font: inherit; font-size: 12px; font-weight: 700; transition: background-color .25s ease, color .25s ease; }
+  .cl-hero__tag[aria-expanded="true"] { background: rgba(0, 0, 0, .56); color: var(--cl-white); }
+  .cl-hero__tag:focus-visible { outline: 2px solid var(--cl-white); outline-offset: 2px; }
+  .cl-hero__tag-tip {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    display: block;
+    width: max-content;
+    max-width: min(260px, calc(100vw - 2 * (6.4vw + 24px)));
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity .2s ease-out, transform .25s ease-out, visibility .25s;
+    pointer-events: none;
+  }
+  .cl-hero__tag-tip.is-open { opacity: 1; visibility: visible; transform: none; }
+  .cl-hero__tag-tip::before {   /* 向上的箭頭 */
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: calc(var(--cl-tag-x, 24px) - 6px);
+    border: 6px solid transparent;
+    border-top: 0;
+    border-bottom-color: var(--cl-ink-900);
+  }
+  .cl-hero__tag-tip-body {
+    display: block;
+    padding: 8px 10px;
+    border-radius: 4px;
+    background: var(--cl-ink-900);
+    color: var(--cl-white);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: .4px;
+  }
+}

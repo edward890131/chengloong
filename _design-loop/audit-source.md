@@ -107,3 +107,8 @@
 | 2026-10-23 | 網站 favicon／描述 | Figma logo_clc 2318:34353 | favicon（svg、ico 16+32、apple-touch 180、512）、site.webmanifest、theme-color；meta description 與 og:title／og:description 摘自首屏；og:image 待封面圖（Figma 2319:34354）確認後加 | 客戶（R2） |
 | 2026-10-23 | 分享封面圖 | Figma og-cover 1200×630（2322:34392） | 匯出 og-cover.jpg（119KB），加 og:image／twitter:card summary_large_image | 客戶（R2） |
 | 2026-10-23 | 04 線上預約 STEP 3 info icon | 1695:33037（無 tooltip） | 加 tooltip「廠區保養與國定假日除外，請以線上預約時段為準」，樣式同首屏數據 tooltip；hover／focus 顯示、觸控點擊切換、點外面或 Esc 關閉；手機改靠 icon 右側往左展開；標題 reveal 只包文字避免裁切 tooltip | 客戶（R2） |
+| 2026-10-27 | R3 客戶回饋：文字 | — | CO2e 的 2 下標；關於卡 1「入場」→「入廠」；Step 01 多餘空格刪除；獲得綠點補句號；FAQ 三則改文（車號、水銷證明、將點數用於捐贈）；手機頁尾文字改與電腦版一致 | 客戶（R3） |
+| 2026-10-27 | R3 水銷證明 | Figma 1600:16017 改版 | 卡內圖與彈窗大圖重新匯出（WebP q90），pdf 可視範圍依稿微調 | 客戶（R3） |
+| 2026-10-27 | R3 手機首屏三顆標籤 | 僅標籤 | 點擊往下展開說明（文案同電腦版首頁特色），同時只開一個 | 客戶（R3） |
+| 2026-10-27 | R3 手機水銷價值循環 | 直式（-s 圖＋Lottie 轉 90°） | 加「橫式滑動」版（電腦版圖 900 寬、可左右滑、開場置中圓幣）＋直式／橫式切換鈕（比對用，預設橫式） | 客戶（R3） |
+| 2026-10-27 | R3 服務條款頁 | 無 | 新增 terms.html：沿用 header／選單／頁尾，標題＋目錄＋十條條文（草稿，待正隆法務確認）；header 抽成共用 _header.html，選單 JS 移到 00-header.js | 客戶（R3） |
