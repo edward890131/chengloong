@@ -1,10 +1,12 @@
 /* ==========================================================================
-   10 服務條款頁（terms.html，R3 客戶）：簡潔版面，沿用首頁 header／頁尾與字級色彩
-   電腦：左側目錄（sticky）＋右側條文；≤900 目錄移到條文上方
+   10 服務條款頁（terms.html，R3 客戶）：沿用首頁 header／頁尾與字級色彩
+   R3 修正：拿掉最後更新、草稿備註、目錄；分隔線以下只留兩種文字樣式
+     · 標題 .cl-terms__h：22/32 700（手機 18/28），編號同字級、綠色
+     · 內文 .cl-terms__p：16/28 400 灰（手機 15/26），每條一段，左緣與標題對齊
    ========================================================================== */
 .cl-page--terms { background: var(--cl-white); }
 .cl-terms {
-  max-width: 1120px;
+  max-width: 960px;
   margin: 0 auto;
   padding: 160px 80px 120px;
 }
@@ -23,69 +25,31 @@
 }
 .cl-terms__eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--cl-green-500); flex: none; }
 .cl-terms__title { margin-top: 12px; font-size: 40px; font-weight: 700; line-height: 56px; letter-spacing: 1px; color: var(--cl-ink-900); }
-.cl-terms__meta { margin-top: 12px; font-size: 14px; line-height: 20px; color: var(--cl-ink-800-60); }
-.cl-terms__draft {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 8px 14px;
-  border-radius: 8px;
-  background: #f6f6f6;
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--cl-ink-800-60);
-}
 
-.cl-terms__body { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 64px; padding-top: 48px; }
-.cl-terms__toc { position: sticky; top: 102px; align-self: start; }
-.cl-terms__toc-title { font-size: 14px; font-weight: 700; line-height: 20px; color: var(--cl-ink-900); }
-.cl-terms__toc ol { margin: 12px 0 0; padding: 0; list-style: none; counter-reset: toc; }
-.cl-terms__toc li { counter-increment: toc; }
-.cl-terms__toc a {
-  display: flex;
-  gap: 10px;
-  padding: 7px 0;
-  font-size: 15px;
-  line-height: 22px;
-  color: var(--cl-ink-800-60);
-  transition: color .2s ease;
-}
-.cl-terms__toc a::before { content: counter(toc, decimal-leading-zero); font-family: var(--cl-font-num); font-size: 13px; font-weight: 600; color: var(--cl-ink-800-60); }
-.cl-terms__toc a:hover { color: var(--cl-green-500); }
+.cl-terms__body { padding-top: 16px; }
+.cl-terms__section { padding-top: 40px; }
 
-.cl-terms__intro { font-size: 16px; line-height: 28px; letter-spacing: .3px; color: var(--cl-ink-900); }
-.cl-terms__section { padding-top: 40px; scroll-margin-top: 82px; }
-.cl-terms__h { display: flex; align-items: baseline; gap: 14px; font-size: 22px; font-weight: 700; line-height: 32px; letter-spacing: .6px; color: var(--cl-ink-900); }
-.cl-terms__no { font-family: var(--cl-font-num); font-size: 16px; font-weight: 700; color: var(--cl-green-500); }
-.cl-terms__list { margin: 14px 0 0; padding: 0 0 0 1.4em; }
-.cl-terms__list li { padding-left: .2em; font-size: 16px; line-height: 28px; letter-spacing: .3px; color: var(--cl-ink-800-60); }
-.cl-terms__list li + li { margin-top: 8px; }
-.cl-terms__list li::marker { font-family: var(--cl-font-num); font-size: 14px; font-weight: 600; color: var(--cl-ink-800-60); }
-.cl-terms__contact { margin: 16px 0 0; display: grid; gap: 10px; }
-.cl-terms__contact div { display: flex; gap: 16px; font-size: 16px; line-height: 26px; }
-.cl-terms__contact dt { flex: none; width: 112px; color: var(--cl-ink-800-60); }
-.cl-terms__contact dd { margin: 0; color: var(--cl-ink-900); }
-.cl-terms__contact a { color: var(--cl-green-500); }
+/* 標題 */
+.cl-terms__h { font-size: 22px; font-weight: 700; line-height: 32px; letter-spacing: .6px; color: var(--cl-ink-900); }
+.cl-terms__no { margin-right: .6em; color: var(--cl-green-500); }   /* 編號跟標題同字級、同字型，只換顏色 */
+
+/* 內文 */
+.cl-terms__p { margin-top: 12px; font-size: 16px; font-weight: 400; line-height: 28px; letter-spacing: .3px; color: var(--cl-ink-800-60); }
+.cl-terms__h + .cl-terms__p { margin-top: 14px; }
+.cl-terms__p a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
 
 @media (max-width: 1100px) {
   .cl-terms { padding: 140px 40px 96px; }
-  .cl-terms__body { grid-template-columns: 180px minmax(0, 1fr); gap: 40px; }
-}
-@media (max-width: 900px) {
-  .cl-terms__body { grid-template-columns: minmax(0, 1fr); gap: 32px; }
-  .cl-terms__toc { position: static; padding: 20px 24px; border-radius: 16px; background: #f6f6f6; }
-  .cl-terms__toc ol { columns: 2; column-gap: 24px; }
 }
 @media (max-width: 640px) {
   .cl-terms { padding: 108px 16px 72px; }
   .cl-terms__head { padding-bottom: 28px; }
   .cl-terms__eyebrow { font-size: 14px; }
   .cl-terms__title { font-size: 28px; line-height: 40px; }
-  .cl-terms__body { padding-top: 28px; }
-  .cl-terms__toc ol { columns: 1; }
-  .cl-terms__h { font-size: 18px; line-height: 28px; gap: 10px; }
-  .cl-terms__intro, .cl-terms__list li { font-size: 15px; line-height: 26px; }
+  .cl-terms__body { padding-top: 8px; }
   .cl-terms__section { padding-top: 32px; }
-  .cl-terms__contact div { flex-direction: column; gap: 0; }
+  .cl-terms__h { font-size: 18px; line-height: 28px; }
+  .cl-terms__p { font-size: 15px; line-height: 26px; }
 }
 
 /* header／選單：目前頁（服務條款）標綠 */
