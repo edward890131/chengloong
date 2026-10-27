@@ -412,7 +412,7 @@
   /* 切換鈕：與家紙／工紙同一個 Rubber Segment（base.js clRubberSegment），軌道淺灰配白卡 */
   .cl-about__cycle-mode {
     position: relative;
-    display: grid;
+    display: none;   /* R3 客戶：先定案橫式，切換鈕隱藏（要再比對時改回 grid） */
     grid-template-columns: auto auto;
     margin-top: 20px;
     padding: 4px;
