@@ -467,8 +467,10 @@
   var stage = cycle.querySelector('.cl-about__cycle-stage');
   function center() {
     if (!cycle.classList.contains('is-h') || scroller.scrollWidth <= scroller.clientWidth) return;
-    // 圓幣在 1200 寬圖的 x≈600（中線）
-    scroller.scrollLeft = stage.offsetLeft + stage.offsetWidth / 2 - scroller.clientWidth / 2;
+    // 圓幣在圖的水平中線：用畫面上的實際位置，把圖中線對到捲動區中線
+    //（不能用 offsetLeft：它是相對外層面板，不是捲動區，會偏掉且不隨螢幕寬變）
+    var a = scroller.getBoundingClientRect(), s = stage.getBoundingClientRect();
+    scroller.scrollLeft += (s.left + s.width / 2) - (a.left + a.width / 2);
   }
   function setMode(m) {
     cycle.classList.toggle('is-h', m === 'h');
