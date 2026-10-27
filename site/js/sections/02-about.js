@@ -77,3 +77,32 @@
     });
   });
 })();
+
+/* 02 關於：手機版循環圖「直式／橫式滑動」切換（R3 客戶，比對用；切換鈕只在手機顯示）
+   預設橫式滑動：開場把捲動位置放到中間圓幣（∞ 交會點）。電腦與平板不受影響（一律橫式圖）。 */
+(function () {
+  var cycle = document.querySelector('.cl-about__cycle');
+  if (!cycle) return;
+  var toggle = cycle.querySelector('.cl-about__cycle-mode');
+  var scroller = cycle.querySelector('.cl-about__cycle-img');
+  var stage = cycle.querySelector('.cl-about__cycle-stage');
+  function center() {
+    if (!cycle.classList.contains('is-h') || scroller.scrollWidth <= scroller.clientWidth) return;
+    // 圓幣在圖的水平中線：用畫面上的實際位置，把圖中線對到捲動區中線
+    //（不能用 offsetLeft：它是相對外層面板，不是捲動區，會偏掉且不隨螢幕寬變）
+    var a = scroller.getBoundingClientRect(), s = stage.getBoundingClientRect();
+    scroller.scrollLeft += (s.left + s.width / 2) - (a.left + a.width / 2);
+  }
+  function setMode(m) {
+    cycle.classList.toggle('is-h', m === 'h');
+    requestAnimationFrame(function () { center(); window.dispatchEvent(new Event('resize')); });   // resize：讓 Lottie 依新尺寸重算
+  }
+  // 切換鈕：與家紙／工紙同一個 Rubber Segment（base.js）
+  if (toggle && window.clRubberSegment) window.clRubberSegment(toggle, {
+    btn: ':scope > .cl-about__cycle-mode-btn',
+    thumb: '.cl-about__cycle-mode-thumb',
+    onChange: function (i, btn) { setMode(btn.getAttribute('data-mode')); }
+  });
+  setMode('h');
+  window.addEventListener('load', center);
+})();

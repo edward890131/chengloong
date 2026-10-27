@@ -1,0 +1,57 @@
+/* ==========================================================================
+   10 服務條款頁（terms.html，R3 客戶）：沿用首頁 header／頁尾與字級色彩
+   R3 修正：拿掉最後更新、草稿備註、目錄；分隔線以下只留兩種文字樣式
+     · 標題 .cl-terms__h：22/32 700（手機 18/28），中文序號「一、」寫在標題文字裡
+     · 內文 .cl-terms__p：16/28 400 灰（手機 15/26），每一節一段，左緣與標題對齊
+   ========================================================================== */
+.cl-page--terms { background: var(--cl-white); }
+.cl-terms {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 160px 80px 120px;
+}
+.cl-terms__head { padding-bottom: 40px; border-bottom: 1px solid var(--cl-ink-800-10); }
+.cl-terms__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--cl-font-num);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--cl-green-500);
+}
+.cl-terms__eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--cl-green-500); flex: none; }
+.cl-terms__title { margin-top: 12px; font-size: 40px; font-weight: 700; line-height: 56px; letter-spacing: 1px; color: var(--cl-ink-900); }
+
+.cl-terms__body { padding-top: 16px; }
+.cl-terms__section { padding-top: 40px; }
+
+/* 標題 */
+.cl-terms__h { font-size: 22px; font-weight: 700; line-height: 32px; letter-spacing: .6px; color: var(--cl-ink-900); }
+
+
+/* 內文 */
+.cl-terms__p { margin-top: 12px; font-size: 16px; font-weight: 400; line-height: 28px; letter-spacing: .3px; color: var(--cl-ink-800-60); }
+.cl-terms__h + .cl-terms__p { margin-top: 14px; }
+.cl-terms__p a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+
+@media (max-width: 1100px) {
+  .cl-terms { padding: 140px 40px 96px; }
+}
+@media (max-width: 640px) {
+  .cl-terms { padding: 108px 16px 72px; }
+  .cl-terms__head { padding-bottom: 28px; }
+  .cl-terms__eyebrow { font-size: 14px; }
+  .cl-terms__title { font-size: 28px; line-height: 40px; }
+  .cl-terms__body { padding-top: 8px; }
+  .cl-terms__section { padding-top: 32px; }
+  .cl-terms__h { font-size: 18px; line-height: 28px; }
+  .cl-terms__p { font-size: 15px; line-height: 26px; }
+}
+
+/* header／選單：目前頁（服務條款）標綠 */
+.cl-hero__nav-link[aria-current="page"],
+.cl-menu__link[aria-current="page"] { color: var(--cl-green-500); }

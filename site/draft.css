@@ -303,6 +303,9 @@ html.is-loading { overflow: hidden; }
   letter-spacing: .6px;
 }
 
+/* 化學式下標（客戶 R3：CO₂e 的 2 要下標）：不撐開行高 */
+.cl-sub { position: relative; top: .3em; font-size: .7em; line-height: 0; vertical-align: baseline; }
+
 /* ==========================================================================
    01 首屏（含 header）· 負責人 A
    電腦版 1695:20083（1440×800）／手機版 1695:19588（375×756）
@@ -412,7 +415,8 @@ html.is-loading { overflow: hidden; }
 .cl-hero__book-s, .cl-hero__menu { display: none; }
 /* base .cl-btn--sm 的 1px 透明框線加在 padding 外，渲染 42 高、寬 +2；Figma（805:5579／805:5657）框線不占版面＝40 高。
    暫時在段落內扣掉框線寬，已回報主控修 base */
-.cl-hero .cl-btn--sm { padding: 8.5px 20px; }
+.cl-hero .cl-btn--sm,
+.cl-hero__header .cl-btn--sm { padding: 8.5px 20px; }   /* 服務條款頁的 header 不在 .cl-hero 裡，一起套 */
 
 /* ---------- 版心：1440 內容框（大於 1440 時置中）---------- */
 .cl-hero__inner {
@@ -1138,6 +1142,49 @@ html.is-loading { overflow: hidden; }
 .cl-menu__btn .cl-btn__circle { left: calc(50% - 12px); top: 100%; bottom: auto; width: 24px; }
 .cl-menu__btn:hover .cl-btn__circle { transform: scale(18); }
 
+/* ---------- 手機版三顆標籤：點擊往下展開說明（R3 客戶）----------
+   標籤是 button；說明泡泡放在標籤列下方（.cl-hero__tags 的最後一格，絕對定位），箭頭 x 由 JS 寫 --cl-tag-x 對準點的那顆 */
+.cl-hero__tag-tip { display: none; }
+@media (max-width: 640px) {
+  .cl-hero__tag { cursor: pointer; font: inherit; font-size: 12px; font-weight: 700; transition: background-color .25s ease, color .25s ease; }
+  .cl-hero__tag[aria-expanded="true"] { background: rgba(0, 0, 0, .56); color: var(--cl-white); }
+  .cl-hero__tag:focus-visible { outline: 2px solid var(--cl-white); outline-offset: 2px; }
+  .cl-hero__tag-tip {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    display: block;
+    width: max-content;
+    max-width: min(260px, calc(100vw - 2 * (6.4vw + 24px)));
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity .2s ease-out, transform .25s ease-out, visibility .25s;
+    pointer-events: none;
+  }
+  .cl-hero__tag-tip.is-open { opacity: 1; visibility: visible; transform: none; }
+  .cl-hero__tag-tip::before {   /* 向上的箭頭 */
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: calc(var(--cl-tag-x, 24px) - 6px);
+    border: 6px solid transparent;
+    border-top: 0;
+    border-bottom-color: var(--cl-ink-900);
+  }
+  .cl-hero__tag-tip-body {
+    display: block;
+    padding: 8px 10px;
+    border-radius: 4px;
+    background: var(--cl-ink-900);
+    color: var(--cl-white);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: .4px;
+  }
+}
+
 /* ==========================================================================
    02 什麼是水銷？（負責人 B）
    電腦版 1695:20117（1440×1453）／手機版 1695:19642（375×1348）
@@ -1449,6 +1496,10 @@ html.is-loading { overflow: hidden; }
 .cl-about__cycle-band,
 .cl-about__cycle-anim { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
 .cl-about__cycle-band img { width: 100%; height: 100%; }
+.cl-about__cycle-band, .cl-about__cycle-nodes { line-height: 0; }
+/* 直式圖只在手機直式模式顯示；其餘一律用橫式（電腦版）圖 */
+.cl-about__cycle-v { display: none; }
+.cl-about__cycle-mode, .cl-about__cycle-hint { display: none; }
 .cl-about__cycle-nodes { position: relative; display: block; }
 .cl-about__cycle-anim { overflow: hidden; pointer-events: none; }
 .cl-about__cycle-anim svg { display: block; }
@@ -1539,6 +1590,86 @@ html.is-loading { overflow: hidden; }
     transform: matrix(0, .47209, -.47209, 0, 296.6746, -64.6607);
   }
   .cl-about__cycle-stage { overflow: hidden; }
+}
+
+/* ---------- 手機版循環圖：直式／橫式滑動切換（R3 客戶，比對用）----------
+   預設橫式滑動（.is-h，JS 加）：電腦版圖 720 寬（原 900，客戶要求先縮 0.8 倍）、可左右滑，開場置中在中間圓幣；Lottie 不轉向。
+   直式（.is-v）：維持原本手機版（-s 圖＋Lottie 轉 90°）。 */
+@media (max-width: 640px) {
+  /* 切換鈕：與家紙／工紙同一個 Rubber Segment（base.js clRubberSegment），軌道淺灰配白卡 */
+  .cl-about__cycle-mode {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto auto;
+    margin-top: 20px;
+    padding: 4px;
+    border-radius: 999px;
+    background: #f6f6f6;
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .cl-about__cycle-mode-btn {
+    padding: 6px 16px;
+    border-radius: 999px;
+    color: #989898;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    letter-spacing: .3px;
+    text-align: center;
+    white-space: nowrap;
+    transition: color .16s ease, transform .16s cubic-bezier(.23, 1, .32, 1);
+  }
+  .cl-about__cycle-mode-btn[aria-checked="true"] { cursor: grab; }
+  .cl-about__cycle-mode.is-held,
+  .cl-about__cycle-mode.is-held .cl-about__cycle-mode-btn { cursor: grabbing; }
+  .cl-about__cycle-mode-btn.is-pressed { transform: scale(.96); }
+  .cl-about__cycle-mode-btn:focus-visible { outline: 2px solid var(--cl-green-700); outline-offset: 2px; }
+  .cl-about__cycle-mode-thumb {
+    position: absolute;
+    inset: 4px;
+    display: grid;
+    grid-template-columns: auto auto;
+    border-radius: 999px;
+    background: var(--cl-green-500);
+    pointer-events: none;
+    clip-path: inset(0 0 0 50% round 999px);   /* JS 量好後接手 */
+  }
+  .cl-about__cycle-mode-thumb .cl-about__cycle-mode-btn { color: var(--cl-white); }
+
+  /* 直式 */
+  .cl-about__cycle:not(.is-h) .cl-about__cycle-v { display: block; }
+  .cl-about__cycle:not(.is-h) .cl-about__cycle-h { display: none; }
+
+  /* 橫式滑動 */
+  .cl-about__cycle.is-h .cl-about__cycle-img {
+    align-self: stretch;
+    margin-top: 32px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .cl-about__cycle.is-h .cl-about__cycle-img::-webkit-scrollbar { display: none; }
+  .cl-about__cycle.is-h .cl-about__cycle-stage { width: 720px; overflow: visible; margin: 0 16px; }   /* R3：900 縮 0.8 倍看效果 */
+  .cl-about__cycle.is-h .cl-about__cycle-img img { width: 100%; }
+  .cl-about__cycle.is-h .cl-about__cycle-anim { width: 100%; height: 100%; overflow: hidden; transform: none; }
+  .cl-about__cycle.is-h .cl-about__cycle-hint {
+    display: flex;
+    align-self: flex-start;
+    margin: 16px 0 0 24px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: rgba(31, 31, 31, .1);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: .4px;
+    color: var(--cl-ink-900);
+  }
 }
 
 /* ==========================================================================
@@ -3063,14 +3194,14 @@ html.is-loading { overflow: hidden; }
 .cl-green__dot.is-active,
 .cl-green__pager-dot.is-active { background: var(--cl-green-400); }
 
-/* certificate_img：pdf 可視範圍，left 64、top 86.53（客戶 R2 微調證明書尺寸） */
+/* certificate_img：pdf 可視範圍，left 64、top 86.63（客戶 R3 證明書改版） */
 .cl-green__doc { background: #989898; }
 .cl-green__doc-img {
   position: absolute;
   left: 64px;
-  top: 86.5338px;
+  top: 86.626px;
   width: 296px;
-  height: 369.4662px;
+  height: 369.374px;
   max-width: none;
 }
 
@@ -3163,7 +3294,7 @@ html.is-loading { overflow: hidden; }
 .cl-green__doc { container-type: size; }
 .cl-green__coins { transform-origin: calc(50cqw + 114.0849px) calc(50cqh + 17.0088px); }
 .cl-green__paper { transform-origin: calc(50cqw + 249.012px) calc(50cqh + 150.0389px); }
-.cl-green__doc-img { transform-origin: calc(50cqw - 64px) calc(50cqh - 86.5338px); }
+.cl-green__doc-img { transform-origin: calc(50cqw - 64px) calc(50cqh - 86.626px); }
 /* esg：內層 270 高垂直置中、img left -15%、top -32 → 容器中心在圖的 47.56%／167px */
 .cl-green__esg-hand { transform-origin: 47.56% 167px; }
 
@@ -3292,7 +3423,7 @@ html.is-loading { overflow: hidden; }
   .cl-green__side { height: 456px; }
   /* 證明圖是可視範圍（貼右下），欄寬改變時跟著右下角 */
   .cl-green__doc-img { left: auto; right: 0; top: auto; bottom: 0; }
-  .cl-green__doc-img { transform-origin: calc(296px - 50cqw) calc(369.4662px - 50cqh); }
+  .cl-green__doc-img { transform-origin: calc(296px - 50cqw) calc(369.374px - 50cqh); }
   /* 資訊框左右 12（641–1199 規則）會蓋到右下點點：點點改到右上（同手機版位置） */
   .cl-green__dots { top: 20px; bottom: auto; }
 }
@@ -3388,8 +3519,8 @@ html.is-loading { overflow: hidden; }
   .cl-green__dots { top: 16px; right: 16px; bottom: auto; }
 
   /* pdf：手機版為電腦版 0.9083 倍（311.56／343） */
-  .cl-green__doc-img { left: 46.6291px; top: 78.5016px; width: 268.8648px; height: 335.598px; }
-  .cl-green__doc-img { transform-origin: calc(50cqw - 46.6291px) calc(50cqh - 78.5016px); }
+  .cl-green__doc-img { left: 46.6291px; top: 78.5853px; width: 268.8648px; height: 335.6147px; }
+  .cl-green__doc-img { transform-origin: calc(50cqw - 46.6291px) calc(50cqh - 78.5853px); }
   .cl-green__coins { transform-origin: calc(50cqw + 115.11px) calc(50cqh + 15.4497px); }
   .cl-green__paper { transform-origin: calc(50cqw + 210.2768px) calc(50cqh + 116.9137px); }
 
@@ -4216,3 +4347,61 @@ html.is-loading { overflow: hidden; }
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
+
+/* ==========================================================================
+   10 服務條款頁（terms.html，R3 客戶）：沿用首頁 header／頁尾與字級色彩
+   R3 修正：拿掉最後更新、草稿備註、目錄；分隔線以下只留兩種文字樣式
+     · 標題 .cl-terms__h：22/32 700（手機 18/28），中文序號「一、」寫在標題文字裡
+     · 內文 .cl-terms__p：16/28 400 灰（手機 15/26），每一節一段，左緣與標題對齊
+   ========================================================================== */
+.cl-page--terms { background: var(--cl-white); }
+.cl-terms {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 160px 80px 120px;
+}
+.cl-terms__head { padding-bottom: 40px; border-bottom: 1px solid var(--cl-ink-800-10); }
+.cl-terms__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--cl-font-num);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--cl-green-500);
+}
+.cl-terms__eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--cl-green-500); flex: none; }
+.cl-terms__title { margin-top: 12px; font-size: 40px; font-weight: 700; line-height: 56px; letter-spacing: 1px; color: var(--cl-ink-900); }
+
+.cl-terms__body { padding-top: 16px; }
+.cl-terms__section { padding-top: 40px; }
+
+/* 標題 */
+.cl-terms__h { font-size: 22px; font-weight: 700; line-height: 32px; letter-spacing: .6px; color: var(--cl-ink-900); }
+
+
+/* 內文 */
+.cl-terms__p { margin-top: 12px; font-size: 16px; font-weight: 400; line-height: 28px; letter-spacing: .3px; color: var(--cl-ink-800-60); }
+.cl-terms__h + .cl-terms__p { margin-top: 14px; }
+.cl-terms__p a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+
+@media (max-width: 1100px) {
+  .cl-terms { padding: 140px 40px 96px; }
+}
+@media (max-width: 640px) {
+  .cl-terms { padding: 108px 16px 72px; }
+  .cl-terms__head { padding-bottom: 28px; }
+  .cl-terms__eyebrow { font-size: 14px; }
+  .cl-terms__title { font-size: 28px; line-height: 40px; }
+  .cl-terms__body { padding-top: 8px; }
+  .cl-terms__section { padding-top: 32px; }
+  .cl-terms__h { font-size: 18px; line-height: 28px; }
+  .cl-terms__p { font-size: 15px; line-height: 26px; }
+}
+
+/* header／選單：目前頁（服務條款）標綠 */
+.cl-hero__nav-link[aria-current="page"],
+.cl-menu__link[aria-current="page"] { color: var(--cl-green-500); }

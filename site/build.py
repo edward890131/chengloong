@@ -42,17 +42,26 @@ def preload_list(html, css):
 
 def main():
     src = ROOT / 'src'
-    html = cat(src / '_head.html', src / 'sections', src / '_foot.html')
+    header = (src / '_header.html').read_text()
+    html = cat(src / '_head.html', src / 'sections', src / '_foot.html').replace('<!--@header-->', header, 1)
     css = cat(ROOT / 'css' / 'base.css', ROOT / 'css' / 'sections')
     pre = preload_list(html, css)
     html = html.replace('/*CL_PRELOAD*/[]', json.dumps(pre, separators=(',', ':')), 1)
     (ROOT / 'index.html').write_text(html)
+    # 服務條款頁（R3）：共用 header／頁尾。header 的錨點改連回首頁（index.html#about），logo 回首頁，服務條款標成目前頁
+    terms_header = header.replace('href="#top"', 'href="index.html"')
+    terms_header = re.sub(r'href="#(about|process|green|faq)"', r'href="index.html#\1"', terms_header)
+    terms_header = terms_header.replace('href="terms.html">服務條款', 'href="terms.html" aria-current="page">服務條款')
+    terms_header = terms_header.replace('href="terms.html"><span>服務條款', 'href="terms.html" aria-current="page"><span>服務條款')
+    footer = (src / 'sections' / '09-footer.html').read_text()
+    terms = (src / 'pages' / 'terms.html').read_text()
+    (ROOT / 'terms.html').write_text(terms.replace('<!--@header-->', terms_header, 1).replace('<!--@footer-->', footer, 1))
     (ROOT / 'draft.css').write_text(css)
     # 頁面 JS 整包等進場載入完成才跑（_head 的 window.clWhenReady；沒有載入畫面時立刻跑）
     js = cat(ROOT / 'js' / 'base.js', ROOT / 'js' / 'sections')
     (ROOT / 'main.js').write_text('(window.clWhenReady || function (fn) { fn(); })(function () {\n' + js + '\n});\n')
     print('preload: %d files, %.1f MB' % (len(pre), sum(p[1] for p in pre) / 1048576))
-    print('built site/index.html, site/draft.css, site/main.js')
+    print('built site/index.html, site/terms.html, site/draft.css, site/main.js')
 
 
 if __name__ == '__main__':

@@ -302,3 +302,6 @@ html.is-loading { overflow: hidden; }
   line-height: 20px;
   letter-spacing: .6px;
 }
+
+/* 化學式下標（客戶 R3：CO₂e 的 2 要下標）：不撐開行高 */
+.cl-sub { position: relative; top: .3em; font-size: .7em; line-height: 0; vertical-align: baseline; }

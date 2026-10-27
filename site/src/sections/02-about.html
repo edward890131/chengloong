@@ -34,7 +34,7 @@
         </div>
         <div class="cl-about__card-text" data-figma="1695:20175" data-figma-s="2133:24387">
           <h3 class="cl-about__card-title" data-reveal data-figma="1695:20176" data-figma-s="2133:24388">完善的銷毀流程</h3>
-          <p class="cl-about__card-desc" data-reveal data-figma="1695:20177" data-figma-s="2133:24389">正隆投入水銷服務多年，從預約、銷毀前準備到入場執行，皆有完善流程確保機敏資料能完整銷毀。</p>
+          <p class="cl-about__card-desc" data-reveal data-figma="1695:20177" data-figma-s="2133:24389">正隆投入水銷服務多年，從預約、銷毀前準備到入廠執行，皆有完善流程確保機敏資料能完整銷毀。</p>
         </div>
       </li>
       <li class="cl-about__card" data-reveal-group data-figma="1695:20178" data-figma-s="2133:24390">
@@ -100,19 +100,27 @@
         <p class="cl-about__pill" data-reveal data-figma="1695:20240" data-figma-s="1695:19742">水銷價值循環</p>
         <p class="cl-about__cycle-sub" data-reveal data-figma="1695:20243" data-figma-s="1695:19745">100%安全銷毀到永續效益，建構企業專屬綠色生態圈</p>
       </div>
+      <!-- R3 客戶：手機版要維持橫式（保留 ∞ 概念，可左右滑）。先保留直式，加「橫式滑動」版本＋切換（比對用，只在手機顯示） -->
+      <div class="cl-about__cycle-mode" role="radiogroup" aria-label="手機版循環圖版本（比對用）">
+        <button type="button" class="cl-about__cycle-mode-btn" role="radio" aria-checked="false" tabindex="-1" data-mode="v">直式</button>
+        <button type="button" class="cl-about__cycle-mode-btn" role="radio" aria-checked="true" data-mode="h">橫式滑動</button>
+        <div class="cl-about__cycle-mode-thumb" aria-hidden="true"><span class="cl-about__cycle-mode-btn">直式</span><span class="cl-about__cycle-mode-btn">橫式滑動</span></div>
+      </div>
       <div class="cl-about__cycle-img" data-figma="1695:20244" data-figma-s="1695:19746">
         <div class="cl-about__cycle-stage">
-          <picture class="cl-about__cycle-band" aria-hidden="true">
-            <source media="(max-width: 640px)" srcset="assets/02-about/value-cycle-s-band.svg" width="327" height="450">
-            <img src="assets/02-about/value-cycle-l-band.svg" width="1200" height="560" alt="">
-          </picture>
+          <!-- 直式（-s，手機直式版）與橫式（-l，電腦版）兩組圖都放著，依 .cl-about__cycle 的模式切換（原本用 <picture> 依寬度選，無法手動切） -->
+          <span class="cl-about__cycle-band" aria-hidden="true">
+            <img class="cl-about__cycle-v" src="assets/02-about/value-cycle-s-band.svg" width="327" height="450" alt="">
+            <img class="cl-about__cycle-h" src="assets/02-about/value-cycle-l-band.svg" width="1200" height="560" alt="">
+          </span>
           <div class="cl-about__cycle-anim" aria-hidden="true" data-lottie="assets/02-about/infinity-breathe.json"></div>
-          <picture class="cl-about__cycle-nodes">
-            <source media="(max-width: 640px)" srcset="assets/02-about/value-cycle-s-nodes.svg" width="327" height="450">
-            <img src="assets/02-about/value-cycle-l-nodes.svg" width="1200" height="560" alt="水銷價值循環圖：左環「循環經濟．機密文件循環再生」依序為機密文件、水銷處理、再生紙品製造；右環「綠點生態系．創造多贏永續價值」依序為綠點存摺、綠色採購折抵／公益捐贈、永續共好；兩環交會於綠點，1 KG 回收紙 = 1 綠點 = 1 元。">
-          </picture>
+          <span class="cl-about__cycle-nodes">
+            <img class="cl-about__cycle-v" src="assets/02-about/value-cycle-s-nodes.svg" width="327" height="450" alt="水銷價值循環圖：左環「循環經濟．機密文件循環再生」依序為機密文件、水銷處理、再生紙品製造；右環「綠點生態系．創造多贏永續價值」依序為綠點存摺、綠色採購折抵／公益捐贈、永續共好；兩環交會於綠點，1 KG 回收紙 = 1 綠點 = 1 元。">
+            <img class="cl-about__cycle-h" src="assets/02-about/value-cycle-l-nodes.svg" width="1200" height="560" alt="水銷價值循環圖：左環「循環經濟．機密文件循環再生」依序為機密文件、水銷處理、再生紙品製造；右環「綠點生態系．創造多贏永續價值」依序為綠點存摺、綠色採購折抵／公益捐贈、永續共好；兩環交會於綠點，1 KG 回收紙 = 1 綠點 = 1 元。">
+          </span>
         </div>
       </div>
+      <p class="cl-about__cycle-hint" aria-hidden="true">可左右滑動查看</p>
     </div>
   </div>
 </section>
