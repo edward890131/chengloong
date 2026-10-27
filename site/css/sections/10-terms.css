@@ -1,8 +1,8 @@
 /* ==========================================================================
    10 服務條款頁（terms.html，R3 客戶）：沿用首頁 header／頁尾與字級色彩
    R3 修正：拿掉最後更新、草稿備註、目錄；分隔線以下只留兩種文字樣式
-     · 標題 .cl-terms__h：22/32 700（手機 18/28），編號同字級、綠色
-     · 內文 .cl-terms__p：16/28 400 灰（手機 15/26），每條一段，左緣與標題對齊
+     · 標題 .cl-terms__h：22/32 700（手機 18/28），中文序號「一、」寫在標題文字裡
+     · 內文 .cl-terms__p：16/28 400 灰（手機 15/26），每一節一段，左緣與標題對齊
    ========================================================================== */
 .cl-page--terms { background: var(--cl-white); }
 .cl-terms {
@@ -31,7 +31,7 @@
 
 /* 標題 */
 .cl-terms__h { font-size: 22px; font-weight: 700; line-height: 32px; letter-spacing: .6px; color: var(--cl-ink-900); }
-.cl-terms__no { margin-right: .6em; color: var(--cl-green-500); }   /* 編號跟標題同字級、同字型，只換顏色 */
+
 
 /* 內文 */
 .cl-terms__p { margin-top: 12px; font-size: 16px; font-weight: 400; line-height: 28px; letter-spacing: .3px; color: var(--cl-ink-800-60); }
