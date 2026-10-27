@@ -83,7 +83,7 @@
 (function () {
   var cycle = document.querySelector('.cl-about__cycle');
   if (!cycle) return;
-  var btns = Array.prototype.slice.call(cycle.querySelectorAll('.cl-about__cycle-mode-btn'));
+  var toggle = cycle.querySelector('.cl-about__cycle-mode');
   var scroller = cycle.querySelector('.cl-about__cycle-img');
   var stage = cycle.querySelector('.cl-about__cycle-stage');
   function center() {
@@ -95,10 +95,14 @@
   }
   function setMode(m) {
     cycle.classList.toggle('is-h', m === 'h');
-    btns.forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-mode') === m ? 'true' : 'false'); });
     requestAnimationFrame(function () { center(); window.dispatchEvent(new Event('resize')); });   // resize：讓 Lottie 依新尺寸重算
   }
-  btns.forEach(function (b) { b.addEventListener('click', function () { setMode(b.getAttribute('data-mode')); }); });
+  // 切換鈕：與家紙／工紙同一個 Rubber Segment（base.js）
+  if (toggle && window.clRubberSegment) window.clRubberSegment(toggle, {
+    btn: ':scope > .cl-about__cycle-mode-btn',
+    thumb: '.cl-about__cycle-mode-thumb',
+    onChange: function (i, btn) { setMode(btn.getAttribute('data-mode')); }
+  });
   setMode('h');
   window.addEventListener('load', center);
 })();

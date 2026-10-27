@@ -344,9 +344,10 @@
         <p class="cl-about__cycle-sub" data-reveal data-figma="1695:20243" data-figma-s="1695:19745">100%安全銷毀到永續效益，建構企業專屬綠色生態圈</p>
       </div>
       <!-- R3 客戶：手機版要維持橫式（保留 ∞ 概念，可左右滑）。先保留直式，加「橫式滑動」版本＋切換（比對用，只在手機顯示） -->
-      <div class="cl-about__cycle-mode" role="group" aria-label="手機版循環圖版本（比對用）">
-        <button type="button" class="cl-about__cycle-mode-btn" data-mode="v" aria-pressed="false">直式</button>
-        <button type="button" class="cl-about__cycle-mode-btn" data-mode="h" aria-pressed="true">橫式滑動</button>
+      <div class="cl-about__cycle-mode" role="radiogroup" aria-label="手機版循環圖版本（比對用）">
+        <button type="button" class="cl-about__cycle-mode-btn" role="radio" aria-checked="false" tabindex="-1" data-mode="v">直式</button>
+        <button type="button" class="cl-about__cycle-mode-btn" role="radio" aria-checked="true" data-mode="h">橫式滑動</button>
+        <div class="cl-about__cycle-mode-thumb" aria-hidden="true"><span class="cl-about__cycle-mode-btn">直式</span><span class="cl-about__cycle-mode-btn">橫式滑動</span></div>
       </div>
       <div class="cl-about__cycle-img" data-figma="1695:20244" data-figma-s="1695:19746">
         <div class="cl-about__cycle-stage">

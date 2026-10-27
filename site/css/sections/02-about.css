@@ -409,25 +409,48 @@
    預設橫式滑動（.is-h，JS 加）：電腦版圖 720 寬（原 900，客戶要求先縮 0.8 倍）、可左右滑，開場置中在中間圓幣；Lottie 不轉向。
    直式（.is-v）：維持原本手機版（-s 圖＋Lottie 轉 90°）。 */
 @media (max-width: 640px) {
+  /* 切換鈕：與家紙／工紙同一個 Rubber Segment（base.js clRubberSegment），軌道淺灰配白卡 */
   .cl-about__cycle-mode {
-    display: flex;
-    gap: 4px;
+    position: relative;
+    display: grid;
+    grid-template-columns: auto auto;
     margin-top: 20px;
     padding: 4px;
     border-radius: 999px;
     background: #f6f6f6;
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
   }
   .cl-about__cycle-mode-btn {
-    padding: 6px 14px;
+    padding: 6px 16px;
     border-radius: 999px;
-    color: var(--cl-ink-800-60);
-    font-size: 13px;
+    color: #989898;
+    font-size: 14px;
     font-weight: 700;
-    line-height: 18px;
-    transition: background-color .25s ease, color .25s ease;
+    line-height: 20px;
+    letter-spacing: .3px;
+    text-align: center;
+    white-space: nowrap;
+    transition: color .16s ease, transform .16s cubic-bezier(.23, 1, .32, 1);
   }
-  .cl-about__cycle-mode-btn[aria-pressed="true"] { background: var(--cl-green-500); color: var(--cl-white); }
+  .cl-about__cycle-mode-btn[aria-checked="true"] { cursor: grab; }
+  .cl-about__cycle-mode.is-held,
+  .cl-about__cycle-mode.is-held .cl-about__cycle-mode-btn { cursor: grabbing; }
+  .cl-about__cycle-mode-btn.is-pressed { transform: scale(.96); }
   .cl-about__cycle-mode-btn:focus-visible { outline: 2px solid var(--cl-green-700); outline-offset: 2px; }
+  .cl-about__cycle-mode-thumb {
+    position: absolute;
+    inset: 4px;
+    display: grid;
+    grid-template-columns: auto auto;
+    border-radius: 999px;
+    background: var(--cl-green-500);
+    pointer-events: none;
+    clip-path: inset(0 0 0 50% round 999px);   /* JS 量好後接手 */
+  }
+  .cl-about__cycle-mode-thumb .cl-about__cycle-mode-btn { color: var(--cl-white); }
 
   /* 直式 */
   .cl-about__cycle:not(.is-h) .cl-about__cycle-v { display: block; }
