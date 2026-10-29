@@ -37,6 +37,16 @@
 .cl-terms__p { margin-top: 12px; font-size: 16px; font-weight: 400; line-height: 28px; letter-spacing: .3px; color: var(--cl-ink-800-60); }
 .cl-terms__h + .cl-terms__p { margin-top: 14px; }
 .cl-terms__p a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+/* R3 客戶條文：Word 自動編號照原檔——第一層 1. 2. 3.（ol）、第二層 ○（ul）；編號與內文同字級同色，懸掛縮排
+   粗體小標（如「服務內容：」）照原檔加粗，字級顏色不變 */
+.cl-terms__p strong { font-weight: 700; }
+.cl-terms__ol, .cl-terms__ul { margin: 0; padding: 0 0 0 1.6em; }
+.cl-terms__ol { list-style: decimal; margin-top: 4px; }
+.cl-terms__ul { list-style: circle; }
+.cl-terms__ol > li, .cl-terms__ul > li { padding-left: .2em; }
+.cl-terms__ol > li::marker, .cl-terms__ul > li::marker { color: inherit; }
+.cl-terms__ul > li { margin-top: 6px; }
+.cl-terms__ol > li > .cl-terms__ul { margin-top: 6px; padding-left: 1.4em; }
 
 @media (max-width: 1100px) {
   .cl-terms { padding: 140px 40px 96px; }
