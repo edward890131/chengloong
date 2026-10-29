@@ -1517,7 +1517,7 @@ html.is-loading { overflow: hidden; }
   .cl-about__cycle-head { gap: 24px; }
   .cl-about__cycle-sub { flex: 1 1 0; min-width: 0; }
   .cl-about__cycle-img { align-self: stretch; padding: 0 24px; }
-  .cl-about__cycle-img img { width: 100%; }
+  .cl-about__cycle-img img, .cl-about__cycle-img .cl-cycle-h { width: 100%; }
 }
 
 /* ---------- 手機版 ---------- */
@@ -1654,8 +1654,8 @@ html.is-loading { overflow: hidden; }
     scrollbar-width: none;
   }
   .cl-about__cycle.is-h .cl-about__cycle-img::-webkit-scrollbar { display: none; }
-  .cl-about__cycle.is-h .cl-about__cycle-stage { width: 720px; overflow: visible; margin: 0 16px; }   /* R3：900 縮 0.8 倍看效果 */
-  .cl-about__cycle.is-h .cl-about__cycle-img img { width: 100%; }
+  .cl-about__cycle.is-h .cl-about__cycle-stage { width: 777.6px; overflow: visible; margin: 0 16px; }   /* R3：900 × 0.8 × 1.08 */
+  .cl-about__cycle.is-h .cl-about__cycle-img img, .cl-about__cycle.is-h .cl-cycle-h { width: 100%; }
   .cl-about__cycle.is-h .cl-about__cycle-anim { width: 100%; height: 100%; overflow: hidden; transform: none; }
   .cl-about__cycle.is-h .cl-about__cycle-hint {
     display: flex;
@@ -1671,6 +1671,76 @@ html.is-loading { overflow: hidden; }
     color: var(--cl-ink-900);
   }
 }
+
+/* ---------- R3：橫式循環圖的圖示文字層（HTML 版，取代 value-cycle-l-nodes.svg 圖片）----------
+   座標系＝Figma 1695:20244 的 1200×560；1cqw＝圖寬 / 100，所以 1200 設計單位 = 100cqw（寫在 02-about.html 的 inline style）。
+   陰影用 box-shadow、文字是真文字，手機縮放後一樣清楚 */
+.cl-cycle-h {
+  position: relative;
+  display: block;
+  width: 1200px;
+  aspect-ratio: 1200 / 560;
+  container-type: inline-size;
+  line-height: normal;
+}
+.cl-cycle-h > * { position: absolute; }
+.cl-cycle-h__node {
+  width: 5.1333cqw;   /* 61.6 */
+  height: 5.1333cqw;
+  border-radius: 50%;
+  background: var(--cl-white);
+  box-shadow: 0 .1833cqw .9167cqw rgba(0, 0, 0, .14);   /* 0 2.2 11 */
+}
+.cl-cycle-h__node svg { position: absolute; left: 1.1cqw; top: 1.1cqw; width: 2.9333cqw; height: 2.9333cqw; }   /* icon 35.2，內距 13.2 */
+.cl-cycle-h__label,
+.cl-cycle-h__title { font-weight: 700; color: #111; }
+.cl-cycle-h__label {
+  font-size: 1.65cqw;          /* 19.8 */
+  line-height: 1.4;
+  letter-spacing: .0458cqw;    /* .55 */
+  white-space: nowrap;
+}
+.cl-cycle-h__dot { width: .55cqw; height: .55cqw; border-radius: 50%; }   /* 6.6 */
+.cl-cycle-h__eyebrow {
+  font-family: var(--cl-font-num);
+  font-size: 1.1cqw;           /* 13.2 */
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: .0917cqw;    /* 1.1 */
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.cl-cycle-h__title,
+.cl-cycle-h__desc { text-align: center; white-space: nowrap; }
+.cl-cycle-h__title {
+  font-size: 2.2cqw;           /* 26.4 */
+  line-height: 1.4;
+  letter-spacing: .055cqw;
+}
+.cl-cycle-h__desc {
+  font-size: 1.2833cqw;        /* 15.4 */
+  line-height: 1.4;
+  letter-spacing: .0275cqw;
+  color: rgba(31, 31, 31, .6);
+}
+.cl-cycle-h__hub {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .3667cqw;               /* 兩行 18，間距 4.4 */
+  border-radius: 999px;
+  background: var(--cl-white);
+  box-shadow: 0 .1833cqw .9167cqw rgba(0, 0, 0, .14);
+  font-size: 1.1cqw;           /* 13.2 */
+  line-height: 1.5cqw;         /* 18 */
+  letter-spacing: .0275cqw;
+  color: #1f1f1f;
+  white-space: nowrap;
+}
+.cl-cycle-h__hub-unit { color: rgba(31, 31, 31, .8); }
+.cl-cycle-h__hub-value { font-weight: 700; }
+.cl-cycle-h__coin { display: block; height: auto; overflow: visible; }
 
 /* ==========================================================================
    03 從機密文件到日常用紙（負責人 B）
@@ -4375,6 +4445,7 @@ html.is-loading { overflow: hidden; }
 }
 .cl-terms__eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--cl-green-500); flex: none; }
 .cl-terms__title { margin-top: 12px; font-size: 40px; font-weight: 700; line-height: 56px; letter-spacing: 1px; color: var(--cl-ink-900); }
+.cl-terms__title-org { display: block; }   /* R3：公司名稱一行、《條款名稱》另起一行 */
 
 .cl-terms__body { padding-top: 16px; }
 .cl-terms__section { padding-top: 40px; }
@@ -4387,6 +4458,16 @@ html.is-loading { overflow: hidden; }
 .cl-terms__p { margin-top: 12px; font-size: 16px; font-weight: 400; line-height: 28px; letter-spacing: .3px; color: var(--cl-ink-800-60); }
 .cl-terms__h + .cl-terms__p { margin-top: 14px; }
 .cl-terms__p a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+/* R3 客戶條文：Word 自動編號照原檔——第一層 1. 2. 3.（ol）、第二層 ○（ul）；編號與內文同字級同色，懸掛縮排
+   粗體小標（如「服務內容：」）照原檔加粗，字級顏色不變 */
+.cl-terms__p strong { font-weight: 700; }
+.cl-terms__ol, .cl-terms__ul { margin: 0; padding: 0 0 0 1.6em; }
+.cl-terms__ol { list-style: decimal; margin-top: 4px; }
+.cl-terms__ul { list-style: circle; }
+.cl-terms__ol > li, .cl-terms__ul > li { padding-left: .2em; }
+.cl-terms__ol > li::marker, .cl-terms__ul > li::marker { color: inherit; }
+.cl-terms__ul > li { margin-top: 6px; }
+.cl-terms__ol > li > .cl-terms__ul { margin-top: 6px; padding-left: 1.4em; }
 
 @media (max-width: 1100px) {
   .cl-terms { padding: 140px 40px 96px; }
