@@ -2238,8 +2238,8 @@ html.is-loading { overflow: hidden; }
   width: 46.68%;
   height: 55.78%;
   max-width: none;
-  -webkit-mask: url('assets/04-process/card4-screen-mask.svg') no-repeat .11% .16% / 99.65% 99.66%;
-  mask: url('assets/04-process/card4-screen-mask.svg') no-repeat .11% .16% / 99.65% 99.66%;
+  -webkit-mask: url('assets/04-process/card4-screen-mask.svg?v=c138c612') no-repeat .11% .16% / 99.65% 99.66%;
+  mask: url('assets/04-process/card4-screen-mask.svg?v=c138c612') no-repeat .11% .16% / 99.65% 99.66%;
 }
 
 /* .cl-zoom（R1）：img 比裁切框大、位置偏移，transform-origin 設成裁切框中心在 img 上的位置。

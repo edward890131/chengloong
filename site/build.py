@@ -7,6 +7,7 @@
   site/js/base.js + site/js/sections/*.js（依檔名排序）→ site/main.js
 組好的 index.html／draft.css／main.js 不要直接改，改 partial 再 build。
 """
+import hashlib
 import json
 import re
 from pathlib import Path
@@ -40,12 +41,23 @@ def preload_list(html, css):
     return out
 
 
+def bust(text):
+    """assets 網址加上內容雜湊 ?v=xxxxxxxx（vercel.json 讓 /assets 快取 7 天；換圖不改檔名時，舊快取會讓正式站看起來沒更新）"""
+    def rep(m):
+        f = ROOT / m.group(1)
+        if not f.is_file():
+            return m.group(0)
+        return '%s?v=%s' % (m.group(1), hashlib.sha1(f.read_bytes()).hexdigest()[:8])
+    return re.sub(r'(assets/[^"\'()\s?,]+)', rep, text)
+
+
 def main():
     src = ROOT / 'src'
     header = (src / '_header.html').read_text()
     html = cat(src / '_head.html', src / 'sections', src / '_foot.html').replace('<!--@header-->', header, 1)
     css = cat(ROOT / 'css' / 'base.css', ROOT / 'css' / 'sections')
-    pre = preload_list(html, css)
+    pre = [[bust(u), n] for u, n in preload_list(html, css)]
+    html, css = bust(html), bust(css)
     html = html.replace('/*CL_PRELOAD*/[]', json.dumps(pre, separators=(',', ':')), 1)
     (ROOT / 'index.html').write_text(html)
     # 服務條款頁（R3）：共用 header／頁尾。header 的錨點改連回首頁（index.html#about），logo 回首頁，服務條款標成目前頁
@@ -55,7 +67,7 @@ def main():
     terms_header = terms_header.replace('href="terms.html"><span>服務條款', 'href="terms.html" aria-current="page"><span>服務條款')
     footer = (src / 'sections' / '09-footer.html').read_text()
     terms = (src / 'pages' / 'terms.html').read_text()
-    (ROOT / 'terms.html').write_text(terms.replace('<!--@header-->', terms_header, 1).replace('<!--@footer-->', footer, 1))
+    (ROOT / 'terms.html').write_text(bust(terms).replace('<!--@header-->', terms_header, 1).replace('<!--@footer-->', footer, 1))
     (ROOT / 'draft.css').write_text(css)
     # 頁面 JS 整包等進場載入完成才跑（_head 的 window.clWhenReady；沒有載入畫面時立刻跑）
     js = cat(ROOT / 'js' / 'base.js', ROOT / 'js' / 'sections')
