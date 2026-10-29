@@ -467,7 +467,7 @@
     scrollbar-width: none;
   }
   .cl-about__cycle.is-h .cl-about__cycle-img::-webkit-scrollbar { display: none; }
-  .cl-about__cycle.is-h .cl-about__cycle-stage { width: 720px; overflow: visible; margin: 0 16px; }   /* R3：900 縮 0.8 倍看效果 */
+  .cl-about__cycle.is-h .cl-about__cycle-stage { width: 777.6px; overflow: visible; margin: 0 16px; }   /* R3：900 × 0.8 × 1.08 */
   .cl-about__cycle.is-h .cl-about__cycle-img img { width: 100%; }
   .cl-about__cycle.is-h .cl-about__cycle-anim { width: 100%; height: 100%; overflow: hidden; transform: none; }
   .cl-about__cycle.is-h .cl-about__cycle-hint {
