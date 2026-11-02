@@ -6,7 +6,7 @@
   flex-direction: column;
   align-items: center;
   gap: var(--cl-section-gap);
-  padding: var(--cl-section-pad-top) 280px var(--cl-section-pad-bottom);
+  padding: var(--cl-section-pad-top) var(--cl-gutter) var(--cl-section-pad-bottom);
   background: var(--cl-surface);
   /* Chrome 預設 text-spacing-trim 會壓縮相鄰全形標點（「）。」），Figma 不壓縮 → 斷行不同 */
   text-spacing-trim: space-all;
@@ -18,7 +18,7 @@
   flex-direction: column;
   align-items: center;
   gap: var(--cl-heading-gap);
-  width: 640px;
+  width: var(--cl-head-max);
   max-width: 100%;
 }
 .cl-faq__eyebrow {
@@ -56,7 +56,7 @@
   align-items: center;
   gap: var(--cl-space-36);
   width: 100%;
-  max-width: 880px;
+  max-width: var(--cl-content-narrow);
 }
 
 /* 分類頁籤 a.btn 1695:20387 等 */
@@ -186,22 +186,17 @@
 }
 .cl-faq__item.is-open .cl-faq__answer { opacity: 1; transition: opacity .4s ease .1s; }
 
-/* 641–1439：流動縮放，不出水平捲軸 */
+/* 641–1439：頁籤放不下時換行（左右留白交給 --cl-gutter，內容最大寬 --cl-content-narrow） */
 @media (max-width: 1439px) and (min-width: 641px) {
-  .cl-faq { padding-left: clamp(var(--cl-space-40), 19.44vw, 280px); padding-right: clamp(var(--cl-space-40), 19.44vw, 280px); }
   .cl-faq__tabs { flex-wrap: wrap; justify-content: center; }
 }
 
-/* 平板 641–1100（S0_TABLET_CONTRACT：電腦結構，左右留白 40，區段標題 28；頁籤放得下就一列） */
-@media (min-width: 641px) and (max-width: 1100px) {
-  .cl-faq { padding-left: var(--cl-space-40); padding-right: var(--cl-space-40); }
-}
+/* 平板 641–1100（S0_TABLET_CONTRACT：電腦結構，左右留白 40＝--cl-gutter，區段標題 28；頁籤放得下就一列） */
 
 /* ---------- 手機 375（1695:19900） ---------- */
 @media (max-width: 640px) {
   .cl-faq {
     align-items: flex-start;
-    padding: var(--cl-section-pad-top) var(--cl-space-16) var(--cl-section-pad-bottom);
     overflow: hidden;
   }
   .cl-faq__head {  width: 100%; }

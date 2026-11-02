@@ -6,7 +6,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 var(--cl-gutter) var(--cl-section-pad-bottom);
+  padding: var(--cl-section-pad-top) var(--cl-gutter) var(--cl-section-pad-bottom);
   background: var(--cl-surface);
   /* Chrome 預設 text-spacing-trim 會壓縮相鄰全形標點（「）。」），Figma 不壓縮 → 斷行不同 */
   text-spacing-trim: space-all;
@@ -14,7 +14,7 @@
 .cl-cta__card {
   position: relative;
   width: 100%;
-  max-width: 1280px;   /* R1 客戶 2026-10-21：大螢幕不再往外長，和其他段落版心一致 */
+  max-width: var(--cl-content-max);   /* R1 客戶 2026-10-21：大螢幕不再往外長，和其他段落版心一致 */
   height: 600px;
   border-radius: var(--cl-radius-xl);
   overflow: hidden;
@@ -70,7 +70,7 @@
   flex-direction: column;
   align-items: center;
   gap: var(--cl-space-56);
-  width: 640px;
+  width: var(--cl-head-max);
   max-width: calc(100% - 48px);
 }
 .cl-cta__text {
@@ -118,11 +118,6 @@
 .cl-cta__curve .cl-curve { left: 0; top: 0; transform-origin: 0 0; }
 .cl-cta__curve--left .cl-curve { transform: matrix(-0.764393, 0.644751, 0.644751, 0.764393, 1560.157, -2397.420); }
 .cl-cta__curve--right .cl-curve { transform: matrix(0.672907, -0.739727, -0.739727, -0.672907, 1027.014, 3022.867); }
-
-/* 1101–1439：流動縮放（641–1100 走 --cl-gutter 的平板值） */
-@media (max-width: 1439px) and (min-width: 1101px) {
-  .cl-cta { padding-left: clamp(var(--cl-space-24), 5.56vw, var(--cl-space-80)); padding-right: clamp(var(--cl-space-24), 5.56vw, var(--cl-space-80)); }
-}
 
 /* 平板 641–1100（S0_TABLET_CONTRACT：電腦結構，左右留白交給 --cl-gutter，標題 28，按鈕維持 18px 並排） */
 

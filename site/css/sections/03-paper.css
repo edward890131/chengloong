@@ -10,7 +10,7 @@
   flex-direction: column;
   align-items: center;
   gap: var(--cl-section-gap);
-  padding: var(--cl-section-pad-top) 0 var(--cl-section-pad-bottom);
+  padding: var(--cl-section-pad-top) var(--cl-gutter) var(--cl-section-pad-bottom);
 }
 .cl-paper > :not(.cl-paper__curve) { position: relative; z-index: 1; }
 
@@ -39,8 +39,8 @@
   flex-direction: column;
   align-items: center;
   gap: var(--cl-head-gap);
-  width: 640px;
-  max-width: calc(100% - 32px);
+  width: var(--cl-head-max);
+  max-width: 100%;
   text-align: center;
 }
 .cl-paper__heading {
@@ -86,7 +86,7 @@
 }
 
 /* ---------- 卡片格（card 1695:20254）：電腦版 2 欄圖文交錯 ---------- */
-.cl-paper__slider { width: calc(100% - 160px); max-width: 1280px; }
+.cl-paper__slider { width: 100%; max-width: var(--cl-content-max); }
 .cl-paper__nav, .cl-paper__dots { display: none; }
 .cl-paper__grid {
   display: grid;
@@ -224,8 +224,6 @@
 /* ---------- 平板 641–1100（S0 平板契約：電腦結構）----------
    版心左右留白 40；區段標題 28；2 欄圖文交錯，圖片填滿列高；Step 03 說明卡改直排 */
 @media (max-width: 1100px) and (min-width: 641px) {
-  .cl-paper__head { max-width: calc(100% - 80px); }
-  .cl-paper__slider { width: calc(100% - 80px); }
   .cl-paper__text { justify-content: flex-start; gap: var(--cl-space-32); padding: var(--cl-space-32) var(--cl-space-28); }
   .cl-paper__step-title { text-wrap: balance; }
   .cl-paper__desc { text-wrap: pretty; }
@@ -241,7 +239,6 @@
 /* ---------- 手機版：三張橫向卡輪播（1695:19756） ---------- */
 @media (max-width: 640px) {
   .cl-paper {
-    padding: var(--cl-section-pad-top) var(--cl-space-16) var(--cl-section-pad-bottom);
     overflow: clip;
   }
   .cl-paper__curve { left: calc(50% - 799.5px); top: 392px; width: 1600px; height: 640px; }
@@ -249,15 +246,12 @@
     transform: scale(.8) translate(-199px, -808px) matrix(.99888, .04725, -.04725, .99888, 69.74628, 0) translate(-24px, -24px);
   }
 
-  .cl-paper__head {  width: 100%; max-width: 343px; }
 
   .cl-paper__slider {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: var(--cl-space-24);
-    width: 100%;
-    max-width: 343px;
   }
   .cl-paper__nav {
     display: flex;

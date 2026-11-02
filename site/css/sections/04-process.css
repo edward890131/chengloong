@@ -6,7 +6,7 @@
 
 .cl-process {
   position: relative;
-  padding: var(--cl-section-pad-top) var(--cl-gutter) 160px;
+  padding: var(--cl-section-pad-top) var(--cl-gutter) var(--cl-section-pad-bottom);
   color: var(--cl-text);
 }
 .cl-process > :not(.cl-process__curve-clip) { position: relative; z-index: 1; }
@@ -67,7 +67,7 @@
 }
 
 .cl-process__body {
-  max-width: 1280px;
+  max-width: var(--cl-content-max);
   margin: var(--cl-section-gap) auto 0;
 }
 
@@ -668,9 +668,8 @@
 .cl-process__route-note { text-decoration: underline; text-underline-position: from-font; text-decoration-skip-ink: none; }
 .cl-process__route-hint { display: none; }
 
-/* 1101–1439：流動縮放，避免水平捲軸（641–1100 的左右留白由下方平板區塊覆寫） */
+/* ≤1439：路線圖可橫向捲動 */
 @media (max-width: 1439px) {
-  .cl-process { padding-left: max(var(--cl-space-16), min(var(--cl-space-80), 5.5vw)); padding-right: max(var(--cl-space-16), min(var(--cl-space-80), 5.5vw)); }
   .cl-process__route-scroll { overflow-x: auto; scrollbar-width: none; }
   .cl-process__route-scroll::-webkit-scrollbar { display: none; }
 }
@@ -682,8 +681,6 @@
    左右版心 40；區段標題 28；卡片標題、內文照電腦版
    ========================================================================== */
 @media (min-width: 641px) and (max-width: 1100px) {
-  .cl-process { padding: var(--cl-section-pad-top) var(--cl-gutter) var(--cl-space-120); }
-
   /* 背景弧線：沿用 S0 平板位置（手機版座標）；R1 四格卡改橫排後段落變矮，弧線落在頁籤面板兩側，維持不動 */
   .cl-process__curve-clip {
     left: calc(50% - 799.5px);
@@ -742,8 +739,6 @@
    手機版（375，1695:19816）
    ========================================================================== */
 @media (max-width: 640px) {
-  .cl-process { padding: var(--cl-section-pad-top) var(--cl-gutter) var(--cl-space-64); }
-
   /* curve_ani_process 1600×640 在 (-612, 1087)：instance 整體縮 0.8（SVG 4503.11×1219.33），
      pattern 中心＝(722.1975, 221.099)×0.8 */
   .cl-process__curve-clip {

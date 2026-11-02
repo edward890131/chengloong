@@ -5,7 +5,7 @@
 
 .cl-green {
   position: relative;
-  padding: var(--cl-section-pad-top) 0 var(--cl-section-pad-bottom);
+  padding: var(--cl-section-pad-top) var(--cl-gutter) var(--cl-section-pad-bottom);
   /* Chrome 預設會擠壓相鄰全形標點（「下，「」），Figma 不會 → 斷行不同；關掉 */
   text-spacing-trim: space-all;
   background: var(--cl-surface);
@@ -20,8 +20,8 @@
   flex-direction: column;
   align-items: center;
   gap: var(--cl-head-gap);
-  width: 640px;
-  max-width: calc(100% - 32px);
+  width: var(--cl-head-max);
+  max-width: 100%;
   margin: 0 auto;
   text-align: center;
 }
@@ -71,8 +71,8 @@
 
 /* ---------- 卡片區 cards ---------- */
 .cl-green__body {
-  width: 1280px;
-  max-width: calc(100% - 160px);
+  width: 100%;
+  max-width: var(--cl-content-max);
   margin: var(--cl-section-gap) auto 0;
 }
 .cl-green__nav,
@@ -462,7 +462,6 @@
   .cl-green__en { font-size: clamp(24px, 3.2vw, 36px); line-height: 1.2; }
 }
 @media (max-width: 1199px) and (min-width: 641px) {
-  .cl-green__body { max-width: calc(100% - 64px); }
   .cl-green__intro { padding: var(--cl-space-28) var(--cl-space-24) var(--cl-space-32); }
   .cl-green__esg-hand { width: max(136.67%, 492px); }
   .cl-green__info { right: 12px; }
@@ -474,9 +473,7 @@
    版心左右 40，區段標題 28，卡片標題與內文照電腦版。
    ========================================================================== */
 @media (min-width: 641px) and (max-width: 1100px) {
-  .cl-green__head { max-width: calc(100% - 80px); }
 
-  .cl-green__body { max-width: calc(100% - 80px); }
 
   .cl-green__card {
     display: grid;
@@ -508,16 +505,13 @@
 @media (max-width: 640px) {
   .cl-green {  overflow: hidden; }
 
-  .cl-green__head {  width: auto; max-width: none; margin: 0 var(--cl-space-16); }
 
   .cl-green__body {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: var(--cl-space-24);
-    width: auto;
-    max-width: none;
-    margin: var(--cl-section-gap) var(--cl-space-16) 0;
+    margin: var(--cl-section-gap) auto 0;
   }
 
   .cl-green__nav { display: flex; gap: var(--cl-space-16); padding: var(--cl-space-8) 0; }

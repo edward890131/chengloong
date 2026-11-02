@@ -149,6 +149,9 @@ shadow = {
 layout = {
   'page-max': tok('1440px', 'dimension', '頁面最大寬', f'--{P}-page-max'),
   'header-h': tok('62px', 'dimension', '固定 header 高（錨點預留）', f'--{P}-header-h'),
+  'content-max': tok('1280px', 'dimension', '段落內容最大寬（版心）；實際寬＝min(1280, 100% − 2×gutter)，hero、串場、footer 除外', f'--{P}-content-max'),
+  'head-max': tok('640px', 'dimension', '段落標題組最大寬', f'--{P}-head-max'),
+  'content-narrow': tok('880px', 'dimension', '窄版內容最大寬（FAQ）', f'--{P}-content-narrow'),
 }
 # RWD 間距（桌機／平板／手機）：有規律的用途才做；不一致的列在 audit 等使用者判斷
 for k, d, t, m, desc in [

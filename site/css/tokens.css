@@ -171,6 +171,9 @@
   --cl-focus-ring: inset 0px 0px 0px 3px var(--cl-ref-neutral-0);
   --cl-page-max: 1440px;
   --cl-header-h: 62px;
+  --cl-content-max: 1280px;
+  --cl-head-max: 640px;
+  --cl-content-narrow: 880px;
   --cl-gutter: 80px;
   --cl-section-pad-top: 40px;
   --cl-section-pad-bottom: 120px;
