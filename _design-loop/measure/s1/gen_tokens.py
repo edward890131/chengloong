@@ -150,6 +150,23 @@ layout = {
   'page-max': tok('1440px', 'dimension', '頁面最大寬', f'--{P}-page-max'),
   'header-h': tok('62px', 'dimension', '固定 header 高（錨點預留）', f'--{P}-header-h'),
 }
+# RWD 間距（桌機／平板／手機）：有規律的用途才做；不一致的列在 audit 等使用者判斷
+for k, d, t, m, desc in [
+    ('gutter', 80, 40, 16, '頁面左右邊距（流程、CTA、條款）'),
+    ('section-pad-top', 40, 40, 40, '區塊上內距'),
+    ('section-pad-bottom', 120, 120, 64, '區塊下內距（紙張、綠點、FAQ、CTA）'),
+    ('section-gap', 64, 64, 48, '區塊標題組 → 內容'),
+    ('head-gap', 32, 32, 24, '標題組內（標題 ↔ 導言）'),
+    ('heading-gap', 12, 12, 8, 'eyebrow ↔ 標題'),
+    ('panel-gap', 12, 12, 8, '灰底面板內距與卡片間距'),
+    ('tab-gap', 16, 16, 12, '頁籤之間'),
+    ('tab-pad-y', 16, 16, 8, '頁籤上下內距'),
+    ('tab-pad-x', 24, 24, 16, '頁籤左右內距'),
+]:
+    md = {}
+    if t != d: md['Tablet'] = f'{t}px'
+    if m != d: md['Mobile'] = f'{m}px'
+    layout[k] = tok(f'{d}px', 'dimension', desc, f'--{P}-{k}', md or None)
 comp = {'color': {k: tok(v, 'color', d, f'--{P}-c-{k}') for k, v, d in [
     ('points-bg-1', '#deffdf', '綠點卡漸層 1'), ('points-bg-2', '#e8feee', '綠點卡漸層 2'), ('points-bg-3', '#e4ffeb', '綠點卡漸層 3'),
     ('points-patch-top', '#e7feec', '綠點卡色塊（上）'), ('points-patch-bottom', '#e0ffe2', '綠點卡色塊（下）'),

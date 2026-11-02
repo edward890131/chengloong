@@ -171,6 +171,16 @@
   --cl-focus-ring: inset 0px 0px 0px 3px var(--cl-ref-neutral-0);
   --cl-page-max: 1440px;
   --cl-header-h: 62px;
+  --cl-gutter: 80px;
+  --cl-section-pad-top: 40px;
+  --cl-section-pad-bottom: 120px;
+  --cl-section-gap: 64px;
+  --cl-head-gap: 32px;
+  --cl-heading-gap: 12px;
+  --cl-panel-gap: 12px;
+  --cl-tab-gap: 16px;
+  --cl-tab-pad-y: 16px;
+  --cl-tab-pad-x: 24px;
 
   /* ── comp ── */
   --cl-c-points-bg-1: #deffdf;
@@ -213,6 +223,15 @@
     --cl-label-l-lh: 23px;
     --cl-overline-m-fs: 14px;
     --cl-overline-m-lh: 20px;
+    --cl-gutter: 16px;
+    --cl-section-pad-bottom: 64px;
+    --cl-section-gap: 48px;
+    --cl-head-gap: 24px;
+    --cl-heading-gap: 8px;
+    --cl-panel-gap: 8px;
+    --cl-tab-gap: 12px;
+    --cl-tab-pad-y: 8px;
+    --cl-tab-pad-x: 16px;
   }
 }
 
@@ -226,6 +245,7 @@
     --cl-display-xs-lh: 24px;
     --cl-title-xl-fs: 28px;
     --cl-title-xl-lh: 39px;
+    --cl-gutter: 40px;
   }
 }
 
@@ -1409,8 +1429,8 @@ html.is-loading { overflow: hidden; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--cl-space-64);
-  padding: var(--cl-space-40) 0 140px;
+  gap: var(--cl-section-gap);
+  padding: var(--cl-section-pad-top) 0 140px;
 }
 .cl-about > :not(.cl-about__curve) { position: relative; z-index: 1; }
 
@@ -1444,7 +1464,7 @@ html.is-loading { overflow: hidden; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--cl-space-32);
+  gap: var(--cl-head-gap);
   width: 640px;
   max-width: calc(100% - 32px);
   text-align: center;
@@ -1453,7 +1473,7 @@ html.is-loading { overflow: hidden; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--cl-space-12);
+  gap: var(--cl-heading-gap);
   width: 100%;
 }
 .cl-about__eyebrow {
@@ -1499,7 +1519,7 @@ html.is-loading { overflow: hidden; }
   gap: var(--cl-space-12);
   width: calc(100% - 160px);
   max-width: 1280px;
-  padding: var(--cl-space-12);
+  padding: var(--cl-panel-gap);
   border-radius: var(--cl-radius-xl);
   background: var(--cl-surface-muted);
 }
@@ -1508,7 +1528,7 @@ html.is-loading { overflow: hidden; }
 .cl-about__cards {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--cl-space-12);
+  gap: var(--cl-panel-gap);
 }
 .cl-about__card {
   display: flex;
@@ -1723,7 +1743,6 @@ html.is-loading { overflow: hidden; }
    版心左右留白 40；區段標題 28；四卡 2×2；循環圖用電腦版 SVG 等比縮 */
 @media (max-width: 1100px) and (min-width: 641px) {
   .cl-about__head { max-width: calc(100% - 80px); }
-  .cl-about__title { }
   .cl-about__panel { width: calc(100% - 80px); }
   .cl-about__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cl-about__card-desc { text-wrap: balance; }   /* 置中短段落避免末行剩一兩字 */
@@ -1736,8 +1755,7 @@ html.is-loading { overflow: hidden; }
 /* ---------- 手機版 ---------- */
 @media (max-width: 640px) {
   .cl-about {
-    gap: var(--cl-space-48);
-    padding: var(--cl-space-40) var(--cl-space-16) var(--cl-space-64);
+    padding: var(--cl-section-pad-top) var(--cl-space-16) var(--cl-space-64);
   }
   .cl-about__curve { left: calc(50% - 799.5px); width: 1600px; height: 640px; }
   .cl-about__curve--whatis { top: -40px; }   /* 1695:19644 */
@@ -1749,19 +1767,15 @@ html.is-loading { overflow: hidden; }
     transform: scale(.8) matrix(-.88773, -.46036, .46036, -.88773, 3325.70459, 2787.52002) matrix(.99888, .04725, -.04725, .99888, 69.74628, 0) translate(-24px, -24px);
   }
 
-  .cl-about__head { gap: var(--cl-space-24); width: 100%; max-width: 343px; }
-  .cl-about__heading { gap: var(--cl-space-8); }
-  .cl-about__title { }
+  .cl-about__head {  width: 100%; max-width: 343px; }
 
   /* scroll（1695:19652）＋灰底 Frame 2085663961（1695:19653） */
   .cl-about__panel {
     width: 100%;
     max-width: 343px;
-    padding: var(--cl-space-8);
   }
   .cl-about__cards {
     display: flex;
-    gap: var(--cl-space-8);
     height: 300px;
     overflow-x: auto;
     overflow-y: hidden;
@@ -1966,8 +1980,8 @@ html.is-loading { overflow: hidden; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--cl-space-64);
-  padding: var(--cl-space-40) 0 var(--cl-space-120);
+  gap: var(--cl-section-gap);
+  padding: var(--cl-section-pad-top) 0 var(--cl-section-pad-bottom);
 }
 .cl-paper > :not(.cl-paper__curve) { position: relative; z-index: 1; }
 
@@ -1995,7 +2009,7 @@ html.is-loading { overflow: hidden; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--cl-space-32);
+  gap: var(--cl-head-gap);
   width: 640px;
   max-width: calc(100% - 32px);
   text-align: center;
@@ -2004,7 +2018,7 @@ html.is-loading { overflow: hidden; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--cl-space-12);
+  gap: var(--cl-heading-gap);
   width: 100%;
 }
 .cl-paper__eyebrow {
@@ -2048,7 +2062,7 @@ html.is-loading { overflow: hidden; }
 .cl-paper__grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--cl-space-12);
+  gap: var(--cl-panel-gap);
   padding: var(--cl-space-12);
   border-radius: var(--cl-radius-xl);
   background: var(--cl-surface-muted);
@@ -2182,11 +2196,8 @@ html.is-loading { overflow: hidden; }
    版心左右留白 40；區段標題 28；2 欄圖文交錯，圖片填滿列高；Step 03 說明卡改直排 */
 @media (max-width: 1100px) and (min-width: 641px) {
   .cl-paper__head { max-width: calc(100% - 80px); }
-  .cl-paper__title { }
   .cl-paper__slider { width: calc(100% - 80px); }
   .cl-paper__text { justify-content: flex-start; gap: var(--cl-space-32); padding: var(--cl-space-32) var(--cl-space-28); }
-  .cl-paper__no-label { }
-  .cl-paper__no-num   { }
   .cl-paper__step-title { text-wrap: balance; }
   .cl-paper__desc { text-wrap: pretty; }
   .cl-paper__media { align-self: stretch; min-height: 280px; }
@@ -2201,8 +2212,7 @@ html.is-loading { overflow: hidden; }
 /* ---------- 手機版：三張橫向卡輪播（1695:19756） ---------- */
 @media (max-width: 640px) {
   .cl-paper {
-    gap: var(--cl-space-48);
-    padding: var(--cl-space-40) var(--cl-space-16) var(--cl-space-64);
+    padding: var(--cl-section-pad-top) var(--cl-space-16) var(--cl-section-pad-bottom);
     overflow: clip;
   }
   .cl-paper__curve { left: calc(50% - 799.5px); top: 392px; width: 1600px; height: 640px; }
@@ -2210,9 +2220,7 @@ html.is-loading { overflow: hidden; }
     transform: scale(.8) translate(-199px, -808px) matrix(.99888, .04725, -.04725, .99888, 69.74628, 0) translate(-24px, -24px);
   }
 
-  .cl-paper__head { gap: var(--cl-space-24); width: 100%; max-width: 343px; }
-  .cl-paper__heading { gap: var(--cl-space-8); }
-  .cl-paper__title { }
+  .cl-paper__head {  width: 100%; max-width: 343px; }
 
   .cl-paper__slider {
     display: flex;
@@ -2236,7 +2244,6 @@ html.is-loading { overflow: hidden; }
 
   .cl-paper__grid {
     display: flex;
-    gap: var(--cl-space-8);
     width: 100%;
     padding: 0;
     border: 8px solid var(--cl-surface-muted);
@@ -2266,10 +2273,7 @@ html.is-loading { overflow: hidden; }
     padding: var(--cl-space-16);
     border-radius: var(--cl-radius-lg);
   }
-  .cl-paper__no-label { }
-  .cl-paper__no-num   { }
   .cl-paper__cr { width: 4px; } /* 手機版稿上 \r 只佔約 4px（電腦版約 1em），照稿 */
-  .cl-paper__step-title { }
 
   .cl-paper__media {
     flex: none;
@@ -2315,7 +2319,7 @@ html.is-loading { overflow: hidden; }
 
 .cl-process {
   position: relative;
-  padding: var(--cl-space-40) var(--cl-space-80) 160px;
+  padding: var(--cl-section-pad-top) var(--cl-gutter) 160px;
   color: var(--cl-text);
 }
 .cl-process > :not(.cl-process__curve-clip) { position: relative; z-index: 1; }
@@ -2345,7 +2349,7 @@ html.is-loading { overflow: hidden; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--cl-space-12);
+  gap: var(--cl-heading-gap);
   text-align: center;
 }
 .cl-process__eyebrow {
@@ -2377,7 +2381,7 @@ html.is-loading { overflow: hidden; }
 
 .cl-process__body {
   max-width: 1280px;
-  margin: var(--cl-space-64) auto 0;
+  margin: var(--cl-section-gap) auto 0;
 }
 
 /* ---------- 服務流程B：四格卡（713:18070） ---------- */
@@ -2552,7 +2556,7 @@ html.is-loading { overflow: hidden; }
 
 .cl-process__tabs {
   display: flex;
-  gap: var(--cl-space-16);
+  gap: var(--cl-tab-gap);
   scrollbar-width: none;
 }
 .cl-process__tabs::-webkit-scrollbar { display: none; }
@@ -2562,7 +2566,7 @@ html.is-loading { overflow: hidden; }
   align-items: center;
   justify-content: center;
   gap: var(--cl-space-12);
-  padding: var(--cl-space-16) var(--cl-space-24);
+  padding: var(--cl-tab-pad-y) var(--cl-tab-pad-x);
   border-radius: var(--cl-radius-full);
   background: var(--cl-surface-muted);
   color: var(--cl-text-tertiary);
@@ -2593,8 +2597,8 @@ html.is-loading { overflow: hidden; }
 /* 頁籤 1：線上預約步驟（713:18662） */
 .cl-process__booking {
   display: flex;
-  gap: var(--cl-space-12);
-  padding: var(--cl-space-12);
+  gap: var(--cl-panel-gap);
+  padding: var(--cl-panel-gap);
   border-radius: var(--cl-radius-xl);
   background: var(--cl-surface-muted);
   overflow: hidden;
@@ -2604,7 +2608,7 @@ html.is-loading { overflow: hidden; }
   flex: 1 1 0;
   min-width: 0;
   flex-direction: column;
-  gap: var(--cl-space-12);
+  gap: var(--cl-panel-gap);
 }
 .cl-process__step {
   display: flex;
@@ -2771,8 +2775,8 @@ html.is-loading { overflow: hidden; }
 .cl-process__prepare {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--cl-space-12);
-  padding: var(--cl-space-12);
+  gap: var(--cl-panel-gap);
+  padding: var(--cl-panel-gap);
   border-radius: var(--cl-radius-xl);
   background: var(--cl-surface-muted);
   overflow: hidden;
@@ -2848,7 +2852,7 @@ html.is-loading { overflow: hidden; }
   letter-spacing: var(--cl-paragraph-s-ls);
   color: var(--cl-text);
 }
-.cl-process__prep-pair { display: flex; gap: var(--cl-space-12); align-self: stretch; }
+.cl-process__prep-pair { display: flex; gap: var(--cl-panel-gap); align-self: stretch; }
 .cl-process__prep-img {
   position: relative;
   flex: 1 1 0;
@@ -2991,7 +2995,7 @@ html.is-loading { overflow: hidden; }
    左右版心 40；區段標題 28；卡片標題、內文照電腦版
    ========================================================================== */
 @media (min-width: 641px) and (max-width: 1100px) {
-  .cl-process { padding: var(--cl-space-40) var(--cl-space-40) var(--cl-space-120); }
+  .cl-process { padding: var(--cl-section-pad-top) var(--cl-gutter) var(--cl-space-120); }
 
   /* 背景弧線：沿用 S0 平板位置（手機版座標）；R1 四格卡改橫排後段落變矮，弧線落在頁籤面板兩側，維持不動 */
   .cl-process__curve-clip {
@@ -3004,9 +3008,7 @@ html.is-loading { overflow: hidden; }
     left: 577.758px;
     top: 176.8792px;
     transform: translate(-50%, -50%) rotate(2.71deg) scale(.8);
-  }
-
-  .cl-process__title { }   /* 介於 32／24，行高 140% 取整 */
+  }   /* 介於 32／24，行高 140% 取整 */
 
   /* 四格卡（R1）：改用電腦版型（四格橫排、hover／點擊展開，卡高 400、照片框 600×400 置中裁切）。
      每格較窄（768 時約 171 寬），內距與標題字級縮小，展開格說明文字改自動高度 */
@@ -3053,7 +3055,7 @@ html.is-loading { overflow: hidden; }
    手機版（375，1695:19816）
    ========================================================================== */
 @media (max-width: 640px) {
-  .cl-process { padding: var(--cl-space-40) var(--cl-space-16) var(--cl-space-64); }
+  .cl-process { padding: var(--cl-section-pad-top) var(--cl-gutter) var(--cl-space-64); }
 
   /* curve_ani_process 1600×640 在 (-612, 1087)：instance 整體縮 0.8（SVG 4503.11×1219.33），
      pattern 中心＝(722.1975, 221.099)×0.8 */
@@ -3068,10 +3070,6 @@ html.is-loading { overflow: hidden; }
     top: 176.8792px;
     transform: translate(-50%, -50%) rotate(2.71deg) scale(.8);
   }
-
-  .cl-process__head { gap: var(--cl-space-8); }
-  .cl-process__title { }
-  .cl-process__body { margin-top: var(--cl-space-48); }
 
   /* 服務流程B size=S（974:14698） */
   .cl-process__cards { flex-direction: column; }
@@ -3091,7 +3089,6 @@ html.is-loading { overflow: hidden; }
     background: linear-gradient(180deg, transparent 36.944%, var(--cl-surface-inverse) 83.875%);
   }
   .cl-process__card-icon { width: 32px; height: 32px; }
-  .cl-process__card-title { }
   .cl-process__card-desc { height: auto; }
 
   /* 手機版弧線：curve_ani_service 1600×320 旋轉 90deg，pattern 為電腦版 0.8 倍
@@ -3109,27 +3106,17 @@ html.is-loading { overflow: hidden; }
 
   /* 頁籤列比 343 寬，可橫向捲動，右側貼齊螢幕邊 */
   .cl-process__tabs {
-    gap: var(--cl-space-12);
     margin: 0 calc(-1 * var(--cl-space-16));
     padding: 0 var(--cl-space-16);
     overflow-x: auto;
-  }
-  .cl-process__tab {
-    padding: var(--cl-space-8) var(--cl-space-16);
-
-
-
   }
 
   /* 頁籤 1（995:18233） */
   .cl-process__booking {
     flex-direction: column;
-    gap: var(--cl-space-8);
-    padding: var(--cl-space-8);
   }
   .cl-process__steps {
     flex: none;
-    gap: var(--cl-space-8);
     border-radius: var(--cl-radius-lg);
     background: var(--cl-surface-subtle);
   }
@@ -3148,12 +3135,10 @@ html.is-loading { overflow: hidden; }
   .cl-process__prepare {
     display: flex;
     flex-direction: column;
-    gap: var(--cl-space-8);
-    padding: var(--cl-space-8);
   }
   .cl-process__prep-card { gap: var(--cl-space-12); padding: var(--cl-space-16); border-radius: var(--cl-radius-lg); }
   .cl-process__prep-group { gap: var(--cl-space-20); }
-  .cl-process__prep-pair { flex-direction: column; gap: var(--cl-space-8); }
+  .cl-process__prep-pair { flex-direction: column;  }
   .cl-process__prep-img { flex: none; aspect-ratio: 240 / 160; border-radius: var(--cl-radius-lg); }
   .cl-process__prep-line-name { align-self: stretch; white-space: normal; }
 }
@@ -3189,7 +3174,6 @@ html.is-loading { overflow: hidden; }
   .cl-process__route-inner { padding-top: 0; }
   .cl-process__route-steps { width: 1128px; gap: var(--cl-space-24); padding: var(--cl-space-20) 0 var(--cl-space-16) var(--cl-space-24); }
   .cl-process__route-steps > li { flex: none; width: 164px; }
-  .cl-process__route-num { }
   .cl-process__route-hint {
     position: absolute;
     left: 19px;
@@ -3218,7 +3202,7 @@ html.is-loading { overflow: hidden; }
 
 .cl-green {
   position: relative;
-  padding: var(--cl-space-40) 0 var(--cl-space-120);
+  padding: var(--cl-section-pad-top) 0 var(--cl-section-pad-bottom);
   /* Chrome 預設會擠壓相鄰全形標點（「下，「」），Figma 不會 → 斷行不同；關掉 */
   text-spacing-trim: space-all;
   background: var(--cl-surface);
@@ -3232,7 +3216,7 @@ html.is-loading { overflow: hidden; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--cl-space-32);
+  gap: var(--cl-head-gap);
   width: 640px;
   max-width: calc(100% - 32px);
   margin: 0 auto;
@@ -3242,7 +3226,7 @@ html.is-loading { overflow: hidden; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--cl-space-12);
+  gap: var(--cl-heading-gap);
   width: 100%;
 }
 .cl-green__eyebrow {
@@ -3286,7 +3270,7 @@ html.is-loading { overflow: hidden; }
 .cl-green__body {
   width: 1280px;
   max-width: calc(100% - 160px);
-  margin: var(--cl-space-64) auto 0;
+  margin: var(--cl-section-gap) auto 0;
 }
 .cl-green__nav,
 .cl-green__pager { display: none; }
@@ -3301,9 +3285,9 @@ html.is-loading { overflow: hidden; }
   position: relative;
   display: flex;
   align-items: center;
-  gap: var(--cl-space-12);
+  gap: var(--cl-panel-gap);
   height: 480px;
-  padding: var(--cl-space-12);
+  padding: var(--cl-panel-gap);
   border-radius: var(--cl-radius-xl);
   overflow: hidden;
   isolation: isolate;
@@ -3497,7 +3481,7 @@ html.is-loading { overflow: hidden; }
   flex: 0 1 360px;
   min-width: 0;
   flex-direction: column;
-  gap: var(--cl-space-12);
+  gap: var(--cl-panel-gap);
   align-self: stretch;
 }
 .cl-green__tile {
@@ -3688,7 +3672,6 @@ html.is-loading { overflow: hidden; }
    ========================================================================== */
 @media (min-width: 641px) and (max-width: 1100px) {
   .cl-green__head { max-width: calc(100% - 80px); }
-  .cl-green__title { }
 
   .cl-green__body { max-width: calc(100% - 80px); }
 
@@ -3696,7 +3679,6 @@ html.is-loading { overflow: hidden; }
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items: stretch;
-    gap: var(--cl-space-12);
     height: auto;
   }
   .cl-green__intro {
@@ -3704,7 +3686,6 @@ html.is-loading { overflow: hidden; }
     gap: var(--cl-space-32);
     padding: var(--cl-space-28) var(--cl-space-36) var(--cl-space-36);
   }
-  .cl-green__en { }
   .cl-green__desc { max-width: 640px; }
 
   /* 圖卡與右側兩格同高 456（電腦版尺寸） */
@@ -3722,11 +3703,9 @@ html.is-loading { overflow: hidden; }
    手機版 375（1695:19826）
    ========================================================================== */
 @media (max-width: 640px) {
-  .cl-green { padding: var(--cl-space-40) 0 var(--cl-space-64); overflow: hidden; }
+  .cl-green {  overflow: hidden; }
 
-  .cl-green__head { gap: var(--cl-space-24); width: auto; max-width: none; margin: 0 var(--cl-space-16); }
-  .cl-green__heading { gap: var(--cl-space-8); }
-  .cl-green__title { }
+  .cl-green__head {  width: auto; max-width: none; margin: 0 var(--cl-space-16); }
 
   .cl-green__body {
     display: flex;
@@ -3735,7 +3714,7 @@ html.is-loading { overflow: hidden; }
     gap: var(--cl-space-24);
     width: auto;
     max-width: none;
-    margin: var(--cl-space-48) var(--cl-space-16) 0;
+    margin: var(--cl-section-gap) var(--cl-space-16) 0;
   }
 
   .cl-green__nav { display: flex; gap: var(--cl-space-16); padding: var(--cl-space-8) 0; }
@@ -3764,10 +3743,8 @@ html.is-loading { overflow: hidden; }
     flex: none;
     flex-direction: column;
     justify-content: center;
-    gap: var(--cl-space-8);
     width: 320px;
     height: auto;
-    padding: var(--cl-space-8);
     scroll-snap-align: start;
   }
 
@@ -3786,8 +3763,6 @@ html.is-loading { overflow: hidden; }
     height: 374px;
     padding: var(--cl-space-12) var(--cl-space-16) var(--cl-space-16);
   }
-  .cl-green__en { }
-  .cl-green__name { }
 
   .cl-green__slider,
   .cl-green__doc {
@@ -3818,7 +3793,7 @@ html.is-loading { overflow: hidden; }
   .cl-green__modal-panel { border-radius: var(--cl-radius-lg); }
   .cl-green__modal-close { top: 8px; right: 8px; width: 40px; height: 40px; }
 
-  .cl-green__side { flex: none; gap: var(--cl-space-8); width: 100%; }
+  .cl-green__side { flex: none;  width: 100%; }
   .cl-green__tile { flex: none; height: 180px; padding: var(--cl-space-16); }
   .cl-green__tile--gray { height: 180px; }
   .cl-green__esg { flex: none; height: 180px; }
@@ -3968,8 +3943,8 @@ html.is-loading { overflow: hidden; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--cl-space-64);
-  padding: var(--cl-space-40) 280px var(--cl-space-120);
+  gap: var(--cl-section-gap);
+  padding: var(--cl-section-pad-top) 280px var(--cl-section-pad-bottom);
   background: var(--cl-surface);
   /* Chrome 預設 text-spacing-trim 會壓縮相鄰全形標點（「）。」），Figma 不壓縮 → 斷行不同 */
   text-spacing-trim: space-all;
@@ -3980,7 +3955,7 @@ html.is-loading { overflow: hidden; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--cl-space-12);
+  gap: var(--cl-heading-gap);
   width: 640px;
   max-width: 100%;
 }
@@ -4026,7 +4001,7 @@ html.is-loading { overflow: hidden; }
 .cl-faq__tabs {
   display: flex;
   align-items: center;
-  gap: var(--cl-space-16);
+  gap: var(--cl-tab-gap);
 }
 .cl-faq__tab {
   display: flex;
@@ -4034,7 +4009,7 @@ html.is-loading { overflow: hidden; }
   align-items: center;
   justify-content: center;
   gap: var(--cl-space-12);
-  padding: var(--cl-space-16) var(--cl-space-24);
+  padding: var(--cl-tab-pad-y) var(--cl-tab-pad-x);
   position: relative;
   border-radius: var(--cl-radius-full);
   font-size: var(--cl-label-l-fs);
@@ -4158,24 +4133,20 @@ html.is-loading { overflow: hidden; }
 /* 平板 641–1100（S0_TABLET_CONTRACT：電腦結構，左右留白 40，區段標題 28；頁籤放得下就一列） */
 @media (min-width: 641px) and (max-width: 1100px) {
   .cl-faq { padding-left: var(--cl-space-40); padding-right: var(--cl-space-40); }
-  .cl-faq__title { }
 }
 
 /* ---------- 手機 375（1695:19900） ---------- */
 @media (max-width: 640px) {
   .cl-faq {
     align-items: flex-start;
-    gap: var(--cl-space-48);
-    padding: var(--cl-space-40) var(--cl-space-16) var(--cl-space-64);
+    padding: var(--cl-section-pad-top) var(--cl-space-16) var(--cl-section-pad-bottom);
     overflow: hidden;
   }
-  .cl-faq__head { gap: var(--cl-space-8); width: 100%; }
-  .cl-faq__title { }
+  .cl-faq__head {  width: 100%; }
 
   .cl-faq__body { align-items: flex-start; gap: var(--cl-space-32); }
   /* 頁籤列超出版心：右側延伸到螢幕邊、可橫向捲動（稿上第三顆被裁切） */
   .cl-faq__tabs {
-    gap: var(--cl-space-12);
     width: calc(100% + 16px);
     margin-right: calc(-1 * var(--cl-space-16));
     overflow-x: auto;
@@ -4183,13 +4154,11 @@ html.is-loading { overflow: hidden; }
   }
   .cl-faq__tabs::-webkit-scrollbar { display: none; }
   .cl-faq__tab {
-    padding: var(--cl-space-8) var(--cl-space-16);
 
  /* Figma normal，文字框高 19 */
 
   }
   /* 稿上第二顆文字框高 23（其他 19），頁籤高 39／35：照稿做，見 audit-source */
-  .cl-faq__tab--tall { }
 
   .cl-faq__item { padding: var(--cl-space-20); }
   .cl-faq__q { gap: var(--cl-space-16); }
@@ -4205,7 +4174,7 @@ html.is-loading { overflow: hidden; }
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 var(--cl-space-80) var(--cl-space-120);
+  padding: 0 var(--cl-gutter) var(--cl-section-pad-bottom);
   background: var(--cl-surface);
   /* Chrome 預設 text-spacing-trim 會壓縮相鄰全形標點（「）。」），Figma 不壓縮 → 斷行不同 */
   text-spacing-trim: space-all;
@@ -4318,20 +4287,16 @@ html.is-loading { overflow: hidden; }
 .cl-cta__curve--left .cl-curve { transform: matrix(-0.764393, 0.644751, 0.644751, 0.764393, 1560.157, -2397.420); }
 .cl-cta__curve--right .cl-curve { transform: matrix(0.672907, -0.739727, -0.739727, -0.672907, 1027.014, 3022.867); }
 
-/* 641–1439：流動縮放 */
-@media (max-width: 1439px) and (min-width: 641px) {
+/* 1101–1439：流動縮放（641–1100 走 --cl-gutter 的平板值） */
+@media (max-width: 1439px) and (min-width: 1101px) {
   .cl-cta { padding-left: clamp(var(--cl-space-24), 5.56vw, var(--cl-space-80)); padding-right: clamp(var(--cl-space-24), 5.56vw, var(--cl-space-80)); }
 }
 
-/* 平板 641–1100（S0_TABLET_CONTRACT：電腦結構，左右留白 40，標題 28，按鈕維持 18px 並排） */
-@media (min-width: 641px) and (max-width: 1100px) {
-  .cl-cta { padding-left: var(--cl-space-40); padding-right: var(--cl-space-40); }
-  .cl-cta__title { }
-}
+/* 平板 641–1100（S0_TABLET_CONTRACT：電腦結構，左右留白交給 --cl-gutter，標題 28，按鈕維持 18px 並排） */
 
 /* ---------- 手機 375（1695:19927） ---------- */
 @media (max-width: 640px) {
-  .cl-cta { flex-direction: row; padding: 0 var(--cl-space-16) var(--cl-space-64); }
+  .cl-cta { flex-direction: row; }
   .cl-cta__bg { left: calc(50% + .5px); }
   .cl-cta__content {
     top: calc(50% + .12px);
@@ -4339,7 +4304,6 @@ html.is-loading { overflow: hidden; }
     width: 263px;
   }
   .cl-cta__text { gap: var(--cl-space-16); }
-  .cl-cta__title { }
   .cl-cta__actions {
     flex-direction: column;
     align-items: flex-start;
@@ -4549,7 +4513,6 @@ html.is-loading { overflow: hidden; }
   left: 50%;
   bottom: .5174em;
   font-size: var(--cl-footer-slogan-fs);
- 
   transform: translate(-50%, 50%);
 }
 
@@ -4651,7 +4614,7 @@ html.is-loading { overflow: hidden; }
 .cl-terms {
   max-width: 960px;
   margin: 0 auto;
-  padding: 160px var(--cl-space-80) var(--cl-space-120);
+  padding: 160px var(--cl-gutter) var(--cl-space-120);
 }
 .cl-terms__head { padding-bottom: var(--cl-space-40); border-bottom: 1px solid var(--cl-border); }
 .cl-terms__eyebrow {
@@ -4693,17 +4656,13 @@ html.is-loading { overflow: hidden; }
 .cl-terms__ol > li > .cl-terms__ul { margin-top: var(--cl-space-6); padding-left: 1.4em; }
 
 @media (max-width: 1100px) {
-  .cl-terms { padding: 140px var(--cl-space-40) var(--cl-space-96); }
+  .cl-terms { padding: 140px var(--cl-gutter) var(--cl-space-96); }
 }
 @media (max-width: 640px) {
-  .cl-terms { padding: 108px var(--cl-space-16) 72px; }
+  .cl-terms { padding: 108px var(--cl-gutter) 72px; }
   .cl-terms__head { padding-bottom: var(--cl-space-28); }
-  .cl-terms__eyebrow { }
-  .cl-terms__title { }
   .cl-terms__body { padding-top: var(--cl-space-8); }
   .cl-terms__section { padding-top: var(--cl-space-32); }
-  .cl-terms__h { }
-  .cl-terms__p { }
 }
 
 /* header／選單：目前頁（服務條款）標綠 */

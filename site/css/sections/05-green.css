@@ -5,7 +5,7 @@
 
 .cl-green {
   position: relative;
-  padding: var(--cl-space-40) 0 var(--cl-space-120);
+  padding: var(--cl-section-pad-top) 0 var(--cl-section-pad-bottom);
   /* Chrome 預設會擠壓相鄰全形標點（「下，「」），Figma 不會 → 斷行不同；關掉 */
   text-spacing-trim: space-all;
   background: var(--cl-surface);
@@ -19,7 +19,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--cl-space-32);
+  gap: var(--cl-head-gap);
   width: 640px;
   max-width: calc(100% - 32px);
   margin: 0 auto;
@@ -29,7 +29,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--cl-space-12);
+  gap: var(--cl-heading-gap);
   width: 100%;
 }
 .cl-green__eyebrow {
@@ -73,7 +73,7 @@
 .cl-green__body {
   width: 1280px;
   max-width: calc(100% - 160px);
-  margin: var(--cl-space-64) auto 0;
+  margin: var(--cl-section-gap) auto 0;
 }
 .cl-green__nav,
 .cl-green__pager { display: none; }
@@ -88,9 +88,9 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: var(--cl-space-12);
+  gap: var(--cl-panel-gap);
   height: 480px;
-  padding: var(--cl-space-12);
+  padding: var(--cl-panel-gap);
   border-radius: var(--cl-radius-xl);
   overflow: hidden;
   isolation: isolate;
@@ -284,7 +284,7 @@
   flex: 0 1 360px;
   min-width: 0;
   flex-direction: column;
-  gap: var(--cl-space-12);
+  gap: var(--cl-panel-gap);
   align-self: stretch;
 }
 .cl-green__tile {
@@ -475,7 +475,6 @@
    ========================================================================== */
 @media (min-width: 641px) and (max-width: 1100px) {
   .cl-green__head { max-width: calc(100% - 80px); }
-  .cl-green__title { }
 
   .cl-green__body { max-width: calc(100% - 80px); }
 
@@ -483,7 +482,6 @@
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items: stretch;
-    gap: var(--cl-space-12);
     height: auto;
   }
   .cl-green__intro {
@@ -491,7 +489,6 @@
     gap: var(--cl-space-32);
     padding: var(--cl-space-28) var(--cl-space-36) var(--cl-space-36);
   }
-  .cl-green__en { }
   .cl-green__desc { max-width: 640px; }
 
   /* 圖卡與右側兩格同高 456（電腦版尺寸） */
@@ -509,11 +506,9 @@
    手機版 375（1695:19826）
    ========================================================================== */
 @media (max-width: 640px) {
-  .cl-green { padding: var(--cl-space-40) 0 var(--cl-space-64); overflow: hidden; }
+  .cl-green {  overflow: hidden; }
 
-  .cl-green__head { gap: var(--cl-space-24); width: auto; max-width: none; margin: 0 var(--cl-space-16); }
-  .cl-green__heading { gap: var(--cl-space-8); }
-  .cl-green__title { }
+  .cl-green__head {  width: auto; max-width: none; margin: 0 var(--cl-space-16); }
 
   .cl-green__body {
     display: flex;
@@ -522,7 +517,7 @@
     gap: var(--cl-space-24);
     width: auto;
     max-width: none;
-    margin: var(--cl-space-48) var(--cl-space-16) 0;
+    margin: var(--cl-section-gap) var(--cl-space-16) 0;
   }
 
   .cl-green__nav { display: flex; gap: var(--cl-space-16); padding: var(--cl-space-8) 0; }
@@ -551,10 +546,8 @@
     flex: none;
     flex-direction: column;
     justify-content: center;
-    gap: var(--cl-space-8);
     width: 320px;
     height: auto;
-    padding: var(--cl-space-8);
     scroll-snap-align: start;
   }
 
@@ -573,8 +566,6 @@
     height: 374px;
     padding: var(--cl-space-12) var(--cl-space-16) var(--cl-space-16);
   }
-  .cl-green__en { }
-  .cl-green__name { }
 
   .cl-green__slider,
   .cl-green__doc {
@@ -605,7 +596,7 @@
   .cl-green__modal-panel { border-radius: var(--cl-radius-lg); }
   .cl-green__modal-close { top: 8px; right: 8px; width: 40px; height: 40px; }
 
-  .cl-green__side { flex: none; gap: var(--cl-space-8); width: 100%; }
+  .cl-green__side { flex: none;  width: 100%; }
   .cl-green__tile { flex: none; height: 180px; padding: var(--cl-space-16); }
   .cl-green__tile--gray { height: 180px; }
   .cl-green__esg { flex: none; height: 180px; }

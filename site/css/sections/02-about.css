@@ -9,8 +9,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--cl-space-64);
-  padding: var(--cl-space-40) 0 140px;
+  gap: var(--cl-section-gap);
+  padding: var(--cl-section-pad-top) 0 140px;
 }
 .cl-about > :not(.cl-about__curve) { position: relative; z-index: 1; }
 
@@ -44,7 +44,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--cl-space-32);
+  gap: var(--cl-head-gap);
   width: 640px;
   max-width: calc(100% - 32px);
   text-align: center;
@@ -53,7 +53,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--cl-space-12);
+  gap: var(--cl-heading-gap);
   width: 100%;
 }
 .cl-about__eyebrow {
@@ -99,7 +99,7 @@
   gap: var(--cl-space-12);
   width: calc(100% - 160px);
   max-width: 1280px;
-  padding: var(--cl-space-12);
+  padding: var(--cl-panel-gap);
   border-radius: var(--cl-radius-xl);
   background: var(--cl-surface-muted);
 }
@@ -108,7 +108,7 @@
 .cl-about__cards {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--cl-space-12);
+  gap: var(--cl-panel-gap);
 }
 .cl-about__card {
   display: flex;
@@ -323,7 +323,6 @@
    版心左右留白 40；區段標題 28；四卡 2×2；循環圖用電腦版 SVG 等比縮 */
 @media (max-width: 1100px) and (min-width: 641px) {
   .cl-about__head { max-width: calc(100% - 80px); }
-  .cl-about__title { }
   .cl-about__panel { width: calc(100% - 80px); }
   .cl-about__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cl-about__card-desc { text-wrap: balance; }   /* 置中短段落避免末行剩一兩字 */
@@ -336,8 +335,7 @@
 /* ---------- 手機版 ---------- */
 @media (max-width: 640px) {
   .cl-about {
-    gap: var(--cl-space-48);
-    padding: var(--cl-space-40) var(--cl-space-16) var(--cl-space-64);
+    padding: var(--cl-section-pad-top) var(--cl-space-16) var(--cl-space-64);
   }
   .cl-about__curve { left: calc(50% - 799.5px); width: 1600px; height: 640px; }
   .cl-about__curve--whatis { top: -40px; }   /* 1695:19644 */
@@ -349,19 +347,15 @@
     transform: scale(.8) matrix(-.88773, -.46036, .46036, -.88773, 3325.70459, 2787.52002) matrix(.99888, .04725, -.04725, .99888, 69.74628, 0) translate(-24px, -24px);
   }
 
-  .cl-about__head { gap: var(--cl-space-24); width: 100%; max-width: 343px; }
-  .cl-about__heading { gap: var(--cl-space-8); }
-  .cl-about__title { }
+  .cl-about__head {  width: 100%; max-width: 343px; }
 
   /* scroll（1695:19652）＋灰底 Frame 2085663961（1695:19653） */
   .cl-about__panel {
     width: 100%;
     max-width: 343px;
-    padding: var(--cl-space-8);
   }
   .cl-about__cards {
     display: flex;
-    gap: var(--cl-space-8);
     height: 300px;
     overflow-x: auto;
     overflow-y: hidden;

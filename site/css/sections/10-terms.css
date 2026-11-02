@@ -8,7 +8,7 @@
 .cl-terms {
   max-width: 960px;
   margin: 0 auto;
-  padding: 160px var(--cl-space-80) var(--cl-space-120);
+  padding: 160px var(--cl-gutter) var(--cl-space-120);
 }
 .cl-terms__head { padding-bottom: var(--cl-space-40); border-bottom: 1px solid var(--cl-border); }
 .cl-terms__eyebrow {
@@ -50,17 +50,13 @@
 .cl-terms__ol > li > .cl-terms__ul { margin-top: var(--cl-space-6); padding-left: 1.4em; }
 
 @media (max-width: 1100px) {
-  .cl-terms { padding: 140px var(--cl-space-40) var(--cl-space-96); }
+  .cl-terms { padding: 140px var(--cl-gutter) var(--cl-space-96); }
 }
 @media (max-width: 640px) {
-  .cl-terms { padding: 108px var(--cl-space-16) 72px; }
+  .cl-terms { padding: 108px var(--cl-gutter) 72px; }
   .cl-terms__head { padding-bottom: var(--cl-space-28); }
-  .cl-terms__eyebrow { }
-  .cl-terms__title { }
   .cl-terms__body { padding-top: var(--cl-space-8); }
   .cl-terms__section { padding-top: var(--cl-space-32); }
-  .cl-terms__h { }
-  .cl-terms__p { }
 }
 
 /* header／選單：目前頁（服務條款）標綠 */

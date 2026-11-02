@@ -9,8 +9,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--cl-space-64);
-  padding: var(--cl-space-40) 0 var(--cl-space-120);
+  gap: var(--cl-section-gap);
+  padding: var(--cl-section-pad-top) 0 var(--cl-section-pad-bottom);
 }
 .cl-paper > :not(.cl-paper__curve) { position: relative; z-index: 1; }
 
@@ -38,7 +38,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--cl-space-32);
+  gap: var(--cl-head-gap);
   width: 640px;
   max-width: calc(100% - 32px);
   text-align: center;
@@ -47,7 +47,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--cl-space-12);
+  gap: var(--cl-heading-gap);
   width: 100%;
 }
 .cl-paper__eyebrow {
@@ -91,7 +91,7 @@
 .cl-paper__grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--cl-space-12);
+  gap: var(--cl-panel-gap);
   padding: var(--cl-space-12);
   border-radius: var(--cl-radius-xl);
   background: var(--cl-surface-muted);
@@ -225,11 +225,8 @@
    版心左右留白 40；區段標題 28；2 欄圖文交錯，圖片填滿列高；Step 03 說明卡改直排 */
 @media (max-width: 1100px) and (min-width: 641px) {
   .cl-paper__head { max-width: calc(100% - 80px); }
-  .cl-paper__title { }
   .cl-paper__slider { width: calc(100% - 80px); }
   .cl-paper__text { justify-content: flex-start; gap: var(--cl-space-32); padding: var(--cl-space-32) var(--cl-space-28); }
-  .cl-paper__no-label { }
-  .cl-paper__no-num   { }
   .cl-paper__step-title { text-wrap: balance; }
   .cl-paper__desc { text-wrap: pretty; }
   .cl-paper__media { align-self: stretch; min-height: 280px; }
@@ -244,8 +241,7 @@
 /* ---------- 手機版：三張橫向卡輪播（1695:19756） ---------- */
 @media (max-width: 640px) {
   .cl-paper {
-    gap: var(--cl-space-48);
-    padding: var(--cl-space-40) var(--cl-space-16) var(--cl-space-64);
+    padding: var(--cl-section-pad-top) var(--cl-space-16) var(--cl-section-pad-bottom);
     overflow: clip;
   }
   .cl-paper__curve { left: calc(50% - 799.5px); top: 392px; width: 1600px; height: 640px; }
@@ -253,9 +249,7 @@
     transform: scale(.8) translate(-199px, -808px) matrix(.99888, .04725, -.04725, .99888, 69.74628, 0) translate(-24px, -24px);
   }
 
-  .cl-paper__head { gap: var(--cl-space-24); width: 100%; max-width: 343px; }
-  .cl-paper__heading { gap: var(--cl-space-8); }
-  .cl-paper__title { }
+  .cl-paper__head {  width: 100%; max-width: 343px; }
 
   .cl-paper__slider {
     display: flex;
@@ -279,7 +273,6 @@
 
   .cl-paper__grid {
     display: flex;
-    gap: var(--cl-space-8);
     width: 100%;
     padding: 0;
     border: 8px solid var(--cl-surface-muted);
@@ -309,10 +302,7 @@
     padding: var(--cl-space-16);
     border-radius: var(--cl-radius-lg);
   }
-  .cl-paper__no-label { }
-  .cl-paper__no-num   { }
   .cl-paper__cr { width: 4px; } /* 手機版稿上 \r 只佔約 4px（電腦版約 1em），照稿 */
-  .cl-paper__step-title { }
 
   .cl-paper__media {
     flex: none;

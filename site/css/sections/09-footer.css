@@ -174,7 +174,6 @@
   left: 50%;
   bottom: .5174em;
   font-size: var(--cl-footer-slogan-fs);
- 
   transform: translate(-50%, 50%);
 }
 

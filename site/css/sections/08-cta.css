@@ -6,7 +6,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 var(--cl-space-80) var(--cl-space-120);
+  padding: 0 var(--cl-gutter) var(--cl-section-pad-bottom);
   background: var(--cl-surface);
   /* Chrome 預設 text-spacing-trim 會壓縮相鄰全形標點（「）。」），Figma 不壓縮 → 斷行不同 */
   text-spacing-trim: space-all;
@@ -119,20 +119,16 @@
 .cl-cta__curve--left .cl-curve { transform: matrix(-0.764393, 0.644751, 0.644751, 0.764393, 1560.157, -2397.420); }
 .cl-cta__curve--right .cl-curve { transform: matrix(0.672907, -0.739727, -0.739727, -0.672907, 1027.014, 3022.867); }
 
-/* 641–1439：流動縮放 */
-@media (max-width: 1439px) and (min-width: 641px) {
+/* 1101–1439：流動縮放（641–1100 走 --cl-gutter 的平板值） */
+@media (max-width: 1439px) and (min-width: 1101px) {
   .cl-cta { padding-left: clamp(var(--cl-space-24), 5.56vw, var(--cl-space-80)); padding-right: clamp(var(--cl-space-24), 5.56vw, var(--cl-space-80)); }
 }
 
-/* 平板 641–1100（S0_TABLET_CONTRACT：電腦結構，左右留白 40，標題 28，按鈕維持 18px 並排） */
-@media (min-width: 641px) and (max-width: 1100px) {
-  .cl-cta { padding-left: var(--cl-space-40); padding-right: var(--cl-space-40); }
-  .cl-cta__title { }
-}
+/* 平板 641–1100（S0_TABLET_CONTRACT：電腦結構，左右留白交給 --cl-gutter，標題 28，按鈕維持 18px 並排） */
 
 /* ---------- 手機 375（1695:19927） ---------- */
 @media (max-width: 640px) {
-  .cl-cta { flex-direction: row; padding: 0 var(--cl-space-16) var(--cl-space-64); }
+  .cl-cta { flex-direction: row; }
   .cl-cta__bg { left: calc(50% + .5px); }
   .cl-cta__content {
     top: calc(50% + .12px);
@@ -140,7 +136,6 @@
     width: 263px;
   }
   .cl-cta__text { gap: var(--cl-space-16); }
-  .cl-cta__title { }
   .cl-cta__actions {
     flex-direction: column;
     align-items: flex-start;

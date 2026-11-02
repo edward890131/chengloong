@@ -6,7 +6,7 @@
 
 .cl-process {
   position: relative;
-  padding: var(--cl-space-40) var(--cl-space-80) 160px;
+  padding: var(--cl-section-pad-top) var(--cl-gutter) 160px;
   color: var(--cl-text);
 }
 .cl-process > :not(.cl-process__curve-clip) { position: relative; z-index: 1; }
@@ -36,7 +36,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--cl-space-12);
+  gap: var(--cl-heading-gap);
   text-align: center;
 }
 .cl-process__eyebrow {
@@ -68,7 +68,7 @@
 
 .cl-process__body {
   max-width: 1280px;
-  margin: var(--cl-space-64) auto 0;
+  margin: var(--cl-section-gap) auto 0;
 }
 
 /* ---------- 服務流程B：四格卡（713:18070） ---------- */
@@ -243,7 +243,7 @@
 
 .cl-process__tabs {
   display: flex;
-  gap: var(--cl-space-16);
+  gap: var(--cl-tab-gap);
   scrollbar-width: none;
 }
 .cl-process__tabs::-webkit-scrollbar { display: none; }
@@ -253,7 +253,7 @@
   align-items: center;
   justify-content: center;
   gap: var(--cl-space-12);
-  padding: var(--cl-space-16) var(--cl-space-24);
+  padding: var(--cl-tab-pad-y) var(--cl-tab-pad-x);
   border-radius: var(--cl-radius-full);
   background: var(--cl-surface-muted);
   color: var(--cl-text-tertiary);
@@ -284,8 +284,8 @@
 /* 頁籤 1：線上預約步驟（713:18662） */
 .cl-process__booking {
   display: flex;
-  gap: var(--cl-space-12);
-  padding: var(--cl-space-12);
+  gap: var(--cl-panel-gap);
+  padding: var(--cl-panel-gap);
   border-radius: var(--cl-radius-xl);
   background: var(--cl-surface-muted);
   overflow: hidden;
@@ -295,7 +295,7 @@
   flex: 1 1 0;
   min-width: 0;
   flex-direction: column;
-  gap: var(--cl-space-12);
+  gap: var(--cl-panel-gap);
 }
 .cl-process__step {
   display: flex;
@@ -462,8 +462,8 @@
 .cl-process__prepare {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--cl-space-12);
-  padding: var(--cl-space-12);
+  gap: var(--cl-panel-gap);
+  padding: var(--cl-panel-gap);
   border-radius: var(--cl-radius-xl);
   background: var(--cl-surface-muted);
   overflow: hidden;
@@ -539,7 +539,7 @@
   letter-spacing: var(--cl-paragraph-s-ls);
   color: var(--cl-text);
 }
-.cl-process__prep-pair { display: flex; gap: var(--cl-space-12); align-self: stretch; }
+.cl-process__prep-pair { display: flex; gap: var(--cl-panel-gap); align-self: stretch; }
 .cl-process__prep-img {
   position: relative;
   flex: 1 1 0;
@@ -682,7 +682,7 @@
    左右版心 40；區段標題 28；卡片標題、內文照電腦版
    ========================================================================== */
 @media (min-width: 641px) and (max-width: 1100px) {
-  .cl-process { padding: var(--cl-space-40) var(--cl-space-40) var(--cl-space-120); }
+  .cl-process { padding: var(--cl-section-pad-top) var(--cl-gutter) var(--cl-space-120); }
 
   /* 背景弧線：沿用 S0 平板位置（手機版座標）；R1 四格卡改橫排後段落變矮，弧線落在頁籤面板兩側，維持不動 */
   .cl-process__curve-clip {
@@ -695,9 +695,7 @@
     left: 577.758px;
     top: 176.8792px;
     transform: translate(-50%, -50%) rotate(2.71deg) scale(.8);
-  }
-
-  .cl-process__title { }   /* 介於 32／24，行高 140% 取整 */
+  }   /* 介於 32／24，行高 140% 取整 */
 
   /* 四格卡（R1）：改用電腦版型（四格橫排、hover／點擊展開，卡高 400、照片框 600×400 置中裁切）。
      每格較窄（768 時約 171 寬），內距與標題字級縮小，展開格說明文字改自動高度 */
@@ -744,7 +742,7 @@
    手機版（375，1695:19816）
    ========================================================================== */
 @media (max-width: 640px) {
-  .cl-process { padding: var(--cl-space-40) var(--cl-space-16) var(--cl-space-64); }
+  .cl-process { padding: var(--cl-section-pad-top) var(--cl-gutter) var(--cl-space-64); }
 
   /* curve_ani_process 1600×640 在 (-612, 1087)：instance 整體縮 0.8（SVG 4503.11×1219.33），
      pattern 中心＝(722.1975, 221.099)×0.8 */
@@ -759,10 +757,6 @@
     top: 176.8792px;
     transform: translate(-50%, -50%) rotate(2.71deg) scale(.8);
   }
-
-  .cl-process__head { gap: var(--cl-space-8); }
-  .cl-process__title { }
-  .cl-process__body { margin-top: var(--cl-space-48); }
 
   /* 服務流程B size=S（974:14698） */
   .cl-process__cards { flex-direction: column; }
@@ -782,7 +776,6 @@
     background: linear-gradient(180deg, transparent 36.944%, var(--cl-surface-inverse) 83.875%);
   }
   .cl-process__card-icon { width: 32px; height: 32px; }
-  .cl-process__card-title { }
   .cl-process__card-desc { height: auto; }
 
   /* 手機版弧線：curve_ani_service 1600×320 旋轉 90deg，pattern 為電腦版 0.8 倍
@@ -800,27 +793,17 @@
 
   /* 頁籤列比 343 寬，可橫向捲動，右側貼齊螢幕邊 */
   .cl-process__tabs {
-    gap: var(--cl-space-12);
     margin: 0 calc(-1 * var(--cl-space-16));
     padding: 0 var(--cl-space-16);
     overflow-x: auto;
-  }
-  .cl-process__tab {
-    padding: var(--cl-space-8) var(--cl-space-16);
-
-
-
   }
 
   /* 頁籤 1（995:18233） */
   .cl-process__booking {
     flex-direction: column;
-    gap: var(--cl-space-8);
-    padding: var(--cl-space-8);
   }
   .cl-process__steps {
     flex: none;
-    gap: var(--cl-space-8);
     border-radius: var(--cl-radius-lg);
     background: var(--cl-surface-subtle);
   }
@@ -839,12 +822,10 @@
   .cl-process__prepare {
     display: flex;
     flex-direction: column;
-    gap: var(--cl-space-8);
-    padding: var(--cl-space-8);
   }
   .cl-process__prep-card { gap: var(--cl-space-12); padding: var(--cl-space-16); border-radius: var(--cl-radius-lg); }
   .cl-process__prep-group { gap: var(--cl-space-20); }
-  .cl-process__prep-pair { flex-direction: column; gap: var(--cl-space-8); }
+  .cl-process__prep-pair { flex-direction: column;  }
   .cl-process__prep-img { flex: none; aspect-ratio: 240 / 160; border-radius: var(--cl-radius-lg); }
   .cl-process__prep-line-name { align-self: stretch; white-space: normal; }
 }
@@ -880,7 +861,6 @@
   .cl-process__route-inner { padding-top: 0; }
   .cl-process__route-steps { width: 1128px; gap: var(--cl-space-24); padding: var(--cl-space-20) 0 var(--cl-space-16) var(--cl-space-24); }
   .cl-process__route-steps > li { flex: none; width: 164px; }
-  .cl-process__route-num { }
   .cl-process__route-hint {
     position: absolute;
     left: 19px;

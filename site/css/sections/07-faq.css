@@ -5,8 +5,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--cl-space-64);
-  padding: var(--cl-space-40) 280px var(--cl-space-120);
+  gap: var(--cl-section-gap);
+  padding: var(--cl-section-pad-top) 280px var(--cl-section-pad-bottom);
   background: var(--cl-surface);
   /* Chrome 預設 text-spacing-trim 會壓縮相鄰全形標點（「）。」），Figma 不壓縮 → 斷行不同 */
   text-spacing-trim: space-all;
@@ -17,7 +17,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--cl-space-12);
+  gap: var(--cl-heading-gap);
   width: 640px;
   max-width: 100%;
 }
@@ -63,7 +63,7 @@
 .cl-faq__tabs {
   display: flex;
   align-items: center;
-  gap: var(--cl-space-16);
+  gap: var(--cl-tab-gap);
 }
 .cl-faq__tab {
   display: flex;
@@ -71,7 +71,7 @@
   align-items: center;
   justify-content: center;
   gap: var(--cl-space-12);
-  padding: var(--cl-space-16) var(--cl-space-24);
+  padding: var(--cl-tab-pad-y) var(--cl-tab-pad-x);
   position: relative;
   border-radius: var(--cl-radius-full);
   font-size: var(--cl-label-l-fs);
@@ -195,24 +195,20 @@
 /* 平板 641–1100（S0_TABLET_CONTRACT：電腦結構，左右留白 40，區段標題 28；頁籤放得下就一列） */
 @media (min-width: 641px) and (max-width: 1100px) {
   .cl-faq { padding-left: var(--cl-space-40); padding-right: var(--cl-space-40); }
-  .cl-faq__title { }
 }
 
 /* ---------- 手機 375（1695:19900） ---------- */
 @media (max-width: 640px) {
   .cl-faq {
     align-items: flex-start;
-    gap: var(--cl-space-48);
-    padding: var(--cl-space-40) var(--cl-space-16) var(--cl-space-64);
+    padding: var(--cl-section-pad-top) var(--cl-space-16) var(--cl-section-pad-bottom);
     overflow: hidden;
   }
-  .cl-faq__head { gap: var(--cl-space-8); width: 100%; }
-  .cl-faq__title { }
+  .cl-faq__head {  width: 100%; }
 
   .cl-faq__body { align-items: flex-start; gap: var(--cl-space-32); }
   /* 頁籤列超出版心：右側延伸到螢幕邊、可橫向捲動（稿上第三顆被裁切） */
   .cl-faq__tabs {
-    gap: var(--cl-space-12);
     width: calc(100% + 16px);
     margin-right: calc(-1 * var(--cl-space-16));
     overflow-x: auto;
@@ -220,13 +216,11 @@
   }
   .cl-faq__tabs::-webkit-scrollbar { display: none; }
   .cl-faq__tab {
-    padding: var(--cl-space-8) var(--cl-space-16);
 
  /* Figma normal，文字框高 19 */
 
   }
   /* 稿上第二顆文字框高 23（其他 19），頁籤高 39／35：照稿做，見 audit-source */
-  .cl-faq__tab--tall { }
 
   .cl-faq__item { padding: var(--cl-space-20); }
   .cl-faq__q { gap: var(--cl-space-16); }

@@ -213,3 +213,41 @@ manifest 只有 3 個 mode（桌機／平板 ≤1100／手機 ≤640），CSS �
 - 字重寫進 text style 名稱：tokens.json `sys.textStyle.{類別}.{尺寸}.{字重}`（typography 複合型，description 寫用途與 CSS class），共 31 個。
 - 舊角色 → 新名稱：h1→Title/XXL、h2→Title/XL、h3→Title/L、h4→Title/M、title-l→Title/S、title→Title/XS；display→Display/XXL、num-xl→Display/XL、num-l→Display/L、num-m→Display/M、num-label→Display/S、num-s→Display/XS、num-xs→Display/XXS；body-long→Paragraph/L、body-l→Paragraph/M、body→Paragraph/S；tab→Label/L、tab-s 與 nav→Label/M（nav 行高 24→23）、caption→Label/S、micro→Label/XS；btn→Button/L、btn-sm→Button/S；overline→Overline/M、eyebrow→Overline/S。
 - 補字距：原本沒寫字距、但用角色字級的 7 條規則補上該尺寸字距（nav、hero tag、準備流程名稱與方式、綠點資訊標題與膠囊、footer 副標與版權），Figma style 才對得起來。
+
+## 12. RWD 間距 token（2026-11-02）
+
+有規律的用途做成三個 mode 的語意 token（`sys.layout`），數值照現況，套用後 375／400／700／768／1000／1300／1440 七個寬度逐元素比對無變動：
+
+| token | 桌機 | 平板 | 手機 | 套用 |
+|---|---|---|---|---|
+| `--cl-gutter` | 80 | 40 | 16 | 流程、CTA、條款左右邊距 |
+| `--cl-section-pad-top` | 40 | 40 | 40 | 關於、紙張、流程、綠點、FAQ |
+| `--cl-section-pad-bottom` | 120 | 120 | 64 | 紙張、綠點、FAQ、CTA |
+| `--cl-section-gap` | 64 | 64 | 48 | 關於、紙張、流程、綠點、FAQ（標題組 → 內容） |
+| `--cl-head-gap` | 32 | 32 | 24 | 關於、紙張、綠點標題組 |
+| `--cl-heading-gap` | 12 | 12 | 8 | 5 個區塊 eyebrow ↔ 標題 |
+| `--cl-panel-gap` | 12 | 12 | 8 | 灰底面板內距與卡片間距（關於、紙張、流程、綠點） |
+| `--cl-tab-gap`／`-pad-y`／`-pad-x` | 16／16／24 | 同桌機 | 12／8／16 | 流程、FAQ 頁籤 |
+
+CTA 的 1101–1439 流動邊距規則範圍由 641–1439 改成 1101–1439（641–1100 交給 gutter 平板值，數值同原本的 40）。
+
+## 13. 間距不一致清單（等使用者判斷）
+
+### A. 同用途、數值不同（桌機／平板／手機）
+
+| # | 用途 | 現況 | 對照標準 |
+|---|---|---|---|
+| A1 | 區塊下內距 | 關於 140／140／64；流程 160／120／64；條款 120／96／72 | section-pad-bottom 120／120／64 |
+| A2 | 區塊上內距 | 條款 160／140／108（讓出 header）；CTA 0 | section-pad-top 40 |
+| A3 | 頁面左右邊距 | FAQ 280／40／16；關於、紙張、綠點桌機 0（靠內容寬置中）、手機 16；1101–1439 流動值：流程 5.5vw、CTA 5.56vw、FAQ 19.44vw | gutter 80／40／16 |
+| A4 | 標題組 → 內容 | CTA 56／56／48 | section-gap 64／64／48 |
+| A5 | 標題組內 | 價值循環標題 32／24／20 | head-gap 32／32／24 |
+| A6 | 灰底面板 | 紙張格內距 12／12／0；綠點卡片之間 20／20／12 | panel-gap 12／12／8 |
+| A7 | 卡片內距 | 關於卡 40·32·32／同／24；紙張文字卡 32／32·28／16；流程四格卡 40／32·20／24；流程步驟 32／32／16；準備卡 32／24／16；綠點介紹 28·48·48／28·36·36／12·16·16；綠點資訊、綠點方塊、紙張註記 20／20／16；FAQ 項目 32／32／20；證明書彈窗 40／40／16 | 尚無標準 |
+| A8 | 卡片內元素間距 | 關於卡 24／24／20、卡內文字 16／16／12；流程四格卡 24／16／12；流程步驟 48／48／32；準備卡 20／20／12、準備群組 24／24／20；FAQ 問題列 24／24／16；CTA 文字與按鈕 24／24／16 | 尚無標準 |
+| A9 | 切換鈕內距 | 家紙／工紙 12·24／8·16／8·16 | 頁籤 16·24／16·24／8·16 |
+| A10 | 其他 | 價值循環圖上方 40／40／52（手機較大）；串場照片間距 40／28／16；紙張註記列 40／12／12；路線步驟 40／24／24；footer 欄距 64／64／24、列距 40／40／56（手機較大）、資訊間距 40／40／24 | — |
+
+### B. 平板沿用桌機（沒有平板值）
+
+section-pad-bottom（120）、section-gap（64）、head-gap（32）、heading-gap（12）、panel-gap（12）、頁籤（16／24），以及 A7、A8 大部分卡片的平板值，目前都等於桌機。要不要給平板中間值（例如 120 → 96、64 → 56、32 → 28），待使用者決定。
