@@ -321,34 +321,11 @@
 .cl-hero__tip-btn { display: block; width: 100%; height: 100%; }
 .cl-hero__tip-btn img { width: 100%; height: 100%; }
 .cl-hero__tip-pop {
-  position: absolute;
-  z-index: 3;
-  left: 50%;
-  bottom: calc(100% + 4px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   width: 320px;
-  transform: translateX(-50%);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity .2s ease-out, visibility .2s;
-  pointer-events: none;
-  white-space: normal;
 }
 .cl-hero__tip-body {
-  display: block;
   width: 100%;
-  padding: var(--cl-space-8) var(--cl-space-10);
-  border-radius: var(--cl-radius-xs);
-  background: var(--cl-surface-inverse);
-  color: var(--cl-text-inverse);
-  font-size: var(--cl-paragraph-s-fs);
-  font-weight: var(--cl-fw-regular);
-  letter-spacing: var(--cl-paragraph-s-ls);
-  line-height: var(--cl-paragraph-s-lh);
 }
-.cl-hero__tip-arrow { width: 16px; height: 10px; flex: none; }
 .cl-hero__tip:hover .cl-hero__tip-pop,
 .cl-hero__tip-btn:focus-visible + .cl-hero__tip-pop,
 .cl-hero__tip.is-open .cl-hero__tip-pop {
@@ -864,16 +841,5 @@
     border: 6px solid transparent;
     border-top: 0;
     border-bottom-color: var(--cl-border-strong);
-  }
-  .cl-hero__tag-tip-body {
-    display: block;
-    padding: var(--cl-space-8) var(--cl-space-10);
-    border-radius: var(--cl-radius-xs);
-    background: var(--cl-surface-inverse);
-    color: var(--cl-text-inverse);
-    font-size: var(--cl-paragraph-s-fs);
-    font-weight: var(--cl-fw-regular);
-    line-height: var(--cl-paragraph-s-lh);
-    letter-spacing: var(--cl-paragraph-s-ls);
   }
 }

@@ -39,59 +39,6 @@
   transform: matrix(-.88773, -.46036, .46036, -.88773, 3325.70459, 2787.52002) matrix(.99888, .04725, -.04725, .99888, 69.74628, 0) translate(-24px, -24px);
 }
 
-/* ---------- 標題區 Frame 4（1695:20121） ---------- */
-.cl-about__head {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--cl-head-gap);
-  width: var(--cl-head-max);
-  max-width: 100%;
-  text-align: center;
-}
-.cl-about__heading {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--cl-heading-gap);
-  width: 100%;
-}
-.cl-about__eyebrow {
-  display: flex;
-  align-items: center;
-  gap: var(--cl-space-12);
-  font-family: var(--cl-font-num);
-  font-size: var(--cl-overline-s-fs);
-  font-weight: var(--cl-fw-semibold);
-  line-height: var(--cl-overline-s-lh);
-  letter-spacing: var(--cl-overline-s-ls);
-  text-transform: uppercase;
-  color: var(--cl-text-accent-strong);
-  white-space: nowrap;
-}
-.cl-about__eyebrow::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: var(--cl-radius-full);
-  background: var(--cl-surface-accent-strong);
-  flex: none;
-}
-.cl-about__title {
-  font-size: var(--cl-title-xl-fs);
-  font-weight: var(--cl-fw-bold);
-  line-height: var(--cl-title-xl-lh);
-  letter-spacing: var(--cl-title-xl-ls);
-  color: var(--cl-text-strong);
-}
-.cl-about__lead {
-  font-size: var(--cl-paragraph-m-fs);
-  font-weight: var(--cl-fw-regular);
-  line-height: var(--cl-paragraph-m-lh);
-  letter-spacing: var(--cl-paragraph-m-ls);
-  color: var(--cl-text-secondary);
-}
-
 /* ---------- 灰底容器（1695:20128） ---------- */
 .cl-about__panel {
   display: flex;
@@ -99,9 +46,6 @@
   gap: var(--cl-space-12);
   width: 100%;
   max-width: var(--cl-content-max);
-  padding: var(--cl-panel-gap);
-  border-radius: var(--cl-radius-xl);
-  background: var(--cl-surface-muted);
 }
 
 /* ---------- 四張特色卡（1695:20152） ---------- */
@@ -114,9 +58,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--cl-space-24);
-  padding: var(--cl-space-40) var(--cl-space-32) var(--cl-space-32);
-  border-radius: var(--cl-radius-lg);
+  gap: var(--cl-c-about-card-gap);
+  padding: var(--cl-c-about-card-pad-top) var(--cl-c-about-card-pad-x) var(--cl-c-about-card-pad-bottom);
+  border-radius: var(--cl-c-about-card-radius);
   background: var(--cl-surface);
   overflow: hidden;
 }
@@ -231,7 +175,7 @@
 .cl-about__card-text {
   display: flex;
   flex-direction: column;
-  gap: var(--cl-space-16);
+  gap: var(--cl-c-about-card-text-gap);
   width: 100%;
   text-align: center;
 }
@@ -271,27 +215,6 @@
   padding: 0 var(--cl-space-24);
 }
 .cl-about__pill {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--cl-space-12);
-  flex: none;
-  padding: var(--cl-space-8) var(--cl-space-20);
-  border-radius: var(--cl-radius-full);
-  background: var(--cl-surface-muted);
-  font-size: var(--cl-title-xs-fs);
-  font-weight: var(--cl-fw-bold);
-  line-height: var(--cl-title-xs-lh);
-  letter-spacing: var(--cl-title-xs-ls);
-  color: var(--cl-text-strong);
-  white-space: nowrap;
-}
-.cl-about__pill::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: var(--cl-radius-full);
-  background: var(--cl-surface-accent-light);
   flex: none;
 }
 .cl-about__cycle-sub {
@@ -357,11 +280,8 @@
   .cl-about__card {
     flex: none;
     width: 240px;
-    gap: var(--cl-space-20);
-    padding: var(--cl-space-24);
     scroll-snap-align: start;
   }
-  .cl-about__card-text { gap: var(--cl-space-12); }
   .cl-about__art--renew { overflow: hidden; }
   .cl-about__only-l { display: none; }
   .cl-about__only-s { display: inline; }
@@ -399,39 +319,11 @@
     display: none;   /* R3 客戶：先定案橫式，切換鈕隱藏（要再比對時改回 grid） */
     grid-template-columns: auto auto;
     margin-top: var(--cl-space-20);
-    padding: var(--cl-space-4);
-    border-radius: var(--cl-radius-full);
-    background: var(--cl-surface-muted);
-    touch-action: pan-y;
-    user-select: none;
-    -webkit-user-select: none;
-    -webkit-tap-highlight-color: transparent;
   }
-  .cl-about__cycle-mode-btn {
-    padding: var(--cl-space-6) var(--cl-space-16);
-    border-radius: var(--cl-radius-full);
-    color: var(--cl-text-tertiary);
-    font-size: var(--cl-paragraph-s-fs);
-    font-weight: var(--cl-fw-bold);
-    line-height: var(--cl-paragraph-s-lh);
-    letter-spacing: var(--cl-paragraph-s-ls);
-    text-align: center;
-    white-space: nowrap;
-    transition: color .16s ease, transform .16s cubic-bezier(.23, 1, .32, 1);
-  }
-  .cl-about__cycle-mode-btn[aria-checked="true"] { cursor: grab; }
   .cl-about__cycle-mode.is-held,
   .cl-about__cycle-mode.is-held .cl-about__cycle-mode-btn { cursor: grabbing; }
-  .cl-about__cycle-mode-btn.is-pressed { transform: scale(.96); }
-  .cl-about__cycle-mode-btn:focus-visible { outline: 2px solid var(--cl-surface-accent-strong); outline-offset: 2px; }
   .cl-about__cycle-mode-thumb {
-    position: absolute;
-    inset: 4px;
-    display: grid;
     grid-template-columns: auto auto;
-    border-radius: var(--cl-radius-full);
-    background: var(--cl-surface-accent);
-    pointer-events: none;
     clip-path: inset(0 0 0 50% round 999px);   /* JS 量好後接手 */
   }
   .cl-about__cycle-mode-thumb .cl-about__cycle-mode-btn { color: var(--cl-text-inverse); }

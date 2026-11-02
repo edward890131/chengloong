@@ -195,6 +195,32 @@
   --cl-c-skeleton-alt: #e9ebea;
   --cl-c-skeleton-hi: #f8faf9;
   --cl-c-laptop-bg: #e3dbd5;
+  --cl-c-info-card-pad: 20px;
+  --cl-c-tile-pad: 20px;
+  --cl-c-tile-radius: 16px;
+  --cl-c-about-card-pad-top: 40px;
+  --cl-c-about-card-pad-x: 32px;
+  --cl-c-about-card-pad-bottom: 32px;
+  --cl-c-about-card-gap: 24px;
+  --cl-c-about-card-text-gap: 16px;
+  --cl-c-about-card-radius: 16px;
+  --cl-c-paper-card-pad-y: 32px;
+  --cl-c-paper-card-pad-x: 32px;
+  --cl-c-paper-card-gap: 0px;
+  --cl-c-paper-card-radius: 12px;
+  --cl-c-process-card-pad-y: 40px;
+  --cl-c-process-card-pad-x: 40px;
+  --cl-c-process-card-gap: 24px;
+  --cl-c-step-card-pad: 32px;
+  --cl-c-step-card-gap: 48px;
+  --cl-c-step-card-radius: 16px;
+  --cl-c-prep-card-pad: 32px;
+  --cl-c-prep-card-gap: 20px;
+  --cl-c-prep-card-radius: 12px;
+  --cl-c-prep-group-gap: 24px;
+  --cl-c-faq-item-pad: 32px;
+  --cl-c-faq-item-radius: 16px;
+  --cl-c-faq-q-gap: 24px;
 }
 
 @media (max-width: 640px) {
@@ -235,6 +261,28 @@
     --cl-tab-gap: 12px;
     --cl-tab-pad-y: 8px;
     --cl-tab-pad-x: 16px;
+    --cl-c-info-card-pad: 16px;
+    --cl-c-tile-pad: 16px;
+    --cl-c-about-card-pad-top: 24px;
+    --cl-c-about-card-pad-x: 24px;
+    --cl-c-about-card-pad-bottom: 24px;
+    --cl-c-about-card-gap: 20px;
+    --cl-c-about-card-text-gap: 12px;
+    --cl-c-paper-card-pad-y: 16px;
+    --cl-c-paper-card-pad-x: 16px;
+    --cl-c-paper-card-gap: 40px;
+    --cl-c-paper-card-radius: 16px;
+    --cl-c-process-card-pad-y: 24px;
+    --cl-c-process-card-pad-x: 24px;
+    --cl-c-process-card-gap: 12px;
+    --cl-c-step-card-pad: 16px;
+    --cl-c-step-card-gap: 32px;
+    --cl-c-prep-card-pad: 16px;
+    --cl-c-prep-card-gap: 12px;
+    --cl-c-prep-card-radius: 16px;
+    --cl-c-prep-group-gap: 20px;
+    --cl-c-faq-item-pad: 20px;
+    --cl-c-faq-q-gap: 16px;
   }
 }
 
@@ -249,5 +297,11 @@
     --cl-title-xl-fs: 28px;
     --cl-title-xl-lh: 39px;
     --cl-gutter: 40px;
+    --cl-c-paper-card-pad-x: 28px;
+    --cl-c-paper-card-gap: 32px;
+    --cl-c-process-card-pad-y: 32px;
+    --cl-c-process-card-pad-x: 20px;
+    --cl-c-process-card-gap: 16px;
+    --cl-c-prep-card-pad: 24px;
   }
 }

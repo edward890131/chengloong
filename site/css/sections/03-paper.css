@@ -33,58 +33,6 @@
   transform: translate(-199px, -808px) matrix(.99888, .04725, -.04725, .99888, 69.74628, 0) translate(-24px, -24px);
 }
 
-/* ---------- 標題區 Frame 4（1695:20247） ---------- */
-.cl-paper__head {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--cl-head-gap);
-  width: var(--cl-head-max);
-  max-width: 100%;
-  text-align: center;
-}
-.cl-paper__heading {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--cl-heading-gap);
-  width: 100%;
-}
-.cl-paper__eyebrow {
-  display: flex;
-  align-items: center;
-  gap: var(--cl-space-12);
-  font-family: var(--cl-font-num);
-  font-size: var(--cl-overline-s-fs);
-  font-weight: var(--cl-fw-semibold);
-  line-height: var(--cl-overline-s-lh);
-  letter-spacing: var(--cl-overline-s-ls);
-  text-transform: uppercase;
-  color: var(--cl-text-accent-strong);
-  white-space: nowrap;
-}
-.cl-paper__eyebrow::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: var(--cl-radius-full);
-  background: var(--cl-surface-accent-strong);
-  flex: none;
-}
-.cl-paper__title {
-  font-size: var(--cl-title-xl-fs);
-  font-weight: var(--cl-fw-bold);
-  line-height: var(--cl-title-xl-lh);
-  letter-spacing: var(--cl-title-xl-ls);
-  color: var(--cl-text-strong);
-}
-.cl-paper__lead {
-  font-size: var(--cl-paragraph-m-fs);
-  line-height: var(--cl-paragraph-m-lh);
-  letter-spacing: var(--cl-paragraph-m-ls);
-  color: var(--cl-text-secondary);
-}
-
 /* ---------- 卡片格（card 1695:20254）：電腦版 2 欄圖文交錯 ---------- */
 .cl-paper__slider { width: 100%; max-width: var(--cl-content-max); }
 .cl-paper__nav, .cl-paper__dots { display: none; }
@@ -92,9 +40,6 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--cl-panel-gap);
-  padding: var(--cl-space-12);
-  border-radius: var(--cl-radius-xl);
-  background: var(--cl-surface-muted);
   overflow: hidden;
 }
 .cl-paper__step { display: contents; }
@@ -109,8 +54,9 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: var(--cl-space-32);
-  border-radius: var(--cl-radius-md);
+  gap: var(--cl-c-paper-card-gap);
+  padding: var(--cl-c-paper-card-pad-y) var(--cl-c-paper-card-pad-x);
+  border-radius: var(--cl-c-paper-card-radius);
   background: var(--cl-surface);
   overflow: hidden;
 }
@@ -192,11 +138,6 @@
   left: 12px;
   right: 12px;
   bottom: 12px;
-  padding: var(--cl-space-20);
-  border-radius: var(--cl-radius-md);
-  background: var(--cl-fill);
-  backdrop-filter: blur(var(--cl-blur-lg));
-  -webkit-backdrop-filter: blur(var(--cl-blur-lg));
 }
 .cl-paper__note-row {
   display: flex;
@@ -224,7 +165,7 @@
 /* ---------- 平板 641–1100（S0 平板契約：電腦結構）----------
    版心左右留白 40；區段標題 28；2 欄圖文交錯，圖片填滿列高；Step 03 說明卡改直排 */
 @media (max-width: 1100px) and (min-width: 641px) {
-  .cl-paper__text { justify-content: flex-start; gap: var(--cl-space-32); padding: var(--cl-space-32) var(--cl-space-28); }
+  .cl-paper__text { justify-content: flex-start;   }
   .cl-paper__step-title { text-wrap: balance; }
   .cl-paper__desc { text-wrap: pretty; }
   .cl-paper__media { align-self: stretch; min-height: 280px; }
@@ -292,9 +233,6 @@
     flex: 1 0 0;
     min-height: 1px;
     justify-content: flex-start;
-    gap: var(--cl-space-40);
-    padding: var(--cl-space-16);
-    border-radius: var(--cl-radius-lg);
   }
   .cl-paper__cr { width: 4px; } /* 手機版稿上 \r 只佔約 4px（電腦版約 1em），照稿 */
 
@@ -313,7 +251,6 @@
     height: 100%;
     transform: translateX(-50%);
   }
-  .cl-paper__note { padding: var(--cl-space-16); }
   .cl-paper__note-row { flex-direction: column; align-items: flex-start; gap: var(--cl-space-12); }
   .cl-paper__note-text { flex: none; width: 100%; }
   /* R1：手機也用 1、2、FSC，尺寸照替代 frame 1695:20018（28／28／48，gap 12） */

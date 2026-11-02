@@ -11,19 +11,6 @@
   padding: 160px var(--cl-gutter) var(--cl-space-120);
 }
 .cl-terms__head { padding-bottom: var(--cl-space-40); border-bottom: 1px solid var(--cl-border); }
-.cl-terms__eyebrow {
-  display: flex;
-  align-items: center;
-  gap: var(--cl-space-10);
-  font-family: var(--cl-font-num);
-  font-size: var(--cl-overline-m-fs);
-  font-weight: var(--cl-fw-semibold);
-  line-height: var(--cl-overline-m-lh);
-  letter-spacing: var(--cl-overline-m-ls);
-  text-transform: uppercase;
-  color: var(--cl-text-accent);
-}
-.cl-terms__eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--cl-surface-accent); flex: none; }
 .cl-terms__title { margin-top: var(--cl-space-12); font-size: var(--cl-title-xxl-fs); font-weight: var(--cl-fw-bold); line-height: var(--cl-title-xxl-lh); letter-spacing: var(--cl-title-xxl-ls); color: var(--cl-text-strong); }
 .cl-terms__title-org { display: block; }   /* R3：公司名稱一行、《條款名稱》另起一行 */
 

@@ -11,28 +11,6 @@
   /* Chrome 預設 text-spacing-trim 會壓縮相鄰全形標點（「）。」），Figma 不壓縮 → 斷行不同 */
   text-spacing-trim: space-all;
 }
-
-/* 標題組 1695:20380 */
-.cl-faq__head {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--cl-heading-gap);
-  width: var(--cl-head-max);
-  max-width: 100%;
-}
-.cl-faq__eyebrow {
-  display: flex;
-  align-items: center;
-  gap: var(--cl-space-12);
-  font-family: var(--cl-font-num);
-  font-size: var(--cl-overline-s-fs);
-  font-weight: var(--cl-fw-semibold);
-  line-height: var(--cl-overline-s-lh); /* Figma normal，文字框高 15 */
-  letter-spacing: var(--cl-overline-s-ls);
-  text-transform: uppercase;
-  color: var(--cl-text-accent-strong);
-}
 .cl-faq__eyebrow-dot {
   width: 6px;
   height: 6px;
@@ -40,13 +18,7 @@
   background: var(--cl-surface-accent-strong);
 }
 .cl-faq__title {
-  width: 100%;
-  font-size: var(--cl-title-xl-fs);
-  font-weight: var(--cl-fw-bold);
-  line-height: var(--cl-title-xl-lh);
-  letter-spacing: var(--cl-title-xl-ls);
   text-align: center;
-  color: var(--cl-text-strong);
 }
 
 /* 內容 1695:20385 */
@@ -61,37 +33,18 @@
 
 /* 分類頁籤 a.btn 1695:20387 等 */
 .cl-faq__tabs {
-  display: flex;
   align-items: center;
-  gap: var(--cl-tab-gap);
 }
 .cl-faq__tab {
-  display: flex;
-  flex: none;
-  align-items: center;
-  justify-content: center;
-  gap: var(--cl-space-12);
-  padding: var(--cl-tab-pad-y) var(--cl-tab-pad-x);
   position: relative;
-  border-radius: var(--cl-radius-full);
-  font-size: var(--cl-label-l-fs);
-  font-weight: var(--cl-fw-bold);
-  line-height: var(--cl-label-l-lh); /* Figma normal，文字框高 22 */
-  letter-spacing: var(--cl-label-l-ls);
-  white-space: nowrap;
-  color: var(--cl-text-tertiary);
-  transition: color .3s ease;
 }
-/* 頁籤圓形填色（R2 客戶 2026-10-21）：灰底在頁籤本身，選中時 base 的 .cl-tabfill__circle 從底部放大填成綠色 */
-.cl-faq__tab { background: var(--cl-surface-muted); }
 .cl-faq__tab-dot {
   display: none;
   width: 6px;
   height: 6px;
   border-radius: var(--cl-radius-full);
   background: var(--cl-surface);
-}
-.cl-faq__tab.is-active { color: var(--cl-text-inverse); transition: color .35s ease .15s; }   /* 等圓長到文字處再轉白 */
+}   /* 等圓長到文字處再轉白 */
 .cl-faq__tab.is-active .cl-faq__tab-dot { display: block; }
 
 /* 手風琴 list 1695:20394 */
@@ -107,15 +60,15 @@
 .cl-faq__item {
   display: flex;
   flex-direction: column;
-  padding: var(--cl-space-32);
-  border-radius: var(--cl-radius-lg);
+  padding: var(--cl-c-faq-item-pad);
+  border-radius: var(--cl-c-faq-item-radius);
   background: var(--cl-surface-muted);
   overflow: hidden;
 }
 .cl-faq__q {
   display: flex;
   align-items: center;
-  gap: var(--cl-space-24);
+  gap: var(--cl-c-faq-q-gap);
   width: 100%;
   text-align: left;
 }
@@ -199,7 +152,6 @@
     align-items: flex-start;
     overflow: hidden;
   }
-  .cl-faq__head {  width: 100%; }
 
   .cl-faq__body { align-items: flex-start; gap: var(--cl-space-32); }
   /* 頁籤列超出版心：右側延伸到螢幕邊、可橫向捲動（稿上第三顆被裁切） */
@@ -210,15 +162,8 @@
     scrollbar-width: none;
   }
   .cl-faq__tabs::-webkit-scrollbar { display: none; }
-  .cl-faq__tab {
-
- /* Figma normal，文字框高 19 */
-
-  }
   /* 稿上第二顆文字框高 23（其他 19），頁籤高 39／35：照稿做，見 audit-source */
 
-  .cl-faq__item { padding: var(--cl-space-20); }
-  .cl-faq__q { gap: var(--cl-space-16); }
   .cl-faq__icon img { width: 24px; height: 24px; }
   .cl-faq__answer { padding: var(--cl-space-16) var(--cl-space-40) var(--cl-space-4) var(--cl-space-56); }
 }
