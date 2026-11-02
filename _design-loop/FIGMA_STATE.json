@@ -1,0 +1,109 @@
+{
+  "runId": "cl-figma-2026-11-02",
+  "file": "92wzZHRzpnIdSNes9Ko7VV",
+  "session": "ab3f4452-d30e-4109-8cfc-034cb3cdac38",
+  "completed": [
+    "variables(187, token_diff 0)",
+    "textStyles(31)",
+    "effectStyles(5)",
+    "paintStyles(3)",
+    "pages",
+    "guideline(chapters 00–10)",
+    "icons(12)",
+    "components(19 CL + 3 DS)",
+    "drafts A-01/B-01 v0（組裝稿，照片為佔位框）"
+  ],
+  "collections": {
+    "primitives": "VariableCollectionId:3:2",
+    "semantic": "VariableCollectionId:3:3",
+    "responsive": "VariableCollectionId:4:2"
+  },
+  "modes": {
+    "Desktop": "4:0",
+    "Tablet": "4:1",
+    "Mobile": "4:2"
+  },
+  "pages": {
+    "Guideline": "5:41",
+    "HTML 擷取": "5:42",
+    "A 首頁": "5:43",
+    "B 服務條款": "5:44"
+  },
+  "guideline": {
+    "00 · 使用方式": "16:317",
+    "01 · 色彩": "7:3",
+    "02 · 文字": "8:12",
+    "03 · 間距與版心": "9:22",
+    "04 · 圓角、陰影、毛玻璃": "9:453",
+    "05 · 元件母版 Atoms": "12:37",
+    "06 · 元件母版 Molecules": "13:54",
+    "07 · 元件母版 Cards": "14:62",
+    "08 · 斷點與 Figma mode": "16:89",
+    "09 · 圖片上稿": "16:118",
+    "10 · 素材": "16:211",
+    "00 · Guideline 版型元件": "6:25",
+    "00 · Icons": "10:37"
+  },
+  "components": {
+    "CL/Button": "12:102",
+    "CL/Eyebrow": "12:109",
+    "CL/Section Head": "13:69",
+    "CL/Tab": "12:130",
+    "CL/Segmented": "12:191",
+    "CL/Tooltip": "12:192",
+    "CL/Pill": "12:122",
+    "CL/Panel": "13:70",
+    "CL/Info Card": "13:79",
+    "CL/Tile": "14:138",
+    "CL/Card/About": "14:64",
+    "CL/Card/Paper": "14:71",
+    "CL/Card/Process": "14:93",
+    "CL/Card/Step": "14:95",
+    "CL/Card/Prep": "14:103",
+    "CL/Accordion": "13:112",
+    "CL/Header": "15:114",
+    "CL/Footer": "15:116",
+    "CL/Logo": "15:73",
+    "DS/Section Header": "6:26",
+    "DS/Subheading": "6:30",
+    "DS/Note": "6:32",
+    "CL/Icon/Arrow": "10:40",
+    "CL/Icon/Add": "10:43",
+    "CL/Icon/Minus": "10:46",
+    "CL/Icon/Info": "10:49",
+    "CL/Icon/Leaf": "10:52",
+    "CL/Icon/Recycle": "10:55",
+    "CL/Icon/Safe": "10:58",
+    "CL/Icon/Cart": "10:61",
+    "CL/Icon/Menu": "11:39",
+    "CL/Icon/Tooltip Arrow": "11:42",
+    "CL/Icon/Badge Check": "11:45",
+    "CL/Icon/Hand Heart": "11:48"
+  },
+  "notes": [
+    "Noto Sans TC 600→Medium",
+    "Display/XXL 平板為流動字級（5.972vw），Responsive 變數 Tablet 填桌機值 86；平板設計稿要用 768 實際值",
+    "Hero Fade／Photo Fade 漸層方向已修正（原本上下顛倒）",
+    "Accordion Size=S 固定 Mobile mode",
+    "Footer 標語寬度與網站差幾 px",
+    "Process Card：網站手機版版型待依擷取校正"
+  ],
+  "drafts": {
+    "A-01 首頁": {
+      "1440": "17:139",
+      "768": "17:457",
+      "375": "17:768"
+    },
+    "B-01 服務條款": {
+      "1440": "18:139",
+      "768": "18:219",
+      "375": "18:292"
+    }
+  },
+  "pending": [
+    "圖片上傳：網路擋 mcp.figma.com；佔位框圖層名「Image · <路徑>」，HTML 擷取切片 6:5–6:24 待填",
+    "A-01 v0 依 HTML 擷取逐段校正（hero 數據區、綠點卡內容、手機流程卡、footer 手機版）",
+    "每段落樣板區（三寬＋規格＋延伸狀態＋RWD 邊界）尚未拆出",
+    "figma_audit 驗收未跑（需要圖片後再跑）"
+  ]
+}
