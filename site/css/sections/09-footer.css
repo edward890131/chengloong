@@ -5,7 +5,7 @@
   position: relative;
   height: 490px;
   overflow: hidden;
-  background: var(--cl-white);
+  background: var(--cl-surface);
   /* Chrome 預設 text-spacing-trim 會壓縮相鄰全形標點（「）。」），Figma 不壓縮 → 斷行不同 */
   text-spacing-trim: space-all;
 }
@@ -28,7 +28,7 @@
   transform-origin: 0 0;
   transform: matrix(-0.842191, 0.539180, 0.539180, 0.842191, 3068.520, -1961.922);
 }
-.cl-footer__curve .cl-curve path { stroke: #f6f6f6; }
+.cl-footer__curve .cl-curve path { stroke: var(--cl-surface-muted); }
 
 /* div.public-site__footer-inner */
 .cl-footer__inner {
@@ -40,8 +40,8 @@
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-start;
-  gap: 64px;
-  padding-bottom: 40px;
+  gap: var(--cl-space-64);
+  padding-bottom: var(--cl-space-40);
 }
 
 /* logo/b 139.579×48：三個 Group，位置照 Figma 百分比 */
@@ -65,72 +65,74 @@
 .cl-footer__row {
   display: flex;
   align-items: flex-start;
-  gap: 40px;
+  gap: var(--cl-space-40);
   width: 100%;
 }
 .cl-footer__tagline {
   display: flex;
   flex: 1 0 0;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--cl-space-8);
   min-width: 1px;
 }
 .cl-footer__brand {
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.4;
-  letter-spacing: .16px;
-  color: var(--cl-ink-800);
+  font-size: var(--cl-paragraph-m-fs);
+  font-weight: var(--cl-fw-semibold);
+  line-height: var(--cl-paragraph-m-lh);
+  letter-spacing: var(--cl-paragraph-m-ls);
+  color: var(--cl-text);
 }
 .cl-footer__sub {
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 20px; /* Figma normal，文字框高 20 */
-  color: var(--cl-ink-800-60);
+  font-size: var(--cl-paragraph-s-fs);
+  letter-spacing: var(--cl-paragraph-s-ls);
+  font-weight: var(--cl-fw-regular);
+  line-height: var(--cl-paragraph-s-lh); /* Figma normal，文字框高 20 */
+  color: var(--cl-text-secondary);
 }
 .cl-footer__copy {
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 18px;
-  color: var(--cl-ink-800-60);
+  font-size: var(--cl-label-xs-fs);
+  letter-spacing: var(--cl-label-xs-ls);
+  font-weight: var(--cl-fw-regular);
+  line-height: var(--cl-label-xs-lh);
+  color: var(--cl-text-secondary);
 }
 
 .cl-footer__info {
   display: flex;
   flex: none;
   align-items: flex-start;
-  gap: 40px;
+  gap: var(--cl-space-40);
 }
 .cl-footer__item {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--cl-space-8);
   width: 200px;
 }
 .cl-footer__label {
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 23px; /* Figma normal，文字框高 23 */
-  letter-spacing: .32px;
-  color: var(--cl-ink-800);
+  font-size: var(--cl-paragraph-m-fs);
+  font-weight: var(--cl-fw-semibold);
+  line-height: var(--cl-paragraph-m-lh); /* Figma normal，文字框高 23 */
+  letter-spacing: var(--cl-paragraph-m-ls);
+  color: var(--cl-text);
 }
 .cl-footer__value {
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 1.4;
-  letter-spacing: .32px;
-  color: var(--cl-ink-800-60);
+  font-size: var(--cl-paragraph-s-fs);
+  font-weight: var(--cl-fw-regular);
+  line-height: var(--cl-paragraph-s-lh);
+  letter-spacing: var(--cl-paragraph-s-ls);
+  color: var(--cl-text-secondary);
 }
 .cl-footer__value--num {
   font-family: 'Zalando Sans Expanded', var(--cl-font-sans);
-  letter-spacing: .5px;
+  letter-spacing: var(--cl-paragraph-s-ls);
 }
 
 /* main_btn_black 14px：右上 */
 .cl-footer__top { position: absolute; top: 0; right: 0; }
 /* base .cl-btn--sm 的 border 加在 padding 外，總高 42、寬 86；Figma stroke INSIDE 是 40×84。
    段落內暫時扣掉框線覆寫，已回報主控改 base */
-.cl-footer .cl-footer__top { padding: 8.5px 20px; }
+.cl-footer .cl-footer__top { padding: var(--cl-space-8) var(--cl-space-20); }
 .cl-footer .cl-footer__top .cl-btn__circle { top: 40px; } /* Figma 805:5658 圓在按鈕下緣外（y=40），base 是 39 會露 1px */
 
 /* Line 14：白 20%，貼頂 */
@@ -150,15 +152,15 @@
   bottom: 44.5px;
   transform: translateY(50%);
   font-family: var(--cl-font-num);
-  font-size: 86px;
-  font-weight: 700;
+  font-size: var(--cl-display-xxl-fs);
+  font-weight: var(--cl-fw-bold);
   line-height: 1.2;
-  letter-spacing: .5px;
+  letter-spacing: var(--cl-display-xxl-ls);
   text-transform: uppercase;
   white-space: nowrap;
-  color: #000;
+  color: var(--cl-text-strong);
 }
-.cl-footer__slogan-hl { color: var(--cl-green-400); }
+.cl-footer__slogan-hl { color: var(--cl-text-accent-light); }
 /* 跑馬燈用的第二份文字：只在 .is-marquee 時顯示 */
 .cl-footer__slogan-text--dup { display: none; }
 
@@ -178,25 +180,25 @@
 /* 641–1439：流動縮放 */
 @media (max-width: 1439px) and (min-width: 641px) {
   .cl-footer { height: auto; min-height: 490px; padding-bottom: 150px; }
-  .cl-footer__inner { position: relative; left: auto; right: auto; top: auto; margin: 80px clamp(24px, 5.56vw, 80px) 0; }
+  .cl-footer__inner { position: relative; left: auto; right: auto; top: auto; margin: var(--cl-space-80) clamp(var(--cl-space-24), 5.56vw, var(--cl-space-80)) 0; }
   .cl-footer__row { flex-wrap: wrap; }
   .cl-footer__info { flex-wrap: wrap; flex-shrink: 1; }
-  .cl-footer__slogan { left: -7px; font-size: clamp(40px, 5.97vw, 86px); }
+  .cl-footer__slogan { left: -7px; }
 }
 
 /* 平板 641–1100（S0_TABLET_CONTRACT：電腦結構，左右留白 40，資訊欄可換行）
    標語照電腦版比例跟寬度縮放：86／1440＝5.972vw、left -7／1440＝-0.486vw、中心距底 44.5／86＝0.5174em */
 @media (min-width: 641px) and (max-width: 1100px) {
-  .cl-footer { min-height: 0; padding-bottom: calc(5.972vw * 1.2 + 56px); }
-  .cl-footer__inner { margin: 80px 40px 0; }
+  .cl-footer { min-height: 0; padding-bottom: calc(5.972vw * 1.2 + var(--cl-space-56)); }
+  .cl-footer__inner { margin: var(--cl-space-80) var(--cl-space-40) 0; }
   /* R1 修 820 爆版：資訊三欄（200×3＋40×2）會把品牌文字擠成一字一行 →
      品牌文字滿寬在上、三欄資訊在下（版心 561–1020 都放得下） */
-  .cl-footer__row { flex-direction: column; gap: 40px; }
+  .cl-footer__row { flex-direction: column; gap: var(--cl-space-40); }
   .cl-footer__tagline { flex: none; width: 100%; }
   .cl-footer__info {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 200px));   /* 放得下維持電腦版欄寬 200，窄於 680 時等比縮 */
-    gap: 40px;
+    gap: var(--cl-space-40);
     width: 100%;
   }
   .cl-footer__item { width: auto; }
@@ -223,16 +225,16 @@
   }
   .cl-footer__curve .cl-curve { transform: matrix(-0.673753, 0.431344, 0.431344, 0.673753, 2454.818, -1569.539); }
 
-  .cl-footer__inner { left: 16px; right: 16px; top: 64px; gap: 24px; }
-  .cl-footer__row { flex-direction: column; gap: 56px; }
+  .cl-footer__inner { left: 16px; right: 16px; top: 64px; gap: var(--cl-space-24); }
+  .cl-footer__row { flex-direction: column; gap: var(--cl-space-56); }
   .cl-footer__tagline { flex: none; width: 100%; }
   .cl-footer__info {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 24px;
+    gap: var(--cl-space-24);
     width: 100%;
   }
-  .cl-footer__item { gap: 4px; width: auto; }
+  .cl-footer__item { gap: var(--cl-space-4); width: auto; }
   /* Figma 文字框高把 n×19.6 進位（40／120），auto layout 用進位後的高；照稿補齊，按鈕才會落在同一位置 */
   .cl-footer__item--addr .cl-footer__value { min-height: 40px; }
   .cl-footer__item--hours .cl-footer__value { min-height: 120px; }
@@ -242,7 +244,7 @@
   /* 標語：客戶決定（2026-10-20）手機改用與電腦版相同的完整句子，字級維持 75，跑馬燈定速循環。
      Figma 手機稿 1695:29201 只有「NEW LIFE.」，此處與來源不同（記在 audit-source「使用者決策」） */
   /* 垂直位置照電腦版比例：中心距底 0.5174em（44.5／86），避免逗點下緣被裁（客戶 2026-10-20） */
-  .cl-footer__slogan { left: 0; bottom: .5174em; font-size: 75px; }
+  .cl-footer__slogan { left: 0; bottom: .5174em; }
 }
 
 /* ---------- 標語跑馬燈（客戶 2026-10-20：句子超出畫面寬就輪播，所有寬度適用） ----------

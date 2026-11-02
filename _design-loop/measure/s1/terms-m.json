@@ -1,0 +1,547 @@
+{
+  "url": "http://localhost:8200/terms.html?static",
+  "viewport": [
+    375,
+    812
+  ],
+  "categories": {
+    "background": {
+      "distinct": 5,
+      "top": [
+        {
+          "value": "rgb(17, 17, 17)",
+          "n": 4,
+          "sample": [
+            "span",
+            "span"
+          ]
+        },
+        {
+          "value": "rgb(255, 255, 255)",
+          "n": 3,
+          "sample": [
+            "div.cl-page.cl-page--terms",
+            "header.cl-hero__header"
+          ]
+        },
+        {
+          "value": "rgb(20, 165, 88)",
+          "n": 1,
+          "sample": [
+            "a.cl-btn.cl-btn--green"
+          ]
+        },
+        {
+          "value": "rgb(21, 102, 60)",
+          "n": 1,
+          "sample": [
+            "span.cl-btn__circle"
+          ]
+        },
+        {
+          "value": "rgb(69, 69, 69)",
+          "n": 1,
+          "sample": [
+            "span.cl-btn__circle"
+          ]
+        }
+      ]
+    },
+    "padding": {
+      "distinct": 15,
+      "top": [
+        {
+          "value": "3px",
+          "n": 54,
+          "sample": [
+            "li.cl-terms__p",
+            "li.cl-terms__p"
+          ]
+        },
+        {
+          "value": "21px",
+          "n": 10,
+          "sample": [
+            "ul.cl-terms__ul",
+            "ul.cl-terms__ul"
+          ]
+        },
+        {
+          "value": "32px",
+          "n": 7,
+          "sample": [
+            "section.cl-terms__section",
+            "section.cl-terms__section"
+          ]
+        },
+        {
+          "value": "25.6px",
+          "n": 7,
+          "sample": [
+            "ol.cl-terms__ol",
+            "ol.cl-terms__ol"
+          ]
+        },
+        {
+          "value": "8.5px",
+          "n": 4,
+          "sample": [
+            "a.cl-btn.cl-btn--green",
+            "a.cl-btn.cl-btn--green"
+          ]
+        },
+        {
+          "value": "20px",
+          "n": 4,
+          "sample": [
+            "a.cl-btn.cl-btn--green",
+            "a.cl-btn.cl-btn--green"
+          ]
+        },
+        {
+          "value": "16px",
+          "n": 3,
+          "sample": [
+            "header.cl-hero__header",
+            "main#top.cl-terms"
+          ]
+        },
+        {
+          "value": "10px",
+          "n": 2,
+          "sample": [
+            "header.cl-hero__header",
+            "header.cl-hero__header"
+          ]
+        },
+        {
+          "value": "8px",
+          "n": 2,
+          "sample": [
+            "header.cl-hero__header",
+            "div.cl-terms__body"
+          ]
+        },
+        {
+          "value": "0.842px",
+          "n": 2,
+          "sample": [
+            "a.cl-hero__brand",
+            "a.cl-hero__brand"
+          ]
+        },
+        {
+          "value": "10.947px",
+          "n": 1,
+          "sample": [
+            "span.cl-hero__brand-service"
+          ]
+        },
+        {
+          "value": "108px",
+          "n": 1,
+          "sample": [
+            "main#top.cl-terms"
+          ]
+        },
+        {
+          "value": "72px",
+          "n": 1,
+          "sample": [
+            "main#top.cl-terms"
+          ]
+        },
+        {
+          "value": "28px",
+          "n": 1,
+          "sample": [
+            "header.cl-terms__head"
+          ]
+        },
+        {
+          "value": "40px",
+          "n": 1,
+          "sample": [
+            "div.cl-footer__inner"
+          ]
+        }
+      ]
+    },
+    "gap": {
+      "distinct": 6,
+      "top": [
+        {
+          "value": "8px",
+          "n": 8,
+          "sample": [
+            "div.cl-hero__actions",
+            "div.cl-hero__actions"
+          ]
+        },
+        {
+          "value": "4px",
+          "n": 6,
+          "sample": [
+            "li.cl-footer__item.cl-footer__item--tel",
+            "li.cl-footer__item.cl-footer__item--tel"
+          ]
+        },
+        {
+          "value": "24px",
+          "n": 4,
+          "sample": [
+            "div.cl-footer__inner",
+            "div.cl-footer__inner"
+          ]
+        },
+        {
+          "value": "13.474px",
+          "n": 2,
+          "sample": [
+            "a.cl-hero__brand",
+            "a.cl-hero__brand"
+          ]
+        },
+        {
+          "value": "10px",
+          "n": 2,
+          "sample": [
+            "p.cl-terms__eyebrow.is-revealed",
+            "p.cl-terms__eyebrow.is-revealed"
+          ]
+        },
+        {
+          "value": "56px",
+          "n": 2,
+          "sample": [
+            "div.cl-footer__row",
+            "div.cl-footer__row"
+          ]
+        }
+      ]
+    },
+    "textColor": {
+      "distinct": 7,
+      "top": [
+        {
+          "value": "rgba(31, 31, 31, 0.6)",
+          "n": 89,
+          "sample": [
+            "span.cl-hero__brand-service",
+            "p.cl-terms__p"
+          ]
+        },
+        {
+          "value": "rgb(17, 17, 17)",
+          "n": 9,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-terms__title-org"
+          ]
+        },
+        {
+          "value": "rgb(31, 31, 31)",
+          "n": 4,
+          "sample": [
+            "span",
+            "p.cl-footer__label"
+          ]
+        },
+        {
+          "value": "rgb(255, 255, 255)",
+          "n": 2,
+          "sample": [
+            "span.cl-hero__book-s",
+            "span"
+          ]
+        },
+        {
+          "value": "rgb(31, 195, 108)",
+          "n": 2,
+          "sample": [
+            "span.cl-footer__slogan-hl",
+            "span.cl-footer__slogan-hl"
+          ]
+        },
+        {
+          "value": "rgb(20, 165, 88)",
+          "n": 1,
+          "sample": [
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "rgb(0, 0, 0)",
+          "n": 1,
+          "sample": [
+            "span.cl-footer__slogan-text"
+          ]
+        }
+      ]
+    },
+    "fontSize": {
+      "distinct": 8,
+      "top": [
+        {
+          "value": "15px",
+          "n": 83,
+          "sample": [
+            "p.cl-terms__p",
+            "li.cl-terms__p"
+          ]
+        },
+        {
+          "value": "14px",
+          "n": 7,
+          "sample": [
+            "span.cl-hero__book-s",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "18px",
+          "n": 7,
+          "sample": [
+            "h2.cl-terms__h",
+            "h2.cl-terms__h"
+          ]
+        },
+        {
+          "value": "16px",
+          "n": 4,
+          "sample": [
+            "span",
+            "p.cl-footer__label"
+          ]
+        },
+        {
+          "value": "75px",
+          "n": 3,
+          "sample": [
+            "span.cl-footer__slogan-text",
+            "span.cl-footer__slogan-hl"
+          ]
+        },
+        {
+          "value": "28px",
+          "n": 2,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-terms__title-org"
+          ]
+        },
+        {
+          "value": "13.474px",
+          "n": 1,
+          "sample": [
+            "span.cl-hero__brand-service"
+          ]
+        },
+        {
+          "value": "12px",
+          "n": 1,
+          "sample": [
+            "p.cl-footer__copy"
+          ]
+        }
+      ]
+    },
+    "type": {
+      "distinct": 14,
+      "top": [
+        {
+          "value": "Noto Sans TC | 15px | 400 | lh 26px | ls 0.3px",
+          "n": 46,
+          "sample": [
+            "p.cl-terms__p",
+            "li.cl-terms__p"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 15px | 700 | lh 26px | ls 0.3px",
+          "n": 37,
+          "sample": [
+            "strong",
+            "strong"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 18px | 700 | lh 28px | ls 0.6px",
+          "n": 7,
+          "sample": [
+            "h2.cl-terms__h",
+            "h2.cl-terms__h"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 16px | 600 | lh 23px | ls 0.32px",
+          "n": 3,
+          "sample": [
+            "p.cl-footer__label",
+            "p.cl-footer__label"
+          ]
+        },
+        {
+          "value": "Montserrat | 75px | 700 | lh 90px | ls 0.5px",
+          "n": 3,
+          "sample": [
+            "span.cl-footer__slogan-text",
+            "span.cl-footer__slogan-hl"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 14px | 600 | lh 21px | ls normal",
+          "n": 2,
+          "sample": [
+            "span.cl-hero__book-s",
+            "span"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 28px | 700 | lh 40px | ls 1px",
+          "n": 2,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-terms__title-org"
+          ]
+        },
+        {
+          "value": "Zalando Sans Expanded | 14px | 400 | lh 19.6px | ls 0.5px",
+          "n": 2,
+          "sample": [
+            "a",
+            "p.cl-footer__value.cl-footer__value--num"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 13.474px | 500 | lh 13.137px | ls normal",
+          "n": 1,
+          "sample": [
+            "span.cl-hero__brand-service"
+          ]
+        },
+        {
+          "value": "Montserrat | 14px | 600 | lh 20px | ls 1.6px",
+          "n": 1,
+          "sample": [
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 16px | 600 | lh 22.4px | ls 0.16px",
+          "n": 1,
+          "sample": [
+            "span"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 14px | 400 | lh 20px | ls normal",
+          "n": 1,
+          "sample": [
+            "span"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 12px | 400 | lh 18px | ls normal",
+          "n": 1,
+          "sample": [
+            "p.cl-footer__copy"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 14px | 400 | lh 19.6px | ls 0.32px",
+          "n": 1,
+          "sample": [
+            "p.cl-footer__value"
+          ]
+        }
+      ]
+    },
+    "border": {
+      "distinct": 2,
+      "top": [
+        {
+          "value": "1px rgba(0, 0, 0, 0)",
+          "n": 8,
+          "sample": [
+            "a.cl-btn.cl-btn--green",
+            "a.cl-btn.cl-btn--green"
+          ]
+        },
+        {
+          "value": "1px rgba(31, 31, 31, 0.1)",
+          "n": 2,
+          "sample": [
+            "span.cl-hero__brand-service",
+            "header.cl-terms__head"
+          ]
+        }
+      ]
+    },
+    "radius": {
+      "distinct": 3,
+      "top": [
+        {
+          "value": "1px",
+          "n": 3,
+          "sample": [
+            "span",
+            "span"
+          ]
+        },
+        {
+          "value": "999px",
+          "n": 2,
+          "sample": [
+            "a.cl-btn.cl-btn--green",
+            "a.cl-btn.cl-btn--black"
+          ]
+        },
+        {
+          "value": "50%",
+          "n": 2,
+          "sample": [
+            "span.cl-btn__circle",
+            "span.cl-btn__circle"
+          ]
+        }
+      ]
+    },
+    "margin": {
+      "distinct": 4,
+      "top": [
+        {
+          "value": "6px",
+          "n": 37,
+          "sample": [
+            "ul.cl-terms__ul",
+            "li.cl-terms__p"
+          ]
+        },
+        {
+          "value": "12px",
+          "n": 29,
+          "sample": [
+            "h1.cl-terms__title.is-revealed",
+            "p.cl-terms__p"
+          ]
+        },
+        {
+          "value": "4px",
+          "n": 7,
+          "sample": [
+            "ol.cl-terms__ol",
+            "ol.cl-terms__ol"
+          ]
+        },
+        {
+          "value": "14px",
+          "n": 1,
+          "sample": [
+            "p.cl-terms__p"
+          ]
+        }
+      ]
+    }
+  }
+}

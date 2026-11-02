@@ -1,0 +1,231 @@
+/* ==========================================================================
+   共用元件（S1 收斂，2026-11-02）
+   build 順序：tokens → base → components → sections；段落 CSS 只留段落專屬的排版、定位與斷點覆寫。
+   每個元件對應的 Figma 母版與 class 記在 _design-loop/registry.json。
+   ========================================================================== */
+
+/* ---------- Eyebrow 英文小標（Overline/S；--m＝Overline/M，條款頁） ---------- */
+.cl-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--cl-space-12);
+  font-family: var(--cl-font-num);
+  font-size: var(--cl-overline-s-fs);
+  font-weight: var(--cl-fw-semibold);
+  line-height: var(--cl-overline-s-lh);
+  letter-spacing: var(--cl-overline-s-ls);
+  text-transform: uppercase;
+  color: var(--cl-text-accent-strong);
+  white-space: nowrap;
+}
+.cl-eyebrow::before {
+  content: "";
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--cl-radius-full);
+  background: var(--cl-surface-accent-strong);
+}
+.cl-eyebrow--m {
+  gap: var(--cl-space-10);
+  font-size: var(--cl-overline-m-fs);
+  line-height: var(--cl-overline-m-lh);
+  letter-spacing: var(--cl-overline-m-ls);
+}
+
+/* ---------- 段落標題組：eyebrow＋標題（＋導言）；--compact＝沒有導言 ---------- */
+.cl-section-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--cl-head-gap);
+  width: var(--cl-head-max);
+  max-width: 100%;
+  margin-inline: auto;
+  text-align: center;
+}
+.cl-section-head--compact { gap: var(--cl-heading-gap); }
+.cl-section-head__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--cl-heading-gap);
+  width: 100%;
+}
+.cl-section-title {
+  width: 100%;
+  font-size: var(--cl-title-xl-fs);
+  font-weight: var(--cl-fw-bold);
+  line-height: var(--cl-title-xl-lh);
+  letter-spacing: var(--cl-title-xl-ls);
+  color: var(--cl-text-strong);
+}
+.cl-section-lead {
+  width: 100%;
+  font-size: var(--cl-paragraph-m-fs);
+  font-weight: var(--cl-fw-regular);
+  line-height: var(--cl-paragraph-m-lh);
+  letter-spacing: var(--cl-paragraph-m-ls);
+  color: var(--cl-text-secondary);
+}
+
+/* ---------- 頁籤（選中底色由 base 的 .cl-tabfill 圓形填色） ---------- */
+.cl-tabs { display: flex; gap: var(--cl-tab-gap); }
+.cl-tab {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  gap: var(--cl-space-12);
+  padding: var(--cl-tab-pad-y) var(--cl-tab-pad-x);
+  border-radius: var(--cl-radius-full);
+  background: var(--cl-surface-muted);
+  color: var(--cl-text-tertiary);
+  font-size: var(--cl-label-l-fs);
+  font-weight: var(--cl-fw-bold);
+  line-height: var(--cl-label-l-lh);
+  letter-spacing: var(--cl-label-l-ls);
+  white-space: nowrap;
+  transition: color .3s ease;
+}
+.cl-tab:hover { color: var(--cl-text-secondary); }
+.cl-tab.is-active { color: var(--cl-text-inverse); cursor: default; transition: color .35s ease .15s; }
+.cl-tab.is-active::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: var(--cl-radius-full);
+  background: var(--cl-surface);
+}
+.cl-tab:focus-visible { outline: 2px solid var(--cl-surface-accent-strong); outline-offset: 2px; }
+
+/* ---------- 切換鈕 Segmented（互動：base.js clRubberSegment）；尺寸 L／--m／--s，底色 --muted ---------- */
+.cl-seg {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: var(--cl-space-4);
+  border-radius: var(--cl-radius-full);
+  background: var(--cl-surface);
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.cl-seg--muted { background: var(--cl-surface-muted); }
+.cl-seg__btn {
+  padding: var(--cl-space-12) var(--cl-space-24);
+  border-radius: var(--cl-radius-full);
+  color: var(--cl-text-tertiary);
+  font-size: var(--cl-label-l-fs);
+  font-weight: var(--cl-fw-bold);
+  line-height: var(--cl-label-l-lh);
+  letter-spacing: var(--cl-label-l-ls);
+  text-align: center;
+  white-space: nowrap;
+  transition: color .16s ease, transform .16s cubic-bezier(.23, 1, .32, 1);
+}
+.cl-seg--m .cl-seg__btn {
+  padding: var(--cl-space-8) var(--cl-space-16);
+  font-size: var(--cl-label-m-fs);
+  line-height: var(--cl-label-m-lh);
+  letter-spacing: var(--cl-label-m-ls);
+}
+.cl-seg--s .cl-seg__btn {
+  padding: var(--cl-space-6) var(--cl-space-16);
+  font-size: var(--cl-paragraph-s-fs);
+  line-height: var(--cl-paragraph-s-lh);
+  letter-spacing: var(--cl-paragraph-s-ls);
+}
+.cl-seg__btn[aria-checked="true"] { cursor: grab; }
+.cl-seg.is-held, .cl-seg.is-held .cl-seg__btn { cursor: grabbing; }
+.cl-seg__btn.is-pressed { transform: scale(.96); }
+@media (hover: hover) and (pointer: fine) { .cl-seg__btn[aria-checked="false"]:hover { color: var(--cl-text-secondary); } }
+.cl-seg__btn:focus-visible { outline: 2px solid var(--cl-surface-accent-strong); outline-offset: 2px; }
+.cl-seg__thumb {
+  position: absolute;
+  inset: 4px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-radius: var(--cl-radius-full);
+  background: var(--cl-surface-accent);
+  pointer-events: none;
+  clip-path: inset(0 50% 0 0 round 999px);   /* JS 量好後接手 */
+}
+.cl-seg__thumb .cl-seg__btn { color: var(--cl-text-inverse); }
+
+/* ---------- Tooltip：泡泡（預設在觸發點上方置中）＋本體＋箭頭 ---------- */
+.cl-tooltip {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  bottom: calc(100% + 4px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: max-content;
+  transform: translateX(-50%);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .2s ease-out, visibility .2s;
+  pointer-events: none;
+  white-space: normal;
+}
+.cl-tooltip__body {
+  display: block;
+  padding: var(--cl-space-8) var(--cl-space-10);
+  border-radius: var(--cl-radius-xs);
+  background: var(--cl-surface-inverse);
+  color: var(--cl-text-inverse);
+  font-size: var(--cl-paragraph-s-fs);
+  font-weight: var(--cl-fw-regular);
+  line-height: var(--cl-paragraph-s-lh);
+  letter-spacing: var(--cl-paragraph-s-ls);
+  white-space: normal;
+}
+.cl-tooltip__arrow { flex: none; width: 16px; height: 10px; }
+
+/* ---------- 膠囊標籤（尺寸統一，只用顏色區分）：--muted 淺灰（關於）、--brand 綠底上（綠點，預設）、--light、--dark ---------- */
+.cl-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--cl-space-12);
+  padding: var(--cl-space-6) var(--cl-space-12);
+  border-radius: var(--cl-radius-full);
+  background: var(--cl-scrim-20);
+  font-size: var(--cl-paragraph-m-fs);
+  font-weight: var(--cl-fw-semibold);
+  line-height: var(--cl-paragraph-m-lh);
+  letter-spacing: var(--cl-paragraph-m-ls);
+  white-space: nowrap;
+}
+.cl-pill::before {
+  content: "";
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--cl-radius-full);
+  background: var(--cl-surface-accent-pale);
+}
+.cl-pill--muted { background: var(--cl-surface-muted); color: var(--cl-text-strong); }
+.cl-pill--muted::before { background: var(--cl-surface-accent-light); }
+.cl-pill--light { background: var(--cl-veil-20); }
+.cl-pill--dark { background: var(--cl-scrim-40); }
+
+/* ---------- 灰底面板：包住一組卡片的淺灰容器 ---------- */
+.cl-panel {
+  padding: var(--cl-panel-gap);
+  border-radius: var(--cl-radius-xl);
+  background: var(--cl-surface-muted);
+}
+
+/* ---------- 資訊小卡：疊在圖片／色塊上的半透明說明（--accent＝深綠底） ---------- */
+.cl-info-card {
+  padding: var(--cl-c-info-card-pad);
+  border-radius: var(--cl-radius-md);
+  background: var(--cl-fill);
+  backdrop-filter: blur(var(--cl-blur-lg));
+  -webkit-backdrop-filter: blur(var(--cl-blur-lg));
+  color: var(--cl-text-inverse);
+}
+.cl-info-card--accent { background: var(--cl-fill-accent); }

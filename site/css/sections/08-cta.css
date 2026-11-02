@@ -6,20 +6,20 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 80px 120px;
-  background: var(--cl-white);
+  padding: var(--cl-section-pad-top) var(--cl-gutter) var(--cl-section-pad-bottom);
+  background: var(--cl-surface);
   /* Chrome 預設 text-spacing-trim 會壓縮相鄰全形標點（「）。」），Figma 不壓縮 → 斷行不同 */
   text-spacing-trim: space-all;
 }
 .cl-cta__card {
   position: relative;
   width: 100%;
-  max-width: 1280px;   /* R1 客戶 2026-10-21：大螢幕不再往外長，和其他段落版心一致 */
+  max-width: var(--cl-content-max);   /* R1 客戶 2026-10-21：大螢幕不再往外長，和其他段落版心一致 */
   height: 600px;
-  border-radius: 20px;
+  border-radius: var(--cl-radius-xl);
   overflow: hidden;
   isolation: isolate;
-  background: var(--cl-green-600);
+  background: var(--cl-surface-brand);
 }
 
 /* cta_bg 1695:20406：1280×600 置中；照片＋疊層已由 Figma 合成（ctabg_img/l 1600:16009 1x 輸出） */
@@ -31,7 +31,7 @@
   height: 600px;
   transform: translate(-50%, -50%);
   overflow: hidden;
-  background: var(--cl-green-600);
+  background: var(--cl-surface-brand);
   pointer-events: none;
 }
 .cl-cta__bg-img {
@@ -57,7 +57,7 @@
 .cl-cta__bg-black {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, .48);
+  background: var(--cl-scrim-56);
 }
 
 /* 內容 1695:20413 */
@@ -69,37 +69,37 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 56px;
-  width: 640px;
+  gap: var(--cl-space-56);
+  width: var(--cl-head-max);
   max-width: calc(100% - 48px);
 }
 .cl-cta__text {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
+  gap: var(--cl-space-24);
   width: 100%;
   text-align: center;
-  color: var(--cl-white);
+  color: var(--cl-text-inverse);
 }
 .cl-cta__title {
   width: 100%;
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1.4;
-  letter-spacing: 1px;
+  font-size: var(--cl-title-xl-fs);
+  font-weight: var(--cl-fw-bold);
+  line-height: var(--cl-title-xl-lh);
+  letter-spacing: var(--cl-title-xl-ls);
 }
 .cl-cta__desc {
   width: 100%;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 1.4;
-  letter-spacing: .3px;
+  font-size: var(--cl-paragraph-s-fs);
+  font-weight: var(--cl-fw-regular);
+  line-height: var(--cl-paragraph-s-lh);
+  letter-spacing: var(--cl-paragraph-s-ls);
 }
 .cl-cta__actions {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: var(--cl-space-24);
 }
 .cl-cta__actions .cl-btn { flex: none; }
 
@@ -119,45 +119,35 @@
 .cl-cta__curve--left .cl-curve { transform: matrix(-0.764393, 0.644751, 0.644751, 0.764393, 1560.157, -2397.420); }
 .cl-cta__curve--right .cl-curve { transform: matrix(0.672907, -0.739727, -0.739727, -0.672907, 1027.014, 3022.867); }
 
-/* 641–1439：流動縮放 */
-@media (max-width: 1439px) and (min-width: 641px) {
-  .cl-cta { padding-left: clamp(24px, 5.56vw, 80px); padding-right: clamp(24px, 5.56vw, 80px); }
-}
-
-/* 平板 641–1100（S0_TABLET_CONTRACT：電腦結構，左右留白 40，標題 28，按鈕維持 18px 並排） */
-@media (min-width: 641px) and (max-width: 1100px) {
-  .cl-cta { padding-left: 40px; padding-right: 40px; }
-  .cl-cta__title { font-size: 28px; }
-}
+/* 平板 641–1100（S0_TABLET_CONTRACT：電腦結構，左右留白交給 --cl-gutter，標題 28，按鈕維持 18px 並排） */
 
 /* ---------- 手機 375（1695:19927） ---------- */
 @media (max-width: 640px) {
-  .cl-cta { flex-direction: row; padding: 0 16px 64px; }
+  .cl-cta { flex-direction: row; }
   .cl-cta__bg { left: calc(50% + .5px); }
   .cl-cta__content {
     top: calc(50% + .12px);
-    gap: 48px;
+    gap: var(--cl-space-48);
     width: 263px;
   }
-  .cl-cta__text { gap: 16px; }
-  .cl-cta__title { font-size: 24px; }
+  .cl-cta__text { gap: var(--cl-space-16); }
   .cl-cta__actions {
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    gap: 16px;
+    gap: var(--cl-space-16);
     width: 100%;
   }
   /* 手機用 main_btn 14px（805:5702／805:5679）＝base 的 .cl-btn--sm 尺寸；
      同一份 HTML 無法換 class，這裡照 base --sm 的值覆寫（已回報主控：需要可隨斷點切換的 sm） */
   .cl-cta__actions .cl-btn {
-    gap: 8px;
+    gap: var(--cl-space-8);
     width: 100%;
     min-height: 40px;
-    padding: 8.5px 20px; /* Figma stroke INSIDE：padding 9.5／21 扣框線 1 → 總高 40（base --sm 是 42，已回報） */
+    padding: var(--cl-space-8) var(--cl-space-20); /* Figma stroke INSIDE：padding 9.5／21 扣框線 1 → 總高 40（base --sm 是 42，已回報） */
     border: 1px solid transparent;
-    font-size: 14px;
-    line-height: 21px;
+    font-size: var(--cl-button-s-fs);
+    line-height: var(--cl-button-s-lh);
   }
   .cl-cta__actions .cl-btn__circle { left: calc(40.87% - .18px); top: 40px; bottom: auto; width: 24px; } /* base 39 會在 40 高的按鈕露 1px */
   /* 白底 sm 箭頭 20px：common 沒有深色 20 版，24 版等比縮小形狀相同 */

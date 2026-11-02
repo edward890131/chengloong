@@ -1,7 +1,287 @@
 {
-  "updated": "2026-10-20",
+  "updated": "2026-11-02",
   "note": "CSS class ↔ Guideline 章節 ↔ Figma 母版 ↔ 設計稿對照。token 對應看 Figma 變數 codeSyntax（token_diff.py），不寫在這裡。properties 的 key 含 # 後綴（setProperties 用完整 key；VARIANT 用屬性名）。status：synced｜gap｜web-only｜figma-only。pages[] 的 status：active｜removed（removed 要填 removed_on，同一個 code 只能有一筆不是 removed；見 core/figma-pages.md §2）。",
-  "components": [],
+  "components": {
+    "Button": {
+      "css": ".cl-btn",
+      "variants": [
+        "顏色 green／black／white／white20",
+        "尺寸 L／S（.cl-btn--sm、手機 .cl-btn--sm-s）"
+      ],
+      "description": "按鈕（底部圓形 hover 填色）",
+      "file": "site/css/base.css",
+      "section_classes": [],
+      "figma": {
+        "node": "",
+        "key": "",
+        "props": {}
+      }
+    },
+    "Eyebrow": {
+      "css": ".cl-eyebrow",
+      "variants": [
+        "尺寸 S（Overline/S）／M（.cl-eyebrow--m，Overline/M）"
+      ],
+      "description": "英文小標＋圓點",
+      "file": "site/css/components.css",
+      "section_classes": [
+        ".cl-about__eyebrow",
+        ".cl-paper__eyebrow",
+        ".cl-process__eyebrow",
+        ".cl-green__eyebrow",
+        ".cl-faq__eyebrow",
+        ".cl-terms__eyebrow"
+      ],
+      "figma": {
+        "node": "",
+        "key": "",
+        "props": {}
+      }
+    },
+    "Section Head": {
+      "css": ".cl-section-head",
+      "variants": [
+        "含導言（預設）／不含導言（.cl-section-head--compact）"
+      ],
+      "description": "段落標題組：.cl-section-head__heading（eyebrow＋.cl-section-title）＋.cl-section-lead",
+      "file": "site/css/components.css",
+      "section_classes": [
+        ".cl-about__head",
+        ".cl-paper__head",
+        ".cl-process__head",
+        ".cl-green__head",
+        ".cl-faq__head"
+      ],
+      "figma": {
+        "node": "",
+        "key": "",
+        "props": {}
+      }
+    },
+    "Tab": {
+      "css": ".cl-tab",
+      "variants": [
+        "狀態 預設／hover／選中（.is-active，圓形填色 .cl-tabfill）"
+      ],
+      "description": "頁籤；容器 .cl-tabs",
+      "file": "site/css/components.css",
+      "section_classes": [
+        ".cl-process__tab",
+        ".cl-faq__tab"
+      ],
+      "figma": {
+        "node": "",
+        "key": "",
+        "props": {}
+      }
+    },
+    "Segmented": {
+      "css": ".cl-seg",
+      "variants": [
+        "尺寸 L／M（.cl-seg--m）／S（.cl-seg--s）",
+        "底色 白／淺灰（.cl-seg--muted）",
+        "狀態 選中滑塊 .cl-seg__thumb"
+      ],
+      "description": "二選一切換鈕（互動 base.js clRubberSegment）",
+      "file": "site/css/components.css",
+      "section_classes": [
+        ".cl-process__paper",
+        ".cl-about__cycle-mode"
+      ],
+      "figma": {
+        "node": "",
+        "key": "",
+        "props": {}
+      }
+    },
+    "Tooltip": {
+      "css": ".cl-tooltip",
+      "variants": [
+        "箭頭 置中（預設）／靠右（段落覆寫）"
+      ],
+      "description": "說明泡泡：.cl-tooltip__body＋.cl-tooltip__arrow",
+      "file": "site/css/components.css",
+      "section_classes": [
+        ".cl-hero__tip-pop",
+        ".cl-process__tip-pop",
+        ".cl-hero__tag-tip-body"
+      ],
+      "figma": {
+        "node": "",
+        "key": "",
+        "props": {}
+      }
+    },
+    "Pill": {
+      "css": ".cl-pill",
+      "variants": [
+        "顏色 brand（綠底上，預設）／muted（.cl-pill--muted）／light／dark"
+      ],
+      "description": "膠囊標籤＋圓點，尺寸統一",
+      "file": "site/css/components.css",
+      "section_classes": [
+        ".cl-about__pill",
+        ".cl-green__pill"
+      ],
+      "figma": {
+        "node": "",
+        "key": "",
+        "props": {}
+      }
+    },
+    "Panel": {
+      "css": ".cl-panel",
+      "variants": [],
+      "description": "淺灰容器，包一組卡片（內距 --cl-panel-gap）",
+      "file": "site/css/components.css",
+      "section_classes": [
+        ".cl-about__panel",
+        ".cl-paper__grid",
+        ".cl-process__booking",
+        ".cl-process__prepare"
+      ],
+      "figma": {
+        "node": "",
+        "key": "",
+        "props": {}
+      }
+    },
+    "Info Card": {
+      "css": ".cl-info-card",
+      "variants": [
+        "顏色 fill（預設）／accent（.cl-info-card--accent）"
+      ],
+      "description": "疊在圖片／色塊上的半透明說明（內層）",
+      "file": "site/css/components.css",
+      "section_classes": [
+        ".cl-paper__note",
+        ".cl-green__info"
+      ],
+      "figma": {
+        "node": "",
+        "key": "",
+        "props": {}
+      }
+    },
+    "Tile": {
+      "css": ".cl-green__tile",
+      "variants": [
+        "顏色 ink／green／gray"
+      ],
+      "description": "綠點方塊（外層，和 Info Card 數值不同）",
+      "file": "site/css/05-green.css",
+      "section_classes": [],
+      "figma": {
+        "node": "",
+        "key": "",
+        "props": {}
+      }
+    },
+    "Card/About": {
+      "css": ".cl-about__card",
+      "variants": [],
+      "description": "關於卡（--cl-c-about-card-*，RWD）",
+      "file": "site/css/02-about.css",
+      "section_classes": [],
+      "figma": {
+        "node": "",
+        "key": "",
+        "props": {}
+      }
+    },
+    "Card/Paper": {
+      "css": ".cl-paper__text",
+      "variants": [],
+      "description": "紙張文字卡（--cl-c-paper-card-*，RWD）",
+      "file": "site/css/03-paper.css",
+      "section_classes": [],
+      "figma": {
+        "node": "",
+        "key": "",
+        "props": {}
+      }
+    },
+    "Card/Process": {
+      "css": ".cl-process__card",
+      "variants": [
+        "狀態 收合／展開（.is-active）"
+      ],
+      "description": "流程四格卡（--cl-c-process-card-*，RWD）",
+      "file": "site/css/04-process.css",
+      "section_classes": [],
+      "figma": {
+        "node": "",
+        "key": "",
+        "props": {}
+      }
+    },
+    "Card/Step": {
+      "css": ".cl-process__step",
+      "variants": [],
+      "description": "預約步驟卡（--cl-c-step-card-*，RWD）",
+      "file": "site/css/04-process.css",
+      "section_classes": [],
+      "figma": {
+        "node": "",
+        "key": "",
+        "props": {}
+      }
+    },
+    "Card/Prep": {
+      "css": ".cl-process__prep-card",
+      "variants": [],
+      "description": "準備卡（--cl-c-prep-card-*，RWD）",
+      "file": "site/css/04-process.css",
+      "section_classes": [],
+      "figma": {
+        "node": "",
+        "key": "",
+        "props": {}
+      }
+    },
+    "Accordion": {
+      "css": ".cl-faq__item",
+      "variants": [
+        "狀態 收合／展開（.is-open）"
+      ],
+      "description": "FAQ 問答項目（--cl-c-faq-*，RWD）",
+      "file": "site/css/07-faq.css",
+      "section_classes": [],
+      "figma": {
+        "node": "",
+        "key": "",
+        "props": {}
+      }
+    },
+    "Header": {
+      "css": ".cl-hero__header",
+      "variants": [
+        "Device=Desktop／Mobile（含漢堡選單 .cl-menu）"
+      ],
+      "description": "頂部導覽",
+      "file": "site/css/01-hero.css",
+      "section_classes": [],
+      "figma": {
+        "node": "",
+        "key": "",
+        "props": {}
+      }
+    },
+    "Footer": {
+      "css": ".cl-footer",
+      "variants": [
+        "Device=Desktop／Mobile"
+      ],
+      "description": "頁尾",
+      "file": "site/css/09-footer.css",
+      "section_classes": [],
+      "figma": {
+        "node": "",
+        "key": "",
+        "props": {}
+      }
+    }
+  },
   "pages": [
     {
       "code": "A-01",

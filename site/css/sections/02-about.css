@@ -9,8 +9,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 64px;
-  padding: 40px 0 140.64px;
+  gap: var(--cl-section-gap);
+  padding: var(--cl-section-pad-top) var(--cl-gutter) var(--cl-section-pad-bottom);
 }
 .cl-about > :not(.cl-about__curve) { position: relative; z-index: 1; }
 
@@ -39,85 +39,29 @@
   transform: matrix(-.88773, -.46036, .46036, -.88773, 3325.70459, 2787.52002) matrix(.99888, .04725, -.04725, .99888, 69.74628, 0) translate(-24px, -24px);
 }
 
-/* ---------- 標題區 Frame 4（1695:20121） ---------- */
-.cl-about__head {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 32px;
-  width: 640px;
-  max-width: calc(100% - 32px);
-  text-align: center;
-}
-.cl-about__heading {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
-}
-.cl-about__eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-family: var(--cl-font-num);
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 15px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--cl-green-700);
-  white-space: nowrap;
-}
-.cl-about__eyebrow::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: 100px;
-  background: var(--cl-green-700);
-  flex: none;
-}
-.cl-about__title {
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 45px;
-  letter-spacing: 1px;
-  color: var(--cl-ink-900);
-}
-.cl-about__lead {
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 22px;
-  letter-spacing: .3px;
-  color: var(--cl-ink-800-60);
-}
-
 /* ---------- 灰底容器（1695:20128） ---------- */
 .cl-about__panel {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  width: calc(100% - 160px);
-  max-width: 1280px;
-  padding: 12px;
-  border-radius: 20px;
-  background: #f6f6f6;
+  gap: var(--cl-space-12);
+  width: 100%;
+  max-width: var(--cl-content-max);
 }
 
 /* ---------- 四張特色卡（1695:20152） ---------- */
 .cl-about__cards {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
+  gap: var(--cl-panel-gap);
 }
 .cl-about__card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
-  padding: 40px 32px 32px;
-  border-radius: 16px;
-  background: var(--cl-white);
+  gap: var(--cl-c-about-card-gap);
+  padding: var(--cl-c-about-card-pad-top) var(--cl-c-about-card-pad-x) var(--cl-c-about-card-pad-bottom);
+  border-radius: var(--cl-c-about-card-radius);
+  background: var(--cl-surface);
   overflow: hidden;
 }
 .cl-about__illus {
@@ -154,8 +98,8 @@
    · 見證：兩圓左右會合、圓點出現後在兩圓交疊區繞橢圓（水平 ±9、垂直 ±16，5s 一圈）
    · 再生：大圓展開、小圓帶圓點滾入，之後沿大圓內緣慢慢繞 */
 .cl-about__dots { overflow: visible; }
-.cl-about__ln { fill: none; stroke: var(--cl-green-500); stroke-width: .64; stroke-dasharray: 1 1; }
-.cl-about__dt { fill: var(--cl-green-500); transform-box: fill-box; transform-origin: center; }
+.cl-about__ln { fill: none; stroke: var(--cl-surface-accent); stroke-width: .64; stroke-dasharray: 1 1; }
+.cl-about__dt { fill: var(--cl-surface-accent); transform-box: fill-box; transform-origin: center; }
 .cl-about__witness-orb { position: absolute; left: 48px; top: 34.5px; width: 18px; height: 18px; }
 .cl-about__witness-orb-y, .cl-about__witness-orb .cl-about__witness-dot { display: block; width: 18px; height: 18px; }
 .cl-about__witness-orb .cl-about__witness-dot { position: static; }
@@ -231,23 +175,23 @@
 .cl-about__card-text {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--cl-c-about-card-text-gap);
   width: 100%;
   text-align: center;
 }
 .cl-about__card-title {
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 25px;
-  letter-spacing: .6px;
-  color: var(--cl-ink-800);
+  font-size: var(--cl-title-xs-fs);
+  font-weight: var(--cl-fw-bold);
+  line-height: var(--cl-title-xs-lh);
+  letter-spacing: var(--cl-title-xs-ls);
+  color: var(--cl-text);
 }
 .cl-about__card-desc {
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 20px;
-  letter-spacing: .3px;
-  color: var(--cl-ink-800-60);
+  font-size: var(--cl-paragraph-s-fs);
+  font-weight: var(--cl-fw-regular);
+  line-height: var(--cl-paragraph-s-lh);
+  letter-spacing: var(--cl-paragraph-s-ls);
+  color: var(--cl-text-secondary);
 }
 .cl-about__only-s { display: none; }
 /* 稿上段尾 \r 字元：Figma 算進置中寬度（約 4px），照稿保留（audit-source） */
@@ -258,51 +202,30 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 24px 0 28.36px;
-  border-radius: 20px;
-  background: var(--cl-white);
+  padding: var(--cl-space-24) 0 var(--cl-space-28);
+  border-radius: var(--cl-radius-xl);
+  background: var(--cl-surface);
   overflow: hidden;
 }
 .cl-about__cycle-head {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: var(--cl-space-32);
   align-self: stretch;
-  padding: 0 24px;
+  padding: 0 var(--cl-space-24);
 }
 .cl-about__pill {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  flex: none;
-  padding: 8px 20px;
-  border-radius: 999px;
-  background: #f6f6f6;
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 25px;
-  letter-spacing: .6px;
-  color: var(--cl-ink-900);
-  white-space: nowrap;
-}
-.cl-about__pill::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: 100px;
-  background: var(--cl-green-400);
   flex: none;
 }
 .cl-about__cycle-sub {
   padding-top: 1px; /* 稿上副標中心 y45、標籤中心 y44.5 */
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 22px;
-  letter-spacing: .3px;
-  color: var(--cl-ink-800-60);
+  font-size: var(--cl-paragraph-m-fs);
+  font-weight: var(--cl-fw-regular);
+  line-height: var(--cl-paragraph-m-lh);
+  letter-spacing: var(--cl-paragraph-m-ls);
+  color: var(--cl-text-secondary);
 }
-.cl-about__cycle-img { display: block; margin-top: 40.64px; }
+.cl-about__cycle-img { display: block; margin-top: var(--cl-space-40); }
 .cl-about__cycle-img img { width: 1200px; height: auto; }
 /* R1：三層疊放（下→上）：備援箭頭層 -band → Lottie → 圖示文字層 -nodes；-nodes 在流內撐出尺寸 */
 .cl-about__cycle-stage { position: relative; }
@@ -322,23 +245,16 @@
 /* ---------- 平板 641–1100（S0 平板契約：電腦結構）----------
    版心左右留白 40；區段標題 28；四卡 2×2；循環圖用電腦版 SVG 等比縮 */
 @media (max-width: 1100px) and (min-width: 641px) {
-  .cl-about__head { max-width: calc(100% - 80px); }
-  .cl-about__title { font-size: 28px; line-height: 39px; }
-  .cl-about__panel { width: calc(100% - 80px); }
   .cl-about__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cl-about__card-desc { text-wrap: balance; }   /* 置中短段落避免末行剩一兩字 */
-  .cl-about__cycle-head { gap: 24px; }
+  .cl-about__cycle-head { gap: var(--cl-space-24); }
   .cl-about__cycle-sub { flex: 1 1 0; min-width: 0; }
-  .cl-about__cycle-img { align-self: stretch; padding: 0 24px; }
+  .cl-about__cycle-img { align-self: stretch; padding: 0 var(--cl-space-24); }
   .cl-about__cycle-img img, .cl-about__cycle-img .cl-cycle-h { width: 100%; }
 }
 
 /* ---------- 手機版 ---------- */
 @media (max-width: 640px) {
-  .cl-about {
-    gap: 48px;
-    padding: 40px 16px 64px;
-  }
   .cl-about__curve { left: calc(50% - 799.5px); width: 1600px; height: 640px; }
   .cl-about__curve--whatis { top: -40px; }   /* 1695:19644 */
   .cl-about__curve--whatis .cl-curve {
@@ -349,19 +265,10 @@
     transform: scale(.8) matrix(-.88773, -.46036, .46036, -.88773, 3325.70459, 2787.52002) matrix(.99888, .04725, -.04725, .99888, 69.74628, 0) translate(-24px, -24px);
   }
 
-  .cl-about__head { gap: 24px; width: 100%; max-width: 343px; }
-  .cl-about__heading { gap: 8px; }
-  .cl-about__title { font-size: 24px; line-height: 34px; }
 
   /* scroll（1695:19652）＋灰底 Frame 2085663961（1695:19653） */
-  .cl-about__panel {
-    width: 100%;
-    max-width: 343px;
-    padding: 8px;
-  }
   .cl-about__cards {
     display: flex;
-    gap: 8px;
     height: 300px;
     overflow-x: auto;
     overflow-y: hidden;
@@ -373,25 +280,22 @@
   .cl-about__card {
     flex: none;
     width: 240px;
-    gap: 20px;
-    padding: 24px;
     scroll-snap-align: start;
   }
-  .cl-about__card-text { gap: 12px; }
   .cl-about__art--renew { overflow: hidden; }
   .cl-about__only-l { display: none; }
   .cl-about__only-s { display: inline; }
 
   /* 圖_D（1695:19741）327×655 */
-  .cl-about__cycle { padding: 24px 0; }
+  .cl-about__cycle { padding: var(--cl-space-24) 0; }
   .cl-about__cycle-head {
     flex-direction: column;
-    gap: 20px;
+    gap: var(--cl-space-20);
     padding: 0;
   }
-  .cl-about__pill { align-self: stretch; margin: 0 24px; }
+  .cl-about__pill { align-self: stretch; margin: 0 var(--cl-space-24); }
   .cl-about__cycle-sub { width: 247px; max-width: calc(100% - 48px); padding-top: 0; text-align: center; }
-  .cl-about__cycle-img { margin-top: 52px; }
+  .cl-about__cycle-img { margin-top: var(--cl-space-52); }
   .cl-about__cycle-img img { width: 327px; }
   /* 手機版循環圖是電腦版順時針轉 90°、縮 0.47209（由兩版箭頭層座標擬合，誤差 < 0.01px）；
      Lottie 維持 1200×560 原座標，用同一個矩陣對到直式的圖，箭頭流向跟著轉 */
@@ -414,43 +318,15 @@
     position: relative;
     display: none;   /* R3 客戶：先定案橫式，切換鈕隱藏（要再比對時改回 grid） */
     grid-template-columns: auto auto;
-    margin-top: 20px;
-    padding: 4px;
-    border-radius: 999px;
-    background: #f6f6f6;
-    touch-action: pan-y;
-    user-select: none;
-    -webkit-user-select: none;
-    -webkit-tap-highlight-color: transparent;
+    margin-top: var(--cl-space-20);
   }
-  .cl-about__cycle-mode-btn {
-    padding: 6px 16px;
-    border-radius: 999px;
-    color: #989898;
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 20px;
-    letter-spacing: .3px;
-    text-align: center;
-    white-space: nowrap;
-    transition: color .16s ease, transform .16s cubic-bezier(.23, 1, .32, 1);
-  }
-  .cl-about__cycle-mode-btn[aria-checked="true"] { cursor: grab; }
   .cl-about__cycle-mode.is-held,
   .cl-about__cycle-mode.is-held .cl-about__cycle-mode-btn { cursor: grabbing; }
-  .cl-about__cycle-mode-btn.is-pressed { transform: scale(.96); }
-  .cl-about__cycle-mode-btn:focus-visible { outline: 2px solid var(--cl-green-700); outline-offset: 2px; }
   .cl-about__cycle-mode-thumb {
-    position: absolute;
-    inset: 4px;
-    display: grid;
     grid-template-columns: auto auto;
-    border-radius: 999px;
-    background: var(--cl-green-500);
-    pointer-events: none;
     clip-path: inset(0 0 0 50% round 999px);   /* JS 量好後接手 */
   }
-  .cl-about__cycle-mode-thumb .cl-about__cycle-mode-btn { color: var(--cl-white); }
+  .cl-about__cycle-mode-thumb .cl-about__cycle-mode-btn { color: var(--cl-text-inverse); }
 
   /* 直式 */
   .cl-about__cycle:not(.is-h) .cl-about__cycle-v { display: block; }
@@ -459,7 +335,7 @@
   /* 橫式滑動 */
   .cl-about__cycle.is-h .cl-about__cycle-img {
     align-self: stretch;
-    margin-top: 32px;
+    margin-top: var(--cl-space-32);
     overflow-x: auto;
     overflow-y: hidden;
     overscroll-behavior-x: contain;
@@ -467,21 +343,21 @@
     scrollbar-width: none;
   }
   .cl-about__cycle.is-h .cl-about__cycle-img::-webkit-scrollbar { display: none; }
-  .cl-about__cycle.is-h .cl-about__cycle-stage { width: 777.6px; overflow: visible; margin: 0 16px; }   /* R3：900 × 0.8 × 1.08 */
+  .cl-about__cycle.is-h .cl-about__cycle-stage { width: 777.6px; overflow: visible; margin: 0 var(--cl-space-16); }   /* R3：900 × 0.8 × 1.08 */
   .cl-about__cycle.is-h .cl-about__cycle-img img, .cl-about__cycle.is-h .cl-cycle-h { width: 100%; }
   .cl-about__cycle.is-h .cl-about__cycle-anim { width: 100%; height: 100%; overflow: hidden; transform: none; }
   .cl-about__cycle.is-h .cl-about__cycle-hint {
     display: flex;
     align-self: flex-start;
-    margin: 16px 0 0 24px;
-    padding: 6px 14px;
-    border-radius: 999px;
-    background: rgba(31, 31, 31, .1);
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 18px;
-    letter-spacing: .4px;
-    color: var(--cl-ink-900);
+    margin: var(--cl-space-16) 0 0 var(--cl-space-24);
+    padding: var(--cl-space-6) var(--cl-space-14);
+    border-radius: var(--cl-radius-full);
+    background: var(--cl-fill-soft);
+    font-size: var(--cl-label-s-fs);
+    font-weight: var(--cl-fw-medium);
+    line-height: var(--cl-label-s-lh);
+    letter-spacing: var(--cl-label-s-ls);
+    color: var(--cl-text-strong);
   }
 }
 
@@ -501,12 +377,12 @@
   width: 5.1333cqw;   /* 61.6 */
   height: 5.1333cqw;
   border-radius: 50%;
-  background: var(--cl-white);
-  box-shadow: 0 .1833cqw .9167cqw rgba(0, 0, 0, .14);   /* 0 2.2 11 */
+  background: var(--cl-surface);
+  box-shadow: 0 .1833cqw .9167cqw var(--cl-shadow-color);   /* 0 2.2 11 */
 }
 .cl-cycle-h__node svg { position: absolute; left: 1.1cqw; top: 1.1cqw; width: 2.9333cqw; height: 2.9333cqw; }   /* icon 35.2，內距 13.2 */
 .cl-cycle-h__label,
-.cl-cycle-h__title { font-weight: 700; color: #111; }
+.cl-cycle-h__title { font-weight: var(--cl-fw-bold); color: var(--cl-text-strong); }
 .cl-cycle-h__label {
   font-size: 1.65cqw;          /* 19.8 */
   line-height: 1.4;
@@ -517,7 +393,7 @@
 .cl-cycle-h__eyebrow {
   font-family: var(--cl-font-num);
   font-size: 1.1cqw;           /* 13.2 */
-  font-weight: 600;
+  font-weight: var(--cl-fw-semibold);
   line-height: 1.2;
   letter-spacing: .0917cqw;    /* 1.1 */
   text-transform: uppercase;
@@ -534,7 +410,7 @@
   font-size: 1.2833cqw;        /* 15.4 */
   line-height: 1.4;
   letter-spacing: .0275cqw;
-  color: rgba(31, 31, 31, .6);
+  color: var(--cl-text-secondary);
 }
 .cl-cycle-h__hub {
   display: flex;
@@ -542,15 +418,15 @@
   align-items: center;
   justify-content: center;
   gap: .3667cqw;               /* 兩行 18，間距 4.4 */
-  border-radius: 999px;
-  background: var(--cl-white);
-  box-shadow: 0 .1833cqw .9167cqw rgba(0, 0, 0, .14);
+  border-radius: var(--cl-radius-full);
+  background: var(--cl-surface);
+  box-shadow: 0 .1833cqw .9167cqw var(--cl-shadow-color);
   font-size: 1.1cqw;           /* 13.2 */
   line-height: 1.5cqw;         /* 18 */
   letter-spacing: .0275cqw;
-  color: #1f1f1f;
+  color: var(--cl-text);
   white-space: nowrap;
 }
-.cl-cycle-h__hub-unit { color: rgba(31, 31, 31, .8); }
-.cl-cycle-h__hub-value { font-weight: 700; }
+.cl-cycle-h__hub-unit { color: var(--cl-text-soft); }
+.cl-cycle-h__hub-value { font-weight: var(--cl-fw-bold); }
 .cl-cycle-h__coin { display: block; height: auto; overflow: visible; }

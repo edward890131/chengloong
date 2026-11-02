@@ -3,7 +3,7 @@
 
 用法：python3 site/build.py
   site/src/_head.html + site/src/sections/*.html（依檔名排序）+ site/src/_foot.html → site/index.html
-  site/css/base.css + site/css/sections/*.css（依檔名排序）→ site/draft.css
+  site/css/tokens.css + base.css + components.css + sections/*.css（依檔名排序）→ site/draft.css
   site/js/base.js + site/js/sections/*.js（依檔名排序）→ site/main.js
 組好的 index.html／draft.css／main.js 不要直接改，改 partial 再 build。
 """
@@ -55,7 +55,8 @@ def main():
     src = ROOT / 'src'
     header = (src / '_header.html').read_text()
     html = cat(src / '_head.html', src / 'sections', src / '_foot.html').replace('<!--@header-->', header, 1)
-    css = cat(ROOT / 'css' / 'base.css', ROOT / 'css' / 'sections')
+    # design token 放最前面（tokens.json → tokens.css，由 design-loop tokens_build.py 產生）
+    css = (ROOT / 'css' / 'tokens.css').read_text() + '\n' + (ROOT / 'css' / 'base.css').read_text() + '\n' + cat(ROOT / 'css' / 'components.css', ROOT / 'css' / 'sections')
     pre = [[bust(u), n] for u, n in preload_list(html, css)]
     html, css = bust(html), bust(css)
     html = html.replace('/*CL_PRELOAD*/[]', json.dumps(pre, separators=(',', ':')), 1)

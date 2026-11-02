@@ -5,9 +5,9 @@
     <svg class="cl-curve cl-process__curve" viewBox="0 0 5628.88 1524.16" preserveAspectRatio="none" focusable="false"><path pathLength="1" d="M5604.88 24.0005C4640 71.2913 4410.14 161.442 4245.01 406.018C4106.94 610.522 4007.12 1054.45 3595.49 952.987C3110.95 833.551 2448.73 962.669 2077.83 1270.04C1232 1971 1105.4 839.372 24.0011 920.056"/></svg>
   </div>
 
-  <header class="cl-process__head" data-reveal-group data-figma="1695:20306" data-figma-s="1695:19818">
-    <p class="cl-process__eyebrow" data-reveal data-figma="1695:20307" data-figma-s="1695:19819">Service Process</p>
-    <h2 class="cl-process__title" data-reveal data-figma="1695:20310" data-figma-s="1695:19822">服務流程</h2>
+  <header class="cl-section-head cl-section-head--compact cl-process__head" data-reveal-group data-figma="1695:20306" data-figma-s="1695:19818">
+    <p class="cl-eyebrow cl-process__eyebrow" data-reveal data-figma="1695:20307" data-figma-s="1695:19819">Service Process</p>
+    <h2 class="cl-section-title cl-process__title" data-reveal data-figma="1695:20310" data-figma-s="1695:19822">服務流程</h2>
   </header>
 
   <div class="cl-process__body">
@@ -68,14 +68,14 @@
 
     <!-- 詳細服務流程_B：頁籤（線上預約步驟 1695:20312／送廠前的準備 1695:19585／當天進場流程 1695:19586） -->
     <div class="cl-process__detail" data-figma="1695:20312" data-figma-s="1695:19825">
-      <div class="cl-process__tabs cl-tabfill" role="tablist" aria-label="詳細服務流程">
-        <button class="cl-process__tab is-active" type="button" role="tab" id="cl-process-tab-1" aria-controls="cl-process-panel-1" aria-selected="true">線上預約步驟</button>
-        <button class="cl-process__tab" type="button" role="tab" id="cl-process-tab-2" aria-controls="cl-process-panel-2" aria-selected="false" tabindex="-1">送廠前的準備</button>
-        <button class="cl-process__tab" type="button" role="tab" id="cl-process-tab-3" aria-controls="cl-process-panel-3" aria-selected="false" tabindex="-1">當天進場流程</button>
+      <div class="cl-tabs cl-process__tabs cl-tabfill" role="tablist" aria-label="詳細服務流程">
+        <button class="cl-tab cl-process__tab is-active" type="button" role="tab" id="cl-process-tab-1" aria-controls="cl-process-panel-1" aria-selected="true">線上預約步驟</button>
+        <button class="cl-tab cl-process__tab" type="button" role="tab" id="cl-process-tab-2" aria-controls="cl-process-panel-2" aria-selected="false" tabindex="-1">送廠前的準備</button>
+        <button class="cl-tab cl-process__tab" type="button" role="tab" id="cl-process-tab-3" aria-controls="cl-process-panel-3" aria-selected="false" tabindex="-1">當天進場流程</button>
       </div>
 
       <!-- 頁籤 1：線上預約步驟 -->
-      <div class="cl-process__panel cl-process__booking" role="tabpanel" id="cl-process-panel-1" aria-labelledby="cl-process-tab-1" data-figma="I1695:20312;713:18662" data-figma-s="I1695:19825;995:18233">
+      <div class="cl-panel cl-process__panel cl-process__booking" role="tabpanel" id="cl-process-panel-1" aria-labelledby="cl-process-tab-1" data-figma="I1695:20312;713:18662" data-figma-s="I1695:19825;995:18233">
         <ol class="cl-process__steps" data-reveal-trigger>
           <li class="cl-process__step" data-reveal-group>
             <p class="cl-process__step-no"><span class="cl-process__step-label" data-reveal>STEP</span><span class="cl-process__step-num" data-reveal>01</span></p>
@@ -99,7 +99,7 @@
             <div class="cl-process__step-text">
               <h3 class="cl-process__step-title cl-process__step-title--info"><span data-reveal>挑選到廠日期與時段</span><!--
                 R2 客戶：info icon 加 tooltip（樣式同首屏數據 tooltip）。標題的 reveal 只包文字：[data-reveal] 會裁切溢出，tooltip 放在外面才不會被切
-              --><span class="cl-process__tip" data-reveal="fade"><button class="cl-process__tip-btn" type="button" aria-label="到廠日期與時段說明" aria-expanded="false" aria-describedby="cl-process-tip-date"><img class="cl-process__info" src="assets/04-process/icon-info.svg" alt="" data-figma="1695:33037"></button><span class="cl-process__tip-pop" id="cl-process-tip-date" role="tooltip"><span class="cl-process__tip-body">廠區保養與國定假日除外，請以線上預約時段為準</span><img class="cl-process__tip-arrow" src="assets/01-hero/tooltip-arrow.svg" alt=""></span></span></h3>
+              --><span class="cl-process__tip" data-reveal="fade"><button class="cl-process__tip-btn" type="button" aria-label="到廠日期與時段說明" aria-expanded="false" aria-describedby="cl-process-tip-date"><img class="cl-process__info" src="assets/04-process/icon-info.svg" alt="" data-figma="1695:33037"></button><span class="cl-tooltip cl-process__tip-pop" id="cl-process-tip-date" role="tooltip"><span class="cl-tooltip__body cl-process__tip-body">廠區保養與國定假日除外，請以線上預約時段為準</span><img class="cl-tooltip__arrow cl-process__tip-arrow" src="assets/01-hero/tooltip-arrow.svg" alt=""></span></span></h3>
               <p class="cl-process__step-desc" data-reveal>週一～週五開放上午 8:30–11:00、下午 13:00–16:00 時段，請於到廠日三天前完成預約。</p>
             </div>
           </li>
@@ -119,7 +119,7 @@
       </div>
 
       <!-- 頁籤 2：送廠前的準備（1695:19585／1695:19968） -->
-      <div class="cl-process__panel cl-process__prepare" data-reveal-trigger role="tabpanel" id="cl-process-panel-2" aria-labelledby="cl-process-tab-2" hidden data-figma="1695:19585" data-figma-s="1695:19968">
+      <div class="cl-panel cl-process__panel cl-process__prepare" data-reveal-trigger role="tabpanel" id="cl-process-panel-2" aria-labelledby="cl-process-tab-2" hidden data-figma="1695:19585" data-figma-s="1695:19968">
         <div class="cl-process__prep-card" data-reveal-group>
           <h3 class="cl-process__prep-title" data-reveal>一、移除雜物</h3>
           <span class="cl-process__prep-line" aria-hidden="true"></span>
@@ -164,10 +164,10 @@
         <!-- R2：家紙／工紙切換（電腦 toggle 2266:7859 疊在流程圖左上；≤1100 2266:8749 在流程圖上方）。只換流程圖，下方 01–06 說明固定 -->
         <!-- 切換動態：Rubber Segment（React Bits，MIT＋Commons Clause，© David Haz）移植為原生 JS：
              綠塊先拉長蓋住兩格、前緣彈簧落位、後緣 3px 回彈；選中文字由 clip-path 裁出白字；可拖曳 -->
-        <div class="cl-process__paper" role="radiogroup" aria-label="用紙類型">
-          <button type="button" class="cl-process__paper-btn" role="radio" aria-checked="true" data-paper="home">家紙</button>
-          <button type="button" class="cl-process__paper-btn" role="radio" aria-checked="false" tabindex="-1" data-paper="industrial">工紙</button>
-          <div class="cl-process__paper-thumb" aria-hidden="true"><span class="cl-process__paper-btn">家紙</span><span class="cl-process__paper-btn">工紙</span></div>
+        <div class="cl-seg cl-process__paper" role="radiogroup" aria-label="用紙類型">
+          <button type="button" class="cl-seg__btn cl-process__paper-btn" role="radio" aria-checked="true" data-paper="home">家紙</button>
+          <button type="button" class="cl-seg__btn cl-process__paper-btn" role="radio" aria-checked="false" tabindex="-1" data-paper="industrial">工紙</button>
+          <div class="cl-seg__thumb cl-process__paper-thumb" aria-hidden="true"><span class="cl-seg__btn cl-process__paper-btn">家紙</span><span class="cl-seg__btn cl-process__paper-btn">工紙</span></div>
         </div>
         <div class="cl-process__route-inner">
           <!-- R2：≤1100 流程圖與步驟說明是兩個獨立的橫向捲動區，各自滑動 -->
