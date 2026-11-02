@@ -55,7 +55,8 @@ def main():
     src = ROOT / 'src'
     header = (src / '_header.html').read_text()
     html = cat(src / '_head.html', src / 'sections', src / '_foot.html').replace('<!--@header-->', header, 1)
-    css = cat(ROOT / 'css' / 'base.css', ROOT / 'css' / 'sections')
+    # design token 放最前面（tokens.json → tokens.css，由 design-loop tokens_build.py 產生）
+    css = (ROOT / 'css' / 'tokens.css').read_text() + '\n' + cat(ROOT / 'css' / 'base.css', ROOT / 'css' / 'sections')
     pre = [[bust(u), n] for u, n in preload_list(html, css)]
     html, css = bust(html), bust(css)
     html = html.replace('/*CL_PRELOAD*/[]', json.dumps(pre, separators=(',', ':')), 1)

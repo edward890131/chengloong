@@ -164,3 +164,42 @@ manifest 只有 3 個 mode（桌機／平板 ≤1100／手機 ≤640），CSS �
 6. **S2／R／E**：間距、圓角、陰影、毛玻璃階梯照上面的提案？
 
 拍板後的下一步：建 `tokens.json`＋`tokens.css`（ref → sys → comp），把 CSS 寫死值換成 token（S2，掃描歸零），再進 Figma 建 Variables 與文字樣式（S3）。
+
+---
+
+## 8. 決策紀錄（2026-11-02，使用者：照建議做一版，第 4 點先用 14px）
+
+分支：`claude/design-tokens`（不動 main）。預覽：https://claude.ai/artifact/LwhvPwA9G6juqwPo8y7wBx
+
+| # | 決策 |
+|---|---|
+| C2 | 深色遮罩基底 `#111`，`scrim-10/20/40/56/72`（原 .08／.12→10、.24→20、.32／.36→40、.48→56） |
+| C3 | 白色疊加 `veil-20/40/60/80`（.24→20、.32→40） |
+| C4 | `#454545` 併入 `#444`（ref neutral-700） |
+| C5 | 骨架屏、筆電插圖、綠點卡漸層與色塊放 comp 層（`--cl-c-*`），不進 sys 色票 |
+| C6 | `#989898` 保留為 `text-tertiary`／`surface-neutral-soft` |
+| T1 | 文字收成 25 個角色（tokens.json `sys.type`），每個角色桌機／平板／手機三組值；字級與行高寫 px（Figma 取整），字距寫 em |
+| T3 | hero 說明、hero 特色文字最小 14px；手機 tooltip 13→14px（使用者：太大再改回 12） |
+| Title-S | 18/25 字距 .03em；頁籤另立 `tab`（18/26，手機 16/23），FAQ 頁籤因此高 4px |
+| S1 | 小數間距全部取整：按鈕 8.5 → `min-height: 40px`＋padding 8；140.64→140、40.64→40、28.36→28、66.4→64、128.5→128；Logo 字樣 13.474→13 |
+| S2 | 間距 token：2–120 共 22 階（`--cl-space-N`，N＝px）；21→20、13→12、26→24 |
+| R1 | 圓角 xs 4／sm 8／md 12（14 併入）／lg 16／xl 20／2xl 32／full 999（100 併入） |
+| E1 | `shadow-1: 0 2px 12px` 14% 黑；`focus-ring`；毛玻璃 sm 12（原 8 併入）／md 32／lg 52（原 42 併入） |
+
+## 9. 登記例外（不進 token）
+
+| 類別 | 位置 | 理由 |
+|---|---|---|
+| hero 流動字級 | `01-hero.css` `.cl-hero__title`、`__metric-*`、`__feature-text`、`__desc`、`__cta`（`--cl-hero-hp` 與 641–1240 間的額外斷點） | 依視窗高度縮放；Figma 以 1440×900 的值呈現 |
+| 價值循環圖 | `02-about.css` `.cl-cycle-h*`（cqw） | 整張圖依寬度等比縮放，數值是 Figma 1200 座標換算 |
+| Footer 標語 | `.cl-footer__slogan` 平板（5.972vw、clamp） | 流動字級 |
+| 載入畫面數字 | `.cl-loader__num`、`__unit`（clamp） | 流動字級 |
+| Logo 字樣 | `.cl-hero__brand-service` | 隨 Logo 縮放 |
+| 版面定位值 | 區塊上下內距 ≥140（140／150／160／280）、`-799.5px`、`calc(108px + 80vw)`、header 下拉位置 60／62 | 版面幾何，不是元件間距 |
+| 1px | 細線、框線補償 | hairline |
+| 綠點英文大字 1101–1199 | `.cl-green__en` clamp | 流動字級 |
+
+## 10. 整理後差異（同一份 ?static 截圖比對）
+
+- 頁高：桌機 9898→9901、平板 10560→10551、手機 9565→9562；條款頁三個寬度不變。
+- 主要來源：FAQ 頁籤 +4px；綠點卡名稱在平板 32→28px（套區塊標題的平板值）；footer 標籤行高 23→22；行高 1.4 的文字取整為 px（±1）。

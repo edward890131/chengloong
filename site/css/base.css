@@ -3,34 +3,15 @@
    值照 Figma 1695:20082／1695:19587 寫，S1 才收斂成 tokens。
    ========================================================================== */
 
-:root {
-  /* color（暫定，S1 收斂） */
-  --cl-green-500: #14a558;   /* 主按鈕底 */
-  --cl-green-600: #138248;   /* 數據區漸層、CTA 底 */
-  --cl-green-700: #15663c;   /* 主按鈕 hover 圓 */
-  --cl-green-400: #1fc36c;   /* 白按鈕 hover 圓 */
-  --cl-ink-900: #111;
-  --cl-ink-800: #1f1f1f;
-  --cl-ink-800-80: rgba(31, 31, 31, .8);
-  --cl-ink-800-60: rgba(31, 31, 31, .6);
-  --cl-ink-800-10: rgba(31, 31, 31, .1);
-  --cl-white: #fff;
-
-  /* font */
-  --cl-font-sans: 'Noto Sans TC', sans-serif;
-  --cl-font-num: 'Montserrat', 'Noto Sans TC', sans-serif;
-
-  /* layout */
-  --cl-page-max: 1440px;
-}
+/* 顏色、字型、間距等 token 在 tokens.css（build 時放在最前面） */
 
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; scroll-padding-top: 62px; }   /* header 固定置頂（R1），錨點跳轉預留 header 高 */
 body {
   margin: 0;
   text-spacing-trim: space-all;   /* Chrome 預設會擠壓相鄰全形標點，和 Figma 斷行不同 */
-  background: var(--cl-white);
-  color: var(--cl-ink-800);
+  background: var(--cl-surface);
+  color: var(--cl-text);
   font-family: var(--cl-font-sans);
   -webkit-font-smoothing: antialiased;
 }
@@ -58,15 +39,15 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: var(--cl-space-12);
   width: 240px;
-  padding: 16px 20px;
-  border-radius: 999px;
+  padding: var(--cl-space-16) var(--cl-space-20);
+  border-radius: var(--cl-radius-full);
   overflow: hidden;
   isolation: isolate;
   font-family: var(--cl-font-sans);
-  font-size: 18px;
-  font-weight: 600;
+  font-size: var(--cl-btn-fs);
+  font-weight: var(--cl-fw-semibold);
   line-height: normal;
   white-space: nowrap;
   text-align: center;
@@ -94,13 +75,13 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 
 .cl-btn--sm {
-  gap: 8px;
+  gap: var(--cl-space-8);
   width: auto;
   min-height: 40px;
-  padding: 8.5px 20px;          /* Figma stroke 在內側：總高 40 = 21 + 8.5×2 + 1×2 */
+  padding: var(--cl-space-8) var(--cl-space-20);   /* 高度由 min-height 40 決定（21＋8×2＋框線 1×2＝39，置中補齊）*/
   border: 1px solid transparent;
-  font-size: 14px;
-  line-height: 21px;
+  font-size: var(--cl-btn-sm-fs);
+  line-height: var(--cl-btn-sm-lh);
 }
 .cl-btn--sm .cl-btn__circle { left: calc(40.87% - .18px); top: 40px; bottom: auto; width: 24px; }
 .cl-btn--sm .cl-btn__arrow { width: 20px; height: 20px; }
@@ -109,13 +90,13 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .cl-btn__arrow--s { display: none; }
 @media (max-width: 640px) {
   .cl-btn--sm-s {
-    gap: 8px;
+    gap: var(--cl-space-8);
     width: auto;
     min-height: 40px;
-    padding: 8.5px 20px;
+    padding: var(--cl-space-8) var(--cl-space-20);
     border: 1px solid transparent;
-    font-size: 14px;
-    line-height: 21px;
+    font-size: var(--cl-btn-sm-fs);
+    line-height: var(--cl-btn-sm-lh);
   }
   .cl-btn--sm-s .cl-btn__circle { left: calc(40.87% - .18px); top: 40px; bottom: auto; width: 24px; }
   .cl-btn--sm-s .cl-btn__arrow { width: 20px; height: 20px; }
@@ -123,17 +104,17 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .cl-btn--sm-s .cl-btn__arrow--s { display: block; }
 }
 
-.cl-btn--green   { background: var(--cl-green-500); color: var(--cl-white); }
-.cl-btn--green   .cl-btn__circle { background: var(--cl-green-700); }
-.cl-btn--black   { background: var(--cl-ink-900); color: var(--cl-white); }
-.cl-btn--black   .cl-btn__circle { background: #454545; }
-.cl-btn--white   { background: var(--cl-white); color: var(--cl-ink-900); }
-.cl-btn--white   .cl-btn__circle { background: var(--cl-green-400); }
+.cl-btn--green   { background: var(--cl-surface-accent); color: var(--cl-text-inverse); }
+.cl-btn--green   .cl-btn__circle { background: var(--cl-surface-accent-strong); }
+.cl-btn--black   { background: var(--cl-surface-inverse); color: var(--cl-text-inverse); }
+.cl-btn--black   .cl-btn__circle { background: var(--cl-surface-neutral-strong); }
+.cl-btn--white   { background: var(--cl-surface); color: var(--cl-text-strong); }
+.cl-btn--white   .cl-btn__circle { background: var(--cl-surface-accent-light); }
 /* 白底按鈕 hover 變綠底：文字與箭頭轉白（客戶 2026-10-21） */
-.cl-btn--white:hover { color: var(--cl-white); }
+.cl-btn--white:hover { color: var(--cl-text-inverse); }
 .cl-btn--white:hover .cl-btn__arrow { filter: brightness(0) invert(1); }
-.cl-btn--white20 { background: rgba(255, 255, 255, .2); color: var(--cl-white); backdrop-filter: blur(42px); -webkit-backdrop-filter: blur(42px); }
-.cl-btn--white20 .cl-btn__circle { background: rgba(255, 255, 255, .2); }
+.cl-btn--white20 { background: var(--cl-veil-20); color: var(--cl-text-inverse); backdrop-filter: blur(var(--cl-blur-lg)); -webkit-backdrop-filter: blur(var(--cl-blur-lg)); }
+.cl-btn--white20 .cl-btn__circle { background: var(--cl-veil-20); }
 
 /* ---------- 共用：綠色弧線 curve_pattern（Figma 1656:28615） ----------
    inline SVG：<svg class="cl-curve" viewBox="0 0 5628.88 1524.16"><path pathLength="1" d="…"/></svg>
@@ -141,7 +122,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .cl-curve { position: absolute; pointer-events: none; overflow: visible; max-width: none; }
 .cl-curve path {
   fill: none;
-  stroke: var(--cl-curve-color, var(--cl-green-400));   /* 灰色弧線（footer #F6F6F6）設 --cl-curve-color */
+  stroke: var(--cl-curve-color, var(--cl-surface-accent-light));   /* 灰色弧線（footer #F6F6F6）設 --cl-curve-color */
   stroke-width: 48;
   stroke-linecap: round;
   stroke-opacity: var(--cl-curve-opacity, 1);
@@ -205,7 +186,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   height: var(--cl-tabfill-d, 300px);
   margin: calc(var(--cl-tabfill-d, 300px) / -2) 0 0 calc(var(--cl-tabfill-d, 300px) / -2);
   border-radius: 50%;
-  background: var(--cl-tabfill-color, var(--cl-green-500));
+  background: var(--cl-tabfill-color, var(--cl-surface-accent));
   transform: scale(0);
   transition: transform .9s cubic-bezier(.22, .61, .36, 1);
   pointer-events: none;
@@ -222,14 +203,14 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 
 /* ---------- 圖片載入 skeleton .cl-skeleton ----------
    用法：圖片容器加 class="cl-skeleton"；載入前顯示灰底流光，img 載入後淡入（base.js 加 .is-loaded）。 */
-.cl-skeleton { background: #e9ebea; }
+.cl-skeleton { background: var(--cl-c-skeleton-alt); }
 /* R2 客戶：要看得出流動的漸層——深淺差拉大、光帶加寬，1.6s 一趟、ease-in-out 有呼吸感 */
 .cl-skeleton::after {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(100deg, #e6e9e7 0%, #e6e9e7 30%, #f8faf9 45%, #ffffff 50%, #f8faf9 55%, #e6e9e7 70%, #e6e9e7 100%);
+  background: linear-gradient(100deg, var(--cl-c-skeleton-base) 0%, var(--cl-c-skeleton-base) 30%, var(--cl-c-skeleton-hi) 45%, var(--cl-surface) 50%, var(--cl-c-skeleton-hi) 55%, var(--cl-c-skeleton-base) 70%, var(--cl-c-skeleton-base) 100%);
   background-size: 250% 100%;
   animation: cl-skeleton 1.6s ease-in-out infinite;
   transition: opacity .5s ease;
@@ -252,7 +233,7 @@ html.is-loading { overflow: hidden; }
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--cl-white);
+  background: var(--cl-surface);
   transition: transform .9s cubic-bezier(.76, 0, .24, 1);
 }
 .cl-loader.is-done { transform: translateY(-100%); pointer-events: none; }
@@ -270,37 +251,37 @@ html.is-loading { overflow: hidden; }
 .cl-loader__pct {
   display: flex;
   align-items: baseline;   /* R2 客戶：% 靠下對齊數字 */
-  margin: clamp(24px, 4vh, 48px) 0 clamp(16px, 2.5vh, 28px);
+  margin: clamp(var(--cl-space-24), 4vh, var(--cl-space-48)) 0 clamp(var(--cl-space-16), 2.5vh, var(--cl-space-28));
   font-family: var(--cl-font-num);
-  font-weight: 700;
+  font-weight: var(--cl-fw-bold);
   font-variant-numeric: tabular-nums;
-  color: var(--cl-ink-900);
+  color: var(--cl-text-strong);
   line-height: 1;
 }
 .cl-loader__num { font-size: clamp(48px, 7vw, 96px); letter-spacing: -.03em; }   /* R2 客戶：再調小（原 72–160） */
-.cl-loader__unit { margin-left: .08em; font-size: clamp(18px, 2.2vw, 30px); color: var(--cl-green-500); }
+.cl-loader__unit { margin-left: .08em; font-size: clamp(18px, 2.2vw, 30px); color: var(--cl-text-accent); }
 .cl-loader__bar {
   position: relative;
   width: 100%;
   height: 4px;
-  border-radius: 4px;
-  background: rgba(31, 31, 31, .08);
+  border-radius: var(--cl-radius-xs);
+  background: var(--cl-fill-soft);
   overflow: hidden;
 }
 .cl-loader__fill {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: var(--cl-green-500);
+  background: var(--cl-surface-accent);
   transform: scaleX(0);
   transform-origin: 0 50%;
 }
 .cl-loader__label {
-  margin-top: 12px;   /* R2 客戶：置中 */
-  color: var(--cl-ink-800-60);
-  font-size: 14px;
-  line-height: 20px;
-  letter-spacing: .6px;
+  margin-top: var(--cl-space-12);   /* R2 客戶：置中 */
+  color: var(--cl-text-secondary);
+  font-size: var(--cl-body-fs);
+  line-height: var(--cl-body-lh);
+  letter-spacing: var(--cl-body-ls);
 }
 
 /* 化學式下標（客戶 R3：CO₂e 的 2 要下標）：不撐開行高 */

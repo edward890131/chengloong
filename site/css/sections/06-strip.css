@@ -32,20 +32,20 @@
   top: 151px;
   display: flex;
   align-items: flex-end;
-  gap: 40px;
+  gap: var(--cl-space-40);
   animation: cl-strip-loop 22.4s linear infinite;
 }
 .cl-strip__item { display: flex; flex: none; align-items: center; }
-.cl-strip__item--up   { padding-bottom: 40px; }
-.cl-strip__item--down { padding-top: 40px; }
+.cl-strip__item--up   { padding-bottom: var(--cl-space-40); }
+.cl-strip__item--down { padding-top: var(--cl-space-40); }
 
 .cl-strip__photo {
   position: relative;
   width: 400px;
   height: 240px;
-  border-radius: 20px;
+  border-radius: var(--cl-radius-xl);
   overflow: hidden;
-  background: var(--cl-white);
+  background: var(--cl-surface);
 }
 .cl-strip__img {
   position: absolute;
@@ -107,10 +107,10 @@
     height: 1219.328px;
   }
 
-  .cl-strip__track { --cl-strip-w: 1820px; top: 106px; gap: 28px; }
-  .cl-strip__item--up   { padding-bottom: 28px; }
-  .cl-strip__item--down { padding-top: 28px; }
-  .cl-strip__photo { width: 280px; height: 168px; border-radius: 14px; }
+  .cl-strip__track { --cl-strip-w: 1820px; top: 106px; gap: var(--cl-space-28); }
+  .cl-strip__item--up   { padding-bottom: var(--cl-space-28); }
+  .cl-strip__item--down { padding-top: var(--cl-space-28); }
+  .cl-strip__photo { width: 280px; height: 168px; border-radius: var(--cl-radius-md); }
 }
 /* ==========================================================================
    手機版 375（1695:19897）
@@ -126,8 +126,8 @@
     height: 1219.328px;
   }
 
-  .cl-strip__track { --cl-strip-w: 1040px; top: 94px; gap: 16px; }   /* 6×160＋5×16 */
-  .cl-strip__item--up   { padding-bottom: 16px; }
-  .cl-strip__item--down { padding-top: 16px; }
-  .cl-strip__photo { width: 160px; height: 96px; border-radius: 8px; }
+  .cl-strip__track { --cl-strip-w: 1040px; top: 94px; gap: var(--cl-space-16); }   /* 6×160＋5×16 */
+  .cl-strip__item--up   { padding-bottom: var(--cl-space-16); }
+  .cl-strip__item--down { padding-top: var(--cl-space-16); }
+  .cl-strip__photo { width: 160px; height: 96px; border-radius: var(--cl-radius-sm); }
 }
