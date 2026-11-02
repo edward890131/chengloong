@@ -44,10 +44,10 @@
   align-items: center;
   gap: var(--cl-space-12);
   font-family: var(--cl-font-num);
-  font-size: var(--cl-eyebrow-fs);
+  font-size: var(--cl-overline-s-fs);
   font-weight: var(--cl-fw-semibold);
-  line-height: var(--cl-eyebrow-lh);
-  letter-spacing: var(--cl-eyebrow-ls);
+  line-height: var(--cl-overline-s-lh);
+  letter-spacing: var(--cl-overline-s-ls);
   text-transform: uppercase;
   color: var(--cl-text-accent-strong);
 }
@@ -59,10 +59,10 @@
   background: var(--cl-surface-accent-strong);
 }
 .cl-process__title {
-  font-size: var(--cl-h2-fs);
+  font-size: var(--cl-title-xl-fs);
   font-weight: var(--cl-fw-bold);
-  line-height: var(--cl-h2-lh);
-  letter-spacing: var(--cl-h2-ls);
+  line-height: var(--cl-title-xl-lh);
+  letter-spacing: var(--cl-title-xl-ls);
   color: var(--cl-text-strong);
 }
 
@@ -172,10 +172,10 @@
 .cl-process__card-icon { display: none; width: 64px; height: 64px; flex: none; }
 .cl-process__card-title {
   width: 100%;
-  font-size: var(--cl-h3-fs);
+  font-size: var(--cl-title-l-fs);
   font-weight: var(--cl-fw-bold);
-  line-height: var(--cl-h3-lh);
-  letter-spacing: var(--cl-h3-ls);
+  line-height: var(--cl-title-l-lh);
+  letter-spacing: var(--cl-title-l-ls);
 }
 .cl-process__card-line {
   display: none;
@@ -189,9 +189,9 @@
   display: none;
   width: 100%;
   height: 60px;
-  font-size: var(--cl-body-fs);
-  line-height: var(--cl-body-lh);   /* Figma 140%＝19.6，文字框實際以 20px 行距排（2 行 40、4 行 80） */
-  letter-spacing: var(--cl-body-ls);
+  font-size: var(--cl-paragraph-s-fs);
+  line-height: var(--cl-paragraph-s-lh);   /* Figma 140%＝19.6，文字框實際以 20px 行距排（2 行 40、4 行 80） */
+  letter-spacing: var(--cl-paragraph-s-ls);
 }
 /* 綠底由下往上長（客戶 R2）：綠色是 ::before 這層，展開時 scaleY 0→1（底部為原點），
    換到下一張時從全滿縮回 0；文字內容疊在上面 */
@@ -257,10 +257,10 @@
   border-radius: var(--cl-radius-full);
   background: var(--cl-surface-muted);
   color: var(--cl-text-tertiary);
-  font-size: var(--cl-tab-fs);
+  font-size: var(--cl-label-l-fs);
   font-weight: var(--cl-fw-bold);
-  line-height: var(--cl-tab-lh);
-  letter-spacing: var(--cl-tab-ls);
+  line-height: var(--cl-label-l-lh);
+  letter-spacing: var(--cl-label-l-ls);
   white-space: nowrap;
   transition: color .3s ease;
 }
@@ -319,16 +319,16 @@
   display: flex;
   align-items: center;
   height: 25px;
-  font-size: var(--cl-title-l-fs);
-  letter-spacing: var(--cl-title-l-ls);
+  font-size: var(--cl-title-s-fs);
+  letter-spacing: var(--cl-title-s-ls);
   opacity: .4;
 }
 .cl-process__step-num {
   display: flex;
   align-items: center;
   height: 40px;
-  font-size: var(--cl-num-m-fs);
-  letter-spacing: var(--cl-num-m-ls);
+  font-size: var(--cl-display-m-fs);
+  letter-spacing: var(--cl-display-m-ls);
   white-space: nowrap;
 }
 .cl-process__step-text {
@@ -357,10 +357,10 @@
   background: var(--cl-scrim-10);
 }
 .cl-process__step-title {
-  font-size: var(--cl-title-fs);
+  font-size: var(--cl-title-xs-fs);
   font-weight: var(--cl-fw-bold);
-  line-height: var(--cl-title-lh);
-  letter-spacing: var(--cl-title-ls);
+  line-height: var(--cl-title-xs-lh);
+  letter-spacing: var(--cl-title-xs-ls);
   color: var(--cl-text);
 }
 .cl-process__step-title--info,
@@ -392,10 +392,10 @@
   border-radius: var(--cl-radius-xs);
   background: var(--cl-surface-inverse);
   color: var(--cl-text-inverse);
-  font-size: var(--cl-body-fs);
+  font-size: var(--cl-paragraph-s-fs);
   font-weight: var(--cl-fw-regular);
-  letter-spacing: var(--cl-body-ls);
-  line-height: var(--cl-body-lh);
+  letter-spacing: var(--cl-paragraph-s-ls);
+  line-height: var(--cl-paragraph-s-lh);
   white-space: normal;
 }
 .cl-process__tip-arrow { width: 16px; height: 10px; flex: none; }
@@ -409,9 +409,9 @@
 }
 .cl-process__step-desc,
 .cl-process__step-list {
-  font-size: var(--cl-body-fs);
-  line-height: var(--cl-body-lh);   /* Figma 140%＝19.6，文字框實際以 20px 行距排（2 行 40、4 行 80） */
-  letter-spacing: var(--cl-body-ls);
+  font-size: var(--cl-paragraph-s-fs);
+  line-height: var(--cl-paragraph-s-lh);   /* Figma 140%＝19.6，文字框實際以 20px 行距排（2 行 40、4 行 80） */
+  letter-spacing: var(--cl-paragraph-s-ls);
   color: var(--cl-text-secondary);
 }
 .cl-process__step-list { padding-left: var(--cl-space-20); }
@@ -478,10 +478,10 @@
   background: var(--cl-surface);
 }
 .cl-process__prep-title {
-  font-size: var(--cl-title-fs);
+  font-size: var(--cl-title-xs-fs);
   font-weight: var(--cl-fw-bold);
-  line-height: var(--cl-title-lh);
-  letter-spacing: var(--cl-title-ls);
+  line-height: var(--cl-title-xs-lh);
+  letter-spacing: var(--cl-title-xs-ls);
   color: var(--cl-text);
 }
 .cl-process__prep-line {
@@ -493,25 +493,26 @@
 .cl-process__prep-group { display: flex; flex-direction: column; gap: var(--cl-space-24); }
 .cl-process__prep-item { display: flex; flex-direction: column; align-items: flex-start; gap: var(--cl-space-12); }
 .cl-process__prep-sub {
-  font-size: var(--cl-body-l-fs);
+  font-size: var(--cl-paragraph-m-fs);
   font-weight: var(--cl-fw-bold);
-  line-height: var(--cl-body-l-lh);
-  letter-spacing: var(--cl-body-l-ls);
+  line-height: var(--cl-paragraph-m-lh);
+  letter-spacing: var(--cl-paragraph-m-ls);
   color: var(--cl-text);
 }
 .cl-process__prep-desc {
-  font-size: var(--cl-body-fs);
-  line-height: var(--cl-body-lh);   /* Figma 140%＝19.6，文字框實際以 20px 行距排（2 行 40、4 行 80） */
-  letter-spacing: var(--cl-body-ls);
+  font-size: var(--cl-paragraph-s-fs);
+  line-height: var(--cl-paragraph-s-lh);   /* Figma 140%＝19.6，文字框實際以 20px 行距排（2 行 40、4 行 80） */
+  letter-spacing: var(--cl-paragraph-s-ls);
   color: var(--cl-text-secondary);
 }
 .cl-process__prep-line-name {
   display: flex;
   align-items: center;
   gap: var(--cl-space-12);
-  font-size: var(--cl-body-l-fs);
+  font-size: var(--cl-paragraph-m-fs);
+  letter-spacing: var(--cl-paragraph-m-ls);
   font-weight: var(--cl-fw-bold);
-  line-height: var(--cl-body-l-lh);
+  line-height: var(--cl-paragraph-m-lh);
   color: var(--cl-text-accent);
   white-space: nowrap;
 }
@@ -524,17 +525,18 @@
   background: var(--cl-surface-accent-light);
 }
 .cl-process__prep-way {
-  font-size: var(--cl-body-fs);
+  font-size: var(--cl-paragraph-s-fs);
+  letter-spacing: var(--cl-paragraph-s-ls);
   font-weight: var(--cl-fw-bold);
-  line-height: var(--cl-body-lh);
+  line-height: var(--cl-paragraph-s-lh);
   color: var(--cl-text);
   white-space: nowrap;
 }
 .cl-process__prep-note {
-  font-size: var(--cl-body-fs);
+  font-size: var(--cl-paragraph-s-fs);
   font-weight: var(--cl-fw-bold);
-  line-height: var(--cl-body-lh);
-  letter-spacing: var(--cl-body-ls);
+  line-height: var(--cl-paragraph-s-lh);
+  letter-spacing: var(--cl-paragraph-s-ls);
   color: var(--cl-text);
 }
 .cl-process__prep-pair { display: flex; gap: var(--cl-space-12); align-self: stretch; }
@@ -609,10 +611,10 @@
   padding: var(--cl-space-12) var(--cl-space-24);
   border-radius: var(--cl-radius-full);
   color: var(--cl-text-tertiary);
-  font-size: var(--cl-tab-fs);
+  font-size: var(--cl-label-l-fs);
   font-weight: var(--cl-fw-bold);
-  line-height: var(--cl-tab-lh);
-  letter-spacing: var(--cl-tab-ls);
+  line-height: var(--cl-label-l-lh);
+  letter-spacing: var(--cl-label-l-ls);
   text-align: center;
   white-space: nowrap;
   transition: color .16s ease, transform .16s cubic-bezier(.23, 1, .32, 1);
@@ -651,16 +653,16 @@
 }
 .cl-process__route-num {
   font-family: var(--cl-font-num);
-  font-size: var(--cl-num-s-fs);
+  font-size: var(--cl-display-xs-fs);
   font-weight: var(--cl-fw-bold);
-  line-height: var(--cl-num-s-lh);
-  letter-spacing: var(--cl-num-s-ls);
+  line-height: var(--cl-display-xs-lh);
+  letter-spacing: var(--cl-display-xs-ls);
   color: var(--cl-text);
 }
 .cl-process__route-desc {
-  font-size: var(--cl-body-fs);
-  line-height: var(--cl-body-lh);   /* Figma 140%＝19.6，文字框實際以 20px 行距排（2 行 40、4 行 80） */
-  letter-spacing: var(--cl-body-ls);
+  font-size: var(--cl-paragraph-s-fs);
+  line-height: var(--cl-paragraph-s-lh);   /* Figma 140%＝19.6，文字框實際以 20px 行距排（2 行 40、4 行 80） */
+  letter-spacing: var(--cl-paragraph-s-ls);
   color: var(--cl-text-secondary);
 }
 .cl-process__route-note { text-decoration: underline; text-underline-position: from-font; text-decoration-skip-ink: none; }
@@ -702,7 +704,7 @@
   .cl-process__cards { container-type: inline-size; }   /* 給卡內弧線用 cqw（＝四格列寬） */
   .cl-process__card-body { gap: var(--cl-space-16); padding: var(--cl-space-32) var(--cl-space-20); }
   .cl-process__card-icon { width: 48px; height: 48px; }
-  .cl-process__card-title { font-size: var(--cl-title-l-fs); line-height: var(--cl-title-l-lh); letter-spacing: var(--cl-title-l-ls); text-wrap: balance; }   /* 手機版字級；balance 避免末行只剩一字 */
+  .cl-process__card-title { font-size: var(--cl-title-s-fs); line-height: var(--cl-title-s-lh); letter-spacing: var(--cl-title-s-ls); text-wrap: balance; }   /* 手機版字級；balance 避免末行只剩一字 */
   .cl-process__card-desc { height: auto; text-wrap: pretty; }
 
   /* 展開卡弧線：照電腦版「四格接成同一條線」，整條線依列寬等比縮（s＝列寬／1280）。
@@ -874,7 +876,7 @@
   }
   /* toggle 2266:8749：在流程圖上方（y20、高 47），字 16、按鈕 8／16 */
   .cl-process__paper { position: relative; left: auto; top: auto; width: max-content; margin: var(--cl-space-20) 0 0 var(--cl-space-16); }
-  .cl-process__paper-btn { padding: var(--cl-space-8) var(--cl-space-16); font-size: var(--cl-tab-s-fs); line-height: var(--cl-tab-s-lh); letter-spacing: var(--cl-tab-s-ls); }
+  .cl-process__paper-btn { padding: var(--cl-space-8) var(--cl-space-16); font-size: var(--cl-label-m-fs); line-height: var(--cl-label-m-lh); letter-spacing: var(--cl-label-m-ls); }
   .cl-process__route-inner { padding-top: 0; }
   .cl-process__route-steps { width: 1128px; gap: var(--cl-space-24); padding: var(--cl-space-20) 0 var(--cl-space-16) var(--cl-space-24); }
   .cl-process__route-steps > li { flex: none; width: 164px; }
@@ -890,10 +892,10 @@
     background: var(--cl-fill-soft);
     -webkit-backdrop-filter: blur(var(--cl-blur-sm));
     backdrop-filter: blur(var(--cl-blur-sm));
-    font-size: var(--cl-body-fs);
+    font-size: var(--cl-paragraph-s-fs);
     font-weight: var(--cl-fw-medium);
-    line-height: var(--cl-body-lh);
-    letter-spacing: var(--cl-body-ls);
+    line-height: var(--cl-paragraph-s-lh);
+    letter-spacing: var(--cl-paragraph-s-ls);
     color: var(--cl-text-strong);
     pointer-events: none;
     z-index: 2;   /* R2 客戶：提示一直顯示、在最上層，不被流程圖蓋住（原本滑動後淡出） */

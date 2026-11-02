@@ -203,3 +203,13 @@ manifest 只有 3 個 mode（桌機／平板 ≤1100／手機 ≤640），CSS �
 
 - 頁高：桌機 9898→9901、平板 10560→10551、手機 9565→9562；條款頁三個寬度不變。
 - 主要來源：FAQ 頁籤 +4px；綠點卡名稱在平板 32→28px（套區塊標題的平板值）；footer 標籤行高 23→22；行高 1.4 的文字取整為 px（±1）。
+
+## 11. 文字命名改版（2026-11-02，比照前案 Pikki「文字樣式總表」）
+
+使用者決定：1. 命名改成「類別／尺寸／字重」；2. 英文小標另開 `Overline`；3. 字距維持各 style 自己的值，不歸 0。
+
+- 類別 7 種：Display（Montserrat 數字）、Title、Paragraph、Label、Button、Overline（Montserrat 英文小標）；Subtitle 本案沒有對應角色，不建。
+- 尺寸 XXL～XXS；字級、行高、字距按「類別／尺寸」設 token（CSS `--cl-{類別}-{尺寸}-fs／-lh／-ls`，tokens.json `sys.type.{類別}.{尺寸}`）。
+- 字重寫進 text style 名稱：tokens.json `sys.textStyle.{類別}.{尺寸}.{字重}`（typography 複合型，description 寫用途與 CSS class），共 31 個。
+- 舊角色 → 新名稱：h1→Title/XXL、h2→Title/XL、h3→Title/L、h4→Title/M、title-l→Title/S、title→Title/XS；display→Display/XXL、num-xl→Display/XL、num-l→Display/L、num-m→Display/M、num-label→Display/S、num-s→Display/XS、num-xs→Display/XXS；body-long→Paragraph/L、body-l→Paragraph/M、body→Paragraph/S；tab→Label/L、tab-s 與 nav→Label/M（nav 行高 24→23）、caption→Label/S、micro→Label/XS；btn→Button/L、btn-sm→Button/S；overline→Overline/M、eyebrow→Overline/S。
+- 補字距：原本沒寫字距、但用角色字級的 7 條規則補上該尺寸字距（nav、hero tag、準備流程名稱與方式、綠點資訊標題與膠囊、footer 副標與版權），Figma style 才對得起來。

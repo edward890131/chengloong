@@ -84,17 +84,17 @@
 }
 .cl-cta__title {
   width: 100%;
-  font-size: var(--cl-h2-fs);
+  font-size: var(--cl-title-xl-fs);
   font-weight: var(--cl-fw-bold);
-  line-height: var(--cl-h2-lh);
-  letter-spacing: var(--cl-h2-ls);
+  line-height: var(--cl-title-xl-lh);
+  letter-spacing: var(--cl-title-xl-ls);
 }
 .cl-cta__desc {
   width: 100%;
-  font-size: var(--cl-body-fs);
+  font-size: var(--cl-paragraph-s-fs);
   font-weight: var(--cl-fw-regular);
-  line-height: var(--cl-body-lh);
-  letter-spacing: var(--cl-body-ls);
+  line-height: var(--cl-paragraph-s-lh);
+  letter-spacing: var(--cl-paragraph-s-ls);
 }
 .cl-cta__actions {
   display: flex;
@@ -156,8 +156,8 @@
     min-height: 40px;
     padding: var(--cl-space-8) var(--cl-space-20); /* Figma stroke INSIDE：padding 9.5／21 扣框線 1 → 總高 40（base --sm 是 42，已回報） */
     border: 1px solid transparent;
-    font-size: var(--cl-btn-sm-fs);
-    line-height: var(--cl-btn-sm-lh);
+    font-size: var(--cl-button-s-fs);
+    line-height: var(--cl-button-s-lh);
   }
   .cl-cta__actions .cl-btn__circle { left: calc(40.87% - .18px); top: 40px; bottom: auto; width: 24px; } /* base 39 會在 40 高的按鈕露 1px */
   /* 白底 sm 箭頭 20px：common 沒有深色 20 版，24 版等比縮小形狀相同 */

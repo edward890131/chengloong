@@ -46,7 +46,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   overflow: hidden;
   isolation: isolate;
   font-family: var(--cl-font-sans);
-  font-size: var(--cl-btn-fs);
+  font-size: var(--cl-button-l-fs);
   font-weight: var(--cl-fw-semibold);
   line-height: normal;
   white-space: nowrap;
@@ -80,8 +80,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   min-height: 40px;
   padding: var(--cl-space-8) var(--cl-space-20);   /* 高度由 min-height 40 決定（21＋8×2＋框線 1×2＝39，置中補齊）*/
   border: 1px solid transparent;
-  font-size: var(--cl-btn-sm-fs);
-  line-height: var(--cl-btn-sm-lh);
+  font-size: var(--cl-button-s-fs);
+  line-height: var(--cl-button-s-lh);
 }
 .cl-btn--sm .cl-btn__circle { left: calc(40.87% - .18px); top: 40px; bottom: auto; width: 24px; }
 .cl-btn--sm .cl-btn__arrow { width: 20px; height: 20px; }
@@ -95,8 +95,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     min-height: 40px;
     padding: var(--cl-space-8) var(--cl-space-20);
     border: 1px solid transparent;
-    font-size: var(--cl-btn-sm-fs);
-    line-height: var(--cl-btn-sm-lh);
+    font-size: var(--cl-button-s-fs);
+    line-height: var(--cl-button-s-lh);
   }
   .cl-btn--sm-s .cl-btn__circle { left: calc(40.87% - .18px); top: 40px; bottom: auto; width: 24px; }
   .cl-btn--sm-s .cl-btn__arrow { width: 20px; height: 20px; }
@@ -279,9 +279,9 @@ html.is-loading { overflow: hidden; }
 .cl-loader__label {
   margin-top: var(--cl-space-12);   /* R2 客戶：置中 */
   color: var(--cl-text-secondary);
-  font-size: var(--cl-body-fs);
-  line-height: var(--cl-body-lh);
-  letter-spacing: var(--cl-body-ls);
+  font-size: var(--cl-paragraph-s-fs);
+  line-height: var(--cl-paragraph-s-lh);
+  letter-spacing: var(--cl-paragraph-s-ls);
 }
 
 /* 化學式下標（客戶 R3：CO₂e 的 2 要下標）：不撐開行高 */

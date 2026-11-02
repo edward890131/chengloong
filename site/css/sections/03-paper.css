@@ -55,10 +55,10 @@
   align-items: center;
   gap: var(--cl-space-12);
   font-family: var(--cl-font-num);
-  font-size: var(--cl-eyebrow-fs);
+  font-size: var(--cl-overline-s-fs);
   font-weight: var(--cl-fw-semibold);
-  line-height: var(--cl-eyebrow-lh);
-  letter-spacing: var(--cl-eyebrow-ls);
+  line-height: var(--cl-overline-s-lh);
+  letter-spacing: var(--cl-overline-s-ls);
   text-transform: uppercase;
   color: var(--cl-text-accent-strong);
   white-space: nowrap;
@@ -72,16 +72,16 @@
   flex: none;
 }
 .cl-paper__title {
-  font-size: var(--cl-h2-fs);
+  font-size: var(--cl-title-xl-fs);
   font-weight: var(--cl-fw-bold);
-  line-height: var(--cl-h2-lh);
-  letter-spacing: var(--cl-h2-ls);
+  line-height: var(--cl-title-xl-lh);
+  letter-spacing: var(--cl-title-xl-ls);
   color: var(--cl-text-strong);
 }
 .cl-paper__lead {
-  font-size: var(--cl-body-l-fs);
-  line-height: var(--cl-body-l-lh);
-  letter-spacing: var(--cl-body-l-ls);
+  font-size: var(--cl-paragraph-m-fs);
+  line-height: var(--cl-paragraph-m-lh);
+  letter-spacing: var(--cl-paragraph-m-ls);
   color: var(--cl-text-secondary);
 }
 
@@ -123,28 +123,28 @@
   font-weight: var(--cl-fw-bold);
   white-space: nowrap;
 }
-.cl-paper__no-label { font-size: var(--cl-num-label-fs); line-height: var(--cl-num-label-lh); letter-spacing: var(--cl-num-label-ls); color: var(--cl-text); }
-.cl-paper__no-num   { font-size: var(--cl-num-xl-fs); line-height: var(--cl-num-xl-lh); letter-spacing: var(--cl-num-xl-ls); color: var(--cl-text-accent); }
+.cl-paper__no-label { font-size: var(--cl-display-s-fs); line-height: var(--cl-display-s-lh); letter-spacing: var(--cl-display-s-ls); color: var(--cl-text); }
+.cl-paper__no-num   { font-size: var(--cl-display-xl-fs); line-height: var(--cl-display-xl-lh); letter-spacing: var(--cl-display-xl-ls); color: var(--cl-text-accent); }
 .cl-paper__body {
   display: flex;
   flex-direction: column;
   gap: var(--cl-space-24);
 }
 .cl-paper__step-title {
-  font-size: var(--cl-h3-fs);
+  font-size: var(--cl-title-l-fs);
   font-weight: var(--cl-fw-bold);
-  line-height: var(--cl-h3-lh);
-  letter-spacing: var(--cl-h3-ls);
+  line-height: var(--cl-title-l-lh);
+  letter-spacing: var(--cl-title-l-ls);
   color: var(--cl-text);
 }
 .cl-paper__hash { color: var(--cl-text-accent); }
 .cl-paper__desc {
-  font-size: var(--cl-body-l-fs);
-  line-height: var(--cl-body-l-lh);
-  letter-spacing: var(--cl-body-l-ls);
+  font-size: var(--cl-paragraph-m-fs);
+  line-height: var(--cl-paragraph-m-lh);
+  letter-spacing: var(--cl-paragraph-m-ls);
   color: var(--cl-text-secondary);
 }
-.cl-paper__desc p + p { margin-top: var(--cl-body-l-lh); } /* 段落間空一行 */
+.cl-paper__desc p + p { margin-top: var(--cl-paragraph-m-lh); } /* 段落間空一行 */
 .cl-paper__cr { display: inline-block; width: 1em; } /* \r 字元在 Figma 顯示的空白寬 */
 .cl-paper__em {
   font-weight: var(--cl-fw-bold);
@@ -206,9 +206,9 @@
 .cl-paper__note-text {
   flex: 1 0 0;
   min-width: 1px;
-  font-size: var(--cl-body-fs);
-  line-height: var(--cl-body-lh);
-  letter-spacing: var(--cl-body-ls);
+  font-size: var(--cl-paragraph-s-fs);
+  line-height: var(--cl-paragraph-s-lh);
+  letter-spacing: var(--cl-paragraph-s-ls);
   color: var(--cl-text-inverse);
 }
 .cl-paper__logos {

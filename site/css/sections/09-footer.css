@@ -76,22 +76,24 @@
   min-width: 1px;
 }
 .cl-footer__brand {
-  font-size: var(--cl-body-l-fs);
+  font-size: var(--cl-paragraph-m-fs);
   font-weight: var(--cl-fw-semibold);
-  line-height: var(--cl-body-l-lh);
-  letter-spacing: var(--cl-body-l-ls);
+  line-height: var(--cl-paragraph-m-lh);
+  letter-spacing: var(--cl-paragraph-m-ls);
   color: var(--cl-text);
 }
 .cl-footer__sub {
-  font-size: var(--cl-body-fs);
+  font-size: var(--cl-paragraph-s-fs);
+  letter-spacing: var(--cl-paragraph-s-ls);
   font-weight: var(--cl-fw-regular);
-  line-height: var(--cl-body-lh); /* Figma normal，文字框高 20 */
+  line-height: var(--cl-paragraph-s-lh); /* Figma normal，文字框高 20 */
   color: var(--cl-text-secondary);
 }
 .cl-footer__copy {
-  font-size: var(--cl-micro-fs);
+  font-size: var(--cl-label-xs-fs);
+  letter-spacing: var(--cl-label-xs-ls);
   font-weight: var(--cl-fw-regular);
-  line-height: var(--cl-micro-lh);
+  line-height: var(--cl-label-xs-lh);
   color: var(--cl-text-secondary);
 }
 
@@ -108,22 +110,22 @@
   width: 200px;
 }
 .cl-footer__label {
-  font-size: var(--cl-body-l-fs);
+  font-size: var(--cl-paragraph-m-fs);
   font-weight: var(--cl-fw-semibold);
-  line-height: var(--cl-body-l-lh); /* Figma normal，文字框高 23 */
-  letter-spacing: var(--cl-body-l-ls);
+  line-height: var(--cl-paragraph-m-lh); /* Figma normal，文字框高 23 */
+  letter-spacing: var(--cl-paragraph-m-ls);
   color: var(--cl-text);
 }
 .cl-footer__value {
-  font-size: var(--cl-body-fs);
+  font-size: var(--cl-paragraph-s-fs);
   font-weight: var(--cl-fw-regular);
-  line-height: var(--cl-body-lh);
-  letter-spacing: var(--cl-body-ls);
+  line-height: var(--cl-paragraph-s-lh);
+  letter-spacing: var(--cl-paragraph-s-ls);
   color: var(--cl-text-secondary);
 }
 .cl-footer__value--num {
   font-family: 'Zalando Sans Expanded', var(--cl-font-sans);
-  letter-spacing: var(--cl-body-ls);
+  letter-spacing: var(--cl-paragraph-s-ls);
 }
 
 /* main_btn_black 14px：右上 */
@@ -150,10 +152,10 @@
   bottom: 44.5px;
   transform: translateY(50%);
   font-family: var(--cl-font-num);
-  font-size: var(--cl-display-fs);
+  font-size: var(--cl-display-xxl-fs);
   font-weight: var(--cl-fw-bold);
   line-height: 1.2;
-  letter-spacing: var(--cl-display-ls);
+  letter-spacing: var(--cl-display-xxl-ls);
   text-transform: uppercase;
   white-space: nowrap;
   color: var(--cl-text-strong);
@@ -172,6 +174,7 @@
   left: 50%;
   bottom: .5174em;
   font-size: var(--cl-footer-slogan-fs);
+ 
   transform: translate(-50%, 50%);
 }
 

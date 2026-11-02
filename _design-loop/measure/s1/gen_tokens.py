@@ -72,45 +72,68 @@ font = {
   'weight-bold': tok(700, 'fontWeight', '粗', f'--{P}-fw-bold'),
 }
 # 文字角色：fs/lh px、ls em；T/M 覆寫
+# 文字：類別／尺寸／字重（比照前案 Pikki）。字級、行高、字距按「類別／尺寸」設 token，字重寫在 text style 名稱
+#   (類別, 尺寸, 說明, fs, lh, ls(em), 平板, 手機, 字重清單, 字型)
 ROLES = [
- ('h1', '頁面標題（標題）', 40, 56, .025, None, (28, 40)),
- ('h2', '區塊標題（標題）', 32, 45, .03, (28, 39), (24, 34)),
- ('h3', '卡片大標（標題）', 24, 34, .025, None, (20, 28)),
- ('h4', '小節標題（標題）', 22, 32, .025, None, (18, 28)),
- ('title-l', '選單、步驟標（標題）', 20, 28, .02, None, (18, 25)),
- ('title', '卡片標題、膠囊標（標題）', 18, 25, .03, None, None),
- ('tab', '頁籤（非閱讀）', 18, 26, .02, None, (16, 23)),
- ('tab-s', '小頁籤（非閱讀）', 16, 23, .02, None, None),
- ('nav', '頂部導覽連結（非閱讀）', 16, 24, 0, None, None),
- ('body-l', '導言、內文大（閱讀型）', 16, 22, .02, None, None),
- ('body-long', '長文內文（閱讀型，條款）', 16, 28, .02, None, (15, 26)),
- ('body', '內文、說明（閱讀型）', 14, 20, .02, None, None),
- ('caption', '提示、註記（非閱讀）', 13, 18, .03, None, None),
- ('micro', '版權、標籤（非閱讀）', 12, 18, .02, None, None),
- ('eyebrow', '英文小標（非閱讀，Montserrat）', 12, 15, .08, None, None),
- ('overline', '英文頁首標（非閱讀，Montserrat）', 16, 20, .1, None, (14, 20)),
- ('btn', '按鈕', 18, None, 0, None, None),
- ('btn-sm', '小按鈕', 14, 21, 0, None, None),
- ('num-xl', '數字特大（Montserrat）', 64, 77, .03, (48, 58), (36, 43)),
- ('num-l', '數字大（Montserrat）', 48, 58, .04, None, (28, 34)),
- ('num-m', '數字中（Montserrat）', 40, 48, .05, None, (24, 29)),
- ('num-label', '數字旁標籤（Montserrat）', 32, 38, .03, (28, 34), (24, 29)),
- ('num-s', '數字小（Montserrat）', 24, 29, .04, (20, 24), (20, 24)),
- ('num-xs', '數字特小（Montserrat）', 20, 24, .1, None, None),
- ('display', 'Footer 標語（Montserrat，平板為流動字級）', 86, None, .006, None, (75, None)),
+ ('display', 'xxl', 'Footer 標語（平板為流動字級）', 86, None, .006, None, (75, None), ['Bold'], 'num'),
+ ('display', 'xl', '紙張流程大數字', 64, 77, .03, (48, 58), (36, 43), ['Bold'], 'num'),
+ ('display', 'l', '綠點英文大字', 48, 58, .04, None, (28, 34), ['Bold'], 'num'),
+ ('display', 'm', '流程步驟數字', 40, 48, .05, None, (24, 29), ['Bold'], 'num'),
+ ('display', 's', '紙張流程數字旁標籤', 32, 38, .03, (28, 34), (24, 29), ['Bold'], 'num'),
+ ('display', 'xs', '路線圖編號', 24, 29, .04, (20, 24), (20, 24), ['Bold'], 'num'),
+ ('display', 'xxs', 'FAQ 題號', 20, 24, .1, None, None, ['Bold'], 'num'),
+ ('title', 'xxl', '頁面標題（條款頁）', 40, 56, .025, None, (28, 40), ['Bold'], 'sans'),
+ ('title', 'xl', '區塊標題', 32, 45, .03, (28, 39), (24, 34), ['Bold'], 'sans'),
+ ('title', 'l', '卡片大標', 24, 34, .025, None, (20, 28), ['Bold'], 'sans'),
+ ('title', 'm', '條款小節標題', 22, 32, .025, None, (18, 28), ['Bold'], 'sans'),
+ ('title', 's', '選單連結、步驟標', 20, 28, .02, None, (18, 25), ['Bold'], 'sans'),
+ ('title', 'xs', '卡片標題、膠囊標', 18, 25, .03, None, None, ['Bold'], 'sans'),
+ ('paragraph', 'l', '長文內文（條款）', 16, 28, .02, None, (15, 26), ['Regular', 'Bold'], 'sans'),
+ ('paragraph', 'm', '導言、內文大', 16, 22, .02, None, None, ['Regular', 'SemiBold', 'Bold'], 'sans'),
+ ('paragraph', 's', '內文、說明', 14, 20, .02, None, None, ['Regular', 'Medium', 'Bold'], 'sans'),
+ ('label', 'l', '頁籤', 18, 26, .02, None, (16, 23), ['Bold'], 'sans'),
+ ('label', 'm', '小頁籤、頂部導覽', 16, 23, .02, None, None, ['Medium', 'Bold'], 'sans'),
+ ('label', 's', '提示、註記', 13, 18, .03, None, None, ['Medium'], 'sans'),
+ ('label', 'xs', '版權、標籤', 12, 18, .02, None, None, ['Regular', 'Bold'], 'sans'),
+ ('button', 'l', '按鈕', 18, None, 0, None, None, ['SemiBold'], 'sans'),
+ ('button', 's', '小按鈕', 14, 21, 0, None, None, ['SemiBold'], 'sans'),
+ ('overline', 'm', '英文頁首標（條款頁）', 16, 20, .1, None, (14, 20), ['SemiBold'], 'num'),
+ ('overline', 's', '英文小標（eyebrow）', 12, 15, .08, None, None, ['SemiBold'], 'num'),
 ]
+CLASSES = {
+ ('button','l'): '.cl-btn', ('button','s'): '.cl-btn--sm／.cl-btn--sm-s／.cl-hero__cta（手機）',
+ ('display','xxl'): '.cl-footer__slogan', ('display','xl'): '.cl-paper__no-num', ('display','l'): '.cl-green__en',
+ ('display','m'): '.cl-process__step-num', ('display','s'): '.cl-paper__no-label', ('display','xs'): '.cl-process__route-num', ('display','xxs'): '.cl-faq__num',
+ ('title','xxl'): '.cl-terms__title', ('title','xl'): '.cl-about__title／.cl-paper__title／.cl-process__title／.cl-green__title／.cl-green__name／.cl-faq__title／.cl-cta__title',
+ ('title','l'): '.cl-paper__step-title／.cl-process__card-title', ('title','m'): '.cl-terms__h', ('title','s'): '.cl-menu__link／.cl-process__step-label／.cl-process__card-title（平板）',
+ ('title','xs'): '.cl-about__card-title／.cl-about__pill／.cl-process__step-title／.cl-process__prep-title',
+ ('paragraph','l'): '.cl-terms__p', ('paragraph','m'): '.cl-about__lead／.cl-paper__lead／.cl-paper__desc／.cl-green__lead／.cl-green__desc／.cl-faq__question／.cl-footer__label 等',
+ ('paragraph','s'): '.cl-about__card-desc／.cl-process__*-desc／.cl-faq__answer／.cl-cta__desc／.cl-footer__value 等',
+ ('label','l'): '.cl-process__tab／.cl-process__paper-btn／.cl-faq__tab', ('label','m'): '.cl-hero__nav-link／.cl-process__paper-btn（平板、手機）',
+ ('label','s'): '.cl-about__cycle-hint（手機）', ('label','xs'): '.cl-footer__copy／.cl-hero__tag（手機）',
+ ('overline','m'): '.cl-terms__eyebrow', ('overline','s'): '.cl-about__eyebrow／.cl-paper__eyebrow／.cl-process__eyebrow／.cl-green__eyebrow／.cl-faq__eyebrow',
+}
+WEIGHT = {'Regular': 'regular', 'Medium': 'medium', 'SemiBold': 'semibold', 'Bold': 'bold'}
 typo = {}
-for name, desc, fs, lh, ls, T, M in ROLES:
-    g = {}
+styles = {}
+for cat, size, desc, fs, lh, ls, T, M, weights, fam in ROLES:
     fm = {}; lm = {}
     if T: fm['Tablet'] = f'{T[0]}px'; T[1] and lm.__setitem__('Tablet', f'{T[1]}px')
     if M: fm['Mobile'] = f'{M[0]}px'; M[1] and lm.__setitem__('Mobile', f'{M[1]}px')
-    if T and not M:  # 手機沿用平板以外的桌機值時要明寫回去
-        pass
-    g['size'] = tok(f'{fs}px', 'dimension', f'{desc}：字級', f'--{P}-{name}-fs', fm or None)
-    g['line'] = tok(f'{lh}px' if lh else 'normal', 'dimension', f'{desc}：行高', f'--{P}-{name}-lh', lm or None)
-    g['track'] = tok(f'{ls}em', 'dimension', f'{desc}：字距', f'--{P}-{name}-ls')
-    typo[name] = g
+    C, Z = cat.capitalize(), size.upper()
+    g = {
+      'size': tok(f'{fs}px', 'dimension', f'{C}/{Z}：{desc}，字級', f'--{P}-{cat}-{size}-fs', fm or None),
+      'line': tok(f'{lh}px' if lh else 'normal', 'dimension', f'{C}/{Z}：{desc}，行高', f'--{P}-{cat}-{size}-lh', lm or None),
+      'track': tok(f'{ls}em', 'dimension', f'{C}/{Z}：{desc}，字距', f'--{P}-{cat}-{size}-ls'),
+    }
+    typo.setdefault(cat, {})[size] = g
+    for w in weights:
+        styles.setdefault(C, {}).setdefault(Z, {})[w] = {
+          '$type': 'typography',
+          '$description': f'{desc}。CSS {CLASSES.get((cat, size), "")}',
+          '$value': {'fontFamily': '{sys.font.family-%s}' % fam, 'fontWeight': '{sys.font.weight-%s}' % WEIGHT[w],
+                     'fontSize': '{sys.type.%s.%s.size}' % (cat, size), 'lineHeight': '{sys.type.%s.%s.line}' % (cat, size),
+                     'letterSpacing': '{sys.type.%s.%s.track}' % (cat, size)}}
 space = {}
 for n in (2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 36, 40, 48, 52, 56, 64, 80, 96, 120):
     space[str(n)] = tok(f'{n}px', 'dimension', f'間距 {n}', f'--{P}-space-{n}')
@@ -132,6 +155,6 @@ comp = {'color': {k: tok(v, 'color', d, f'--{P}-c-{k}') for k, v, d in [
     ('points-patch-top', '#e7feec', '綠點卡色塊（上）'), ('points-patch-bottom', '#e0ffe2', '綠點卡色塊（下）'),
     ('skeleton-base', '#e6e9e7', '載入骨架底'), ('skeleton-alt', '#e9ebea', '載入骨架底（圖）'), ('skeleton-hi', '#f8faf9', '載入骨架亮帶'),
     ('laptop-bg', '#e3dbd5', '流程插圖筆電底')]}}
-doc = {'ref': ref, 'sys': {**sys_, 'font': font, 'type': typo, 'space': space, 'radius': radius, 'blur': blur, 'shadow': shadow, 'layout': layout}, 'comp': comp}
+doc = {'ref': ref, 'sys': {**sys_, 'font': font, 'type': typo, 'textStyle': styles, 'space': space, 'textStyle': styles, 'radius': radius, 'blur': blur, 'shadow': shadow, 'layout': layout}, 'comp': comp}
 OUT.write_text(json.dumps(doc, ensure_ascii=False, indent=2) + '\n')
 print('ok', sum(1 for _ in json.dumps(doc).split('"$value"')) - 1, 'tokens')

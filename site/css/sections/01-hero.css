@@ -90,9 +90,10 @@
 }
 .cl-hero__nav-link {
   color: var(--cl-text-strong);
-  font-size: var(--cl-nav-fs);          /* R1 客戶要求 16px（Figma 14px） */
+  font-size: var(--cl-label-m-fs);
+  letter-spacing: var(--cl-label-m-ls);          /* R1 客戶要求 16px（Figma 14px） */
   font-weight: var(--cl-fw-medium);
-  line-height: var(--cl-nav-lh);
+  line-height: var(--cl-label-m-lh);
   white-space: nowrap;
   transition: color .3s ease;
 }
@@ -197,7 +198,7 @@
   gap: calc(8 * var(--cl-hero-hp, 1px));
   color: var(--cl-text-inverse-soft);
   font-size: max(14px, calc(14 * var(--cl-hero-hp, 1px)));   /* 決策 4：閱讀型最小 14 */
-  letter-spacing: var(--cl-body-ls);
+  letter-spacing: var(--cl-paragraph-s-ls);
   line-height: max(20px, calc(20 * var(--cl-hero-hp, 1px)));
   white-space: nowrap;
 }
@@ -248,7 +249,7 @@
   color: var(--cl-text-soft);
   font-size: max(14px, calc(14 * var(--cl-hero-hp, 1px)));   /* 決策 4：閱讀型最小 14 */
   font-weight: var(--cl-fw-regular);
-  letter-spacing: var(--cl-body-ls);
+  letter-spacing: var(--cl-paragraph-s-ls);
   line-height: 1.4;
 }
 .cl-hero__cta-arrow-s { display: none; }
@@ -342,10 +343,10 @@
   border-radius: var(--cl-radius-xs);
   background: var(--cl-surface-inverse);
   color: var(--cl-text-inverse);
-  font-size: var(--cl-body-fs);
+  font-size: var(--cl-paragraph-s-fs);
   font-weight: var(--cl-fw-regular);
-  letter-spacing: var(--cl-body-ls);
-  line-height: var(--cl-body-lh);
+  letter-spacing: var(--cl-paragraph-s-ls);
+  line-height: var(--cl-paragraph-s-lh);
 }
 .cl-hero__tip-arrow { width: 16px; height: 10px; flex: none; }
 .cl-hero__tip:hover .cl-hero__tip-pop,
@@ -662,10 +663,10 @@
     backdrop-filter: blur(var(--cl-blur-md));
     -webkit-backdrop-filter: blur(var(--cl-blur-md));
     color: var(--cl-text-inverse-soft);
-    font-size: var(--cl-micro-fs);
+    font-size: var(--cl-label-xs-fs);
     font-weight: var(--cl-fw-bold);
-    letter-spacing: var(--cl-micro-ls);
-    line-height: var(--cl-micro-lh);
+    letter-spacing: var(--cl-label-xs-ls);
+    line-height: var(--cl-label-xs-lh);
     white-space: nowrap;
   }
   .cl-hero__tag img { width: 16px; height: 16px; flex: none; }
@@ -691,8 +692,8 @@
     min-height: 40px;
     padding: var(--cl-space-8) var(--cl-space-20);   /* 同上：扣掉 1px 框線，總高 40 */
     border: 1px solid transparent;
-    font-size: var(--cl-btn-sm-fs);
-    line-height: var(--cl-btn-sm-lh);
+    font-size: var(--cl-button-s-fs);
+    line-height: var(--cl-button-s-lh);
   }
   .cl-hero__cta .cl-btn__circle { left: calc(40.87% - .18px); top: 39px; bottom: auto; width: 24px; }
   .cl-hero__cta .cl-btn__arrow { width: 20px; height: 20px; }
@@ -814,10 +815,10 @@
   padding: var(--cl-space-20) 0;
   border-bottom: 1px solid var(--cl-border);
   color: var(--cl-text-strong);
-  font-size: var(--cl-title-l-fs);
+  font-size: var(--cl-title-s-fs);
   font-weight: var(--cl-fw-bold);
-  line-height: var(--cl-title-l-lh);
-  letter-spacing: var(--cl-title-l-ls);
+  line-height: var(--cl-title-s-lh);
+  letter-spacing: var(--cl-title-s-ls);
 }
 .cl-menu__link img { width: 20px; height: 20px; flex: none; transition: transform .4s cubic-bezier(.22, 1, .36, 1); }
 @media (hover: hover) and (pointer: fine) {
@@ -838,7 +839,7 @@
    標籤是 button；說明泡泡放在標籤列下方（.cl-hero__tags 的最後一格，絕對定位），箭頭 x 由 JS 寫 --cl-tag-x 對準點的那顆 */
 .cl-hero__tag-tip { display: none; }
 @media (max-width: 640px) {
-  .cl-hero__tag { cursor: pointer; font: inherit; font-size: var(--cl-micro-fs); font-weight: var(--cl-fw-bold); transition: background-color .25s ease, color .25s ease; }
+  .cl-hero__tag { cursor: pointer; font: inherit; font-size: var(--cl-label-xs-fs); letter-spacing: var(--cl-label-xs-ls); font-weight: var(--cl-fw-bold); transition: background-color .25s ease, color .25s ease; }
   .cl-hero__tag[aria-expanded="true"] { background: var(--cl-scrim-56); color: var(--cl-text-inverse); }
   .cl-hero__tag:focus-visible { outline: 2px solid var(--cl-surface); outline-offset: 2px; }
   .cl-hero__tag-tip {
@@ -870,9 +871,9 @@
     border-radius: var(--cl-radius-xs);
     background: var(--cl-surface-inverse);
     color: var(--cl-text-inverse);
-    font-size: var(--cl-body-fs);
+    font-size: var(--cl-paragraph-s-fs);
     font-weight: var(--cl-fw-regular);
-    line-height: var(--cl-body-lh);
-    letter-spacing: var(--cl-body-ls);
+    line-height: var(--cl-paragraph-s-lh);
+    letter-spacing: var(--cl-paragraph-s-ls);
   }
 }

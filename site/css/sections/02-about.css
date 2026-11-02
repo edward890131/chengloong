@@ -61,10 +61,10 @@
   align-items: center;
   gap: var(--cl-space-12);
   font-family: var(--cl-font-num);
-  font-size: var(--cl-eyebrow-fs);
+  font-size: var(--cl-overline-s-fs);
   font-weight: var(--cl-fw-semibold);
-  line-height: var(--cl-eyebrow-lh);
-  letter-spacing: var(--cl-eyebrow-ls);
+  line-height: var(--cl-overline-s-lh);
+  letter-spacing: var(--cl-overline-s-ls);
   text-transform: uppercase;
   color: var(--cl-text-accent-strong);
   white-space: nowrap;
@@ -78,17 +78,17 @@
   flex: none;
 }
 .cl-about__title {
-  font-size: var(--cl-h2-fs);
+  font-size: var(--cl-title-xl-fs);
   font-weight: var(--cl-fw-bold);
-  line-height: var(--cl-h2-lh);
-  letter-spacing: var(--cl-h2-ls);
+  line-height: var(--cl-title-xl-lh);
+  letter-spacing: var(--cl-title-xl-ls);
   color: var(--cl-text-strong);
 }
 .cl-about__lead {
-  font-size: var(--cl-body-l-fs);
+  font-size: var(--cl-paragraph-m-fs);
   font-weight: var(--cl-fw-regular);
-  line-height: var(--cl-body-l-lh);
-  letter-spacing: var(--cl-body-l-ls);
+  line-height: var(--cl-paragraph-m-lh);
+  letter-spacing: var(--cl-paragraph-m-ls);
   color: var(--cl-text-secondary);
 }
 
@@ -236,17 +236,17 @@
   text-align: center;
 }
 .cl-about__card-title {
-  font-size: var(--cl-title-fs);
+  font-size: var(--cl-title-xs-fs);
   font-weight: var(--cl-fw-bold);
-  line-height: var(--cl-title-lh);
-  letter-spacing: var(--cl-title-ls);
+  line-height: var(--cl-title-xs-lh);
+  letter-spacing: var(--cl-title-xs-ls);
   color: var(--cl-text);
 }
 .cl-about__card-desc {
-  font-size: var(--cl-body-fs);
+  font-size: var(--cl-paragraph-s-fs);
   font-weight: var(--cl-fw-regular);
-  line-height: var(--cl-body-lh);
-  letter-spacing: var(--cl-body-ls);
+  line-height: var(--cl-paragraph-s-lh);
+  letter-spacing: var(--cl-paragraph-s-ls);
   color: var(--cl-text-secondary);
 }
 .cl-about__only-s { display: none; }
@@ -279,10 +279,10 @@
   padding: var(--cl-space-8) var(--cl-space-20);
   border-radius: var(--cl-radius-full);
   background: var(--cl-surface-muted);
-  font-size: var(--cl-title-fs);
+  font-size: var(--cl-title-xs-fs);
   font-weight: var(--cl-fw-bold);
-  line-height: var(--cl-title-lh);
-  letter-spacing: var(--cl-title-ls);
+  line-height: var(--cl-title-xs-lh);
+  letter-spacing: var(--cl-title-xs-ls);
   color: var(--cl-text-strong);
   white-space: nowrap;
 }
@@ -296,10 +296,10 @@
 }
 .cl-about__cycle-sub {
   padding-top: 1px; /* 稿上副標中心 y45、標籤中心 y44.5 */
-  font-size: var(--cl-body-l-fs);
+  font-size: var(--cl-paragraph-m-fs);
   font-weight: var(--cl-fw-regular);
-  line-height: var(--cl-body-l-lh);
-  letter-spacing: var(--cl-body-l-ls);
+  line-height: var(--cl-paragraph-m-lh);
+  letter-spacing: var(--cl-paragraph-m-ls);
   color: var(--cl-text-secondary);
 }
 .cl-about__cycle-img { display: block; margin-top: var(--cl-space-40); }
@@ -427,10 +427,10 @@
     padding: var(--cl-space-6) var(--cl-space-16);
     border-radius: var(--cl-radius-full);
     color: var(--cl-text-tertiary);
-    font-size: var(--cl-body-fs);
+    font-size: var(--cl-paragraph-s-fs);
     font-weight: var(--cl-fw-bold);
-    line-height: var(--cl-body-lh);
-    letter-spacing: var(--cl-body-ls);
+    line-height: var(--cl-paragraph-s-lh);
+    letter-spacing: var(--cl-paragraph-s-ls);
     text-align: center;
     white-space: nowrap;
     transition: color .16s ease, transform .16s cubic-bezier(.23, 1, .32, 1);
@@ -477,10 +477,10 @@
     padding: var(--cl-space-6) var(--cl-space-14);
     border-radius: var(--cl-radius-full);
     background: var(--cl-fill-soft);
-    font-size: var(--cl-caption-fs);
+    font-size: var(--cl-label-s-fs);
     font-weight: var(--cl-fw-medium);
-    line-height: var(--cl-caption-lh);
-    letter-spacing: var(--cl-caption-ls);
+    line-height: var(--cl-label-s-lh);
+    letter-spacing: var(--cl-label-s-ls);
     color: var(--cl-text-strong);
   }
 }

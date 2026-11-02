@@ -16,26 +16,26 @@
   align-items: center;
   gap: var(--cl-space-10);
   font-family: var(--cl-font-num);
-  font-size: var(--cl-overline-fs);
+  font-size: var(--cl-overline-m-fs);
   font-weight: var(--cl-fw-semibold);
-  line-height: var(--cl-overline-lh);
-  letter-spacing: var(--cl-overline-ls);
+  line-height: var(--cl-overline-m-lh);
+  letter-spacing: var(--cl-overline-m-ls);
   text-transform: uppercase;
   color: var(--cl-text-accent);
 }
 .cl-terms__eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--cl-surface-accent); flex: none; }
-.cl-terms__title { margin-top: var(--cl-space-12); font-size: var(--cl-h1-fs); font-weight: var(--cl-fw-bold); line-height: var(--cl-h1-lh); letter-spacing: var(--cl-h1-ls); color: var(--cl-text-strong); }
+.cl-terms__title { margin-top: var(--cl-space-12); font-size: var(--cl-title-xxl-fs); font-weight: var(--cl-fw-bold); line-height: var(--cl-title-xxl-lh); letter-spacing: var(--cl-title-xxl-ls); color: var(--cl-text-strong); }
 .cl-terms__title-org { display: block; }   /* R3：公司名稱一行、《條款名稱》另起一行 */
 
 .cl-terms__body { padding-top: var(--cl-space-16); }
 .cl-terms__section { padding-top: var(--cl-space-40); }
 
 /* 標題 */
-.cl-terms__h { font-size: var(--cl-h4-fs); font-weight: var(--cl-fw-bold); line-height: var(--cl-h4-lh); letter-spacing: var(--cl-h4-ls); color: var(--cl-text-strong); }
+.cl-terms__h { font-size: var(--cl-title-m-fs); font-weight: var(--cl-fw-bold); line-height: var(--cl-title-m-lh); letter-spacing: var(--cl-title-m-ls); color: var(--cl-text-strong); }
 
 
 /* 內文 */
-.cl-terms__p { margin-top: var(--cl-space-12); font-size: var(--cl-body-long-fs); font-weight: var(--cl-fw-regular); line-height: var(--cl-body-long-lh); letter-spacing: var(--cl-body-long-ls); color: var(--cl-text-secondary); }
+.cl-terms__p { margin-top: var(--cl-space-12); font-size: var(--cl-paragraph-l-fs); font-weight: var(--cl-fw-regular); line-height: var(--cl-paragraph-l-lh); letter-spacing: var(--cl-paragraph-l-ls); color: var(--cl-text-secondary); }
 .cl-terms__h + .cl-terms__p { margin-top: var(--cl-space-14); }
 .cl-terms__p a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
 /* R3 客戶條文：Word 自動編號照原檔——第一層 1. 2. 3.（ol）、第二層 ○（ul）；編號與內文同字級同色，懸掛縮排

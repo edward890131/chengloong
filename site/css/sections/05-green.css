@@ -38,10 +38,10 @@
   gap: var(--cl-space-12);
   color: var(--cl-text-accent-strong);
   font-family: var(--cl-font-num);
-  font-size: var(--cl-eyebrow-fs);
+  font-size: var(--cl-overline-s-fs);
   font-weight: var(--cl-fw-semibold);
-  line-height: var(--cl-eyebrow-lh);
-  letter-spacing: var(--cl-eyebrow-ls);
+  line-height: var(--cl-overline-s-lh);
+  letter-spacing: var(--cl-overline-s-ls);
   text-transform: uppercase;
   white-space: nowrap;
 }
@@ -55,18 +55,18 @@
 .cl-green__title {
   width: 100%;
   color: var(--cl-text-strong);
-  font-size: var(--cl-h2-fs);
+  font-size: var(--cl-title-xl-fs);
   font-weight: var(--cl-fw-bold);
-  line-height: var(--cl-h2-lh);
-  letter-spacing: var(--cl-h2-ls);
+  line-height: var(--cl-title-xl-lh);
+  letter-spacing: var(--cl-title-xl-ls);
 }
 .cl-green__lead {
   width: 100%;
   color: var(--cl-text-secondary);
-  font-size: var(--cl-body-l-fs);
+  font-size: var(--cl-paragraph-m-fs);
   font-weight: var(--cl-fw-regular);
-  line-height: var(--cl-body-l-lh);
-  letter-spacing: var(--cl-body-l-ls);
+  line-height: var(--cl-paragraph-m-lh);
+  letter-spacing: var(--cl-paragraph-m-ls);
 }
 
 /* ---------- 卡片區 cards ---------- */
@@ -132,22 +132,22 @@
 .cl-green__en {
   color: var(--cl-veil-40);
   font-family: var(--cl-font-num);
-  font-size: var(--cl-num-l-fs);
+  font-size: var(--cl-display-l-fs);
   font-weight: var(--cl-fw-bold);
-  line-height: var(--cl-num-l-lh);
-  letter-spacing: var(--cl-num-l-ls);
+  line-height: var(--cl-display-l-lh);
+  letter-spacing: var(--cl-display-l-ls);
 }
 .cl-green__name {
-  font-size: var(--cl-h2-fs);
+  font-size: var(--cl-title-xl-fs);
   font-weight: var(--cl-fw-bold);
-  line-height: var(--cl-h2-lh);
-  letter-spacing: var(--cl-h2-ls);
+  line-height: var(--cl-title-xl-lh);
+  letter-spacing: var(--cl-title-xl-ls);
 }
 .cl-green__desc {
-  font-size: var(--cl-body-l-fs);
+  font-size: var(--cl-paragraph-m-fs);
   font-weight: var(--cl-fw-regular);
-  line-height: var(--cl-body-l-lh);
-  letter-spacing: var(--cl-body-l-ls);
+  line-height: var(--cl-paragraph-m-lh);
+  letter-spacing: var(--cl-paragraph-m-ls);
 }
 
 /* 中間圖卡共用尺寸 */
@@ -220,9 +220,10 @@
   display: flex;
   align-items: center;
   gap: var(--cl-space-12);
-  font-size: var(--cl-body-l-fs);
+  font-size: var(--cl-paragraph-m-fs);
+  letter-spacing: var(--cl-paragraph-m-ls);
   font-weight: var(--cl-fw-semibold);
-  line-height: var(--cl-body-l-lh);
+  line-height: var(--cl-paragraph-m-lh);
   white-space: nowrap;
 }
 .cl-green__info-dot,
@@ -243,10 +244,10 @@
 .cl-green__info-body {
   display: block;
   margin-right: 0; /* 瀏覽器把最後一字的字距算進行寬，Figma 不算；不補會多斷一行 */
-  font-size: var(--cl-body-fs);
+  font-size: var(--cl-paragraph-s-fs);
   font-weight: var(--cl-fw-regular);
-  line-height: var(--cl-body-lh);
-  letter-spacing: var(--cl-body-ls);
+  line-height: var(--cl-paragraph-s-lh);
+  letter-spacing: var(--cl-paragraph-s-ls);
 }
 .cl-green__dots {
   position: absolute;
@@ -317,19 +318,20 @@
   padding: var(--cl-space-6) var(--cl-space-12);
   border-radius: var(--cl-radius-full);
   background: var(--cl-scrim-20);
-  font-size: var(--cl-body-l-fs);
+  font-size: var(--cl-paragraph-m-fs);
+  letter-spacing: var(--cl-paragraph-m-ls);
   font-weight: var(--cl-fw-semibold);
-  line-height: var(--cl-body-l-lh);
+  line-height: var(--cl-paragraph-m-lh);
   white-space: nowrap;
 }
 .cl-green__pill--light { background: var(--cl-veil-20); }
 .cl-green__pill--dark  { background: var(--cl-scrim-40); }
 .cl-green__tile-desc {
   color: var(--cl-text-inverse-soft);
-  font-size: var(--cl-body-fs);
+  font-size: var(--cl-paragraph-s-fs);
   font-weight: var(--cl-fw-regular);
-  line-height: var(--cl-body-lh);
-  letter-spacing: var(--cl-body-ls);
+  line-height: var(--cl-paragraph-s-lh);
+  letter-spacing: var(--cl-paragraph-s-ls);
 }
 .cl-green__tile-desc--white { color: var(--cl-text-inverse); }
 

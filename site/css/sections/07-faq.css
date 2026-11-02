@@ -26,10 +26,10 @@
   align-items: center;
   gap: var(--cl-space-12);
   font-family: var(--cl-font-num);
-  font-size: var(--cl-eyebrow-fs);
+  font-size: var(--cl-overline-s-fs);
   font-weight: var(--cl-fw-semibold);
-  line-height: var(--cl-eyebrow-lh); /* Figma normal，文字框高 15 */
-  letter-spacing: var(--cl-eyebrow-ls);
+  line-height: var(--cl-overline-s-lh); /* Figma normal，文字框高 15 */
+  letter-spacing: var(--cl-overline-s-ls);
   text-transform: uppercase;
   color: var(--cl-text-accent-strong);
 }
@@ -41,10 +41,10 @@
 }
 .cl-faq__title {
   width: 100%;
-  font-size: var(--cl-h2-fs);
+  font-size: var(--cl-title-xl-fs);
   font-weight: var(--cl-fw-bold);
-  line-height: var(--cl-h2-lh);
-  letter-spacing: var(--cl-h2-ls);
+  line-height: var(--cl-title-xl-lh);
+  letter-spacing: var(--cl-title-xl-ls);
   text-align: center;
   color: var(--cl-text-strong);
 }
@@ -74,10 +74,10 @@
   padding: var(--cl-space-16) var(--cl-space-24);
   position: relative;
   border-radius: var(--cl-radius-full);
-  font-size: var(--cl-tab-fs);
+  font-size: var(--cl-label-l-fs);
   font-weight: var(--cl-fw-bold);
-  line-height: var(--cl-tab-lh); /* Figma normal，文字框高 22 */
-  letter-spacing: var(--cl-tab-ls);
+  line-height: var(--cl-label-l-lh); /* Figma normal，文字框高 22 */
+  letter-spacing: var(--cl-label-l-ls);
   white-space: nowrap;
   color: var(--cl-text-tertiary);
   transition: color .3s ease;
@@ -126,20 +126,20 @@
   width: 40px;
   height: 22px;
   font-family: var(--cl-font-num);
-  font-size: var(--cl-num-xs-fs);
+  font-size: var(--cl-display-xxs-fs);
   font-weight: var(--cl-fw-bold);
-  line-height: var(--cl-num-xs-lh);
-  letter-spacing: var(--cl-num-xs-ls);
+  line-height: var(--cl-display-xxs-lh);
+  letter-spacing: var(--cl-display-xxs-ls);
   white-space: nowrap;
   color: var(--cl-text-accent);
 }
 .cl-faq__question {
   flex: 1 0 0;
   min-width: 1px;
-  font-size: var(--cl-body-l-fs);
+  font-size: var(--cl-paragraph-m-fs);
   font-weight: var(--cl-fw-bold);
-  line-height: var(--cl-body-l-lh);
-  letter-spacing: var(--cl-body-l-ls);
+  line-height: var(--cl-paragraph-m-lh);
+  letter-spacing: var(--cl-paragraph-m-ls);
   color: var(--cl-text);
 }
 .cl-faq__icon {
@@ -178,10 +178,10 @@
   padding: var(--cl-space-16) var(--cl-space-56) var(--cl-space-4) var(--cl-space-64);
   opacity: 0;
   transition: opacity .3s ease;
-  font-size: var(--cl-body-fs);
+  font-size: var(--cl-paragraph-s-fs);
   font-weight: var(--cl-fw-regular);
-  line-height: var(--cl-body-lh);
-  letter-spacing: var(--cl-body-ls);
+  line-height: var(--cl-paragraph-s-lh);
+  letter-spacing: var(--cl-paragraph-s-ls);
   color: var(--cl-text-soft);
 }
 .cl-faq__item.is-open .cl-faq__answer { opacity: 1; transition: opacity .4s ease .1s; }
