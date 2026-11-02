@@ -1,0 +1,1338 @@
+{
+  "url": "http://localhost:8200/index.html?static",
+  "viewport": [
+    768,
+    1024
+  ],
+  "categories": {
+    "background": {
+      "distinct": 28,
+      "top": [
+        {
+          "value": "rgb(255, 255, 255)",
+          "n": 40,
+          "sample": [
+            "section#top.cl-hero",
+            "header.cl-hero__header"
+          ]
+        },
+        {
+          "value": "rgb(246, 246, 246)",
+          "n": 16,
+          "sample": [
+            "div.cl-about__panel",
+            "p.cl-about__pill.is-revealed"
+          ]
+        },
+        {
+          "value": "rgb(20, 165, 88)",
+          "n": 6,
+          "sample": [
+            "a.cl-btn.cl-btn--green",
+            "a.cl-btn.cl-btn--green"
+          ]
+        },
+        {
+          "value": "rgb(21, 102, 60)",
+          "n": 6,
+          "sample": [
+            "span.cl-btn__circle",
+            "span.cl-btn__circle"
+          ]
+        },
+        {
+          "value": "rgb(17, 17, 17)",
+          "n": 5,
+          "sample": [
+            "span",
+            "span"
+          ]
+        },
+        {
+          "value": "rgba(255, 255, 255, 0.6)",
+          "n": 4,
+          "sample": [
+            "i.cl-hero__feature-divider",
+            "i.cl-hero__feature-divider"
+          ]
+        },
+        {
+          "value": "rgb(133, 240, 183)",
+          "n": 4,
+          "sample": [
+            "span.cl-green__info-dot",
+            "span.cl-green__pill-dot"
+          ]
+        },
+        {
+          "value": "rgb(233, 235, 234)",
+          "n": 3,
+          "sample": [
+            "span.cl-paper__photo.cl-zoom",
+            "span.cl-paper__photo.cl-zoom"
+          ]
+        },
+        {
+          "value": "rgb(92, 92, 92)",
+          "n": 3,
+          "sample": [
+            "li.cl-process__card.cl-process__card--2",
+            "li.cl-process__card.cl-process__card--3"
+          ]
+        },
+        {
+          "value": "rgb(31, 195, 108)",
+          "n": 3,
+          "sample": [
+            "article.cl-green__card.cl-green__card--points",
+            "span.cl-green__dot.is-active"
+          ]
+        },
+        {
+          "value": "rgba(255, 255, 255, 0.2)",
+          "n": 3,
+          "sample": [
+            "span.cl-green__info-rule",
+            "a.cl-btn.cl-btn--white20"
+          ]
+        },
+        {
+          "value": "rgb(19, 130, 72)",
+          "n": 3,
+          "sample": [
+            "div.cl-green__tile.cl-green__tile--green",
+            "div.cl-cta__card"
+          ]
+        },
+        {
+          "value": "rgba(0, 0, 0, 0.24)",
+          "n": 2,
+          "sample": [
+            "div.cl-hero__feature",
+            "p.cl-green__pill"
+          ]
+        },
+        {
+          "value": "rgba(0, 0, 0, 0.12)",
+          "n": 1,
+          "sample": [
+            "span.cl-hero__cover-noise"
+          ]
+        },
+        {
+          "value": "rgba(31, 31, 31, 0.2)",
+          "n": 1,
+          "sample": [
+            "figcaption.cl-paper__note"
+          ]
+        },
+        {
+          "value": "rgb(227, 219, 213)",
+          "n": 1,
+          "sample": [
+            "div.cl-process__laptop"
+          ]
+        },
+        {
+          "value": "rgb(224, 255, 226)",
+          "n": 1,
+          "sample": [
+            "span.cl-green__patch.cl-green__patch--bottom"
+          ]
+        },
+        {
+          "value": "rgb(231, 254, 236)",
+          "n": 1,
+          "sample": [
+            "span.cl-green__patch.cl-green__patch--top"
+          ]
+        },
+        {
+          "value": "rgba(21, 102, 60, 0.6)",
+          "n": 1,
+          "sample": [
+            "span.cl-green__info"
+          ]
+        },
+        {
+          "value": "rgba(17, 17, 17, 0.2)",
+          "n": 1,
+          "sample": [
+            "span.cl-green__dot"
+          ]
+        },
+        {
+          "value": "rgb(31, 31, 31)",
+          "n": 1,
+          "sample": [
+            "div.cl-green__tile.cl-green__tile--ink"
+          ]
+        },
+        {
+          "value": "rgba(255, 255, 255, 0.24)",
+          "n": 1,
+          "sample": [
+            "p.cl-green__pill.cl-green__pill--light"
+          ]
+        },
+        {
+          "value": "rgb(152, 152, 152)",
+          "n": 1,
+          "sample": [
+            "div.cl-green__doc.cl-zoom"
+          ]
+        },
+        {
+          "value": "rgba(17, 17, 17, 0.32)",
+          "n": 1,
+          "sample": [
+            "span.cl-green__doc-scrim"
+          ]
+        },
+        {
+          "value": "rgb(68, 68, 68)",
+          "n": 1,
+          "sample": [
+            "div.cl-green__tile.cl-green__tile--gray"
+          ]
+        },
+        {
+          "value": "rgba(0, 0, 0, 0.36)",
+          "n": 1,
+          "sample": [
+            "p.cl-green__pill.cl-green__pill--dark"
+          ]
+        },
+        {
+          "value": "rgba(0, 0, 0, 0.48)",
+          "n": 1,
+          "sample": [
+            "div.cl-cta__bg-black"
+          ]
+        },
+        {
+          "value": "rgb(69, 69, 69)",
+          "n": 1,
+          "sample": [
+            "span.cl-btn__circle"
+          ]
+        }
+      ]
+    },
+    "margin": {
+      "distinct": 11,
+      "top": [
+        {
+          "value": "64px",
+          "n": 4,
+          "sample": [
+            "div.cl-process__body",
+            "div.cl-green__head"
+          ]
+        },
+        {
+          "value": "40px",
+          "n": 4,
+          "sample": [
+            "div.cl-green__body",
+            "div.cl-green__body"
+          ]
+        },
+        {
+          "value": "-1px",
+          "n": 3,
+          "sample": [
+            "div.cl-hero__card",
+            "span.cl-process__card-line"
+          ]
+        },
+        {
+          "value": "22px",
+          "n": 2,
+          "sample": [
+            "p.is-revealed",
+            "p.is-revealed"
+          ]
+        },
+        {
+          "value": "80px",
+          "n": 2,
+          "sample": [
+            "div.cl-process__detail",
+            "div.cl-footer__inner"
+          ]
+        },
+        {
+          "value": "-126.5px",
+          "n": 2,
+          "sample": [
+            "span.cl-tabfill__circle",
+            "span.cl-tabfill__circle"
+          ]
+        },
+        {
+          "value": "-116.5px",
+          "n": 2,
+          "sample": [
+            "span.cl-tabfill__circle",
+            "span.cl-tabfill__circle"
+          ]
+        },
+        {
+          "value": "-1000px",
+          "n": 1,
+          "sample": [
+            "div.cl-hero__curve-clip"
+          ]
+        },
+        {
+          "value": "40.64px",
+          "n": 1,
+          "sample": [
+            "div.cl-about__cycle-img"
+          ]
+        },
+        {
+          "value": "32px",
+          "n": 1,
+          "sample": [
+            "div#cl-process-panel-1.cl-process__panel.cl-process__booking"
+          ]
+        },
+        {
+          "value": "-0.3px",
+          "n": 1,
+          "sample": [
+            "span.cl-green__info-body"
+          ]
+        }
+      ]
+    },
+    "padding": {
+      "distinct": 22,
+      "top": [
+        {
+          "value": "32px",
+          "n": 63,
+          "sample": [
+            "header.cl-hero__header",
+            "li.cl-about__card"
+          ]
+        },
+        {
+          "value": "20px",
+          "n": 43,
+          "sample": [
+            "a.cl-btn.cl-btn--green",
+            "a.cl-btn.cl-btn--green"
+          ]
+        },
+        {
+          "value": "12px",
+          "n": 27,
+          "sample": [
+            "div.cl-hero__feature",
+            "div.cl-about__panel"
+          ]
+        },
+        {
+          "value": "40px",
+          "n": 20,
+          "sample": [
+            "header.cl-hero__header",
+            "div.cl-hero__card"
+          ]
+        },
+        {
+          "value": "16px",
+          "n": 20,
+          "sample": [
+            "div.cl-hero__main",
+            "a.cl-btn.cl-btn--green"
+          ]
+        },
+        {
+          "value": "24px",
+          "n": 19,
+          "sample": [
+            "div.cl-hero__card",
+            "div.cl-hero__card"
+          ]
+        },
+        {
+          "value": "28px",
+          "n": 15,
+          "sample": [
+            "div.cl-hero__num",
+            "div.cl-paper__text"
+          ]
+        },
+        {
+          "value": "6px",
+          "n": 8,
+          "sample": [
+            "div.cl-hero__feature",
+            "div.cl-hero__feature"
+          ]
+        },
+        {
+          "value": "8.5px",
+          "n": 6,
+          "sample": [
+            "a.cl-btn.cl-btn--green",
+            "a.cl-btn.cl-btn--green"
+          ]
+        },
+        {
+          "value": "36px",
+          "n": 6,
+          "sample": [
+            "div.cl-green__intro",
+            "div.cl-green__intro"
+          ]
+        },
+        {
+          "value": "120px",
+          "n": 5,
+          "sample": [
+            "section#paper.cl-paper",
+            "section#process.cl-process"
+          ]
+        },
+        {
+          "value": "1px",
+          "n": 3,
+          "sample": [
+            "a.cl-hero__brand",
+            "a.cl-hero__brand"
+          ]
+        },
+        {
+          "value": "8px",
+          "n": 2,
+          "sample": [
+            "p.cl-about__pill.is-revealed",
+            "p.cl-about__pill.is-revealed"
+          ]
+        },
+        {
+          "value": "13px",
+          "n": 1,
+          "sample": [
+            "span.cl-hero__brand-service"
+          ]
+        },
+        {
+          "value": "48px",
+          "n": 1,
+          "sample": [
+            "div.cl-hero__num"
+          ]
+        },
+        {
+          "value": "140.64px",
+          "n": 1,
+          "sample": [
+            "section#about.cl-about"
+          ]
+        },
+        {
+          "value": "28.36px",
+          "n": 1,
+          "sample": [
+            "div.cl-about__cycle.is-h"
+          ]
+        },
+        {
+          "value": "21px",
+          "n": 1,
+          "sample": [
+            "ul.cl-process__step-list.is-revealed"
+          ]
+        },
+        {
+          "value": "56px",
+          "n": 1,
+          "sample": [
+            "p.cl-faq__answer"
+          ]
+        },
+        {
+          "value": "4px",
+          "n": 1,
+          "sample": [
+            "p.cl-faq__answer"
+          ]
+        },
+        {
+          "value": "64px",
+          "n": 1,
+          "sample": [
+            "p.cl-faq__answer"
+          ]
+        },
+        {
+          "value": "111.038px",
+          "n": 1,
+          "sample": [
+            "section.cl-footer"
+          ]
+        }
+      ]
+    },
+    "gap": {
+      "distinct": 16,
+      "top": [
+        {
+          "value": "12px",
+          "n": 90,
+          "sample": [
+            "a.cl-btn.cl-btn--green",
+            "a.cl-btn.cl-btn--green"
+          ]
+        },
+        {
+          "value": "8px",
+          "n": 44,
+          "sample": [
+            "div.cl-hero__actions",
+            "div.cl-hero__actions"
+          ]
+        },
+        {
+          "value": "24px",
+          "n": 32,
+          "sample": [
+            "div.cl-hero__card",
+            "div.cl-hero__card"
+          ]
+        },
+        {
+          "value": "16px",
+          "n": 30,
+          "sample": [
+            "a.cl-hero__brand",
+            "a.cl-hero__brand"
+          ]
+        },
+        {
+          "value": "32px",
+          "n": 17,
+          "sample": [
+            "div.cl-hero__num",
+            "header.cl-about__head"
+          ]
+        },
+        {
+          "value": "4px",
+          "n": 10,
+          "sample": [
+            "p.cl-paper__no",
+            "p.cl-paper__no"
+          ]
+        },
+        {
+          "value": "6px",
+          "n": 8,
+          "sample": [
+            "p.cl-hero__metric-value",
+            "p.cl-hero__metric-value"
+          ]
+        },
+        {
+          "value": "64px",
+          "n": 8,
+          "sample": [
+            "section#about.cl-about",
+            "section#about.cl-about"
+          ]
+        },
+        {
+          "value": "48px",
+          "n": 8,
+          "sample": [
+            "li.cl-process__step",
+            "li.cl-process__step"
+          ]
+        },
+        {
+          "value": "40px",
+          "n": 4,
+          "sample": [
+            "div.cl-footer__row",
+            "div.cl-footer__row"
+          ]
+        },
+        {
+          "value": "20px",
+          "n": 3,
+          "sample": [
+            "div.cl-hero__num",
+            "div.cl-green__cards"
+          ]
+        },
+        {
+          "value": "2.25887px",
+          "n": 2,
+          "sample": [
+            "span.cl-cycle-h__hub",
+            "span.cl-cycle-h__hub"
+          ]
+        },
+        {
+          "value": "1px",
+          "n": 2,
+          "sample": [
+            "ol.cl-process__cards.is-inview",
+            "ol.cl-process__cards.is-inview"
+          ]
+        },
+        {
+          "value": "28px",
+          "n": 2,
+          "sample": [
+            "ul.cl-strip__track",
+            "ul.cl-strip__track"
+          ]
+        },
+        {
+          "value": "36px",
+          "n": 2,
+          "sample": [
+            "div.cl-faq__body",
+            "div.cl-faq__body"
+          ]
+        },
+        {
+          "value": "56px",
+          "n": 2,
+          "sample": [
+            "div.cl-cta__content",
+            "div.cl-cta__content"
+          ]
+        }
+      ]
+    },
+    "textColor": {
+      "distinct": 12,
+      "top": [
+        {
+          "value": "rgb(255, 255, 255)",
+          "n": 34,
+          "sample": [
+            "span.cl-hero__book-s",
+            "span"
+          ]
+        },
+        {
+          "value": "rgba(31, 31, 31, 0.6)",
+          "n": 27,
+          "sample": [
+            "span.cl-hero__brand-service",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "rgb(31, 31, 31)",
+          "n": 25,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "rgb(17, 17, 17)",
+          "n": 15,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "rgba(255, 255, 255, 0.8)",
+          "n": 12,
+          "sample": [
+            "b",
+            "span"
+          ]
+        },
+        {
+          "value": "rgb(20, 165, 88)",
+          "n": 12,
+          "sample": [
+            "span.cl-cycle-h__eyebrow",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "rgb(31, 195, 108)",
+          "n": 10,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "rgb(21, 102, 60)",
+          "n": 6,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-cycle-h__eyebrow"
+          ]
+        },
+        {
+          "value": "rgba(31, 31, 31, 0.8)",
+          "n": 4,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-hero__nobr"
+          ]
+        },
+        {
+          "value": "rgb(152, 152, 152)",
+          "n": 4,
+          "sample": [
+            "button#cl-process-tab-2.cl-process__tab",
+            "button#cl-process-tab-3.cl-process__tab"
+          ]
+        },
+        {
+          "value": "rgba(255, 255, 255, 0.32)",
+          "n": 2,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "rgb(0, 0, 0)",
+          "n": 1,
+          "sample": [
+            "span.cl-footer__slogan-text"
+          ]
+        }
+      ]
+    },
+    "fontSize": {
+      "distinct": 16,
+      "top": [
+        {
+          "value": "14px",
+          "n": 40,
+          "sample": [
+            "span.cl-hero__book-s",
+            "b"
+          ]
+        },
+        {
+          "value": "16px",
+          "n": 26,
+          "sample": [
+            "span.cl-hero__brand-service",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "18px",
+          "n": 18,
+          "sample": [
+            "span",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "28px",
+          "n": 14,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-hero__metric-num"
+          ]
+        },
+        {
+          "value": "20px",
+          "n": 13,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "12px",
+          "n": 6,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "10.164px",
+          "n": 6,
+          "sample": [
+            "span.cl-cycle-h__label",
+            "span.cl-cycle-h__label"
+          ]
+        },
+        {
+          "value": "24px",
+          "n": 6,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-paper__hash"
+          ]
+        },
+        {
+          "value": "48px",
+          "n": 5,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "6.776px",
+          "n": 4,
+          "sample": [
+            "span.cl-cycle-h__eyebrow",
+            "span.cl-cycle-h__eyebrow"
+          ]
+        },
+        {
+          "value": "40px",
+          "n": 4,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "45.865px",
+          "n": 3,
+          "sample": [
+            "span.cl-footer__slogan-text",
+            "span.cl-footer__slogan-hl"
+          ]
+        },
+        {
+          "value": "13.552px",
+          "n": 2,
+          "sample": [
+            "span.cl-cycle-h__title",
+            "span.cl-cycle-h__title"
+          ]
+        },
+        {
+          "value": "7.90513px",
+          "n": 2,
+          "sample": [
+            "span.cl-cycle-h__desc",
+            "span.cl-cycle-h__desc"
+          ]
+        },
+        {
+          "value": "32px",
+          "n": 2,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "9.8px",
+          "n": 1,
+          "sample": [
+            "sub.cl-sub"
+          ]
+        }
+      ]
+    },
+    "type": {
+      "distinct": 44,
+      "top": [
+        {
+          "value": "Noto Sans TC | 14px | 400 | lh 20px | ls 0.3px",
+          "n": 18,
+          "sample": [
+            "span",
+            "span"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 16px | 400 | lh 22px | ls 0.3px",
+          "n": 10,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 10.164px | 700 | lh 14.2296px | ls 0.282128px",
+          "n": 6,
+          "sample": [
+            "span.cl-cycle-h__label",
+            "span.cl-cycle-h__label"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 24px | 700 | lh 34px | ls 0.6px",
+          "n": 6,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-paper__hash"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 14px | 400 | lh 20px | ls normal",
+          "n": 5,
+          "sample": [
+            "p.cl-hero__metric-label",
+            "p.cl-hero__metric-label"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 18px | 700 | lh 25px | ls 0.6px",
+          "n": 5,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "Montserrat | 48px | 700 | lh 58px | ls 2px",
+          "n": 5,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "Montserrat | 20px | 700 | lh 24px | ls 2px",
+          "n": 5,
+          "sample": [
+            "span.cl-faq__num",
+            "span.cl-faq__num"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 16px | 700 | lh 22.4px | ls 0.5px",
+          "n": 5,
+          "sample": [
+            "span.cl-faq__question",
+            "span.cl-faq__question"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 14px | 400 | lh 19.6px | ls 0.3px",
+          "n": 4,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-hero__nobr"
+          ]
+        },
+        {
+          "value": "Montserrat | 28px | 700 | lh 33.6px | ls 1px",
+          "n": 4,
+          "sample": [
+            "span.cl-hero__metric-num",
+            "span.cl-hero__metric-num"
+          ]
+        },
+        {
+          "value": "Montserrat | 12px | 600 | lh 15px | ls 1px",
+          "n": 4,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 28px | 700 | lh 39px | ls 1px",
+          "n": 4,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 20px | 700 | lh 28px | ls 0.5px",
+          "n": 4,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "Montserrat | 20px | 700 | lh 24px | ls 0.6px",
+          "n": 4,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "Montserrat | 40px | 700 | lh 48px | ls 2px",
+          "n": 4,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 18px | 700 | lh 25px | ls 0.5px",
+          "n": 4,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 16px | 600 | lh 22px | ls normal",
+          "n": 4,
+          "sample": [
+            "span.cl-green__info-title",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 14px | 600 | lh 21px | ls normal",
+          "n": 3,
+          "sample": [
+            "span.cl-hero__book-s",
+            "span"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 14px | 700 | lh 20px | ls 0.3px",
+          "n": 3,
+          "sample": [
+            "b",
+            "b"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 18px | 600 | lh normal | ls normal",
+          "n": 3,
+          "sample": [
+            "span",
+            "span"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 14px | 500 | lh 20px | ls normal",
+          "n": 3,
+          "sample": [
+            "span.cl-hero__metric-unit",
+            "span.cl-hero__metric-unit.cl-hero__metric-unit--co2"
+          ]
+        },
+        {
+          "value": "Montserrat | 28px | 700 | lh 34px | ls 1px",
+          "n": 3,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 18px | 700 | lh 26px | ls 0.36px",
+          "n": 3,
+          "sample": [
+            "button#cl-process-tab-1.cl-process__tab.is-active",
+            "button#cl-process-tab-2.cl-process__tab"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 18px | 700 | lh 22px | ls 0.36px",
+          "n": 3,
+          "sample": [
+            "button#cl-faq-tab-1.cl-faq__tab.is-active",
+            "button#cl-faq-tab-2.cl-faq__tab.cl-faq__tab--tall"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 16px | 600 | lh 23px | ls 0.32px",
+          "n": 3,
+          "sample": [
+            "p.cl-footer__label",
+            "p.cl-footer__label"
+          ]
+        },
+        {
+          "value": "Montserrat | 45.865px | 700 | lh 55.0379px | ls 0.5px",
+          "n": 3,
+          "sample": [
+            "span.cl-footer__slogan-text",
+            "span.cl-footer__slogan-hl"
+          ]
+        },
+        {
+          "value": "Montserrat | 6.776px | 600 | lh 8.1312px | ls 0.564872px",
+          "n": 2,
+          "sample": [
+            "span.cl-cycle-h__eyebrow",
+            "span.cl-cycle-h__eyebrow"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 13.552px | 700 | lh 18.9728px | ls 0.3388px",
+          "n": 2,
+          "sample": [
+            "span.cl-cycle-h__title",
+            "span.cl-cycle-h__title"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 7.90513px | 400 | lh 11.0672px | ls 0.1694px",
+          "n": 2,
+          "sample": [
+            "span.cl-cycle-h__desc",
+            "span.cl-cycle-h__desc"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 16px | 700 | lh 22px | ls 0.3px",
+          "n": 2,
+          "sample": [
+            "strong.cl-paper__em",
+            "strong.cl-paper__em"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 32px | 700 | lh 45px | ls 0.5px",
+          "n": 2,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 28px | 700 | lh 39.2px | ls 1px",
+          "n": 2,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "Zalando Sans Expanded | 14px | 400 | lh 19.6px | ls 0.5px",
+          "n": 2,
+          "sample": [
+            "a",
+            "p.cl-footer__value.cl-footer__value--num"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 16px | 500 | lh 15.6px | ls normal",
+          "n": 1,
+          "sample": [
+            "span.cl-hero__brand-service"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 28px | 700 | lh 39.2px | ls 1.4px",
+          "n": 1,
+          "sample": [
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 9.8px | 500 | lh 0px | ls normal",
+          "n": 1,
+          "sample": [
+            "sub.cl-sub"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 14px | 700 | lh 20px | ls normal",
+          "n": 1,
+          "sample": [
+            "span.cl-hero__metric-unit.cl-hero__metric-unit--bold"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 6.776px | 400 | lh 9.24px | ls 0.1694px",
+          "n": 1,
+          "sample": [
+            "span.cl-cycle-h__hub-unit"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 6.776px | 700 | lh 9.24px | ls 0.1694px",
+          "n": 1,
+          "sample": [
+            "span.cl-cycle-h__hub-value"
+          ]
+        }
+      ]
+    },
+    "border": {
+      "distinct": 2,
+      "top": [
+        {
+          "value": "1px rgba(0, 0, 0, 0)",
+          "n": 12,
+          "sample": [
+            "a.cl-btn.cl-btn--green",
+            "a.cl-btn.cl-btn--green"
+          ]
+        },
+        {
+          "value": "1px rgba(31, 31, 31, 0.1)",
+          "n": 1,
+          "sample": [
+            "span.cl-hero__brand-service"
+          ]
+        }
+      ]
+    },
+    "radius": {
+      "distinct": 12,
+      "top": [
+        {
+          "value": "16px",
+          "n": 21,
+          "sample": [
+            "li.cl-about__card",
+            "li.cl-about__card"
+          ]
+        },
+        {
+          "value": "999px",
+          "n": 19,
+          "sample": [
+            "a.cl-btn.cl-btn--green",
+            "a.cl-btn.cl-btn--green"
+          ]
+        },
+        {
+          "value": "50%",
+          "n": 16,
+          "sample": [
+            "span.cl-btn__circle",
+            "span.cl-btn__circle"
+          ]
+        },
+        {
+          "value": "12px",
+          "n": 9,
+          "sample": [
+            "div.cl-paper__text",
+            "figure.cl-paper__media"
+          ]
+        },
+        {
+          "value": "20px",
+          "n": 8,
+          "sample": [
+            "div.cl-about__panel",
+            "div.cl-about__cycle.is-h"
+          ]
+        },
+        {
+          "value": "100px",
+          "n": 7,
+          "sample": [
+            "span.cl-green__eyebrow-dot",
+            "span.cl-green__info-dot"
+          ]
+        },
+        {
+          "value": "14px",
+          "n": 6,
+          "sample": [
+            "div.cl-strip__photo.cl-zoom",
+            "div.cl-strip__photo.cl-zoom"
+          ]
+        },
+        {
+          "value": "4px",
+          "n": 5,
+          "sample": [
+            "span.cl-faq__icon",
+            "span.cl-faq__icon"
+          ]
+        },
+        {
+          "value": "1px",
+          "n": 3,
+          "sample": [
+            "span",
+            "span"
+          ]
+        },
+        {
+          "value": "32px 0px 0px",
+          "n": 1,
+          "sample": [
+            "div.cl-hero__cover.cl-zoom"
+          ]
+        },
+        {
+          "value": "999px 0px 0px 999px",
+          "n": 1,
+          "sample": [
+            "div.cl-hero__feature"
+          ]
+        },
+        {
+          "value": "0px 32px 0px 0px",
+          "n": 1,
+          "sample": [
+            "div.cl-hero__card"
+          ]
+        }
+      ]
+    },
+    "backdrop": {
+      "distinct": 3,
+      "top": [
+        {
+          "value": "blur(52px)",
+          "n": 2,
+          "sample": [
+            "figcaption.cl-paper__note",
+            "span.cl-green__info"
+          ]
+        },
+        {
+          "value": "blur(32px)",
+          "n": 1,
+          "sample": [
+            "div.cl-hero__feature"
+          ]
+        },
+        {
+          "value": "blur(42px)",
+          "n": 1,
+          "sample": [
+            "a.cl-btn.cl-btn--white20"
+          ]
+        }
+      ]
+    },
+    "shadow": {
+      "distinct": 1,
+      "top": [
+        {
+          "value": "rgba(0, 0, 0, 0.14) 0px 1.12913px 5.64687px 0px",
+          "n": 7,
+          "sample": [
+            "span.cl-cycle-h__node",
+            "span.cl-cycle-h__node"
+          ]
+        }
+      ]
+    },
+    "filter": {
+      "distinct": 1,
+      "top": [
+        {
+          "value": "url(\"#cl-coin-f\")",
+          "n": 1,
+          "sample": [
+            "g"
+          ]
+        }
+      ]
+    }
+  }
+}

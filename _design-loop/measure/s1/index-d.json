@@ -1,0 +1,1457 @@
+{
+  "url": "http://localhost:8200/index.html?static",
+  "viewport": [
+    1440,
+    900
+  ],
+  "categories": {
+    "background": {
+      "distinct": 28,
+      "top": [
+        {
+          "value": "rgb(255, 255, 255)",
+          "n": 40,
+          "sample": [
+            "section#top.cl-hero",
+            "header.cl-hero__header"
+          ]
+        },
+        {
+          "value": "rgb(246, 246, 246)",
+          "n": 16,
+          "sample": [
+            "div.cl-about__panel",
+            "p.cl-about__pill.is-revealed"
+          ]
+        },
+        {
+          "value": "rgb(20, 165, 88)",
+          "n": 6,
+          "sample": [
+            "a.cl-btn.cl-btn--green",
+            "a.cl-btn.cl-btn--green"
+          ]
+        },
+        {
+          "value": "rgb(21, 102, 60)",
+          "n": 6,
+          "sample": [
+            "span.cl-btn__circle",
+            "span.cl-btn__circle"
+          ]
+        },
+        {
+          "value": "rgba(255, 255, 255, 0.6)",
+          "n": 4,
+          "sample": [
+            "i.cl-hero__feature-divider",
+            "i.cl-hero__feature-divider"
+          ]
+        },
+        {
+          "value": "rgb(133, 240, 183)",
+          "n": 4,
+          "sample": [
+            "span.cl-green__info-dot",
+            "span.cl-green__pill-dot"
+          ]
+        },
+        {
+          "value": "rgb(17, 17, 17)",
+          "n": 3,
+          "sample": [
+            "a.cl-btn.cl-btn--black",
+            "article.cl-green__card.cl-green__card--cert"
+          ]
+        },
+        {
+          "value": "rgb(233, 235, 234)",
+          "n": 3,
+          "sample": [
+            "span.cl-paper__photo.cl-zoom",
+            "span.cl-paper__photo.cl-zoom"
+          ]
+        },
+        {
+          "value": "rgb(92, 92, 92)",
+          "n": 3,
+          "sample": [
+            "li.cl-process__card.cl-process__card--2",
+            "li.cl-process__card.cl-process__card--3"
+          ]
+        },
+        {
+          "value": "rgb(31, 195, 108)",
+          "n": 3,
+          "sample": [
+            "article.cl-green__card.cl-green__card--points",
+            "span.cl-green__dot.is-active"
+          ]
+        },
+        {
+          "value": "rgba(255, 255, 255, 0.2)",
+          "n": 3,
+          "sample": [
+            "span.cl-green__info-rule",
+            "a.cl-btn.cl-btn--white20"
+          ]
+        },
+        {
+          "value": "rgb(19, 130, 72)",
+          "n": 3,
+          "sample": [
+            "div.cl-green__tile.cl-green__tile--green",
+            "div.cl-cta__card"
+          ]
+        },
+        {
+          "value": "rgb(69, 69, 69)",
+          "n": 2,
+          "sample": [
+            "span.cl-btn__circle",
+            "span.cl-btn__circle"
+          ]
+        },
+        {
+          "value": "rgba(0, 0, 0, 0.24)",
+          "n": 2,
+          "sample": [
+            "div.cl-hero__feature",
+            "p.cl-green__pill"
+          ]
+        },
+        {
+          "value": "rgba(0, 0, 0, 0.12)",
+          "n": 1,
+          "sample": [
+            "span.cl-hero__cover-noise"
+          ]
+        },
+        {
+          "value": "rgba(31, 31, 31, 0.2)",
+          "n": 1,
+          "sample": [
+            "figcaption.cl-paper__note"
+          ]
+        },
+        {
+          "value": "rgb(227, 219, 213)",
+          "n": 1,
+          "sample": [
+            "div.cl-process__laptop"
+          ]
+        },
+        {
+          "value": "rgb(224, 255, 226)",
+          "n": 1,
+          "sample": [
+            "span.cl-green__patch.cl-green__patch--bottom"
+          ]
+        },
+        {
+          "value": "rgb(231, 254, 236)",
+          "n": 1,
+          "sample": [
+            "span.cl-green__patch.cl-green__patch--top"
+          ]
+        },
+        {
+          "value": "rgba(21, 102, 60, 0.6)",
+          "n": 1,
+          "sample": [
+            "span.cl-green__info"
+          ]
+        },
+        {
+          "value": "rgba(17, 17, 17, 0.2)",
+          "n": 1,
+          "sample": [
+            "span.cl-green__dot"
+          ]
+        },
+        {
+          "value": "rgb(31, 31, 31)",
+          "n": 1,
+          "sample": [
+            "div.cl-green__tile.cl-green__tile--ink"
+          ]
+        },
+        {
+          "value": "rgba(255, 255, 255, 0.24)",
+          "n": 1,
+          "sample": [
+            "p.cl-green__pill.cl-green__pill--light"
+          ]
+        },
+        {
+          "value": "rgb(152, 152, 152)",
+          "n": 1,
+          "sample": [
+            "div.cl-green__doc.cl-zoom"
+          ]
+        },
+        {
+          "value": "rgba(17, 17, 17, 0.32)",
+          "n": 1,
+          "sample": [
+            "span.cl-green__doc-scrim"
+          ]
+        },
+        {
+          "value": "rgb(68, 68, 68)",
+          "n": 1,
+          "sample": [
+            "div.cl-green__tile.cl-green__tile--gray"
+          ]
+        },
+        {
+          "value": "rgba(0, 0, 0, 0.36)",
+          "n": 1,
+          "sample": [
+            "p.cl-green__pill.cl-green__pill--dark"
+          ]
+        },
+        {
+          "value": "rgba(0, 0, 0, 0.48)",
+          "n": 1,
+          "sample": [
+            "div.cl-cta__bg-black"
+          ]
+        }
+      ]
+    },
+    "margin": {
+      "distinct": 13,
+      "top": [
+        {
+          "value": "138.422px",
+          "n": 2,
+          "sample": [
+            "nav.cl-hero__nav",
+            "nav.cl-hero__nav"
+          ]
+        },
+        {
+          "value": "22px",
+          "n": 2,
+          "sample": [
+            "p.is-revealed",
+            "p.is-revealed"
+          ]
+        },
+        {
+          "value": "64px",
+          "n": 2,
+          "sample": [
+            "div.cl-process__body",
+            "div.cl-green__body"
+          ]
+        },
+        {
+          "value": "-1px",
+          "n": 2,
+          "sample": [
+            "span.cl-process__card-line",
+            "span.cl-green__info-rule"
+          ]
+        },
+        {
+          "value": "-126.5px",
+          "n": 2,
+          "sample": [
+            "span.cl-tabfill__circle",
+            "span.cl-tabfill__circle"
+          ]
+        },
+        {
+          "value": "400px",
+          "n": 2,
+          "sample": [
+            "div.cl-green__head",
+            "div.cl-green__head"
+          ]
+        },
+        {
+          "value": "80px",
+          "n": 2,
+          "sample": [
+            "div.cl-green__body",
+            "div.cl-green__body"
+          ]
+        },
+        {
+          "value": "-116.5px",
+          "n": 2,
+          "sample": [
+            "span.cl-tabfill__circle",
+            "span.cl-tabfill__circle"
+          ]
+        },
+        {
+          "value": "-1125px",
+          "n": 1,
+          "sample": [
+            "div.cl-hero__curve-clip"
+          ]
+        },
+        {
+          "value": "40.64px",
+          "n": 1,
+          "sample": [
+            "div.cl-about__cycle-img"
+          ]
+        },
+        {
+          "value": "120px",
+          "n": 1,
+          "sample": [
+            "div.cl-process__detail"
+          ]
+        },
+        {
+          "value": "32px",
+          "n": 1,
+          "sample": [
+            "div#cl-process-panel-1.cl-process__panel.cl-process__booking"
+          ]
+        },
+        {
+          "value": "-0.3px",
+          "n": 1,
+          "sample": [
+            "span.cl-green__info-body"
+          ]
+        }
+      ]
+    },
+    "padding": {
+      "distinct": 30,
+      "top": [
+        {
+          "value": "32px",
+          "n": 60,
+          "sample": [
+            "li.cl-about__card",
+            "li.cl-about__card"
+          ]
+        },
+        {
+          "value": "40px",
+          "n": 34,
+          "sample": [
+            "header.cl-hero__header",
+            "header.cl-hero__header"
+          ]
+        },
+        {
+          "value": "20px",
+          "n": 34,
+          "sample": [
+            "a.cl-btn.cl-btn--black",
+            "a.cl-btn.cl-btn--black"
+          ]
+        },
+        {
+          "value": "12px",
+          "n": 26,
+          "sample": [
+            "div.cl-about__panel",
+            "div.cl-about__panel"
+          ]
+        },
+        {
+          "value": "16px",
+          "n": 17,
+          "sample": [
+            "button#cl-process-tab-1.cl-process__tab.is-active",
+            "button#cl-process-tab-1.cl-process__tab.is-active"
+          ]
+        },
+        {
+          "value": "24px",
+          "n": 15,
+          "sample": [
+            "div.cl-about__cycle.is-h",
+            "div.cl-about__cycle-head"
+          ]
+        },
+        {
+          "value": "8.5px",
+          "n": 8,
+          "sample": [
+            "a.cl-btn.cl-btn--black",
+            "a.cl-btn.cl-btn--black"
+          ]
+        },
+        {
+          "value": "48px",
+          "n": 6,
+          "sample": [
+            "div.cl-green__intro",
+            "div.cl-green__intro"
+          ]
+        },
+        {
+          "value": "6px",
+          "n": 6,
+          "sample": [
+            "p.cl-green__pill.cl-green__pill--light",
+            "p.cl-green__pill.cl-green__pill--light"
+          ]
+        },
+        {
+          "value": "120px",
+          "n": 4,
+          "sample": [
+            "section#paper.cl-paper",
+            "section#green.cl-green"
+          ]
+        },
+        {
+          "value": "80px",
+          "n": 4,
+          "sample": [
+            "section#process.cl-process",
+            "section#process.cl-process"
+          ]
+        },
+        {
+          "value": "1px",
+          "n": 3,
+          "sample": [
+            "a.cl-hero__brand",
+            "a.cl-hero__brand"
+          ]
+        },
+        {
+          "value": "22.5px",
+          "n": 3,
+          "sample": [
+            "div.cl-hero__feature",
+            "a.cl-btn.cl-btn--green"
+          ]
+        },
+        {
+          "value": "8px",
+          "n": 3,
+          "sample": [
+            "div.cl-hero__main",
+            "p.cl-about__pill.is-revealed"
+          ]
+        },
+        {
+          "value": "72px",
+          "n": 3,
+          "sample": [
+            "div.cl-hero__card",
+            "div.cl-hero__card"
+          ]
+        },
+        {
+          "value": "6.75px",
+          "n": 2,
+          "sample": [
+            "div.cl-hero__feature",
+            "div.cl-hero__feature"
+          ]
+        },
+        {
+          "value": "18px",
+          "n": 2,
+          "sample": [
+            "a.cl-btn.cl-btn--green",
+            "a.cl-btn.cl-btn--green"
+          ]
+        },
+        {
+          "value": "63px",
+          "n": 2,
+          "sample": [
+            "div.cl-hero__num",
+            "div.cl-hero__num"
+          ]
+        },
+        {
+          "value": "90px",
+          "n": 2,
+          "sample": [
+            "div.cl-hero__num",
+            "div.cl-hero__num"
+          ]
+        },
+        {
+          "value": "28px",
+          "n": 2,
+          "sample": [
+            "div.cl-green__intro",
+            "div.cl-green__intro"
+          ]
+        },
+        {
+          "value": "280px",
+          "n": 2,
+          "sample": [
+            "section#faq.cl-faq",
+            "section#faq.cl-faq"
+          ]
+        },
+        {
+          "value": "13px",
+          "n": 1,
+          "sample": [
+            "span.cl-hero__brand-service"
+          ]
+        },
+        {
+          "value": "13.5px",
+          "n": 1,
+          "sample": [
+            "div.cl-hero__feature"
+          ]
+        },
+        {
+          "value": "140.64px",
+          "n": 1,
+          "sample": [
+            "section#about.cl-about"
+          ]
+        },
+        {
+          "value": "28.36px",
+          "n": 1,
+          "sample": [
+            "div.cl-about__cycle.is-h"
+          ]
+        },
+        {
+          "value": "160px",
+          "n": 1,
+          "sample": [
+            "section#process.cl-process"
+          ]
+        },
+        {
+          "value": "21px",
+          "n": 1,
+          "sample": [
+            "ul.cl-process__step-list.is-revealed"
+          ]
+        },
+        {
+          "value": "56px",
+          "n": 1,
+          "sample": [
+            "p.cl-faq__answer"
+          ]
+        },
+        {
+          "value": "4px",
+          "n": 1,
+          "sample": [
+            "p.cl-faq__answer"
+          ]
+        },
+        {
+          "value": "64px",
+          "n": 1,
+          "sample": [
+            "p.cl-faq__answer"
+          ]
+        }
+      ]
+    },
+    "gap": {
+      "distinct": 19,
+      "top": [
+        {
+          "value": "12px",
+          "n": 86,
+          "sample": [
+            "div.cl-about__heading",
+            "div.cl-about__heading"
+          ]
+        },
+        {
+          "value": "24px",
+          "n": 36,
+          "sample": [
+            "li.cl-about__card",
+            "li.cl-about__card"
+          ]
+        },
+        {
+          "value": "16px",
+          "n": 22,
+          "sample": [
+            "a.cl-hero__brand",
+            "a.cl-hero__brand"
+          ]
+        },
+        {
+          "value": "8px",
+          "n": 20,
+          "sample": [
+            "a.cl-btn.cl-btn--black",
+            "a.cl-btn.cl-btn--black"
+          ]
+        },
+        {
+          "value": "13.5px",
+          "n": 18,
+          "sample": [
+            "a.cl-btn.cl-btn--green",
+            "a.cl-btn.cl-btn--green"
+          ]
+        },
+        {
+          "value": "9px",
+          "n": 16,
+          "sample": [
+            "li.cl-hero__feature-item",
+            "li.cl-hero__feature-item"
+          ]
+        },
+        {
+          "value": "32px",
+          "n": 10,
+          "sample": [
+            "nav.cl-hero__nav",
+            "nav.cl-hero__nav"
+          ]
+        },
+        {
+          "value": "4px",
+          "n": 10,
+          "sample": [
+            "p.cl-paper__no",
+            "p.cl-paper__no"
+          ]
+        },
+        {
+          "value": "64px",
+          "n": 8,
+          "sample": [
+            "section#about.cl-about",
+            "section#about.cl-about"
+          ]
+        },
+        {
+          "value": "40px",
+          "n": 8,
+          "sample": [
+            "span.cl-paper__note-row",
+            "span.cl-paper__note-row"
+          ]
+        },
+        {
+          "value": "48px",
+          "n": 8,
+          "sample": [
+            "li.cl-process__step",
+            "li.cl-process__step"
+          ]
+        },
+        {
+          "value": "36px",
+          "n": 4,
+          "sample": [
+            "div.cl-hero__card",
+            "div.cl-hero__card"
+          ]
+        },
+        {
+          "value": "18px",
+          "n": 2,
+          "sample": [
+            "ul.cl-hero__feature-list",
+            "ul.cl-hero__feature-list"
+          ]
+        },
+        {
+          "value": "4.4004px",
+          "n": 2,
+          "sample": [
+            "span.cl-cycle-h__hub",
+            "span.cl-cycle-h__hub"
+          ]
+        },
+        {
+          "value": "1px",
+          "n": 2,
+          "sample": [
+            "ol.cl-process__cards.is-inview",
+            "ol.cl-process__cards.is-inview"
+          ]
+        },
+        {
+          "value": "20px",
+          "n": 2,
+          "sample": [
+            "div.cl-green__cards",
+            "div.cl-green__cards"
+          ]
+        },
+        {
+          "value": "56px",
+          "n": 2,
+          "sample": [
+            "div.cl-cta__content",
+            "div.cl-cta__content"
+          ]
+        },
+        {
+          "value": "49.5px",
+          "n": 1,
+          "sample": [
+            "div.cl-hero__num"
+          ]
+        },
+        {
+          "value": "72px",
+          "n": 1,
+          "sample": [
+            "div.cl-hero__num"
+          ]
+        }
+      ]
+    },
+    "textColor": {
+      "distinct": 12,
+      "top": [
+        {
+          "value": "rgb(255, 255, 255)",
+          "n": 35,
+          "sample": [
+            "span",
+            "span.cl-hero__book-l"
+          ]
+        },
+        {
+          "value": "rgba(31, 31, 31, 0.6)",
+          "n": 27,
+          "sample": [
+            "span.cl-hero__brand-service",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "rgb(31, 31, 31)",
+          "n": 25,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "rgb(17, 17, 17)",
+          "n": 20,
+          "sample": [
+            "a.cl-hero__nav-link",
+            "a.cl-hero__nav-link"
+          ]
+        },
+        {
+          "value": "rgba(255, 255, 255, 0.8)",
+          "n": 12,
+          "sample": [
+            "b",
+            "span"
+          ]
+        },
+        {
+          "value": "rgb(20, 165, 88)",
+          "n": 12,
+          "sample": [
+            "span.cl-cycle-h__eyebrow",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "rgb(31, 195, 108)",
+          "n": 10,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "rgb(21, 102, 60)",
+          "n": 6,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-cycle-h__eyebrow"
+          ]
+        },
+        {
+          "value": "rgba(31, 31, 31, 0.8)",
+          "n": 4,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-hero__nobr"
+          ]
+        },
+        {
+          "value": "rgb(152, 152, 152)",
+          "n": 4,
+          "sample": [
+            "button#cl-process-tab-2.cl-process__tab",
+            "button#cl-process-tab-3.cl-process__tab"
+          ]
+        },
+        {
+          "value": "rgba(255, 255, 255, 0.32)",
+          "n": 2,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "rgb(0, 0, 0)",
+          "n": 1,
+          "sample": [
+            "span.cl-footer__slogan-text"
+          ]
+        }
+      ]
+    },
+    "fontSize": {
+      "distinct": 20,
+      "top": [
+        {
+          "value": "16px",
+          "n": 31,
+          "sample": [
+            "span.cl-hero__brand-service",
+            "a.cl-hero__nav-link"
+          ]
+        },
+        {
+          "value": "14px",
+          "n": 25,
+          "sample": [
+            "span",
+            "span.cl-hero__book-l"
+          ]
+        },
+        {
+          "value": "18px",
+          "n": 25,
+          "sample": [
+            "p.cl-hero__metric-label",
+            "span.cl-hero__metric-unit"
+          ]
+        },
+        {
+          "value": "32px",
+          "n": 11,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "24px",
+          "n": 10,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-paper__hash"
+          ]
+        },
+        {
+          "value": "20px",
+          "n": 9,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "15.75px",
+          "n": 8,
+          "sample": [
+            "b",
+            "span"
+          ]
+        },
+        {
+          "value": "12px",
+          "n": 6,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "19.8px",
+          "n": 6,
+          "sample": [
+            "span.cl-cycle-h__label",
+            "span.cl-cycle-h__label"
+          ]
+        },
+        {
+          "value": "54px",
+          "n": 4,
+          "sample": [
+            "span.cl-hero__metric-num",
+            "span.cl-hero__metric-num"
+          ]
+        },
+        {
+          "value": "13.2px",
+          "n": 4,
+          "sample": [
+            "span.cl-cycle-h__eyebrow",
+            "span.cl-cycle-h__eyebrow"
+          ]
+        },
+        {
+          "value": "40px",
+          "n": 4,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "64px",
+          "n": 3,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "86px",
+          "n": 3,
+          "sample": [
+            "span.cl-footer__slogan-text",
+            "span.cl-footer__slogan-hl"
+          ]
+        },
+        {
+          "value": "26.4px",
+          "n": 2,
+          "sample": [
+            "span.cl-cycle-h__title",
+            "span.cl-cycle-h__title"
+          ]
+        },
+        {
+          "value": "15.3996px",
+          "n": 2,
+          "sample": [
+            "span.cl-cycle-h__desc",
+            "span.cl-cycle-h__desc"
+          ]
+        },
+        {
+          "value": "48px",
+          "n": 2,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "45px",
+          "n": 1,
+          "sample": [
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "20.25px",
+          "n": 1,
+          "sample": [
+            "span"
+          ]
+        },
+        {
+          "value": "12.6px",
+          "n": 1,
+          "sample": [
+            "sub.cl-sub"
+          ]
+        }
+      ]
+    },
+    "type": {
+      "distinct": 51,
+      "top": [
+        {
+          "value": "Noto Sans TC | 14px | 400 | lh 20px | ls 0.3px",
+          "n": 15,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 16px | 400 | lh 22px | ls 0.3px",
+          "n": 10,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 24px | 700 | lh 34px | ls 0.6px",
+          "n": 10,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-paper__hash"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 19.8px | 700 | lh 27.72px | ls 0.5496px",
+          "n": 6,
+          "sample": [
+            "span.cl-cycle-h__label",
+            "span.cl-cycle-h__label"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 16px | 500 | lh 24px | ls normal",
+          "n": 5,
+          "sample": [
+            "a.cl-hero__nav-link",
+            "a.cl-hero__nav-link"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 18px | 700 | lh 25px | ls 0.6px",
+          "n": 5,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "Montserrat | 20px | 700 | lh 24px | ls 2px",
+          "n": 5,
+          "sample": [
+            "span.cl-faq__num",
+            "span.cl-faq__num"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 16px | 700 | lh 22.4px | ls 0.5px",
+          "n": 5,
+          "sample": [
+            "span.cl-faq__question",
+            "span.cl-faq__question"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 14px | 600 | lh 21px | ls normal",
+          "n": 4,
+          "sample": [
+            "span",
+            "span.cl-hero__book-l"
+          ]
+        },
+        {
+          "value": "Montserrat | 54px | 700 | lh 64.8px | ls 2.25px",
+          "n": 4,
+          "sample": [
+            "span.cl-hero__metric-num",
+            "span.cl-hero__metric-num"
+          ]
+        },
+        {
+          "value": "Montserrat | 12px | 600 | lh 15px | ls 1px",
+          "n": 4,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 32px | 700 | lh 45px | ls 1px",
+          "n": 4,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "Montserrat | 20px | 700 | lh 24px | ls 0.6px",
+          "n": 4,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "Montserrat | 40px | 700 | lh 48px | ls 2px",
+          "n": 4,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 18px | 700 | lh 25px | ls 0.5px",
+          "n": 4,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 16px | 600 | lh 22px | ls normal",
+          "n": 4,
+          "sample": [
+            "span.cl-green__info-title",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 15.75px | 700 | lh 22.5px | ls 0.3px",
+          "n": 3,
+          "sample": [
+            "b",
+            "b"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 15.75px | 400 | lh 22.5px | ls 0.3px",
+          "n": 3,
+          "sample": [
+            "span",
+            "span"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 18px | 400 | lh 21.375px | ls normal",
+          "n": 3,
+          "sample": [
+            "p.cl-hero__metric-label",
+            "p.cl-hero__metric-label"
+          ]
+        },
+        {
+          "value": "Montserrat | 32px | 700 | lh 38px | ls 1px",
+          "n": 3,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "Montserrat | 64px | 700 | lh 77px | ls 2px",
+          "n": 3,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 18px | 700 | lh 26px | ls 0.36px",
+          "n": 3,
+          "sample": [
+            "button#cl-process-tab-1.cl-process__tab.is-active",
+            "button#cl-process-tab-2.cl-process__tab"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 18px | 700 | lh 22px | ls 0.36px",
+          "n": 3,
+          "sample": [
+            "button#cl-faq-tab-1.cl-faq__tab.is-active",
+            "button#cl-faq-tab-2.cl-faq__tab.cl-faq__tab--tall"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 16px | 600 | lh 23px | ls 0.32px",
+          "n": 3,
+          "sample": [
+            "p.cl-footer__label",
+            "p.cl-footer__label"
+          ]
+        },
+        {
+          "value": "Montserrat | 86px | 700 | lh 103.2px | ls 0.5px",
+          "n": 3,
+          "sample": [
+            "span.cl-footer__slogan-text",
+            "span.cl-footer__slogan-hl"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 15.75px | 400 | lh 22.05px | ls 0.3px",
+          "n": 2,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-hero__nobr"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 18px | 500 | lh 21.375px | ls normal",
+          "n": 2,
+          "sample": [
+            "span.cl-hero__metric-unit",
+            "span.cl-hero__metric-unit"
+          ]
+        },
+        {
+          "value": "Montserrat | 13.2px | 600 | lh 15.84px | ls 1.1004px",
+          "n": 2,
+          "sample": [
+            "span.cl-cycle-h__eyebrow",
+            "span.cl-cycle-h__eyebrow"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 26.4px | 700 | lh 36.96px | ls 0.66px",
+          "n": 2,
+          "sample": [
+            "span.cl-cycle-h__title",
+            "span.cl-cycle-h__title"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 15.3996px | 400 | lh 21.5594px | ls 0.33px",
+          "n": 2,
+          "sample": [
+            "span.cl-cycle-h__desc",
+            "span.cl-cycle-h__desc"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 16px | 700 | lh 22px | ls 0.3px",
+          "n": 2,
+          "sample": [
+            "strong.cl-paper__em",
+            "strong.cl-paper__em"
+          ]
+        },
+        {
+          "value": "Montserrat | 48px | 700 | lh 58px | ls 2px",
+          "n": 2,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 32px | 700 | lh 45px | ls 0.5px",
+          "n": 2,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 32px | 700 | lh 44.8px | ls 1px",
+          "n": 2,
+          "sample": [
+            "span.cl-rv__in",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 14px | 400 | lh 19.6px | ls 0.3px",
+          "n": 2,
+          "sample": [
+            "p.cl-faq__answer",
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 18px | 600 | lh normal | ls normal",
+          "n": 2,
+          "sample": [
+            "span",
+            "span"
+          ]
+        },
+        {
+          "value": "Zalando Sans Expanded | 14px | 400 | lh 19.6px | ls 0.5px",
+          "n": 2,
+          "sample": [
+            "a",
+            "p.cl-footer__value.cl-footer__value--num"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 16px | 500 | lh 15.6px | ls normal",
+          "n": 1,
+          "sample": [
+            "span.cl-hero__brand-service"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 45px | 700 | lh 63px | ls 2.25px",
+          "n": 1,
+          "sample": [
+            "span.cl-rv__in"
+          ]
+        },
+        {
+          "value": "Noto Sans TC | 20.25px | 600 | lh normal | ls normal",
+          "n": 1,
+          "sample": [
+            "span"
+          ]
+        }
+      ]
+    },
+    "border": {
+      "distinct": 2,
+      "top": [
+        {
+          "value": "1px rgba(0, 0, 0, 0)",
+          "n": 16,
+          "sample": [
+            "a.cl-btn.cl-btn--black",
+            "a.cl-btn.cl-btn--black"
+          ]
+        },
+        {
+          "value": "1px rgba(31, 31, 31, 0.1)",
+          "n": 1,
+          "sample": [
+            "span.cl-hero__brand-service"
+          ]
+        }
+      ]
+    },
+    "radius": {
+      "distinct": 10,
+      "top": [
+        {
+          "value": "16px",
+          "n": 21,
+          "sample": [
+            "li.cl-about__card",
+            "li.cl-about__card"
+          ]
+        },
+        {
+          "value": "999px",
+          "n": 20,
+          "sample": [
+            "a.cl-btn.cl-btn--black",
+            "a.cl-btn.cl-btn--green"
+          ]
+        },
+        {
+          "value": "50%",
+          "n": 17,
+          "sample": [
+            "span.cl-btn__circle",
+            "span.cl-btn__circle"
+          ]
+        },
+        {
+          "value": "20px",
+          "n": 14,
+          "sample": [
+            "div.cl-about__panel",
+            "div.cl-about__cycle.is-h"
+          ]
+        },
+        {
+          "value": "12px",
+          "n": 9,
+          "sample": [
+            "div.cl-paper__text",
+            "figure.cl-paper__media"
+          ]
+        },
+        {
+          "value": "100px",
+          "n": 7,
+          "sample": [
+            "span.cl-green__eyebrow-dot",
+            "span.cl-green__info-dot"
+          ]
+        },
+        {
+          "value": "4px",
+          "n": 5,
+          "sample": [
+            "span.cl-faq__icon",
+            "span.cl-faq__icon"
+          ]
+        },
+        {
+          "value": "45px 0px 0px",
+          "n": 1,
+          "sample": [
+            "div.cl-hero__cover.cl-zoom"
+          ]
+        },
+        {
+          "value": "999px 0px 0px 999px",
+          "n": 1,
+          "sample": [
+            "div.cl-hero__feature"
+          ]
+        },
+        {
+          "value": "0px 45px 0px 0px",
+          "n": 1,
+          "sample": [
+            "div.cl-hero__card"
+          ]
+        }
+      ]
+    },
+    "backdrop": {
+      "distinct": 3,
+      "top": [
+        {
+          "value": "blur(52px)",
+          "n": 2,
+          "sample": [
+            "figcaption.cl-paper__note",
+            "span.cl-green__info"
+          ]
+        },
+        {
+          "value": "blur(32px)",
+          "n": 1,
+          "sample": [
+            "div.cl-hero__feature"
+          ]
+        },
+        {
+          "value": "blur(42px)",
+          "n": 1,
+          "sample": [
+            "a.cl-btn.cl-btn--white20"
+          ]
+        }
+      ]
+    },
+    "shadow": {
+      "distinct": 1,
+      "top": [
+        {
+          "value": "rgba(0, 0, 0, 0.14) 0px 2.1996px 11.0004px 0px",
+          "n": 7,
+          "sample": [
+            "span.cl-cycle-h__node",
+            "span.cl-cycle-h__node"
+          ]
+        }
+      ]
+    },
+    "filter": {
+      "distinct": 1,
+      "top": [
+        {
+          "value": "url(\"#cl-coin-f\")",
+          "n": 1,
+          "sample": [
+            "g"
+          ]
+        }
+      ]
+    }
+  }
+}
