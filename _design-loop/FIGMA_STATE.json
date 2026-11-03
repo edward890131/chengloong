@@ -185,7 +185,8 @@
     "Process Panel 手機／平板照片改用量測方式對齊網站（填滿寬、置中）；Content 內子層 constraints 全改 MIN，避免面板高度改變時照片被縮放。",
     "延伸狀態頁 11 段完成（00 閱讀方式含全站共通互動與目錄連結、00 Header～09 Footer）；舊狀態板 50:1628 內容已全部併入並刪除。",
     "新元件：Paper Slider（手機 03 三張卡，Card=1–3，每張 335）、Green Cards Slider（手機 05 兩張卡，Card=2 往左 309）——箭頭 disabled 透明度照網站改 0.2（原稿 0.3）；Certificate Doc（Desktop/Tablet × Default/Hover：scrim/40＋查看）、Certificate Modal（三寬度，遮罩 scrim/72、面板 1019×820／688×944／343×485）、Modal Close（L44/S40，hover 變綠）、Photo/Green/certificate-full、Icon/Close；Header 加 Menu=Closed/Open（Compact/Mobile 漢堡變 X）；Menu Panel（Tablet 420 靠右／Mobile 全寬，list 345/310、actions 160 同網站）。",
-    "延伸狀態頁：區塊標題改 DS/Section Tag（scrim/56 膠囊、白字 Title/L/Bold，參考 Pikki 樣板 state）；主畫面／規格說明／延伸狀態之間加 Divider（border/default 1px，01／04 使用者改成並排的區塊用直線）；DS/Spec Item 加 Link 列（Show Link 布林），每項顯示「→ 延伸狀態 X-1～X-n」並連到該組，沒有狀態的項目隱藏。使用者已把各段包進橫排框 A 首頁_延伸狀態（163:18226）。"
+    "延伸狀態頁：區塊標題改 DS/Section Tag（scrim/56 膠囊、白字 Title/L/Bold，參考 Pikki 樣板 state）；主畫面／規格說明／延伸狀態之間加 Divider（border/default 1px，01／04 使用者改成並排的區塊用直線）；DS/Spec Item 加 Link 列（Show Link 布林），每項顯示「→ 延伸狀態 X-1～X-n」並連到該組，沒有狀態的項目隱藏。使用者已把各段包進橫排框 A 首頁_延伸狀態（163:18226）。",
+    "使用者把延伸狀態框 A 首頁_延伸狀態（163:18226）移到 A 首頁 page（5:43）。各段「規格說明」區塊加灰底：surface/muted、圓角 24、內距 40。"
   ],
   "drafts": {
     "A-01 首頁": {
@@ -212,7 +213,7 @@
   },
   "states": {
     "A": {
-      "page": "157:1899",
+      "page": "5:43",
       "reading": "157:1900",
       "sections": {
         "04": "157:1927",
@@ -225,7 +226,8 @@
         "00": "179:13675",
         "03": "175:11108",
         "05": "175:12699"
-      }
+      },
+      "wrapper": "163:18226"
     }
   }
 }
