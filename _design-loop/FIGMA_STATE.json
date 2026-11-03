@@ -123,7 +123,10 @@
     "2026-11-03：Tile icon 改包在 Icon Slot（綁 layout/tile-icon，icon SCALE），並加 INSTANCE_SWAP 屬性 Icon；原本替換過 icon 的 instance 吃不到尺寸變數，手機仍是 40",
     "2026-11-03：B-01 服務條款三寬度重建：條文改用網站完整內容（七條、兩層清單、粗體前導字），每個清單項目為「編號欄＋內文」auto layout；高度 1440 4843／768 5158／375 7316，皆與網站一致",
     "2026-11-03：新增變數 layout/terms-ol-indent（29／29／29，網站 ol 1.6em 以 16px 計＋li .2em）、layout/terms-ul-indent（26／26／24）、layout/terms-section-gap（40／40／32）、layout/terms-body-pad（28／28／20）、layout/terms-dot-top（11／11／10）、layout/terms-dot-gap（16／16／14）；第二層 ○ 改為 7px 空心圓（text/secondary 描邊 1）",
-    "2026-11-03：B-01 768／375 改用 Header Compact／Mobile、Footer Tablet／Mobile；1440 Header「服務條款」為目前頁 text/accent"
+    "2026-11-03：B-01 768／375 改用 Header Compact／Mobile、Footer Tablet／Mobile；1440 Header「服務條款」為目前頁 text/accent",
+    "2026-11-03：首頁三寬度圓角逐一對網站（程式比對所有 border-radius 元素）：CTA 卡 32→20（radius/xl，三寬度）；預約示意圖 1440／768 16→12（radius/md），375 維持 16；375 綠點輪播圖、數位證明 16→12；375 預約步驟清單補灰底 surface/subtle＋圓角 16（網站 .cl-process__steps 只在手機有底）",
+    "2026-11-03：375 FAQ 改用 Accordion Size=S（原本用 L 再手動覆寫內距）並清除覆寫",
+    "2026-11-03：Button/L 文字樣式行高改綁 type/button/l/line-height＝26（網站 normal，Noto Sans TC 18px 實際 26），Button L 高 56→58 與網站一致；hero CTA instance 原本卡在 FIXED 56 一併修正"
   ],
   "drafts": {
     "A-01 首頁": {
