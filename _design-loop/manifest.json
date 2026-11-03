@@ -94,9 +94,13 @@
   "benchmarks": [],
   "forbidden": [],
   "integer_policy": {
-    "grid_remainder": "undecided",
+    "grid_remainder": "last",
     "exceptions": [
-      "Icon/* 內部向量"
+      "Icon/* 內部向量",
+      "Icon/* 內部向量與 ≤8px 方點",
+      "Logo、Ecolabel/* 內部向量與群組（SVG 原始精度、標章原色不綁變數）",
+      "Tab 手機 mode 選中白點 y .5（Label/L 手機行高 23 為奇數）",
+      "Section Head 內 Eyebrow 依文案寬度置中可能出 .5（instance 內不能覆寫 min-width）"
     ]
   },
   "token_map": [],
@@ -110,5 +114,15 @@
     "_design-loop/**",
     "node_modules/**",
     "**/guideline/index.html"
+  ],
+  "decisions": [
+    {
+      "date": "2026-11-03",
+      "item": "首屏（hero）文字依畫面高度等比縮放，Figma 用本地文字（1440×800 viewport 數值），不套文字樣式"
+    },
+    {
+      "date": "2026-11-03",
+      "item": "背景曲線、關於卡插圖、價值循環圖用網站截圖（PNG）放進設計稿；動態規格寫註記，Prototype 示範待做"
+    }
   ]
 }
