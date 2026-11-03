@@ -142,7 +142,8 @@
     "2026-11-03：曲線描線動畫做在母版（instance 會繼承）：PATH_TRIM_END 0→1（0–6s）、PATH_TRIM_START 0→1（6–12s），連續 10 輪＝120s，任何長度的時間軸都持續描線；三張首頁稿時間軸設 12s 循環。靜態畫面為完整曲線。網站為各段進畫面才開始播，Figma 為同時播放",
     "2026-11-03：綠點卡、流程卡白色曲線的透明度改設在 Curve Clip 圖層（0.1／0.06／0.2）；筆畫綁顏色變數時，paint opacity 不會傳到 instance",
     "2026-11-03：曲線 instance 清除殘留覆寫後，補回 layoutPositioning ABSOLUTE 與原位置（CTA -80／-40／-16, -40）",
-    "2026-11-03：CTA Background Prototype：Default→AFTER_TIMEOUT 0.01s→Zoom In（SMART_ANIMATE linear 10s），Zoom In→停 2s→Default（DISSOLVE ease-in-out 0.3s），對應網站 cl-cta-bg-zoom 12.3s；375 稿 CTA 背景寬 935→1280（網站 -468, 1280×600）"
+    "2026-11-03：CTA Background Prototype：Default→AFTER_TIMEOUT 0.01s→Zoom In（SMART_ANIMATE linear 10s），Zoom In→停 2s→Default（DISSOLVE ease-in-out 0.3s），對應網站 cl-cta-bg-zoom 12.3s；375 稿 CTA 背景寬 935→1280（網站 -468, 1280×600）",
+    "2026-11-03：素材 Component page 整理：區塊依欄重排不重疊（照片類一欄、Process／CTA 一欄、Asset/Curve、Brand）；所有 plate 尺寸標籤改為元件實際尺寸（元件存整張圖後舊標籤過時）；Asset/Curve 13 組各包 plate 並標示 Desktop／Tablet／Mobile 尺寸；CTA Background 變體改直排避免超出區塊"
   ],
   "drafts": {
     "A-01 首頁": {
