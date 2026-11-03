@@ -100,7 +100,9 @@
     "2026-11-03：Hero 文字改套樣式（Title/XXL、Display/L、Paragraph/M）",
     "2026-11-03：Card/Process 拆成 Step=1–4 × State（8 variants），照片改用原始檔依網站位置擺放（第 2 張旋轉 1.61°、第 4 張筆電＋螢幕遮罩合成），Active 曲線依各卡位置",
     "2026-11-03：A-01 狀態板（1440）：Hero 輪播 4 張、特色標籤 3 則、數據 tooltip 2 個、流程卡展開 1–4、頁籤送廠前的準備、當天進場流程（家紙／工紙）、步驟 03 tooltip",
-    "2026-11-03：新增「素材 Component」page（Pikki 格式）：Photo/Hero、Paper、Process、Green、Strip、CTA、Illustration/About、Asset/Curve、Brand；每個母版＝1440 實際顯示尺寸與網站裁切。設計稿、狀態板、元件母版內的圖片全部改成 instance（768／375 用裁切框等比填滿）。Card/Step 數字框固定 40 高（對齊網站）"
+    "2026-11-03：新增「素材 Component」page（Pikki 格式）：Photo/Hero、Paper、Process、Green、Strip、CTA、Illustration/About、Asset/Curve、Brand；每個母版＝1440 實際顯示尺寸與網站裁切。設計稿、狀態板、元件母版內的圖片全部改成 instance（768／375 用裁切框等比填滿）。Card/Step 數字框固定 40 高（對齊網站）",
+    "2026-11-03：Hero Cover（Slide=1–4）與 CTA Background（State=Default／Zoom In）元件組；CTA 遮罩改在元件內最上層（原本 scrim 在圖片下面導致變淡）；預約步驟示意、串場照片補回圓角",
+    "2026-11-03：進場路線圖改成向量＋文字圖層（從舊稿 2266:7827／2266:7774 匯入 SVG、移除外框文字、重建文字），網站仍用整張 @2x 圖"
   ],
   "drafts": {
     "A-01 首頁": {
