@@ -28,7 +28,8 @@
     "Guideline": "5:41",
     "HTML 擷取": "5:42",
     "A 首頁": "5:43",
-    "B 服務條款": "5:44"
+    "B 服務條款": "5:44",
+    "素材 Component": "55:360"
   },
   "guideline": {
     "00 · 使用方式": "16:317",
@@ -98,7 +99,8 @@
     "2026-11-03：價值循環圖改成元件 Value Cycle（42:247），由網站 SVG 圖層＋HTML 節點組成；文字保留原稿小數字級（cqw 縮放）為整數例外",
     "2026-11-03：Hero 文字改套樣式（Title/XXL、Display/L、Paragraph/M）",
     "2026-11-03：Card/Process 拆成 Step=1–4 × State（8 variants），照片改用原始檔依網站位置擺放（第 2 張旋轉 1.61°、第 4 張筆電＋螢幕遮罩合成），Active 曲線依各卡位置",
-    "2026-11-03：A-01 狀態板（1440）：Hero 輪播 4 張、特色標籤 3 則、數據 tooltip 2 個、流程卡展開 1–4、頁籤送廠前的準備、當天進場流程（家紙／工紙）、步驟 03 tooltip"
+    "2026-11-03：A-01 狀態板（1440）：Hero 輪播 4 張、特色標籤 3 則、數據 tooltip 2 個、流程卡展開 1–4、頁籤送廠前的準備、當天進場流程（家紙／工紙）、步驟 03 tooltip",
+    "2026-11-03：新增「素材 Component」page（Pikki 格式）：Photo/Hero、Paper、Process、Green、Strip、CTA、Illustration/About、Asset/Curve、Brand；每個母版＝1440 實際顯示尺寸與網站裁切。設計稿、狀態板、元件母版內的圖片全部改成 instance（768／375 用裁切框等比填滿）。Card/Step 數字框固定 40 高（對齊網站）"
   ],
   "drafts": {
     "A-01 首頁": {
