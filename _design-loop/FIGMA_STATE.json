@@ -120,7 +120,10 @@
     "2026-11-03：新增變數 layout/step-num-h（40／40／29，Card/Step 數字框）、layout/tile-icon（40／40／32，Tile icon）、layout/faq-icon（32／32／24，Accordion icon）；About 面板內距離改綁 space/12（網站 .cl-about__inner gap 12，不是 panel-gap）",
     "2026-11-03：Card/Step info icon 改 scrim/40（網站 icon-info.svg #111 透明度 .4；Icon/Info 母版是 Hero 用的白色）",
     "375 instance 覆寫（手機值，網站 CSS 斷點）：Hero 數據區漸層（上透明→67% 綠）、卡片右上圓角 40；Card/Step 間距 16＋文字左內距 14；FAQ 答案內距 16/40/4/56；Info Card 圓角 8；串場照片圓角 radius/sm",
-    "2026-11-03：Tile icon 改包在 Icon Slot（綁 layout/tile-icon，icon SCALE），並加 INSTANCE_SWAP 屬性 Icon；原本替換過 icon 的 instance 吃不到尺寸變數，手機仍是 40"
+    "2026-11-03：Tile icon 改包在 Icon Slot（綁 layout/tile-icon，icon SCALE），並加 INSTANCE_SWAP 屬性 Icon；原本替換過 icon 的 instance 吃不到尺寸變數，手機仍是 40",
+    "2026-11-03：B-01 服務條款三寬度重建：條文改用網站完整內容（七條、兩層清單、粗體前導字），每個清單項目為「編號欄＋內文」auto layout；高度 1440 4843／768 5158／375 7316，皆與網站一致",
+    "2026-11-03：新增變數 layout/terms-ol-indent（29／29／29，網站 ol 1.6em 以 16px 計＋li .2em）、layout/terms-ul-indent（26／26／24）、layout/terms-section-gap（40／40／32）、layout/terms-body-pad（28／28／20）、layout/terms-dot-top（11／11／10）、layout/terms-dot-gap（16／16／14）；第二層 ○ 改為 7px 空心圓（text/secondary 描邊 1）",
+    "2026-11-03：B-01 768／375 改用 Header Compact／Mobile、Footer Tablet／Mobile；1440 Header「服務條款」為目前頁 text/accent"
   ],
   "drafts": {
     "A-01 首頁": {
