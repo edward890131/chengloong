@@ -83,7 +83,9 @@
     "Icon/Hand Heart": "11:48",
     "Value Cycle": "42:247",
     "Footer/Size=Desktop": "15:116",
-    "Footer/Size=Tablet": "70:370"
+    "Footer/Size=Tablet": "70:370",
+    "Header/Size=Mobile": "77:364",
+    "Footer/Size=Mobile": "84:384"
   },
   "notes": [
     "Noto Sans TC 600→Medium",
@@ -111,13 +113,19 @@
     "2026-11-03：新增變數 layout/process-card-icon（64／48／32），綁 Card/Process icon 寬高；Footer 改成元件組 Size=Desktop／Tablet（70:433）",
     "2026-11-03：Eyebrow Size=S 標籤移除 minHeight 16（Section Head 因此每段多 1px），1440 全頁 9780→9775（網站 9774）",
     "2026-11-03：Info Card Tone=Accent 補表頭（Dot＋標題＋Rule，DS_GAPS #2）；Card/Step 加 Show Info 屬性與 Icon/Info（DS_GAPS #4），步驟 03 開啟",
-    "768 instance 覆寫（平板值，網站 CSS 斷點）：Card/Process 標題 Title/S、Body 內距 20／32；Card/Paper 內距 28 與 MIN 對齊（文字卡 HUG、照片撐滿）；Card/Step 間距 24；Footer Tablet 標語 46/55（網站 vw 字級，脫離 Display/XXL）"
+    "768 instance 覆寫（平板值，網站 CSS 斷點）：Card/Process 標題 Title/S、Body 內距 20／32；Card/Paper 內距 28 與 MIN 對齊（文字卡 HUG、照片撐滿）；Card/Step 間距 24；Footer Tablet 標語 46/55（網站 vw 字級，脫離 Display/XXL）",
+    "2026-11-03：A-01 375 重建（76:315，取代 17:768）：由 768 稿複製、切 Mobile mode 後逐段依網站 375×812 量測對位，整頁 9596（網站 9595）。紙張、綠點改成輪播結構（Nav＋可裁切的橫排＋Dots），關於卡片橫排裁切、價值循環滿版＋「可左右滑動查看」",
+    "2026-11-03：新增變體 Header Size=Mobile（375×60）、Hero Cover Breakpoint=Mobile（400×480）、Card/Process Breakpoint=Mobile（343×180，照片為桌機 343/600 等比）、Footer Size=Mobile（資訊兩欄換行、標語 75/90）",
+    "2026-11-03：新增 Asset/Curve/*-375（hero、about、paper、process、green-points、green-certificates、strip、cta、footer）與 process-card-1..4-375",
+    "2026-11-03：新增變數 layout/step-num-h（40／40／29，Card/Step 數字框）、layout/tile-icon（40／40／32，Tile icon）、layout/faq-icon（32／32／24，Accordion icon）；About 面板內距離改綁 space/12（網站 .cl-about__inner gap 12，不是 panel-gap）",
+    "2026-11-03：Card/Step info icon 改 scrim/40（網站 icon-info.svg #111 透明度 .4；Icon/Info 母版是 Hero 用的白色）",
+    "375 instance 覆寫（手機值，網站 CSS 斷點）：Hero 數據區漸層（上透明→67% 綠）、卡片右上圓角 40；Card/Step 間距 16＋文字左內距 14；FAQ 答案內距 16/40/4/56；Info Card 圓角 8；串場照片圓角 radius/sm"
   ],
   "drafts": {
     "A-01 首頁": {
       "1440": "17:139",
       "768": "63:2272",
-      "375": "17:768",
+      "375": "76:315",
       "states_1440": "50:1628"
     },
     "B-01 服務條款": {

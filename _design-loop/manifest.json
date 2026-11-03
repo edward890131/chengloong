@@ -102,7 +102,8 @@
       "Tab 手機 mode 選中白點 y .5（Label/L 手機行高 23 為奇數）",
       "Section Head 內 Eyebrow 依文案寬度置中可能出 .5（instance 內不能覆寫 min-width）",
       "Value Cycle：原稿 1200×560 座標與小數字級（網站以 cqw 縮放），768／375 instance 等比縮放",
-      "Footer Tablet 標語字級 46（網站 6vw＝45.87），不套文字樣式"
+      "Footer Tablet 標語字級 46（網站 6vw＝45.87），不套文字樣式",
+      "置中內容寬度為奇數時的 .5：Pill（價值循環標題）、Button Label（CTA 手機滿版按鈕），網站同寬度同樣置中"
     ]
   },
   "token_map": [],
@@ -129,6 +130,10 @@
     {
       "date": "2026-11-03",
       "item": "768 價值循環用 Value Cycle instance 等比縮放 616/1200 放進 Stage 框（網站同一張圖以 cqw 縮放）"
+    },
+    {
+      "date": "2026-11-03",
+      "item": "375 Hero 數據字級套最接近樣式：標籤 Label/XS/Regular（網站 12/17）、單位 Label/XS/Bold（網站 12/17 Medium，最後一筆 Bold）"
     }
   ]
 }
