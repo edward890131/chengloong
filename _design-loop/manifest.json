@@ -100,7 +100,8 @@
       "Icon/* 內部向量與 ≤8px 方點",
       "Logo、Ecolabel/* 內部向量與群組（SVG 原始精度、標章原色不綁變數）",
       "Tab 手機 mode 選中白點 y .5（Label/L 手機行高 23 為奇數）",
-      "Section Head 內 Eyebrow 依文案寬度置中可能出 .5（instance 內不能覆寫 min-width）"
+      "Section Head 內 Eyebrow 依文案寬度置中可能出 .5（instance 內不能覆寫 min-width）",
+      "Value Cycle：原稿 1200×560 座標與小數字級（網站以 cqw 縮放），768／375 instance 等比縮放"
     ]
   },
   "token_map": [],
@@ -118,11 +119,11 @@
   "decisions": [
     {
       "date": "2026-11-03",
-      "item": "首屏（hero）文字依畫面高度等比縮放，Figma 用本地文字（1440×800 viewport 數值），不套文字樣式"
+      "item": "背景曲線、關於卡插圖、價值循環圖用網站截圖（PNG）放進設計稿；動態規格寫註記，Prototype 示範待做"
     },
     {
       "date": "2026-11-03",
-      "item": "背景曲線、關於卡插圖、價值循環圖用網站截圖（PNG）放進設計稿；動態規格寫註記，Prototype 示範待做"
+      "item": "Hero 文字套最接近的樣式（1440×800 下字級一致；Title 字距網站 2px、樣式 1px）"
     }
   ]
 }

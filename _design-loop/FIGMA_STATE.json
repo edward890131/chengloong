@@ -79,7 +79,8 @@
     "Icon/Menu": "11:39",
     "Icon/Tooltip Arrow": "11:42",
     "Icon/Badge Check": "11:45",
-    "Icon/Hand Heart": "11:48"
+    "Icon/Hand Heart": "11:48",
+    "Value Cycle": "42:247"
   },
   "notes": [
     "Noto Sans TC 600→Medium",
@@ -92,7 +93,10 @@
     "CTA 卡改為 bg-composite 照片＋scrim/56（原組裝稿誤用綠底）；FAQ 題號改不換行",
     "2026-11-03：Text／Effect／Paint Style 名稱去掉 CL/ 前綴（例 Title/XL/Bold、Blur LG、Scrim/Hero Fade）",
     "2026-11-03：元件名稱也去掉 CL/ 前綴（例 Button、Card/About、Icon/Arrow）；Guideline 版型元件維持 DS/",
-    "2026-11-03：Guideline 02 文字依 Pikki 格式重建（字體家族＋24 列樣式總表＋使用位置）；31 個樣式網站都有用到，12 個只用 1 處"
+    "2026-11-03：Guideline 02 文字依 Pikki 格式重建（字體家族＋24 列樣式總表＋使用位置）；31 個樣式網站都有用到，12 個只用 1 處",
+    "2026-11-03：新增文字樣式 Overline/L/Bold（STEP），共 32 個",
+    "2026-11-03：價值循環圖改成元件 Value Cycle（42:247），由網站 SVG 圖層＋HTML 節點組成；文字保留原稿小數字級（cqw 縮放）為整數例外",
+    "2026-11-03：Hero 文字改套樣式（Title/XXL、Display/L、Paragraph/M）"
   ],
   "drafts": {
     "A-01 首頁": {
