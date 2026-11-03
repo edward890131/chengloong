@@ -4,7 +4,7 @@
   "platform": "web",
   "prefix": "cl",
   "figma_prefix": "CL",
-  "stage": "S1",
+  "stage": "S3",
   "created": "2026-10-19",
   "source": "B Figma key page：section 1695:19584「1005 前台 UI 調整」；電腦版 1695:20082「首頁_v2_L」、手機版 1695:19587「首頁_v2_S」；section 右側為各段落替代卡片與狀態",
   "paths": {
@@ -25,7 +25,7 @@
       "name": "Tablet",
       "width": 768,
       "height": 1024,
-      "note": "無設計稿；S0 之後由 AI 提案、使用者確認"
+      "note": "平板設計稿寬 768（使用者 2026-11-02 決定）"
     },
     {
       "name": "Mobile",
@@ -56,24 +56,54 @@
   "static_param": "?static",
   "figma": {
     "source_file_key": "KbEu6upVzRV4mMQBRHS5Kc",
-    "file_key": "KbEu6upVzRV4mMQBRHS5Kc",
-    "same_file_note": "來源與設計系統同一檔。現有所有 page 一律只讀（來源在 1382:4916 回饋調整 的 section 1695:19584）；寫入只限之後新建的 Guideline／擷取／功能（正式稿）page。",
+    "file_key": "92wzZHRzpnIdSNes9Ko7VV",
+    "same_file_note": "設計系統與設計稿同一檔（正隆水銷_前台 UI）。來源 key page 在舊檔 KbEu6upVzRV4mMQBRHS5Kc（只讀）。使用者原有 page（---、參考、---、Thumbnail）是自由 page，不讀不寫。",
     "pages": {
-      "guideline": "",
+      "guideline": "5:41",
       "wireframe": "",
-      "captures": "",
-      "design": {},
-      "adjust": ""
+      "captures": "5:42",
+      "design": {
+        "A": {
+          "name": "A 首頁",
+          "id": "5:43"
+        },
+        "B": {
+          "name": "B 服務條款",
+          "id": "5:44"
+        }
+      },
+      "adjust": "",
+      "pages_note": ""
     },
     "pages_note": "design：功能代碼 → { name, id }，例 \"A\": { \"name\": \"A 登入註冊\", \"id\": \"\" }。舊格式是單一字串，照舊運作。結構見 core/figma-pages.md"
   },
-  "font_weight_map": {},
+  "font_weight_map": {
+    "Noto Sans TC": {
+      "400": "Regular",
+      "500": "Medium",
+      "600": "Medium",
+      "700": "Bold"
+    },
+    "Montserrat": {
+      "400": "Regular",
+      "500": "Medium",
+      "600": "SemiBold",
+      "700": "Bold"
+    }
+  },
   "benchmarks": [],
   "forbidden": [],
   "integer_policy": {
-    "grid_remainder": "undecided",
+    "grid_remainder": "last",
     "exceptions": [
-      "CL/Icon/* 內部向量"
+      "Icon/* 內部向量",
+      "Icon/* 內部向量與 ≤8px 方點",
+      "Logo、Ecolabel/* 內部向量與群組（SVG 原始精度、標章原色不綁變數）",
+      "Tab 手機 mode 選中白點 y .5（Label/L 手機行高 23 為奇數）",
+      "Section Head 內 Eyebrow 依文案寬度置中可能出 .5（instance 內不能覆寫 min-width）",
+      "Value Cycle：原稿 1200×560 座標與小數字級（網站以 cqw 縮放），768／375 instance 等比縮放",
+      "Footer Tablet 標語字級 46（網站 6vw＝45.87），不套文字樣式",
+      "置中內容寬度為奇數時的 .5：Pill（價值循環標題）、Button Label（CTA 手機滿版按鈕），網站同寬度同樣置中"
     ]
   },
   "token_map": [],
@@ -87,5 +117,23 @@
     "_design-loop/**",
     "node_modules/**",
     "**/guideline/index.html"
+  ],
+  "decisions": [
+    {
+      "date": "2026-11-03",
+      "item": "背景曲線、關於卡插圖、價值循環圖用網站截圖（PNG）放進設計稿；動態規格寫註記，Prototype 示範待做"
+    },
+    {
+      "date": "2026-11-03",
+      "item": "Hero 文字套最接近的樣式（1440×800 下字級一致；Title 字距網站 2px、樣式 1px）"
+    },
+    {
+      "date": "2026-11-03",
+      "item": "768 價值循環用 Value Cycle instance 等比縮放 616/1200 放進 Stage 框（網站同一張圖以 cqw 縮放）"
+    },
+    {
+      "date": "2026-11-03",
+      "item": "375 Hero 數據字級套最接近樣式：標籤 Label/XS/Regular（網站 12/17）、單位 Label/XS/Bold（網站 12/17 Medium，最後一筆 Bold）"
+    }
   ]
 }
