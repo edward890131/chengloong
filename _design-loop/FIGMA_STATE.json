@@ -149,7 +149,8 @@
     "綠點存摺輪播補第 2 張（paper-dandelion）：素材 Component 新增 Photo/Green/paper-dandelion 125:3167（整張圖 909×606，JPG 上傳；WebP 在 Figma 不顯示）；Guideline 新增 Green Points Slider 125:3319（Breakpoint×Slide=1/2，Photo Crop 框裁切，AFTER_TIMEOUT 6s＋ON_CLICK DISSOLVE 0.3 ease-out，同 05-green.js）。三張稿 slider 換成 instance（125:3337／125:3353／125:3369），高度不變。",
     "輪播點點改對網站：作用中 surface/accent-light、其餘 scrim/20（原本白 60%／深綠）。",
     "平板 hero cover-1 原圖上下約 1% 黑邊：網站 641–1100 slide-1 top -1%／height 102%；Figma Hero Cover Slide=1 Tablet 的 cover-1 改 893×512 at -159,-5。",
-    "客戶文案（2026-11-03）：03 紙張 Note Text、05 綠點 Lead 三寬度同步（網站 src partial＋build、Figma 三張稿）。客戶稿「水利散漿」視為筆誤，保留「水力散漿」；Note 句尾補「。」。"
+    "客戶文案（2026-11-03）：03 紙張 Note Text、05 綠點 Lead 三寬度同步（網站 src partial＋build、Figma 三張稿）。客戶稿「水利散漿」視為筆誤，保留「水力散漿」；Note 句尾補「。」。",
+    "客戶換圖（2026-11-03，調整區 127:1351）：step3-tissue、paper-dandelion 依調整區裁切匯出 1024 寬 webp 到網站；Figma 母版 55:395、125:3167 的 Image 改新原圖＋CROP，三張稿自動更新。調整區 127:1351 保留，使用者確認後可刪。"
   ],
   "drafts": {
     "A-01 首頁": {
