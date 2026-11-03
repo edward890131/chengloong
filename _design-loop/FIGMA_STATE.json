@@ -139,7 +139,10 @@
     "2026-11-03：動態示範——Figma Motion（manual keyframes，可 export_video）：M-01 串場照片 22.4s（淡入 0.4→平移 10s 至中點 -580→停 0.8→平移 10s 至終點 -1160→停 0.8→淡出 0.4，網站 06-strip.css）；M-02 標語跑馬燈兩份接續平移 -1534／41.23s（37.2px/s，09-footer.js）；M-03 首屏 120.6s（特色標籤 12s 一輪與封面 40s 一輪的公倍數，無縫循環）。已匯出影片抽影格驗證",
     "2026-11-03：1440 串場照片 Track x 151→0（網站靜態起點 translateX(0)）",
     "2026-11-03：背景曲線動態（使用者要求）：Asset/Curve 13 組 39 變體的截圖改為向量路徑（網站 curve-pattern.svg 同一條 path，依網站 getScreenCTM 矩陣還原位置／旋轉／鏡像，裁切框照網站 overflow 容器），描邊 48×縮放、圓頭，顏色綁 surface/accent-light／surface/muted／text/inverse（綠點卡 0.1／0.06、流程卡 0.2 透明度）",
-    "2026-11-03：曲線描線動畫做在母版（instance 會繼承）：PATH_TRIM_END 0→1（0–6s）、PATH_TRIM_START 0→1（6–12s），連續 10 輪＝120s，任何長度的時間軸都持續描線；三張首頁稿時間軸設 12s 循環。靜態畫面為完整曲線。網站為各段進畫面才開始播，Figma 為同時播放"
+    "2026-11-03：曲線描線動畫做在母版（instance 會繼承）：PATH_TRIM_END 0→1（0–6s）、PATH_TRIM_START 0→1（6–12s），連續 10 輪＝120s，任何長度的時間軸都持續描線；三張首頁稿時間軸設 12s 循環。靜態畫面為完整曲線。網站為各段進畫面才開始播，Figma 為同時播放",
+    "2026-11-03：綠點卡、流程卡白色曲線的透明度改設在 Curve Clip 圖層（0.1／0.06／0.2）；筆畫綁顏色變數時，paint opacity 不會傳到 instance",
+    "2026-11-03：曲線 instance 清除殘留覆寫後，補回 layoutPositioning ABSOLUTE 與原位置（CTA -80／-40／-16, -40）",
+    "2026-11-03：CTA Background Prototype：Default→AFTER_TIMEOUT 0.01s→Zoom In（SMART_ANIMATE linear 10s），Zoom In→停 2s→Default（DISSOLVE ease-in-out 0.3s），對應網站 cl-cta-bg-zoom 12.3s；375 稿 CTA 背景寬 935→1280（網站 -468, 1280×600）"
   ],
   "drafts": {
     "A-01 首頁": {
