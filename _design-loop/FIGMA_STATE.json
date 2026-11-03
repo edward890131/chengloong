@@ -11,7 +11,8 @@
     "guideline(chapters 00–10)",
     "icons(12)",
     "components(19 CL + 3 DS)",
-    "drafts A-01/B-01 v0（組裝稿，照片為佔位框）"
+    "drafts A-01/B-01 v0（組裝稿，照片為佔位框）",
+    "images uploaded 2026-11-03：HTML 擷取切片 15、照片 16（WebP→PNG/JPG）、Logo SVG 3、關於卡插圖 4＋價值循環 3（網站截圖）"
   ],
   "collections": {
     "primitives": "VariableCollectionId:3:2",
@@ -86,7 +87,9 @@
     "Hero Fade／Photo Fade 漸層方向已修正（原本上下顛倒）",
     "Accordion Size=S 固定 Mobile mode",
     "Footer 標語寬度與網站差幾 px",
-    "Process Card：網站手機版版型待依擷取校正"
+    "Process Card：網站手機版版型待依擷取校正",
+    "Figma 無法解碼 WebP（getSizeAsync 失敗、畫面空白），上傳一律轉 PNG/JPG",
+    "CTA 卡改為 bg-composite 照片＋scrim/56（原組裝稿誤用綠底）；FAQ 題號改不換行"
   ],
   "drafts": {
     "A-01 首頁": {
@@ -101,7 +104,6 @@
     }
   },
   "pending": [
-    "圖片上傳：網路擋 mcp.figma.com；佔位框圖層名「Image · <路徑>」，HTML 擷取切片 6:5–6:24 待填",
     "A-01 v0 依 HTML 擷取逐段校正（hero 數據區、綠點卡內容、手機流程卡、footer 手機版）",
     "每段落樣板區（三寬＋規格＋延伸狀態＋RWD 邊界）尚未拆出",
     "figma_audit 驗收未跑（需要圖片後再跑）"
