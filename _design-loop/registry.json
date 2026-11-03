@@ -14,7 +14,7 @@
       "figma": {
         "node": "12:102",
         "key": "587306d83358bd4339b141673b0f2015d8b746f7",
-        "name": "CL/Button",
+        "name": "Button",
         "props": [
           "Label",
           "Show Arrow",
@@ -42,7 +42,7 @@
       "figma": {
         "node": "12:109",
         "key": "5cbd83cc897c173ddcb44b23f487688d55746df1",
-        "name": "CL/Eyebrow",
+        "name": "Eyebrow",
         "props": [
           "Label",
           "Size"
@@ -66,7 +66,7 @@
       "figma": {
         "node": "13:69",
         "key": "455138eb114cc0fa0ef8cbabae70d74b569afa69",
-        "name": "CL/Section Head",
+        "name": "Section Head",
         "props": [
           "Title",
           "Lead",
@@ -89,7 +89,7 @@
       "figma": {
         "node": "12:130",
         "key": "e0422986b2f3ff867535e6756dbf77673178c75e",
-        "name": "CL/Tab",
+        "name": "Tab",
         "props": [
           "Label",
           "State"
@@ -112,7 +112,7 @@
       "figma": {
         "node": "12:191",
         "key": "5326b2a1bd583a2504b807fd957bb21134fea76a",
-        "name": "CL/Segmented",
+        "name": "Segmented",
         "props": [
           "Option 1",
           "Option 2",
@@ -137,7 +137,7 @@
       "figma": {
         "node": "12:192",
         "key": "7075a67a70d5d2fa58f9df2d648b91cebb096cd3",
-        "name": "CL/Tooltip",
+        "name": "Tooltip",
         "props": [
           "Text"
         ]
@@ -157,7 +157,7 @@
       "figma": {
         "node": "12:122",
         "key": "705b352be5197d15a5933ca8bce8ad3243fb6682",
-        "name": "CL/Pill",
+        "name": "Pill",
         "props": [
           "Label",
           "Tone"
@@ -178,7 +178,7 @@
       "figma": {
         "node": "13:70",
         "key": "82a9f65b9882c7dfafcc9fd059d722c81842688a",
-        "name": "CL/Panel",
+        "name": "Panel",
         "props": []
       }
     },
@@ -196,7 +196,7 @@
       "figma": {
         "node": "13:79",
         "key": "2917d31bd4724443f38f5218fd339647e0107b19",
-        "name": "CL/Info Card",
+        "name": "Info Card",
         "props": [
           "Title",
           "Text",
@@ -216,7 +216,7 @@
       "figma": {
         "node": "14:138",
         "key": "936327065e4487928db94b66919e46fe077943c2",
-        "name": "CL/Tile",
+        "name": "Tile",
         "props": [
           "Desc",
           "Tone"
@@ -232,7 +232,7 @@
       "figma": {
         "node": "14:64",
         "key": "789b0d1b2045d769661176a7c7e9ef50d5b3a0d3",
-        "name": "CL/Card/About",
+        "name": "Card/About",
         "props": [
           "Title",
           "Desc"
@@ -248,7 +248,7 @@
       "figma": {
         "node": "14:71",
         "key": "3e91839241fc713fda4fdc646d0688dd7e2f1cf1",
-        "name": "CL/Card/Paper",
+        "name": "Card/Paper",
         "props": [
           "Title",
           "Desc",
@@ -267,7 +267,7 @@
       "figma": {
         "node": "14:93",
         "key": "5fd387f759dc1fdf33af340fe5ec20c50076a22f",
-        "name": "CL/Card/Process",
+        "name": "Card/Process",
         "props": [
           "Title",
           "Desc",
@@ -284,7 +284,7 @@
       "figma": {
         "node": "14:95",
         "key": "7552f342698ee6642fa817f888ab54b3ab5334b6",
-        "name": "CL/Card/Step",
+        "name": "Card/Step",
         "props": [
           "Title",
           "Desc",
@@ -301,7 +301,7 @@
       "figma": {
         "node": "14:103",
         "key": "4ade6e57ae7d7e01050f9a2e43451081ec21713c",
-        "name": "CL/Card/Prep",
+        "name": "Card/Prep",
         "props": [
           "Title"
         ]
@@ -318,7 +318,7 @@
       "figma": {
         "node": "13:112",
         "key": "f0dd1e3883b064c680779d8bfe8c73c1e7265c97",
-        "name": "CL/Accordion",
+        "name": "Accordion",
         "props": [
           "Number",
           "Question",
@@ -339,7 +339,7 @@
       "figma": {
         "node": "15:114",
         "key": "b1a47a95845167c6a37ce7e3087a044d80209e43",
-        "name": "CL/Header",
+        "name": "Header",
         "props": [
           "Size"
         ]
@@ -356,7 +356,7 @@
       "figma": {
         "node": "15:116",
         "key": "d962982f73d1ced7341557f1b6027b2188905d6e",
-        "name": "CL/Footer",
+        "name": "Footer",
         "props": []
       }
     }
