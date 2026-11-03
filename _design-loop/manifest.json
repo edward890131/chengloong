@@ -79,7 +79,12 @@
       },
       "adjust": "",
       "pages_note": "",
-      "assets": "55:360"
+      "assets": {
+        "name": "Guideline · 12 素材母版",
+        "id": "5:41",
+        "frame": "191:4445",
+        "note": "原素材 Component page（55:360）併入；該 page 只剩使用者的調整區暫存物件"
+      }
     },
     "pages_note": "design：功能代碼 → { name, id }，例 \"A\": { \"name\": \"A 登入註冊\", \"id\": \"\" }。舊格式是單一字串，照舊運作。結構見 core/figma-pages.md"
   },

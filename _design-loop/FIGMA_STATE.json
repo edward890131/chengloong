@@ -45,7 +45,8 @@
     "10 · 素材": "16:211",
     "00 · Guideline 版型元件": "6:25",
     "00 · Icons": "10:37",
-    "11": "189:3199"
+    "11": "189:3199",
+    "12": "191:4445"
   },
   "components": {
     "Button": "12:102",
@@ -189,7 +190,8 @@
     "新元件：Paper Slider（手機 03 三張卡，Card=1–3，每張 335）、Green Cards Slider（手機 05 兩張卡，Card=2 往左 309）——箭頭 disabled 透明度照網站改 0.2（原稿 0.3）；Certificate Doc（Desktop/Tablet × Default/Hover：scrim/40＋查看）、Certificate Modal（三寬度，遮罩 scrim/72、面板 1019×820／688×944／343×485）、Modal Close（L44/S40，hover 變綠）、Photo/Green/certificate-full、Icon/Close；Header 加 Menu=Closed/Open（Compact/Mobile 漢堡變 X）；Menu Panel（Tablet 420 靠右／Mobile 全寬，list 345/310、actions 160 同網站）。",
     "延伸狀態頁：區塊標題改 DS/Section Tag（scrim/56 膠囊、白字 Title/L/Bold，參考 Pikki 樣板 state）；主畫面／規格說明／延伸狀態之間加 Divider（border/default 1px，01／04 使用者改成並排的區塊用直線）；DS/Spec Item 加 Link 列（Show Link 布林），每項顯示「→ 延伸狀態 X-1～X-n」並連到該組，沒有狀態的項目隱藏。使用者已把各段包進橫排框 A 首頁_延伸狀態（163:18226）。",
     "使用者把延伸狀態框 A 首頁_延伸狀態（163:18226）移到 A 首頁 page（5:43）。各段「規格說明」區塊加灰底：surface/muted、圓角 24、內距 40。",
-    "Guideline 更新：05／06／07 每個元件包成區塊（Subheading＋母版＋說明＋「狀態」表格，DS/State Label 列標題，表格底 surface/muted 圓角 20，參考 Pikki Button 狀態表）；新增 11 段落元件（首屏、服務流程、綠點與數位證明、常見問題、手機卡片輪播、CTA，各元件附狀態表），5 個暫放框收進後刪除；FAQ List／Tabs、Process Cards 母版改成網格排列；章節 01–11 由左到右重排不重疊；00 使用方式目錄加 11、00 版型元件加文件元件說明；registry.json 補 17 個元件（35 筆）。"
+    "Guideline 更新：05／06／07 每個元件包成區塊（Subheading＋母版＋說明＋「狀態」表格，DS/State Label 列標題，表格底 surface/muted 圓角 20，參考 Pikki Button 狀態表）；新增 11 段落元件（首屏、服務流程、綠點與數位證明、常見問題、手機卡片輪播、CTA，各元件附狀態表），5 個暫放框收進後刪除；FAQ List／Tabs、Process Cards 母版改成網格排列；章節 01–11 由左到右重排不重疊；00 使用方式目錄加 11、00 版型元件加文件元件說明；registry.json 補 17 個元件（35 筆）。",
+    "Guideline 每章外框改白底（surface/default）；原本透明／白底的元件組內層改 surface/muted、圓角 16；00 · Icons 白色 icon 改放進深色 Icon Tray（surface/neutral）。素材 Component page 的 9 組素材母版搬進 Guideline 新章 12 · 素材母版（191:4445，兩欄 wrap），曲線 plate 底改 surface/muted；封面框改用 DS/Section Header 後刪除；文字與元件說明中的「素材 Component」改指第 12 章。素材 page 剩使用者暫存物件（2 張原圖、圖片替換、Card · 綠點存摺）未動。"
   ],
   "drafts": {
     "A-01 首頁": {
