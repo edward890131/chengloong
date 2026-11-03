@@ -97,7 +97,10 @@
     "DS/Spec Item": "155:4729",
     "Section/04 服務流程 · 1440": "153:4286",
     "Section/04 服務流程 · 768": "153:4288",
-    "Section/04 服務流程 · 375": "153:4290"
+    "Section/04 服務流程 · 375": "153:4290",
+    "FAQ List": "169:2409",
+    "FAQ Tabs": "169:2410",
+    "Hero Tag Tip": "161:1926"
   },
   "notes": [
     "Noto Sans TC 600→Medium",
@@ -166,7 +169,11 @@
     "新元件：Process Panel 153:1477（Tab=預約步驟/送廠前的準備/當天進場流程·家紙/工紙 × Breakpoint；768/375 頁籤 2、3 依網站量測新建；variants 外層 vertical AL 包 Content，instance 才會跟著頁籤換高度）；Process Cards 153:4922（Active=1–4 × Breakpoint，AFTER_TIMEOUT 8s SMART_ANIMATE 0.7s cubic-bezier .65,0,.35,1；非選中卡 ON_HOVER（手機 ON_CLICK）切換）；Process Tabs 155:1969（Selected=1–3 × Breakpoint，手機 Track 往左 0/29/89 同網站捲動）。三張稿 04 段落改成 Section/04 元件（in place），Tabs／Cards／Panel 換成上述 instance，稿高不變。",
     "Tooltip 改為元件組 156:1916：Arrow=Center/Right × Width=Hug/260（Right：箭頭距右 10，手機步驟 03 用）。",
     "Section/04 三個元件各自設 explicit mode（Desktop/Tablet/Mobile），放到其他 page 的 instance 才會用對尺寸。",
-    "Prep Card 平板／手機：網站標題與分隔線間距 19／11（分隔線 margin -1），Figma 用 itemSpacing 20／12＋paddingBottom 減 1，總高一致、分隔線與內容位置差 1px。"
+    "Prep Card 平板／手機：網站標題與分隔線間距 19／11（分隔線 margin -1），Figma 用 itemSpacing 20／12＋paddingBottom 減 1，總高一致、分隔線與內容位置差 1px。",
+    "延伸狀態：01 首屏、02、06、07、08、09 完成；規格說明標題加連結（跳到對應延伸狀態組，底線）；DS/Marker 改品牌紅 #E60012（文件專用色，不是網站 token）。",
+    "三張稿 01–08 段落都轉成 Section/… 元件（in place，各自 explicit mode）；07 的列表與頁籤換成 FAQ List（Tab=1–3 × Breakpoint，高度同網站 588/372/500、588/372/532、548/398/574）、FAQ Tabs（手機選第 3 個往左 89）。",
+    "Tooltip 新增 Arrow=None（Width=Hug/260）：首屏數據 tooltip 本體寬 320／280／200，箭頭（Icon/Tooltip Arrow 11:42）另外對準 icon。Hero Tag Tip 161:1926：手機三顆標籤展開說明，Tag=1–3 箭頭 x 27／102／176。",
+    "Process Panel 手機／平板照片改用量測方式對齊網站（填滿寬、置中）；Content 內子層 constraints 全改 MIN，避免面板高度改變時照片被縮放。"
   ],
   "drafts": {
     "A-01 首頁": {
@@ -197,7 +204,13 @@
       "page": "157:1899",
       "reading": "157:1900",
       "sections": {
-        "04": "157:1927"
+        "04": "157:1927",
+        "01": "164:5407",
+        "02": "167:8367",
+        "06": "167:8202",
+        "07": "170:9688",
+        "08": "166:7483",
+        "09": "166:7888"
       },
       "old_board_to_delete": "50:1628"
     }
