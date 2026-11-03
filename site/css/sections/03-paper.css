@@ -141,7 +141,7 @@
 }
 .cl-paper__note-row {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: var(--cl-space-40);
 }
 .cl-paper__note-text {
