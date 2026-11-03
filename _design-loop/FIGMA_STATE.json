@@ -134,7 +134,10 @@
     "2026-11-03：③ Card/Paper 改成元件組（98:2753）Breakpoint=Desktop（上下撐開、固定高）／Tablet／Mobile（內容往上排、HUG）；內距與間距走變數",
     "2026-11-03：④ Asset/Curve 13 組合併為元件組（hero、about、paper、process、green-points、green-certificates、strip、cta、footer、process-card-1..4），屬性 Breakpoint=Desktop／Tablet／Mobile",
     "2026-11-03：⑤ 新增 Hero Metrics（98:3202）、Hero Feature（98:3325）元件組（Breakpoint 三變體，放 Guideline page「Hero（首屏數據區／特色標籤）」），三張稿改用 instance",
-    "2026-11-03：Tablet／Mobile 變體在母版上設 explicit mode（Header Compact／Mobile、Footer、Hero Cover、Card/Process、Card/Paper、Accordion S、Hero Metrics／Feature），母版畫面即顯示對應寬度數值"
+    "2026-11-03：Tablet／Mobile 變體在母版上設 explicit mode（Header Compact／Mobile、Footer、Hero Cover、Card/Process、Card/Paper、Accordion S、Hero Metrics／Feature），母版畫面即顯示對應寬度數值",
+    "2026-11-03：動態示範——Prototype：Hero Feature 改為 Window＋List 結構，加 Slide=1–3（Desktop／Tablet），AFTER_TIMEOUT 4s→下一則、SMART_ANIMATE 0.6s ease-out（網站 01-hero.js）；寬度改 348 與網站一致。Hero Cover 各寬度 Slide 1→2→3→4→1：AFTER_TIMEOUT 10s 與 ON_CLICK，DISSOLVE 0.6s ease-out。A 首頁 page 加三個 flow 起點",
+    "2026-11-03：動態示範——Figma Motion（manual keyframes，可 export_video）：M-01 串場照片 22.4s（淡入 0.4→平移 10s 至中點 -580→停 0.8→平移 10s 至終點 -1160→停 0.8→淡出 0.4，網站 06-strip.css）；M-02 標語跑馬燈兩份接續平移 -1534／41.23s（37.2px/s，09-footer.js）；M-03 首屏 120.6s（特色標籤 12s 一輪與封面 40s 一輪的公倍數，無縫循環）。已匯出影片抽影格驗證",
+    "2026-11-03：1440 串場照片 Track x 151→0（網站靜態起點 translateX(0)）"
   ],
   "drafts": {
     "A-01 首頁": {
@@ -153,5 +156,11 @@
     "A-01 v0 依 HTML 擷取逐段校正（hero 數據區、綠點卡內容、手機流程卡、footer 手機版）",
     "每段落樣板區（三寬＋規格＋延伸狀態＋RWD 邊界）尚未拆出",
     "figma_audit 驗收未跑（需要圖片後再跑）"
-  ]
+  ],
+  "motion": {
+    "section": "動態示範（Motion）",
+    "M-01 串場照片 1440": "102:2920",
+    "M-02 Footer 標語 1440": "102:2953",
+    "M-03 首屏 1440": "102:3022"
+  }
 }
