@@ -58,7 +58,7 @@
     "Info Card": "13:79",
     "Tile": "14:138",
     "Card/About": "14:64",
-    "Card/Paper": "14:71",
+    "Card/Paper": "98:2753",
     "Card/Process": "14:93",
     "Card/Step": "14:95",
     "Card/Prep": "14:103",
@@ -85,7 +85,9 @@
     "Footer/Size=Desktop": "15:116",
     "Footer/Size=Tablet": "70:370",
     "Header/Size=Mobile": "77:364",
-    "Footer/Size=Mobile": "84:384"
+    "Footer/Size=Mobile": "84:384",
+    "Hero Metrics": "98:3202",
+    "Hero Feature": "98:3325"
   },
   "notes": [
     "Noto Sans TC 600→Medium",
@@ -126,7 +128,13 @@
     "2026-11-03：B-01 768／375 改用 Header Compact／Mobile、Footer Tablet／Mobile；1440 Header「服務條款」為目前頁 text/accent",
     "2026-11-03：首頁三寬度圓角逐一對網站（程式比對所有 border-radius 元素）：CTA 卡 32→20（radius/xl，三寬度）；預約示意圖 1440／768 16→12（radius/md），375 維持 16；375 綠點輪播圖、數位證明 16→12；375 預約步驟清單補灰底 surface/subtle＋圓角 16（網站 .cl-process__steps 只在手機有底）",
     "2026-11-03：375 FAQ 改用 Accordion Size=S（原本用 L 再手動覆寫內距）並清除覆寫",
-    "2026-11-03：Button/L 文字樣式行高改綁 type/button/l/line-height＝26（網站 normal，Noto Sans TC 18px 實際 26），Button L 高 56→58 與網站一致；hero CTA instance 原本卡在 FIXED 56 一併修正"
+    "2026-11-03：Button/L 文字樣式行高改綁 type/button/l/line-height＝26（網站 normal，Noto Sans TC 18px 實際 26），Button L 高 56→58 與網站一致；hero CTA instance 原本卡在 FIXED 56 一併修正",
+    "2026-11-03：RWD 整理（使用者：全部都做）：① 新變數 layout/radius-strip（20／12／8）、radius-info-card（12／12／8）、radius-paper（12／12／16）、radius-green-media（16／16／12）、step-gap（24／24／16）、step-text-pad（22／22／14），綁母版與三張稿，取代手動覆寫；Card/Step 桌機母版原本 48＋24 使文字偏右 24，改為 gap 一半＋一半，1440 文字位置對齊網站 135",
+    "2026-11-03：② Card/Process 加 Breakpoint=Tablet（171×400、Body 32/20、間距 16、Title/S、768 曲線）；768 instance 改用並清除覆寫",
+    "2026-11-03：③ Card/Paper 改成元件組（98:2753）Breakpoint=Desktop（上下撐開、固定高）／Tablet／Mobile（內容往上排、HUG）；內距與間距走變數",
+    "2026-11-03：④ Asset/Curve 13 組合併為元件組（hero、about、paper、process、green-points、green-certificates、strip、cta、footer、process-card-1..4），屬性 Breakpoint=Desktop／Tablet／Mobile",
+    "2026-11-03：⑤ 新增 Hero Metrics（98:3202）、Hero Feature（98:3325）元件組（Breakpoint 三變體，放 Guideline page「Hero（首屏數據區／特色標籤）」），三張稿改用 instance",
+    "2026-11-03：Tablet／Mobile 變體在母版上設 explicit mode（Header Compact／Mobile、Footer、Hero Cover、Card/Process、Card/Paper、Accordion S、Hero Metrics／Feature），母版畫面即顯示對應寬度數值"
   ],
   "drafts": {
     "A-01 首頁": {
