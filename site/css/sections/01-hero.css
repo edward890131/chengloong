@@ -467,6 +467,8 @@
     height: 100%;
   }
   .cl-hero__slide--1 { object-position: 50% 45%; }
+  /* cover-1 原圖上下各有約 1% 黑邊（影片截圖），填滿 cover 時會露出：上下各多放 1% 藏到框外 */
+  .cl-hero__slide--1 { top: -1%; height: 102%; }
   .cl-hero__slide--2 { object-position: 40% 50%; }
   .cl-hero__slide--3 { object-position: 30% 55%; }
   .cl-hero__slide--4 { object-position: 30% 45%; }
