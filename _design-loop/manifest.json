@@ -65,7 +65,11 @@
       "design": {
         "A": {
           "name": "A 首頁",
-          "id": "5:43"
+          "id": "5:43",
+          "states": {
+            "name": "A 首頁 · 延伸狀態",
+            "id": "157:1899"
+          }
         },
         "B": {
           "name": "B 服務條款",
@@ -73,7 +77,8 @@
         }
       },
       "adjust": "",
-      "pages_note": ""
+      "pages_note": "",
+      "assets": "55:360"
     },
     "pages_note": "design：功能代碼 → { name, id }，例 \"A\": { \"name\": \"A 登入註冊\", \"id\": \"\" }。舊格式是單一字串，照舊運作。結構見 core/figma-pages.md"
   },

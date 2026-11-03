@@ -52,7 +52,7 @@
     "Section Head": "13:69",
     "Tab": "12:130",
     "Segmented": "12:191",
-    "Tooltip": "12:192",
+    "Tooltip": "156:1916",
     "Pill": "12:122",
     "Panel": "13:70",
     "Info Card": "13:79",
@@ -89,7 +89,15 @@
     "Hero Metrics": "98:3202",
     "Hero Feature": "98:3325",
     "Green Points Slider": "125:3319",
-    "Photo/Green/paper-dandelion": "125:3167"
+    "Photo/Green/paper-dandelion": "125:3167",
+    "Process Panel": "153:1477",
+    "Process Cards": "153:4922",
+    "Process Tabs": "155:1969",
+    "DS/Marker": "155:4727",
+    "DS/Spec Item": "155:4729",
+    "Section/04 服務流程 · 1440": "153:4286",
+    "Section/04 服務流程 · 768": "153:4288",
+    "Section/04 服務流程 · 375": "153:4290"
   },
   "notes": [
     "Noto Sans TC 600→Medium",
@@ -153,7 +161,12 @@
     "客戶換圖（2026-11-03，調整區 127:1351）：step3-tissue、paper-dandelion 依調整區裁切匯出 1024 寬 webp 到網站；Figma 母版 55:395、125:3167 的 Image 改新原圖＋CROP，三張稿自動更新。調整區 127:1351 保留，使用者確認後可刪。",
     "paper-dandelion 依使用者再調整（127:1349 改 0,-76 909×682）重新裁切：網站 webp 與母版 125:3167 CROP 同步。",
     "綠點輪播第 2 張排版改為高度填滿圖卡、左右裁切（object-position 58% 50%）：網站 05-green.css 三寬度；Figma Green Points Slider Slide=2 的 paper instance 684×456 @-188（Desktop）、684×456 @-208（Tablet）、621×414 @-184（Mobile）。",
-    "step3-tissue 依使用者再調整（127:1347 改 -123,-44 905×678）重新裁切：網站 webp 與母版 55:395 CROP 同步。"
+    "step3-tissue 依使用者再調整（127:1347 改 -123,-44 905×678）重新裁切：網站 webp 與母版 55:395 CROP 同步。",
+    "延伸狀態頁 A 首頁 · 延伸狀態（157:1899）：00 閱讀方式＋04 服務流程（主畫面三寬度＋標號 A–E、規格說明、延伸狀態 A-1～D-1，cell 為 Section/04 instance 裁切框＋覆寫）。其他段落待使用者確認格式後再做；舊狀態板 50:1628 全部併入後刪除。",
+    "新元件：Process Panel 153:1477（Tab=預約步驟/送廠前的準備/當天進場流程·家紙/工紙 × Breakpoint；768/375 頁籤 2、3 依網站量測新建；variants 外層 vertical AL 包 Content，instance 才會跟著頁籤換高度）；Process Cards 153:4922（Active=1–4 × Breakpoint，AFTER_TIMEOUT 8s SMART_ANIMATE 0.7s cubic-bezier .65,0,.35,1；非選中卡 ON_HOVER（手機 ON_CLICK）切換）；Process Tabs 155:1969（Selected=1–3 × Breakpoint，手機 Track 往左 0/29/89 同網站捲動）。三張稿 04 段落改成 Section/04 元件（in place），Tabs／Cards／Panel 換成上述 instance，稿高不變。",
+    "Tooltip 改為元件組 156:1916：Arrow=Center/Right × Width=Hug/260（Right：箭頭距右 10，手機步驟 03 用）。",
+    "Section/04 三個元件各自設 explicit mode（Desktop/Tablet/Mobile），放到其他 page 的 instance 才會用對尺寸。",
+    "Prep Card 平板／手機：網站標題與分隔線間距 19／11（分隔線 margin -1），Figma 用 itemSpacing 20／12＋paddingBottom 減 1，總高一致、分隔線與內容位置差 1px。"
   ],
   "drafts": {
     "A-01 首頁": {
@@ -178,5 +191,15 @@
     "M-01 串場照片 1440": "102:2920",
     "M-02 Footer 標語 1440": "102:2953",
     "M-03 首屏 1440": "102:3022"
+  },
+  "states": {
+    "A": {
+      "page": "157:1899",
+      "reading": "157:1900",
+      "sections": {
+        "04": "157:1927"
+      },
+      "old_board_to_delete": "50:1628"
+    }
   }
 }
