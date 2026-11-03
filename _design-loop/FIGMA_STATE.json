@@ -151,7 +151,8 @@
     "平板 hero cover-1 原圖上下約 1% 黑邊：網站 641–1100 slide-1 top -1%／height 102%；Figma Hero Cover Slide=1 Tablet 的 cover-1 改 893×512 at -159,-5。",
     "客戶文案（2026-11-03）：03 紙張 Note Text、05 綠點 Lead 三寬度同步（網站 src partial＋build、Figma 三張稿）。客戶稿「水利散漿」視為筆誤，保留「水力散漿」；Note 句尾補「。」。",
     "客戶換圖（2026-11-03，調整區 127:1351）：step3-tissue、paper-dandelion 依調整區裁切匯出 1024 寬 webp 到網站；Figma 母版 55:395、125:3167 的 Image 改新原圖＋CROP，三張稿自動更新。調整區 127:1351 保留，使用者確認後可刪。",
-    "paper-dandelion 依使用者再調整（127:1349 改 0,-76 909×682）重新裁切：網站 webp 與母版 125:3167 CROP 同步。"
+    "paper-dandelion 依使用者再調整（127:1349 改 0,-76 909×682）重新裁切：網站 webp 與母版 125:3167 CROP 同步。",
+    "綠點輪播第 2 張排版改為高度填滿圖卡、左右裁切（object-position 58% 50%）：網站 05-green.css 三寬度；Figma Green Points Slider Slide=2 的 paper instance 684×456 @-188（Desktop）、684×456 @-208（Tablet）、621×414 @-184（Mobile）。"
   ],
   "drafts": {
     "A-01 首頁": {
