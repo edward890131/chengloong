@@ -96,7 +96,7 @@
   "integer_policy": {
     "grid_remainder": "undecided",
     "exceptions": [
-      "CL/Icon/* 內部向量"
+      "Icon/* 內部向量"
     ]
   },
   "token_map": [],
