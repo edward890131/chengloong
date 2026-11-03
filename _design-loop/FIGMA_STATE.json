@@ -89,7 +89,8 @@
     "Footer 標語寬度與網站差幾 px",
     "Process Card：網站手機版版型待依擷取校正",
     "Figma 無法解碼 WebP（getSizeAsync 失敗、畫面空白），上傳一律轉 PNG/JPG",
-    "CTA 卡改為 bg-composite 照片＋scrim/56（原組裝稿誤用綠底）；FAQ 題號改不換行"
+    "CTA 卡改為 bg-composite 照片＋scrim/56（原組裝稿誤用綠底）；FAQ 題號改不換行",
+    "2026-11-03：Text／Effect／Paint Style 名稱去掉 CL/ 前綴（例 Title/XL/Bold、Blur LG、Scrim/Hero Fade）；元件仍用 CL/ 開頭"
   ],
   "drafts": {
     "A-01 首頁": {
