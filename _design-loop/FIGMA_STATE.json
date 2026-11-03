@@ -64,7 +64,7 @@
     "Card/Prep": "14:103",
     "Accordion": "13:112",
     "Header": "15:114",
-    "Footer": "15:116",
+    "Footer": "70:433",
     "Logo": "15:73",
     "DS/Section Header": "6:26",
     "DS/Subheading": "6:30",
@@ -81,7 +81,9 @@
     "Icon/Tooltip Arrow": "11:42",
     "Icon/Badge Check": "11:45",
     "Icon/Hand Heart": "11:48",
-    "Value Cycle": "42:247"
+    "Value Cycle": "42:247",
+    "Footer/Size=Desktop": "15:116",
+    "Footer/Size=Tablet": "70:370"
   },
   "notes": [
     "Noto Sans TC 600→Medium",
@@ -103,12 +105,18 @@
     "2026-11-03：新增「素材 Component」page（Pikki 格式）：Photo/Hero、Paper、Process、Green、Strip、CTA、Illustration/About、Asset/Curve、Brand；每個母版＝1440 實際顯示尺寸與網站裁切。設計稿、狀態板、元件母版內的圖片全部改成 instance（768／375 用裁切框等比填滿）。Card/Step 數字框固定 40 高（對齊網站）",
     "2026-11-03：Hero Cover（Slide=1–4）與 CTA Background（State=Default／Zoom In）元件組；CTA 遮罩改在元件內最上層（原本 scrim 在圖片下面導致變淡）；預約步驟示意、串場照片補回圓角",
     "2026-11-03：進場路線圖改成向量＋文字圖層（從舊稿 2266:7827／2266:7774 匯入 SVG、移除外框文字、重建文字），網站仍用整張 @2x 圖",
-    "規則（使用者 2026-11-03）：圖片元件本身不設圓角，圓角設在外層「（圓角框）」frame 並裁切；Hero Cover 也照此處理。CTA 遮罩照網站固定 scrim/56"
+    "規則（使用者 2026-11-03）：圖片元件本身不設圓角，圓角設在外層「（圓角框）」frame 並裁切；Hero Cover 也照此處理。CTA 遮罩照網站固定 scrim/56",
+    "2026-11-03：A-01 768 重建（63:2272，取代 17:457）：逐段依網站 768×1024 量測對位，整頁 10563（網站 10564）。新增 Asset/Curve/*-768（hero、about、paper、process、green-points、green-certificates、strip、cta、footer）與 process-card-1..4-768",
+    "2026-11-03：照片元件一律改存整張圖（網站 1440 實際 img 尺寸），裁切放外層框：Photo/Paper step2/step3、Photo/Process card1–4（Card/Process 內改 CENTER 約束，窄卡不再擠壓照片）、Photo/Green/esg-hand、Photo/Strip ×6、Photo/Process/booking-mockup（1315×986）",
+    "2026-11-03：新增變數 layout/process-card-icon（64／48／32），綁 Card/Process icon 寬高；Footer 改成元件組 Size=Desktop／Tablet（70:433）",
+    "2026-11-03：Eyebrow Size=S 標籤移除 minHeight 16（Section Head 因此每段多 1px），1440 全頁 9780→9775（網站 9774）",
+    "2026-11-03：Info Card Tone=Accent 補表頭（Dot＋標題＋Rule，DS_GAPS #2）；Card/Step 加 Show Info 屬性與 Icon/Info（DS_GAPS #4），步驟 03 開啟",
+    "768 instance 覆寫（平板值，網站 CSS 斷點）：Card/Process 標題 Title/S、Body 內距 20／32；Card/Paper 內距 28 與 MIN 對齊（文字卡 HUG、照片撐滿）；Card/Step 間距 24；Footer Tablet 標語 46/55（網站 vw 字級，脫離 Display/XXL）"
   ],
   "drafts": {
     "A-01 首頁": {
       "1440": "17:139",
-      "768": "17:457",
+      "768": "63:2272",
       "375": "17:768",
       "states_1440": "50:1628"
     },

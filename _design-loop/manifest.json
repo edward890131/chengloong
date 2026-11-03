@@ -101,7 +101,8 @@
       "Logo、Ecolabel/* 內部向量與群組（SVG 原始精度、標章原色不綁變數）",
       "Tab 手機 mode 選中白點 y .5（Label/L 手機行高 23 為奇數）",
       "Section Head 內 Eyebrow 依文案寬度置中可能出 .5（instance 內不能覆寫 min-width）",
-      "Value Cycle：原稿 1200×560 座標與小數字級（網站以 cqw 縮放），768／375 instance 等比縮放"
+      "Value Cycle：原稿 1200×560 座標與小數字級（網站以 cqw 縮放），768／375 instance 等比縮放",
+      "Footer Tablet 標語字級 46（網站 6vw＝45.87），不套文字樣式"
     ]
   },
   "token_map": [],
@@ -124,6 +125,10 @@
     {
       "date": "2026-11-03",
       "item": "Hero 文字套最接近的樣式（1440×800 下字級一致；Title 字距網站 2px、樣式 1px）"
+    },
+    {
+      "date": "2026-11-03",
+      "item": "768 價值循環用 Value Cycle instance 等比縮放 616/1200 放進 Stage 框（網站同一張圖以 cqw 縮放）"
     }
   ]
 }
