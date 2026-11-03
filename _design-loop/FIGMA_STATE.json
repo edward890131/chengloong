@@ -119,7 +119,8 @@
     "2026-11-03：新增 Asset/Curve/*-375（hero、about、paper、process、green-points、green-certificates、strip、cta、footer）與 process-card-1..4-375",
     "2026-11-03：新增變數 layout/step-num-h（40／40／29，Card/Step 數字框）、layout/tile-icon（40／40／32，Tile icon）、layout/faq-icon（32／32／24，Accordion icon）；About 面板內距離改綁 space/12（網站 .cl-about__inner gap 12，不是 panel-gap）",
     "2026-11-03：Card/Step info icon 改 scrim/40（網站 icon-info.svg #111 透明度 .4；Icon/Info 母版是 Hero 用的白色）",
-    "375 instance 覆寫（手機值，網站 CSS 斷點）：Hero 數據區漸層（上透明→67% 綠）、卡片右上圓角 40；Card/Step 間距 16＋文字左內距 14；FAQ 答案內距 16/40/4/56；Info Card 圓角 8；串場照片圓角 radius/sm"
+    "375 instance 覆寫（手機值，網站 CSS 斷點）：Hero 數據區漸層（上透明→67% 綠）、卡片右上圓角 40；Card/Step 間距 16＋文字左內距 14；FAQ 答案內距 16/40/4/56；Info Card 圓角 8；串場照片圓角 radius/sm",
+    "2026-11-03：Tile icon 改包在 Icon Slot（綁 layout/tile-icon，icon SCALE），並加 INSTANCE_SWAP 屬性 Icon；原本替換過 icon 的 instance 吃不到尺寸變數，手機仍是 40"
   ],
   "drafts": {
     "A-01 首頁": {
