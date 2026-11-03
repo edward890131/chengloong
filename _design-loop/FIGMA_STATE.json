@@ -92,7 +92,7 @@
     "CTA 卡改為 bg-composite 照片＋scrim/56（原組裝稿誤用綠底）；FAQ 題號改不換行",
     "2026-11-03：Text／Effect／Paint Style 名稱去掉 CL/ 前綴（例 Title/XL/Bold、Blur LG、Scrim/Hero Fade）",
     "2026-11-03：元件名稱也去掉 CL/ 前綴（例 Button、Card/About、Icon/Arrow）；Guideline 版型元件維持 DS/",
-    "2026-11-03：Guideline 02 文字依 Pikki 格式重建（字體家族＋24 列樣式總表＋使用位置＋整併建議）；31 個樣式網站都有用到，12 個只用 1 處"
+    "2026-11-03：Guideline 02 文字依 Pikki 格式重建（字體家族＋24 列樣式總表＋使用位置）；31 個樣式網站都有用到，12 個只用 1 處"
   ],
   "drafts": {
     "A-01 首頁": {
