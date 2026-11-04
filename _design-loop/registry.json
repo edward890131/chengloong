@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-02",
+  "updated": "2026-11-03",
   "note": "CSS class ↔ Guideline 章節 ↔ Figma 母版 ↔ 設計稿對照。token 對應看 Figma 變數 codeSyntax（token_diff.py），不寫在這裡。properties 的 key 含 # 後綴（setProperties 用完整 key；VARIANT 用屬性名）。status：synced｜gap｜web-only｜figma-only。pages[] 的 status：active｜removed（removed 要填 removed_on，同一個 code 只能有一筆不是 removed；見 core/figma-pages.md §2）。",
   "components": {
     "Button": {
@@ -135,11 +135,13 @@
         ".cl-hero__tag-tip-body"
       ],
       "figma": {
-        "node": "12:192",
-        "key": "7075a67a70d5d2fa58f9df2d648b91cebb096cd3",
+        "node": "156:1916",
+        "key": "66024e7c05d1f48dcbc591496774bbab1624e425",
         "name": "Tooltip",
         "props": [
-          "Text"
+          "Text#156:0",
+          "Arrow",
+          "Width"
         ]
       }
     },
@@ -269,9 +271,9 @@
         "key": "5fd387f759dc1fdf33af340fe5ec20c50076a22f",
         "name": "Card/Process",
         "props": [
-          "Title",
-          "Desc",
-          "State"
+          "Step",
+          "State",
+          "Breakpoint"
         ]
       }
     },
@@ -320,9 +322,9 @@
         "key": "f0dd1e3883b064c680779d8bfe8c73c1e7265c97",
         "name": "Accordion",
         "props": [
-          "Number",
-          "Question",
-          "Answer",
+          "Number#13:18",
+          "Question#13:23",
+          "Answer#13:28",
           "Size",
           "State"
         ]
@@ -341,7 +343,8 @@
         "key": "b1a47a95845167c6a37ce7e3087a044d80209e43",
         "name": "Header",
         "props": [
-          "Size"
+          "Size",
+          "Menu"
         ]
       }
     },
@@ -358,6 +361,271 @@
         "key": "d962982f73d1ced7341557f1b6027b2188905d6e",
         "name": "Footer",
         "props": []
+      }
+    },
+    "Hero Feature": {
+      "css": ".cl-hero__feature",
+      "file": "site/css/sections/01-hero.css",
+      "description": "首屏特色膠囊垂直輪播／手機三顆標籤",
+      "guideline": "11 段落元件 · 首屏",
+      "status": "synced",
+      "figma": {
+        "node": "98:3325",
+        "key": "3a2ac9672cec96be6514bcc6c464ce375db30f97",
+        "props": [
+          "Breakpoint",
+          "Slide"
+        ],
+        "name": "Hero Feature"
+      }
+    },
+    "Hero Metrics": {
+      "css": ".cl-hero__num",
+      "file": "site/css/sections/01-hero.css",
+      "description": "首屏數據區",
+      "guideline": "11 段落元件 · 首屏",
+      "status": "synced",
+      "figma": {
+        "node": "98:3202",
+        "key": "a2939b3637bc7933cd9787c636b12e8dc96c96a0",
+        "props": [
+          "Breakpoint"
+        ],
+        "name": "Hero Metrics"
+      }
+    },
+    "Hero Tag Tip": {
+      "css": ".cl-hero__tag-tip",
+      "file": "site/css/sections/01-hero.css",
+      "description": "手機標籤展開說明",
+      "guideline": "11 段落元件 · 首屏",
+      "status": "synced",
+      "figma": {
+        "node": "161:1926",
+        "key": "3302349bf578458774921de64df4893e692471a0",
+        "props": [
+          "Tag"
+        ],
+        "name": "Hero Tag Tip"
+      }
+    },
+    "Hero Cover": {
+      "css": ".cl-hero__cover",
+      "file": "site/css/sections/01-hero.css",
+      "description": "首屏封面輪播（素材 Component page）",
+      "guideline": "11 段落元件 · 首屏",
+      "status": "synced",
+      "figma": {
+        "node": "59:291",
+        "key": "7736a8b2645e4443d6fec5abe1cb4e92e1b9604e",
+        "props": [
+          "Slide",
+          "Breakpoint"
+        ],
+        "name": "Hero Cover"
+      }
+    },
+    "Process Cards": {
+      "css": ".cl-process__cards",
+      "file": "site/css/sections/04-process.css",
+      "description": "四格流程卡組合（8 秒輪播）",
+      "guideline": "11 段落元件 · 服務流程",
+      "status": "synced",
+      "figma": {
+        "node": "153:4922",
+        "key": "0a05c438efc443e7e3dd004b158b9be6497dcc8a",
+        "props": [
+          "Active",
+          "Breakpoint"
+        ],
+        "name": "Process Cards"
+      }
+    },
+    "Process Tabs": {
+      "css": ".cl-process__tabs",
+      "file": "site/css/sections/04-process.css",
+      "description": "詳細流程頁籤列",
+      "guideline": "11 段落元件 · 服務流程",
+      "status": "synced",
+      "figma": {
+        "node": "155:1969",
+        "key": "f21d926c172e79a8a5d992fa75b18416f4194575",
+        "props": [
+          "Selected",
+          "Breakpoint"
+        ],
+        "name": "Process Tabs"
+      }
+    },
+    "Process Panel": {
+      "css": ".cl-process__panel",
+      "file": "site/css/sections/04-process.css",
+      "description": "詳細流程面板（預約步驟／送廠前準備／進場流程家紙／工紙）",
+      "guideline": "11 段落元件 · 服務流程",
+      "status": "synced",
+      "figma": {
+        "node": "153:1477",
+        "key": "2d2923c40aa85c826dfba875e468d67905fd27c9",
+        "props": [
+          "Tab",
+          "Breakpoint"
+        ],
+        "name": "Process Panel"
+      }
+    },
+    "Green Points Slider": {
+      "css": ".cl-green__slider",
+      "file": "site/css/sections/05-green.css",
+      "description": "綠點圖卡輪播",
+      "guideline": "11 段落元件 · 綠點與數位證明",
+      "status": "synced",
+      "figma": {
+        "node": "125:3319",
+        "key": "b050d07e15ece3f9d0bff6a92c4d4b799b5dbf43",
+        "props": [
+          "Breakpoint",
+          "Slide"
+        ],
+        "name": "Green Points Slider"
+      }
+    },
+    "Certificate Doc": {
+      "css": ".cl-green__doc",
+      "file": "site/css/sections/05-green.css",
+      "description": "證明圖卡 hover 查看",
+      "guideline": "11 段落元件 · 綠點與數位證明",
+      "status": "synced",
+      "figma": {
+        "node": "174:2653",
+        "key": "44cc7c021212ef0e3dc1f80e5ae418d45670fad2",
+        "props": [
+          "Breakpoint",
+          "State"
+        ],
+        "name": "Certificate Doc"
+      }
+    },
+    "Modal Close": {
+      "css": ".cl-green__modal-close",
+      "file": "site/css/sections/05-green.css",
+      "description": "彈窗關閉鈕",
+      "guideline": "11 段落元件 · 綠點與數位證明",
+      "status": "synced",
+      "figma": {
+        "node": "174:2668",
+        "key": "067828c4d8734eea876489fae5593570643bad98",
+        "props": [
+          "Size",
+          "State"
+        ],
+        "name": "Modal Close"
+      }
+    },
+    "Certificate Modal": {
+      "css": ".cl-green__modal",
+      "file": "site/css/sections/05-green.css",
+      "description": "證明文件彈窗",
+      "guideline": "11 段落元件 · 綠點與數位證明",
+      "status": "synced",
+      "figma": {
+        "node": "174:2693",
+        "key": "1de9a0b0221ab15b68be437c94a90201845dbf70",
+        "props": [
+          "Breakpoint"
+        ],
+        "name": "Certificate Modal"
+      }
+    },
+    "FAQ Tabs": {
+      "css": ".cl-faq__tabs",
+      "file": "site/css/sections/07-faq.css",
+      "description": "常見問題分類頁籤",
+      "guideline": "11 段落元件 · 常見問題",
+      "status": "synced",
+      "figma": {
+        "node": "169:2410",
+        "key": "479ccecf672559dc829bb88326350902f76f779c",
+        "props": [
+          "Selected",
+          "Breakpoint"
+        ],
+        "name": "FAQ Tabs"
+      }
+    },
+    "FAQ List": {
+      "css": ".cl-faq__list",
+      "file": "site/css/sections/07-faq.css",
+      "description": "常見問題題目列表",
+      "guideline": "11 段落元件 · 常見問題",
+      "status": "synced",
+      "figma": {
+        "node": "169:2409",
+        "key": "70184547b9b2a3b19de5c44e7f01640f0f57f356",
+        "props": [
+          "Tab",
+          "Breakpoint"
+        ],
+        "name": "FAQ List"
+      }
+    },
+    "Paper Slider": {
+      "css": ".cl-paper__grid",
+      "file": "site/css/sections/03-paper.css",
+      "description": "手機紙張三張卡輪播",
+      "guideline": "11 段落元件 · 手機卡片輪播",
+      "status": "synced",
+      "figma": {
+        "node": "172:2253",
+        "key": "24c219695fa305db4099713663b68311a65437df",
+        "props": [
+          "Card"
+        ],
+        "name": "Paper Slider"
+      }
+    },
+    "Green Cards Slider": {
+      "css": ".cl-green__cards",
+      "file": "site/css/sections/05-green.css",
+      "description": "手機綠點兩張卡輪播",
+      "guideline": "11 段落元件 · 手機卡片輪播",
+      "status": "synced",
+      "figma": {
+        "node": "172:2611",
+        "key": "4ec3760a924183aa4b9e8aed458fc3b84a960801",
+        "props": [
+          "Card"
+        ],
+        "name": "Green Cards Slider"
+      }
+    },
+    "CTA Background": {
+      "css": ".cl-cta__bg",
+      "file": "site/css/sections/08-cta.css",
+      "description": "CTA 背景緩慢放大（素材 Component page）",
+      "guideline": "11 段落元件 · CTA",
+      "status": "synced",
+      "figma": {
+        "node": "59:302",
+        "key": "04731d9ba8725e62f4fcdf1249f0d63613a0a1bf",
+        "props": [
+          "State"
+        ],
+        "name": "CTA Background"
+      }
+    },
+    "Menu Panel": {
+      "css": ".cl-menu",
+      "file": "site/css/sections/01-hero.css",
+      "description": "漢堡選單面板",
+      "guideline": "07 Cards · Header",
+      "status": "synced",
+      "figma": {
+        "node": "177:2824",
+        "key": "7319c06853dcb9b95bf8851394e4353e1d35294b",
+        "props": [
+          "Breakpoint"
+        ],
+        "name": "Menu Panel"
       }
     }
   },
