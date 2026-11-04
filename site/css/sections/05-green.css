@@ -162,7 +162,8 @@
 .cl-green__info {
   position: absolute;
   left: 12px;
-  right: 133px;
+  /* 1440 稿寬 215（圖卡 360 − 左 12 − 右 133）；1201–1439 圖卡變窄時維持 215，不再跟著右邊 133 一起縮（原本會擠到 139 寬、斷成 7 行） */
+  width: min(215px, calc(100% - 24px));
   bottom: 12px;
   display: flex;
   flex-direction: column;
@@ -195,7 +196,7 @@
 }
 .cl-green__info-body {
   display: block;
-  margin-right: 0; /* 瀏覽器把最後一字的字距算進行寬，Figma 不算；不補會多斷一行 */
+  margin-right: -1px; /* 瀏覽器把最後一字的字距算進行寬，Figma 不算；留 1px 餘量，避免 1439 這類小數寬度多斷一行 */
   font-size: var(--cl-paragraph-s-fs);
   font-weight: var(--cl-fw-regular);
   line-height: var(--cl-paragraph-s-lh);
@@ -401,7 +402,7 @@
 @media (max-width: 1199px) and (min-width: 641px) {
   .cl-green__intro { padding: var(--cl-space-28) var(--cl-space-24) var(--cl-space-32); }
   .cl-green__esg-hand { width: max(136.67%, 492px); }
-  .cl-green__info { right: 12px; }
+  .cl-green__info { right: 12px; width: auto; }
 }
 
 /* ==========================================================================
@@ -513,7 +514,7 @@
   .cl-green__patch--bottom { height: 59.95px; }
   .cl-green__patch--top { height: 60.858px; }
 
-  .cl-green__info { left: 12px; right: 12px; bottom: 11.88px; border-radius: var(--cl-radius-sm); }
+  .cl-green__info { left: 12px; right: 12px; width: auto; bottom: 11.88px; border-radius: var(--cl-radius-sm); }
   .cl-green__dots { top: 16px; right: 16px; bottom: auto; }
 
   /* pdf：手機版為電腦版 0.9083 倍（311.56／343） */

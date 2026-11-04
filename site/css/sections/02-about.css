@@ -227,6 +227,12 @@
 }
 .cl-about__cycle-img { display: block; margin-top: var(--cl-space-40); }
 .cl-about__cycle-img img { width: 1200px; height: auto; }
+/* 1101–1439：版心比 1440 窄時循環圖等比縮小（原本固定 1200 會被外框裁掉左右）；1440 以上維持 1200 */
+@media (min-width: 1101px) {
+  .cl-about__cycle-img { align-self: stretch; display: flex; justify-content: center; padding: 0 var(--cl-space-24); }
+  .cl-about__cycle-stage { width: min(1200px, 100%); }
+  .cl-about__cycle-img img, .cl-about__cycle-img .cl-cycle-h { width: 100%; }
+}
 /* R1：三層疊放（下→上）：備援箭頭層 -band → Lottie → 圖示文字層 -nodes；-nodes 在流內撐出尺寸 */
 .cl-about__cycle-stage { position: relative; }
 .cl-about__cycle-band,
