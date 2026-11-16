@@ -41,6 +41,7 @@ site/
   preview/        設計審稿用工具，見「上線前要處理」
 _design-loop/     設計流程紀錄（網站與 Figma 的對照表、同步紀錄），不會被部署
 .claude/          Claude Code 設定與 design-loop skill，不會被部署
+docs/             交接文件：SEO-官網首頁交付規格.md（同事交付的 SEO 規格原檔）
 vercel.json       部署設定：只發布 site/
 ```
 
@@ -67,6 +68,8 @@ python3 .claude/skills/design-loop/scripts/tokens_build.py --help
 | 企業登入 | `src/_header.html`（header 與手機選單各一） |
 | 免費預約水銷 | `src/_header.html`（header 與手機選單各一）、`src/sections/01-hero.html` |
 | 已有預約？查詢狀態、立即預約 | `src/sections/08-cta.html` |
+
+「免費預約水銷」「立即預約」連到企業後台預約流程的第一步（demo 為 `/corp/book.html`），正式網址依企業後台上線網域設定（SEO 規格第 7 節）。
 | 頁尾 Logo | `src/sections/09-footer.html`（「回到頂部」已由 JS 處理，不用串） |
 
 ## 上線前要處理
@@ -76,11 +79,15 @@ python3 .claude/skills/design-loop/scripts/tokens_build.py --help
 
 ## SEO
 
-依同事交付的「官網首頁 SEO 交付規格」（2026-10-28）實作：`<head>` 標籤、標題層級、圖片 alt、`sitemap.xml`、`robots.txt`、兩段 JSON-LD（Organization＋LocalBusiness、FAQPage）。
+規格原檔：[`docs/SEO-官網首頁交付規格.md`](docs/SEO-官網首頁交付規格.md)。依它（2026-10-28 版）實作：`<head>` 標籤、標題層級、圖片 alt、`sitemap.xml`、`robots.txt`、兩段 JSON-LD（Organization＋LocalBusiness、FAQPage）。
 
 - **FAQ 改字要兩邊一起改**：`src/sections/07-faq.html` 與 `src/_head.html` 的 FAQPage JSON-LD。不一致時 `build.py` 會停下來報錯。
 - **sitemap 的 lastmod**：頁面文字或數字有改時，更新 `build.py` 的 `LASTMOD`。
 - **標題標籤**：`#`、Q 編號、說明泡泡都放在標題標籤外面；為了 SEO 改成標題的元素加了 `.cl-h`（字級字重沿用外層，畫面不變）。
+- **串接與做後台時要遵守**（規格第 2、4、5 節）：
+  - 登入頁與登入後的所有頁面（企業後台、正隆後台、預約流程）在 `<head>` 加 `<meta name="robots" content="noindex">`，不放進 sitemap；也**不要**寫進 `robots.txt` 的 `Disallow`（被擋住的頁，爬蟲讀不到 noindex）。
+  - 新頁面的網址、canonical、站內連結一律不帶 `.html`。
+  - 頁籤、FAQ 等收合內容要直接輸出在 HTML 裡，用 `hidden` 切換，不要等點擊才用 JavaScript 產生，搜尋引擎才讀得到。之後若改用前端框架，請維持伺服端輸出（SSR／靜態產生），並保留現有的標題層級與圖片 alt。
 - 上線後用 Google 複合式搜尋結果測試（https://search.google.com/test/rich-results ）驗證兩段 JSON-LD。
 
 ## 部署
