@@ -84,6 +84,7 @@
   color: var(--cl-text);
 }
 .cl-paper__hash { color: var(--cl-text-accent); }
+.cl-paper__step-h { display: inline; }   /* 「#」放在 h3 外面（SEO），標題文字接在後面同一行 */
 .cl-paper__desc {
   font-size: var(--cl-paragraph-m-fs);
   line-height: var(--cl-paragraph-m-lh);

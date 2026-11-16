@@ -1,29 +1,159 @@
 <!doctype html>
-<html lang="zh-Hant">
+<html lang="zh-Hant-TW">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>正隆機密文件水銷服務</title>
-<!-- 網站描述（摘自首屏標題與說明）：搜尋結果與分享預覽用 -->
-<meta name="description" content="透過機密水銷，賦予紙張再生的機會。正隆多年來無償協助政府機關、民營企業、金融機構、國防單位等超過 400 家合作夥伴，將機密文件循環再製成多元再生紙品，推動資源全循環，落實多贏共榮。">
+<!-- SEO：依「官網首頁 SEO 交付規格」（2026-10-28）。https://clc-doc-destruction.vercel.app 由 build.py 換成正式網域（build.py 最上方 SITE_URL） -->
+<title>正隆機密文件銷毀｜水銷服務・賦予紙張再生的機會</title>
+<meta name="description" content="正隆以水力散漿技術，安全銷毀機密文件，再製成環保衛生紙和再生紙漿，並以綠點存摺將回收紙化為永續資產，與企業共創永續循環，賦予紙張再生的機會。">
+<link rel="canonical" href="https://clc-doc-destruction.vercel.app/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<!-- Open Graph：LINE、Facebook 分享預覽 -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="正隆機密文件水銷服務">
-<meta property="og:title" content="正隆機密文件水銷服務｜透過機密水銷，賦予紙張再生的機會">
-<meta property="og:description" content="正隆多年來無償協助政府機關、民營企業、金融機構、國防單位等超過 400 家合作夥伴，將機密文件循環再製成多元再生紙品，推動資源全循環，落實多贏共榮。">
-<meta property="og:url" content="https://clc-doc-destruction.vercel.app/">
 <meta property="og:locale" content="zh_TW">
+<meta property="og:url" content="https://clc-doc-destruction.vercel.app/">
+<meta property="og:title" content="正隆機密文件銷毀｜水銷服務・賦予紙張再生的機會">
+<meta property="og:description" content="正隆以水力散漿技術，安全銷毀機密文件，再製成環保衛生紙和再生紙漿，並以綠點存摺將回收紙化為永續資產，與企業共創永續循環，賦予紙張再生的機會。">
 <!-- 分享封面圖：Figma og-cover 1200×630（2322:34392），匯出 JPG。og:image 需絕對網址 -->
 <meta property="og:image" content="https://clc-doc-destruction.vercel.app/og-cover.jpg">
+<meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="正隆機密文件水銷服務：RECIRCULATE PAPER, NEW LIFE.">
+<meta property="og:image:alt" content="正隆 CHENG LOONG：RECIRCULATE PAPER, NEW LIFE.">
+<!-- X（Twitter） -->
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="正隆機密文件銷毀｜水銷服務・賦予紙張再生的機會">
+<meta name="twitter:description" content="正隆以水力散漿技術，安全銷毀機密文件，再製成環保衛生紙和再生紙漿，並以綠點存摺將回收紙化為永續資產，與企業共創永續循環，賦予紙張再生的機會。">
+<meta name="twitter:image" content="https://clc-doc-destruction.vercel.app/og-cover.jpg">
+<meta name="twitter:image:alt" content="正隆 CHENG LOONG：RECIRCULATE PAPER, NEW LIFE.">
 <!-- favicon：Figma logo_clc（2318:34353） -->
-<link rel="icon" href="favicon.ico" sizes="32x32">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="manifest" href="site.webmanifest">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#14a558">
+<!-- 結構化資料：Organization＋LocalBusiness、FAQPage（FAQ 問答要和 07-faq.html 一字不差，改 FAQ 時兩邊一起改） -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://clc-doc-destruction.vercel.app/#organization",
+      "name": "正隆股份有限公司",
+      "url": "https://clc-doc-destruction.vercel.app/",
+      "logo": "https://clc-doc-destruction.vercel.app/apple-touch-icon.png",
+      "telephone": "+886-3-556-1226"
+    },
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://clc-doc-destruction.vercel.app/#zhubei",
+      "name": "正隆機密文件水銷服務（正隆竹北廠）",
+      "description": "以水力散漿將機密文件徹底銷毀，紙漿循環再製成多元再生紙品，並依水銷重量發放綠點至企業綠點存摺。",
+      "url": "https://clc-doc-destruction.vercel.app/",
+      "image": "https://clc-doc-destruction.vercel.app/og-cover.jpg",
+      "telephone": "+886-3-556-1226",
+      "parentOrganization": { "@id": "https://clc-doc-destruction.vercel.app/#organization" },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "大義里長青路二段300號",
+        "addressLocality": "竹北市",
+        "addressRegion": "新竹縣",
+        "postalCode": "302",
+        "addressCountry": "TW"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 24.85994,
+        "longitude": 120.96320
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "08:30",
+          "closes": "11:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "13:00",
+          "closes": "16:00"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "第一次到廠，怎麼知道怎麼走？",
+      "acceptedAnswer": { "@type": "Answer", "text": "預約完成頁會提供進場動線圖與到廠注意事項（含警衛室報到、地磅人員登記車號過磅至水銷區流程）。出發前花一分鐘確認，到廠後照圖行進即可。" }
+    },
+    {
+      "@type": "Question",
+      "name": "臨時決定要銷毀，沒預約可以進場嗎？",
+      "acceptedAnswer": { "@type": "Answer", "text": "為確保廠區作業安全與過磅效率，本服務全面採用線上預約制。請先於平台完成預約並取得預約編號後再行前往。" }
+    },
+    {
+      "@type": "Question",
+      "name": "預約時還不確定到場車號，怎麼辦？",
+      "acceptedAnswer": { "@type": "Answer", "text": "線上預約時車號非必填，您可以安心預約並彈性調配運送車輛。為縮短現場等待時間，仍建議您儘可能預先填寫；若預約時未填，車輛抵達廠區報到時，將由地磅人員協助現場核對預約資訊並補登過磅即可。" }
+    },
+    {
+      "@type": "Question",
+      "name": "水銷服務要收費嗎？",
+      "acceptedAnswer": { "@type": "Answer", "text": "本服務為正隆免費提供之機密文件水銷處理服務，不收取任何處理費或手續費。" }
+    },
+    {
+      "@type": "Question",
+      "name": "一次要送多少量才能預約？",
+      "acceptedAnswer": { "@type": "Answer", "text": "本服務未設定單次最小送銷重量限制，歡迎透過系統預約到廠銷毀。" }
+    },
+    {
+      "@type": "Question",
+      "name": "文件分類有什麼限制？金屬夾、塑膠夾或訂書針需要拆除嗎？",
+      "acceptedAnswer": { "@type": "Answer", "text": "為維護紙漿循環品質，請務必移除金屬夾具、拆除塑膠資料夾、塑膠封面。少量一般訂書針則可直接進入水銷系統。" }
+    },
+    {
+      "@type": "Question",
+      "name": "運送時的包裝方式有規定嗎？",
+      "acceptedAnswer": { "@type": "Answer", "text": "可使用紙箱裝箱、紙袋盛裝或以繩索綑綁妥當，以便於現場搬運與過磅作業。" }
+    },
+    {
+      "@type": "Question",
+      "name": "可以送到哪些廠區進行水銷？",
+      "acceptedAnswer": { "@type": "Answer", "text": "目前集中於正隆竹北廠進行水銷服務。開放時段請以線上預約系統顯示之時段為準（廠區保養日與國定假日除外）。" }
+    },
+    {
+      "@type": "Question",
+      "name": "水銷完成後，多久可以拿到銷毀證明？",
+      "acceptedAnswer": { "@type": "Answer", "text": "文件過磅銷毀當下，現場地磅人員會提供實體磅單供您攜回作為初步憑證。此外，系統預計於 48 小時內完成數據比對並自動產出「機密文件水銷證明」，企業可隨時至「企業後台」下載數位檔案歸檔，作為內部紀錄與永續專案成果佐證。" }
+    },
+    {
+      "@type": "Question",
+      "name": "綠點如何計算？有使用期限嗎？",
+      "acceptedAnswer": { "@type": "Answer", "text": "綠點永久有效，無期限限制。工業用紙產線水銷為 1 KG＝1 點；家庭用紙產線水銷為 1 KG＝2 點（含正隆加碼 1 點）。每1點具新臺幣1元之正隆指定商品採購折抵或公益捐贈價值。" }
+    },
+    {
+      "@type": "Question",
+      "name": "綠點如何兌換商品或進行公益捐贈？",
+      "acceptedAnswer": { "@type": "Answer", "text": "企業可透過平台送出「指定環保產品」採購需求，將由專屬業務窗口主動聯繫對接；亦可選擇將點數用於捐贈予正隆合作公益機構，正隆即另行加碼 0.5 倍點數效益（攜手放大 1.5 倍永續影響力），兌換指定家用紙品捐贈公益團體。" }
+    },
+    {
+      "@type": "Question",
+      "name": "數位證明上的貢獻減碳量與保留樹木等資訊，可視為經第三方驗證的嗎？",
+      "acceptedAnswer": { "@type": "Answer", "text": "本證明之貢獻減碳量與預估保留樹木棵數，係依據正隆生產實績及參考國際通用推估進行計算，未經第三方機構確信，適用於企業永續專案成果說明。" }
+    }
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&family=Zalando+Sans+Expanded:wght@400;700&display=swap">
@@ -126,7 +256,7 @@
   <!-- 共用 header＋手機選單（R3：抽出給首頁與服務條款頁共用；build.py 把 @header 佔位換成這段） -->
   <!-- header_green -->
   <header class="cl-hero__header" data-figma="1695:20116" data-figma-s="1695:19591">
-    <a class="cl-hero__brand" href="#top" aria-label="正隆 機密文件水銷服務">
+    <a class="cl-hero__brand" href="#top" aria-label="正隆機密文件水銷服務">
       <span class="cl-hero__logo" aria-hidden="true">
         <span class="cl-hero__logo-mark"><img src="assets/01-hero/logo-mark.svg?v=b183668f" alt=""></span>
         <span class="cl-hero__logo-zh"><img src="assets/01-hero/logo-zh.svg?v=8d346f0f" alt=""></span>
@@ -139,7 +269,7 @@
       <a class="cl-hero__nav-link" href="#process">服務流程</a>
       <a class="cl-hero__nav-link" href="#green">綠點存摺與數位證明</a>
       <a class="cl-hero__nav-link" href="#faq">常見問題</a>
-      <a class="cl-hero__nav-link" href="terms.html">服務條款</a>
+      <a class="cl-hero__nav-link" href="/terms">服務條款</a>
     </nav>
     <div class="cl-hero__actions">
       <a class="cl-btn cl-btn--black cl-btn--sm cl-hero__login" href="#"><span class="cl-btn__circle"></span><span>企業登入</span></a>
@@ -157,7 +287,7 @@
         <li><a class="cl-menu__link" href="#process"><span>服務流程</span><img src="assets/common/icon-arrow-dark.svg?v=ef3e488f" alt=""></a></li>
         <li><a class="cl-menu__link" href="#green"><span>綠點存摺與數位證明</span><img src="assets/common/icon-arrow-dark.svg?v=ef3e488f" alt=""></a></li>
         <li><a class="cl-menu__link" href="#faq"><span>常見問題</span><img src="assets/common/icon-arrow-dark.svg?v=ef3e488f" alt=""></a></li>
-        <li><a class="cl-menu__link" href="terms.html"><span>服務條款</span><img src="assets/common/icon-arrow-dark.svg?v=ef3e488f" alt=""></a></li>
+        <li><a class="cl-menu__link" href="/terms"><span>服務條款</span><img src="assets/common/icon-arrow-dark.svg?v=ef3e488f" alt=""></a></li>
       </ul>
       <div class="cl-menu__actions">
         <a class="cl-btn cl-btn--black cl-menu__btn" href="#"><span class="cl-btn__circle"></span><span>企業登入</span></a>
@@ -171,11 +301,11 @@
   <div class="cl-hero__inner">
 
     <!-- cover_img：四張輪播，預設＝主畫面 property1="2"（10 秒換一張、點擊換下一張，0.6s ease-out） -->
-    <div class="cl-hero__cover cl-zoom cl-skeleton" data-figma="1695:20086" data-figma-s="1695:19601" role="img" aria-label="正隆水銷工廠形象照">
+    <div class="cl-hero__cover cl-zoom cl-skeleton" data-figma="1695:20086" data-figma-s="1695:19601">
       <img class="cl-hero__slide cl-hero__slide--4" src="assets/01-hero/cover-4.webp?v=cbeb0ba1" alt="" data-slide="4">
-      <img class="cl-hero__slide cl-hero__slide--3" src="assets/01-hero/cover-3.webp?v=8b7ac2f9" alt="" data-slide="3">
-      <img class="cl-hero__slide cl-hero__slide--2 is-active" src="assets/01-hero/cover-2.webp?v=2b4a7948" alt="" data-slide="2">
-      <img class="cl-hero__slide cl-hero__slide--1" src="assets/01-hero/cover-1.webp?v=1ca78f26" alt="" data-slide="1">
+      <img class="cl-hero__slide cl-hero__slide--3" src="assets/01-hero/cover-3.webp?v=8b7ac2f9" alt="產線上包裝完成的蒲公英環保衛生紙" data-slide="3">
+      <img class="cl-hero__slide cl-hero__slide--2 is-active" src="assets/01-hero/cover-2.webp?v=2b4a7948" alt="水力散漿設備，槽內為離解中的紙漿" data-slide="2">
+      <img class="cl-hero__slide cl-hero__slide--1" src="assets/01-hero/cover-1.webp?v=1ca78f26" alt="正隆竹北廠廠房外觀" data-slide="1">
       <span class="cl-hero__cover-noise"></span>
     </div>
 
@@ -340,7 +470,7 @@
          手機版圖是電腦版順時針轉 90° 縮 0.4721，Lottie 用同一個矩陣轉向（02-about.css）。 -->
     <div class="cl-about__cycle" data-figma="1695:20239" data-figma-s="1695:19741">
       <div class="cl-about__cycle-head" data-reveal-group>
-        <p class="cl-pill cl-pill--muted cl-about__pill" data-reveal data-figma="1695:20240" data-figma-s="1695:19742">水銷價值循環</p>
+        <h3 class="cl-h cl-pill cl-pill--muted cl-about__pill" data-reveal data-figma="1695:20240" data-figma-s="1695:19742">水銷價值循環</h3>
         <p class="cl-about__cycle-sub" data-reveal data-figma="1695:20243" data-figma-s="1695:19745">100%安全銷毀到永續效益，建構企業專屬綠色生態圈</p>
       </div>
       <!-- R3 客戶：手機版要維持橫式（保留 ∞ 概念，可左右滑）。先保留直式，加「橫式滑動」版本＋切換（比對用，只在手機顯示） -->
@@ -471,14 +601,14 @@
         <div class="cl-paper__text" data-reveal-group data-figma="1695:20255" data-figma-s="1695:19762">
           <p class="cl-paper__no" data-figma="1695:20257" data-figma-s="1695:19764"><span class="cl-paper__no-label" data-reveal>Step</span><span class="cl-paper__no-num" data-reveal>01</span></p>
           <div class="cl-paper__body" data-figma="1695:20260" data-figma-s="1695:19767">
-            <h3 class="cl-paper__step-title" data-reveal data-figma="1695:20262" data-figma-s="1695:19769"><span class="cl-paper__hash">#</span>水力散漿</h3>
+            <div class="cl-paper__step-title" data-reveal data-figma="1695:20262" data-figma-s="1695:19769"><span class="cl-paper__hash" aria-hidden="true">#</span><h3 class="cl-h cl-paper__step-h">水力散漿</h3></div>
             <!-- 稿上「纖維，」與「紙張」之間是 \r 字元，Figma 顯示為空白（audit-source） -->
             <p class="cl-paper__desc" data-reveal data-figma="1695:20263" data-figma-s="1695:19770">在散漿機中，透過機械力、摩擦力、水剪力離解為纖維，紙張結構破壞；油墨與雜質再經過去污、脫墨、篩選逐段分離移除。</p>
           </div>
         </div>
         <figure class="cl-paper__media" data-figma="1695:20264" data-figma-s="1695:19771">
           <span class="cl-paper__photo cl-zoom cl-skeleton" data-figma="1695:20265" data-figma-s="1695:19772">
-            <img class="cl-paper__img cl-paper__img--pulper" src="assets/03-paper/step1-pulper.webp?v=898fddc0" alt="散漿機中的紙漿" width="1024" height="683" loading="lazy">
+            <img class="cl-paper__img cl-paper__img--pulper" src="assets/03-paper/step1-pulper.webp?v=898fddc0" alt="散漿機中正在離解為纖維的紙漿" width="1024" height="683" loading="lazy">
           </span>
         </figure>
       </article>
@@ -488,7 +618,7 @@
         <div class="cl-paper__text" data-reveal-group data-figma="1695:20268" data-figma-s="2133:24452">
           <p class="cl-paper__no" data-figma="1695:20270" data-figma-s="2133:24454"><span class="cl-paper__no-label" data-reveal>Step</span><span class="cl-paper__no-num" data-reveal>02</span></p>
           <div class="cl-paper__body" data-figma="1695:20273" data-figma-s="2133:24457">
-            <h3 class="cl-paper__step-title" data-reveal data-figma="1695:20275" data-figma-s="2133:24459"><span class="cl-paper__hash">#</span>依原料特性進行產線分流</h3>
+            <div class="cl-paper__step-title" data-reveal data-figma="1695:20275" data-figma-s="2133:24459"><span class="cl-paper__hash" aria-hidden="true">#</span><h3 class="cl-h cl-paper__step-h">依原料特性進行產線分流</h3></div>
             <div class="cl-paper__desc" data-figma="1695:20276" data-figma-s="2133:24460">
               <p data-reveal>「白紙、影印紙」可進入家庭用紙產線，「紙箱、混合紙類」則進入工業用紙產線。</p>
               <p data-reveal>若您選擇將機密文件投入家庭用紙產線再生，並配合現場作業安排，<strong class="cl-paper__em">即可獲得雙倍綠點（1KG＝2綠點＝2元），進一步放大循環永續價值</strong>。</p>
@@ -507,7 +637,7 @@
         <div class="cl-paper__text" data-reveal-group data-figma="1695:20277" data-figma-s="1695:19786">
           <p class="cl-paper__no" data-figma="1695:20279" data-figma-s="1695:19788"><span class="cl-paper__no-label" data-reveal>Step</span><span class="cl-paper__no-num" data-reveal>03</span></p>
           <div class="cl-paper__body" data-figma="1695:20286" data-figma-s="1695:19795">
-            <h3 class="cl-paper__step-title" data-reveal data-figma="1695:20288" data-figma-s="1695:19797"><span class="cl-paper__hash">#</span>重新製成，賦予新生</h3>
+            <div class="cl-paper__step-title" data-reveal data-figma="1695:20288" data-figma-s="1695:19797"><span class="cl-paper__hash" aria-hidden="true">#</span><h3 class="cl-h cl-paper__step-h">重新製成，賦予新生</h3></div>
             <div class="cl-paper__desc" data-figma="1695:20289" data-figma-s="1695:19798">
               <p data-reveal>纖維重新交織成紙，回到日常，高品質的白紙可製成有環保標章的蒲公英環保家庭用紙，纖維顏色較深的紙則再生為環保包材。</p>
               <p data-reveal><strong class="cl-paper__em">每購買 1 公噸蒲公英產品，可貢獻減碳9.28公噸，等同減少 35 棵樹被砍伐。</strong></p>
@@ -516,7 +646,7 @@
         </div>
         <figure class="cl-paper__media" data-figma="1695:20290" data-figma-s="1695:19799">
           <span class="cl-paper__photo cl-zoom cl-skeleton" data-figma="1695:20291" data-figma-s="1695:19800">
-            <img class="cl-paper__img cl-paper__img--tissue" src="assets/03-paper/step3-tissue.webp?v=6018bc2c" alt="蒲公英環保衛生紙" width="1024" height="768" loading="lazy">
+            <img class="cl-paper__img cl-paper__img--tissue" src="assets/03-paper/step3-tissue.webp?v=6018bc2c" alt="以再生紙漿製成的蒲公英環保衛生紙" width="1024" height="768" loading="lazy">
           </span>
           <figcaption class="cl-info-card cl-paper__note" data-figma="1695:20292" data-figma-s="1695:19801">
             <span class="cl-paper__note-row" data-figma="1695:20297" data-figma-s="1695:19806">
@@ -571,8 +701,8 @@
         <svg class="cl-curve cl-process__card-curve" viewBox="0 0 5628.88 1524.16" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M5604.88 24.0005C4640 71.2913 4410.14 161.442 4245.01 406.018C4106.94 610.522 4007.12 1054.45 3595.49 952.987C3110.95 833.551 2448.73 962.669 2077.83 1270.04C1232 1971 1105.4 839.372 24.0011 920.056"/></svg>
       </li>
       <li class="cl-process__card cl-process__card--2" tabindex="0" data-figma="1567:44022" data-figma-s="1567:46474">
-        <div class="cl-process__media cl-zoom cl-skeleton" aria-hidden="true">
-          <img class="cl-process__photo cl-process__photo--2" src="assets/04-process/card2-truck.webp?v=d0743a65" alt="">
+        <div class="cl-process__media cl-zoom cl-skeleton">
+          <img class="cl-process__photo cl-process__photo--2" src="assets/04-process/card2-truck.webp?v=d0743a65" alt="載運文件的貨車停在正隆廠區">
         </div>
         <div class="cl-process__card-body">
           <img class="cl-process__card-icon" src="assets/04-process/icon-truck.svg?v=7d4e6f0b" alt="">
@@ -583,8 +713,8 @@
         <svg class="cl-curve cl-process__card-curve" viewBox="0 0 5628.88 1524.16" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M5604.88 24.0005C4640 71.2913 4410.14 161.442 4245.01 406.018C4106.94 610.522 4007.12 1054.45 3595.49 952.987C3110.95 833.551 2448.73 962.669 2077.83 1270.04C1232 1971 1105.4 839.372 24.0011 920.056"/></svg>
       </li>
       <li class="cl-process__card cl-process__card--3" tabindex="0" data-figma="1567:44039" data-figma-s="1567:46492">
-        <div class="cl-process__media cl-zoom cl-skeleton" aria-hidden="true">
-          <img class="cl-process__photo cl-process__photo--3" src="assets/04-process/card3-pulper.webp?v=908b6834" alt="">
+        <div class="cl-process__media cl-zoom cl-skeleton">
+          <img class="cl-process__photo cl-process__photo--3" src="assets/04-process/card3-pulper.webp?v=908b6834" alt="正在運轉的水力散漿設備">
         </div>
         <div class="cl-process__card-body">
           <img class="cl-process__card-icon" src="assets/04-process/icon-drop.svg?v=891a87cc" alt="">
@@ -595,10 +725,10 @@
         <svg class="cl-curve cl-process__card-curve" viewBox="0 0 5628.88 1524.16" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M5604.88 24.0005C4640 71.2913 4410.14 161.442 4245.01 406.018C4106.94 610.522 4007.12 1054.45 3595.49 952.987C3110.95 833.551 2448.73 962.669 2077.83 1270.04C1232 1971 1105.4 839.372 24.0011 920.056"/></svg>
       </li>
       <li class="cl-process__card cl-process__card--4" tabindex="0" data-figma="1567:44056" data-figma-s="1567:46509">
-        <div class="cl-process__media cl-zoom cl-skeleton" aria-hidden="true">
+        <div class="cl-process__media cl-zoom cl-skeleton">
           <div class="cl-process__laptop">
             <img class="cl-process__laptop-photo" src="assets/04-process/card4-laptop.webp?v=f0ed0319" alt="">
-            <img class="cl-process__laptop-screen" src="assets/04-process/card4-screen.webp?v=4523cf3f" alt="">
+            <img class="cl-process__laptop-screen" src="assets/04-process/card4-screen.webp?v=4523cf3f" alt="企業後台「我的綠點」頁面，列出每次水銷的重量與獲得點數">
           </div>
         </div>
         <div class="cl-process__card-body">
@@ -642,9 +772,9 @@
           <li class="cl-process__step" data-reveal-group>
             <p class="cl-process__step-no"><span class="cl-process__step-label" data-reveal>STEP</span><span class="cl-process__step-num" data-reveal>03</span></p>
             <div class="cl-process__step-text">
-              <h3 class="cl-process__step-title cl-process__step-title--info"><span data-reveal>挑選到廠日期與時段</span><!--
+              <div class="cl-process__step-title cl-process__step-title--info"><h3 class="cl-h cl-process__step-h" data-reveal>挑選到廠日期與時段</h3><!--
                 R2 客戶：info icon 加 tooltip（樣式同首屏數據 tooltip）。標題的 reveal 只包文字：[data-reveal] 會裁切溢出，tooltip 放在外面才不會被切
-              --><span class="cl-process__tip" data-reveal="fade"><button class="cl-process__tip-btn" type="button" aria-label="到廠日期與時段說明" aria-expanded="false" aria-describedby="cl-process-tip-date"><img class="cl-process__info" src="assets/04-process/icon-info.svg?v=c065a1df" alt="" data-figma="1695:33037"></button><span class="cl-tooltip cl-process__tip-pop" id="cl-process-tip-date" role="tooltip"><span class="cl-tooltip__body cl-process__tip-body">廠區保養與國定假日除外，請以線上預約時段為準</span><img class="cl-tooltip__arrow cl-process__tip-arrow" src="assets/01-hero/tooltip-arrow.svg?v=447f4627" alt=""></span></span></h3>
+              --><span class="cl-process__tip" data-reveal="fade"><button class="cl-process__tip-btn" type="button" aria-label="到廠日期與時段說明" aria-expanded="false" aria-describedby="cl-process-tip-date"><img class="cl-process__info" src="assets/04-process/icon-info.svg?v=c065a1df" alt="" data-figma="1695:33037"></button><span class="cl-tooltip cl-process__tip-pop" id="cl-process-tip-date" role="tooltip"><span class="cl-tooltip__body cl-process__tip-body">廠區保養與國定假日除外，請以線上預約時段為準</span><img class="cl-tooltip__arrow cl-process__tip-arrow" src="assets/01-hero/tooltip-arrow.svg?v=447f4627" alt=""></span></span></div>
               <p class="cl-process__step-desc" data-reveal>週一～週五開放上午 8:30–11:00、下午 13:00–16:00 時段，請於到廠日三天前完成預約。</p>
             </div>
           </li>
@@ -772,14 +902,14 @@
         </div>
 
         <!-- card_greebpt：兩張圖輪播（Figma 變體 Property 1=1／2，點擊或 6 秒自動切換，Smart animate 0.3s ease-out） -->
-        <button class="cl-green__slider cl-zoom" type="button" aria-label="切換圖片" data-figma="2139:30034" data-figma-s="2139:30381">
+        <button class="cl-green__slider cl-zoom" type="button" aria-label="切換綠點示意圖" data-figma="2139:30034" data-figma-s="2139:30381">
           <span class="cl-green__slide cl-green__slide--coins is-active" data-figma="I2139:30034;2139:29990" data-figma-s="I2139:30381;2139:30054">
             <img class="cl-green__coins" src="assets/05-green/greenpts-coins.webp?v=fbf73649" alt="">
             <span class="cl-green__patch cl-green__patch--bottom"></span>
             <span class="cl-green__patch cl-green__patch--top"></span>
           </span>
           <span class="cl-green__slide cl-green__slide--paper" data-figma="2139:29982" data-figma-s="2139:30070">
-            <img class="cl-green__paper" src="assets/05-green/paper-dandelion.webp?v=ed85ab89" alt="" loading="lazy">
+            <img class="cl-green__paper" src="assets/05-green/paper-dandelion.webp?v=ed85ab89" alt="可用綠點折抵採購的蒲公英環保家用紙" loading="lazy">
           </span>
           <span class="cl-info-card cl-info-card--accent cl-green__info" data-figma="I2139:30034;2139:29991" data-figma-s="I2139:30381;2139:30055">
             <span class="cl-green__info-head"><span class="cl-green__info-dot"></span><span class="cl-green__info-title">水銷綠點換算說明</span></span>
@@ -795,14 +925,14 @@
           <div class="cl-green__tile cl-green__tile--ink" data-figma="1695:20339" data-figma-s="2139:30383">
             <picture class="cl-green__tile-icon" data-figma="1695:20340" data-figma-s="2139:30384"><source media="(max-width: 640px)" srcset="assets/05-green/m-icon-cart.svg?v=b4d04a8a"><img src="assets/05-green/icon-cart.svg?v=70034d6f" alt=""></picture>
             <div class="cl-green__tile-text" data-reveal-group data-figma="1695:20341" data-figma-s="2139:30385">
-              <p class="cl-pill cl-green__pill cl-green__pill--light cl-pill--light" data-figma="2139:29092" data-figma-s="2139:30389"><span data-reveal>用途一｜企業採購折抵</span></p>
+              <h4 class="cl-h cl-pill cl-green__pill cl-green__pill--light cl-pill--light" data-figma="2139:29092" data-figma-s="2139:30389"><span data-reveal>用途一｜企業採購折抵</span></h4>
               <p data-reveal class="cl-green__tile-desc" data-figma="1695:20346" data-figma-s="2139:30393">透過綠點折抵正隆蒲公英環保家用紙採購，於平台送出需求後將由專人主動與您聯繫。</p>
             </div>
           </div>
           <div class="cl-green__tile cl-green__tile--green" data-figma="1695:20347" data-figma-s="2139:30394">
             <picture class="cl-green__tile-icon" data-figma="1695:20348" data-figma-s="2139:30395"><source media="(max-width: 640px)" srcset="assets/05-green/m-icon-hand-heart.svg?v=b0851ac8"><img src="assets/05-green/icon-hand-heart.svg?v=02694811" alt=""></picture>
             <div class="cl-green__tile-text" data-reveal-group data-figma="1695:20349" data-figma-s="2139:30396">
-              <p class="cl-pill cl-green__pill" data-figma="1695:20350" data-figma-s="2139:30400"><span data-reveal>用途二｜公益捐贈</span></p>
+              <h4 class="cl-h cl-pill cl-green__pill" data-figma="1695:20350" data-figma-s="2139:30400"><span data-reveal>用途二｜公益捐贈</span></h4>
               <p data-reveal class="cl-green__tile-desc" data-figma="1695:20354" data-figma-s="2139:30404">捐出綠點，正隆加碼 0.5 倍，兌換指定蒲公英環保家用紙捐贈公益團體，攜手放大 1.5 倍永續影響力。</p>
             </div>
           </div>
@@ -832,7 +962,7 @@
           <div class="cl-green__tile cl-green__tile--gray" data-figma="1695:20366" data-figma-s="2139:30416">
             <picture class="cl-green__tile-icon" data-figma="1695:20367" data-figma-s="2139:30417"><source media="(max-width: 640px)" srcset="assets/05-green/m-icon-badge-check.svg?v=95dab9fd"><img src="assets/05-green/icon-badge-check.svg?v=bb8b13ae" alt=""></picture>
             <div class="cl-green__tile-text" data-reveal-group data-figma="1695:20368" data-figma-s="2139:30418">
-              <p class="cl-pill cl-green__pill cl-green__pill--dark cl-pill--dark" data-figma="2139:29095" data-figma-s="2139:30422"><span data-reveal>機密文件水銷證明</span></p>
+              <h4 class="cl-h cl-pill cl-green__pill cl-green__pill--dark cl-pill--dark" data-figma="2139:29095" data-figma-s="2139:30422"><span data-reveal>機密文件水銷證明</span></h4>
               <p data-reveal class="cl-green__tile-desc cl-green__tile-desc--white" data-figma="1695:20373" data-figma-s="2139:30426">水銷作業完成後，系統即產出「機密文件水銷證明」，供企業於後台下載歸檔，作為內部管理及永續績效佐證。</p>
             </div>
           </div>
@@ -874,10 +1004,10 @@
         <div class="cl-strip__photo cl-zoom cl-skeleton"><img class="cl-strip__img cl-strip__img--forklift" src="assets/06-strip/photo-forklift.webp?v=fc1b3409" alt="堆高機作業人員"></div>
       </li>
       <li class="cl-strip__item cl-strip__item--down" data-figma="I1695:20378;713:17815" data-figma-s="I1695:19899;1000:20138">
-        <div class="cl-strip__photo cl-zoom cl-skeleton"><img class="cl-strip__img cl-strip__img--windmill" src="assets/06-strip/photo-windmill.webp?v=a3225c6b" alt="風力發電機"></div>
+        <div class="cl-strip__photo cl-zoom cl-skeleton"><img class="cl-strip__img cl-strip__img--windmill" src="assets/06-strip/photo-windmill.webp?v=a3225c6b" alt=""></div>
       </li>
       <li class="cl-strip__item cl-strip__item--up" data-figma="I1695:20378;713:17818" data-figma-s="I1695:19899;1000:20141">
-        <div class="cl-strip__photo cl-zoom cl-skeleton"><img class="cl-strip__img cl-strip__img--seedling" src="assets/06-strip/photo-seedling.webp?v=32d9afdc" alt="土壤中的新芽"></div>
+        <div class="cl-strip__photo cl-zoom cl-skeleton"><img class="cl-strip__img cl-strip__img--seedling" src="assets/06-strip/photo-seedling.webp?v=32d9afdc" alt=""></div>
       </li>
       <li class="cl-strip__item cl-strip__item--down" data-figma="I1695:20378;713:17821" data-figma-s="I1695:19899;1000:20144">
         <div class="cl-strip__photo cl-zoom cl-skeleton"><img class="cl-strip__img cl-strip__img--lab" src="assets/06-strip/photo-lab.webp?v=bd52192d" alt="造紙檢測設備"></div>
@@ -908,105 +1038,93 @@
 
     <div class="cl-faq__list" role="tabpanel" id="cl-faq-panel-1" aria-labelledby="cl-faq-tab-1" data-figma="1695:20394" data-figma-s="1695:19917">
       <div class="cl-faq__item is-open" data-figma="1695:20395" data-figma-s="1695:19918">
-        <button class="cl-faq__q" type="button" aria-expanded="true" aria-controls="cl-faq-a-1-1">
-          <span class="cl-faq__num">Q1.</span>
-          <span class="cl-faq__question">第一次到廠，怎麼知道怎麼走？</span>
-          <span class="cl-faq__icon" aria-hidden="true"><picture class="cl-faq__icon-minus"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-minus-24.svg?v=a8a4a195"><img src="assets/07-faq/icon-minus-32.svg?v=63282dd2" alt=""></picture><picture class="cl-faq__icon-add"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-add-24.svg?v=9729f4af"><img src="assets/07-faq/icon-add-32.svg?v=d2c37445" alt=""></picture></span>
-        </button>
+        <div class="cl-faq__row">
+          <span class="cl-faq__num" aria-hidden="true">Q1.</span>
+          <h3 class="cl-h cl-faq__h"><button class="cl-faq__q" type="button" aria-expanded="true" aria-controls="cl-faq-a-1-1"><span class="cl-faq__question">第一次到廠，怎麼知道怎麼走？</span><span class="cl-faq__icon" aria-hidden="true"><picture class="cl-faq__icon-minus"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-minus-24.svg?v=a8a4a195"><img src="assets/07-faq/icon-minus-32.svg?v=63282dd2" alt=""></picture><picture class="cl-faq__icon-add"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-add-24.svg?v=9729f4af"><img src="assets/07-faq/icon-add-32.svg?v=d2c37445" alt=""></picture></span></button></h3>
+        </div>
         <div class="cl-faq__a" id="cl-faq-a-1-1"><div class="cl-faq__a-in"><p class="cl-faq__answer">預約完成頁會提供進場動線圖與到廠注意事項（含警衛室報到、地磅人員登記車號過磅至水銷區流程）。出發前花一分鐘確認，到廠後照圖行進即可。</p></div></div>
       </div>
       <div class="cl-faq__item" data-figma="1695:20397" data-figma-s="1695:19920">
-        <button class="cl-faq__q" type="button" aria-expanded="false" aria-controls="cl-faq-a-1-2">
-          <span class="cl-faq__num">Q2.</span>
-          <span class="cl-faq__question">臨時決定要銷毀，沒預約可以進場嗎？</span>
-          <span class="cl-faq__icon" aria-hidden="true"><picture class="cl-faq__icon-minus"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-minus-24.svg?v=a8a4a195"><img src="assets/07-faq/icon-minus-32.svg?v=63282dd2" alt=""></picture><picture class="cl-faq__icon-add"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-add-24.svg?v=9729f4af"><img src="assets/07-faq/icon-add-32.svg?v=d2c37445" alt=""></picture></span>
-        </button>
+        <div class="cl-faq__row">
+          <span class="cl-faq__num" aria-hidden="true">Q2.</span>
+          <h3 class="cl-h cl-faq__h"><button class="cl-faq__q" type="button" aria-expanded="false" aria-controls="cl-faq-a-1-2"><span class="cl-faq__question">臨時決定要銷毀，沒預約可以進場嗎？</span><span class="cl-faq__icon" aria-hidden="true"><picture class="cl-faq__icon-minus"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-minus-24.svg?v=a8a4a195"><img src="assets/07-faq/icon-minus-32.svg?v=63282dd2" alt=""></picture><picture class="cl-faq__icon-add"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-add-24.svg?v=9729f4af"><img src="assets/07-faq/icon-add-32.svg?v=d2c37445" alt=""></picture></span></button></h3>
+        </div>
         <div class="cl-faq__a" id="cl-faq-a-1-2"><div class="cl-faq__a-in"><p class="cl-faq__answer">為確保廠區作業安全與過磅效率，本服務全面採用線上預約制。請先於平台完成預約並取得預約編號後再行前往。</p></div></div>
       </div>
       <div class="cl-faq__item" data-figma="1695:20399" data-figma-s="1695:19922">
-        <button class="cl-faq__q" type="button" aria-expanded="false" aria-controls="cl-faq-a-1-3">
-          <span class="cl-faq__num">Q3.</span>
-          <span class="cl-faq__question">預約時還不確定到場車號，怎麼辦？</span>
-          <span class="cl-faq__icon" aria-hidden="true"><picture class="cl-faq__icon-minus"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-minus-24.svg?v=a8a4a195"><img src="assets/07-faq/icon-minus-32.svg?v=63282dd2" alt=""></picture><picture class="cl-faq__icon-add"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-add-24.svg?v=9729f4af"><img src="assets/07-faq/icon-add-32.svg?v=d2c37445" alt=""></picture></span>
-        </button>
+        <div class="cl-faq__row">
+          <span class="cl-faq__num" aria-hidden="true">Q3.</span>
+          <h3 class="cl-h cl-faq__h"><button class="cl-faq__q" type="button" aria-expanded="false" aria-controls="cl-faq-a-1-3"><span class="cl-faq__question">預約時還不確定到場車號，怎麼辦？</span><span class="cl-faq__icon" aria-hidden="true"><picture class="cl-faq__icon-minus"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-minus-24.svg?v=a8a4a195"><img src="assets/07-faq/icon-minus-32.svg?v=63282dd2" alt=""></picture><picture class="cl-faq__icon-add"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-add-24.svg?v=9729f4af"><img src="assets/07-faq/icon-add-32.svg?v=d2c37445" alt=""></picture></span></button></h3>
+        </div>
         <div class="cl-faq__a" id="cl-faq-a-1-3"><div class="cl-faq__a-in"><p class="cl-faq__answer">線上預約時車號非必填，您可以安心預約並彈性調配運送車輛。為縮短現場等待時間，仍建議您儘可能預先填寫；若預約時未填，車輛抵達廠區報到時，將由地磅人員協助現場核對預約資訊並補登過磅即可。</p></div></div>
       </div>
       <div class="cl-faq__item" data-figma="1695:20401" data-figma-s="1695:19924">
-        <button class="cl-faq__q" type="button" aria-expanded="false" aria-controls="cl-faq-a-1-4">
-          <span class="cl-faq__num">Q4.</span>
-          <span class="cl-faq__question">水銷服務要收費嗎？</span>
-          <span class="cl-faq__icon" aria-hidden="true"><picture class="cl-faq__icon-minus"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-minus-24.svg?v=a8a4a195"><img src="assets/07-faq/icon-minus-32.svg?v=63282dd2" alt=""></picture><picture class="cl-faq__icon-add"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-add-24.svg?v=9729f4af"><img src="assets/07-faq/icon-add-32.svg?v=d2c37445" alt=""></picture></span>
-        </button>
+        <div class="cl-faq__row">
+          <span class="cl-faq__num" aria-hidden="true">Q4.</span>
+          <h3 class="cl-h cl-faq__h"><button class="cl-faq__q" type="button" aria-expanded="false" aria-controls="cl-faq-a-1-4"><span class="cl-faq__question">水銷服務要收費嗎？</span><span class="cl-faq__icon" aria-hidden="true"><picture class="cl-faq__icon-minus"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-minus-24.svg?v=a8a4a195"><img src="assets/07-faq/icon-minus-32.svg?v=63282dd2" alt=""></picture><picture class="cl-faq__icon-add"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-add-24.svg?v=9729f4af"><img src="assets/07-faq/icon-add-32.svg?v=d2c37445" alt=""></picture></span></button></h3>
+        </div>
         <div class="cl-faq__a" id="cl-faq-a-1-4"><div class="cl-faq__a-in"><p class="cl-faq__answer">本服務為正隆免費提供之機密文件水銷處理服務，不收取任何處理費或手續費。</p></div></div>
       </div>
       <div class="cl-faq__item" data-figma="1695:20403" data-figma-s="1695:19926">
-        <button class="cl-faq__q" type="button" aria-expanded="false" aria-controls="cl-faq-a-1-5">
-          <span class="cl-faq__num">Q5.</span>
-          <span class="cl-faq__question">一次要送多少量才能預約？</span>
-          <span class="cl-faq__icon" aria-hidden="true"><picture class="cl-faq__icon-minus"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-minus-24.svg?v=a8a4a195"><img src="assets/07-faq/icon-minus-32.svg?v=63282dd2" alt=""></picture><picture class="cl-faq__icon-add"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-add-24.svg?v=9729f4af"><img src="assets/07-faq/icon-add-32.svg?v=d2c37445" alt=""></picture></span>
-        </button>
+        <div class="cl-faq__row">
+          <span class="cl-faq__num" aria-hidden="true">Q5.</span>
+          <h3 class="cl-h cl-faq__h"><button class="cl-faq__q" type="button" aria-expanded="false" aria-controls="cl-faq-a-1-5"><span class="cl-faq__question">一次要送多少量才能預約？</span><span class="cl-faq__icon" aria-hidden="true"><picture class="cl-faq__icon-minus"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-minus-24.svg?v=a8a4a195"><img src="assets/07-faq/icon-minus-32.svg?v=63282dd2" alt=""></picture><picture class="cl-faq__icon-add"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-add-24.svg?v=9729f4af"><img src="assets/07-faq/icon-add-32.svg?v=d2c37445" alt=""></picture></span></button></h3>
+        </div>
         <div class="cl-faq__a" id="cl-faq-a-1-5"><div class="cl-faq__a-in"><p class="cl-faq__answer">本服務未設定單次最小送銷重量限制，歡迎透過系統預約到廠銷毀。</p></div></div>
       </div>
     </div>
 
     <div class="cl-faq__list" role="tabpanel" id="cl-faq-panel-2" aria-labelledby="cl-faq-tab-2" hidden>
       <div class="cl-faq__item is-open">
-        <button class="cl-faq__q" type="button" aria-expanded="true" aria-controls="cl-faq-a-2-1">
-          <span class="cl-faq__num">Q1.</span>
-          <span class="cl-faq__question">文件分類有什麼限制？金屬夾、塑膠夾或訂書針需要拆除嗎？</span>
-          <span class="cl-faq__icon" aria-hidden="true"><picture class="cl-faq__icon-minus"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-minus-24.svg?v=a8a4a195"><img src="assets/07-faq/icon-minus-32.svg?v=63282dd2" alt=""></picture><picture class="cl-faq__icon-add"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-add-24.svg?v=9729f4af"><img src="assets/07-faq/icon-add-32.svg?v=d2c37445" alt=""></picture></span>
-        </button>
+        <div class="cl-faq__row">
+          <span class="cl-faq__num" aria-hidden="true">Q1.</span>
+          <h3 class="cl-h cl-faq__h"><button class="cl-faq__q" type="button" aria-expanded="true" aria-controls="cl-faq-a-2-1"><span class="cl-faq__question">文件分類有什麼限制？金屬夾、塑膠夾或訂書針需要拆除嗎？</span><span class="cl-faq__icon" aria-hidden="true"><picture class="cl-faq__icon-minus"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-minus-24.svg?v=a8a4a195"><img src="assets/07-faq/icon-minus-32.svg?v=63282dd2" alt=""></picture><picture class="cl-faq__icon-add"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-add-24.svg?v=9729f4af"><img src="assets/07-faq/icon-add-32.svg?v=d2c37445" alt=""></picture></span></button></h3>
+        </div>
         <div class="cl-faq__a" id="cl-faq-a-2-1"><div class="cl-faq__a-in"><p class="cl-faq__answer">為維護紙漿循環品質，請務必移除金屬夾具、拆除塑膠資料夾、塑膠封面。少量一般訂書針則可直接進入水銷系統。</p></div></div>
       </div>
       <div class="cl-faq__item">
-        <button class="cl-faq__q" type="button" aria-expanded="false" aria-controls="cl-faq-a-2-2">
-          <span class="cl-faq__num">Q2.</span>
-          <span class="cl-faq__question">運送時的包裝方式有規定嗎？</span>
-          <span class="cl-faq__icon" aria-hidden="true"><picture class="cl-faq__icon-minus"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-minus-24.svg?v=a8a4a195"><img src="assets/07-faq/icon-minus-32.svg?v=63282dd2" alt=""></picture><picture class="cl-faq__icon-add"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-add-24.svg?v=9729f4af"><img src="assets/07-faq/icon-add-32.svg?v=d2c37445" alt=""></picture></span>
-        </button>
+        <div class="cl-faq__row">
+          <span class="cl-faq__num" aria-hidden="true">Q2.</span>
+          <h3 class="cl-h cl-faq__h"><button class="cl-faq__q" type="button" aria-expanded="false" aria-controls="cl-faq-a-2-2"><span class="cl-faq__question">運送時的包裝方式有規定嗎？</span><span class="cl-faq__icon" aria-hidden="true"><picture class="cl-faq__icon-minus"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-minus-24.svg?v=a8a4a195"><img src="assets/07-faq/icon-minus-32.svg?v=63282dd2" alt=""></picture><picture class="cl-faq__icon-add"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-add-24.svg?v=9729f4af"><img src="assets/07-faq/icon-add-32.svg?v=d2c37445" alt=""></picture></span></button></h3>
+        </div>
         <div class="cl-faq__a" id="cl-faq-a-2-2"><div class="cl-faq__a-in"><p class="cl-faq__answer">可使用紙箱裝箱、紙袋盛裝或以繩索綑綁妥當，以便於現場搬運與過磅作業。</p></div></div>
       </div>
       <div class="cl-faq__item">
-        <button class="cl-faq__q" type="button" aria-expanded="false" aria-controls="cl-faq-a-2-3">
-          <span class="cl-faq__num">Q3.</span>
-          <span class="cl-faq__question">可以送到哪些廠區進行水銷？</span>
-          <span class="cl-faq__icon" aria-hidden="true"><picture class="cl-faq__icon-minus"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-minus-24.svg?v=a8a4a195"><img src="assets/07-faq/icon-minus-32.svg?v=63282dd2" alt=""></picture><picture class="cl-faq__icon-add"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-add-24.svg?v=9729f4af"><img src="assets/07-faq/icon-add-32.svg?v=d2c37445" alt=""></picture></span>
-        </button>
+        <div class="cl-faq__row">
+          <span class="cl-faq__num" aria-hidden="true">Q3.</span>
+          <h3 class="cl-h cl-faq__h"><button class="cl-faq__q" type="button" aria-expanded="false" aria-controls="cl-faq-a-2-3"><span class="cl-faq__question">可以送到哪些廠區進行水銷？</span><span class="cl-faq__icon" aria-hidden="true"><picture class="cl-faq__icon-minus"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-minus-24.svg?v=a8a4a195"><img src="assets/07-faq/icon-minus-32.svg?v=63282dd2" alt=""></picture><picture class="cl-faq__icon-add"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-add-24.svg?v=9729f4af"><img src="assets/07-faq/icon-add-32.svg?v=d2c37445" alt=""></picture></span></button></h3>
+        </div>
         <div class="cl-faq__a" id="cl-faq-a-2-3"><div class="cl-faq__a-in"><p class="cl-faq__answer">目前集中於正隆竹北廠進行水銷服務。開放時段請以線上預約系統顯示之時段為準（廠區保養日與國定假日除外）。</p></div></div>
       </div>
     </div>
 
     <div class="cl-faq__list" role="tabpanel" id="cl-faq-panel-3" aria-labelledby="cl-faq-tab-3" hidden>
       <div class="cl-faq__item is-open">
-        <button class="cl-faq__q" type="button" aria-expanded="true" aria-controls="cl-faq-a-3-1">
-          <span class="cl-faq__num">Q1.</span>
-          <span class="cl-faq__question">水銷完成後，多久可以拿到銷毀證明？</span>
-          <span class="cl-faq__icon" aria-hidden="true"><picture class="cl-faq__icon-minus"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-minus-24.svg?v=a8a4a195"><img src="assets/07-faq/icon-minus-32.svg?v=63282dd2" alt=""></picture><picture class="cl-faq__icon-add"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-add-24.svg?v=9729f4af"><img src="assets/07-faq/icon-add-32.svg?v=d2c37445" alt=""></picture></span>
-        </button>
+        <div class="cl-faq__row">
+          <span class="cl-faq__num" aria-hidden="true">Q1.</span>
+          <h3 class="cl-h cl-faq__h"><button class="cl-faq__q" type="button" aria-expanded="true" aria-controls="cl-faq-a-3-1"><span class="cl-faq__question">水銷完成後，多久可以拿到銷毀證明？</span><span class="cl-faq__icon" aria-hidden="true"><picture class="cl-faq__icon-minus"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-minus-24.svg?v=a8a4a195"><img src="assets/07-faq/icon-minus-32.svg?v=63282dd2" alt=""></picture><picture class="cl-faq__icon-add"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-add-24.svg?v=9729f4af"><img src="assets/07-faq/icon-add-32.svg?v=d2c37445" alt=""></picture></span></button></h3>
+        </div>
         <div class="cl-faq__a" id="cl-faq-a-3-1"><div class="cl-faq__a-in"><p class="cl-faq__answer">文件過磅銷毀當下，現場地磅人員會提供實體磅單供您攜回作為初步憑證。此外，系統預計於 48 小時內完成數據比對並自動產出「機密文件水銷證明」，企業可隨時至「企業後台」下載數位檔案歸檔，作為內部紀錄與永續專案成果佐證。</p></div></div>
       </div>
       <div class="cl-faq__item">
-        <button class="cl-faq__q" type="button" aria-expanded="false" aria-controls="cl-faq-a-3-2">
-          <span class="cl-faq__num">Q2.</span>
-          <span class="cl-faq__question">綠點如何計算？有使用期限嗎？</span>
-          <span class="cl-faq__icon" aria-hidden="true"><picture class="cl-faq__icon-minus"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-minus-24.svg?v=a8a4a195"><img src="assets/07-faq/icon-minus-32.svg?v=63282dd2" alt=""></picture><picture class="cl-faq__icon-add"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-add-24.svg?v=9729f4af"><img src="assets/07-faq/icon-add-32.svg?v=d2c37445" alt=""></picture></span>
-        </button>
+        <div class="cl-faq__row">
+          <span class="cl-faq__num" aria-hidden="true">Q2.</span>
+          <h3 class="cl-h cl-faq__h"><button class="cl-faq__q" type="button" aria-expanded="false" aria-controls="cl-faq-a-3-2"><span class="cl-faq__question">綠點如何計算？有使用期限嗎？</span><span class="cl-faq__icon" aria-hidden="true"><picture class="cl-faq__icon-minus"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-minus-24.svg?v=a8a4a195"><img src="assets/07-faq/icon-minus-32.svg?v=63282dd2" alt=""></picture><picture class="cl-faq__icon-add"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-add-24.svg?v=9729f4af"><img src="assets/07-faq/icon-add-32.svg?v=d2c37445" alt=""></picture></span></button></h3>
+        </div>
         <div class="cl-faq__a" id="cl-faq-a-3-2"><div class="cl-faq__a-in"><p class="cl-faq__answer">綠點永久有效，無期限限制。工業用紙產線水銷為 1 KG＝1 點；家庭用紙產線水銷為 1 KG＝2 點（含正隆加碼 1 點）。每1點具新臺幣1元之正隆指定商品採購折抵或公益捐贈價值。</p></div></div>
       </div>
       <div class="cl-faq__item">
-        <button class="cl-faq__q" type="button" aria-expanded="false" aria-controls="cl-faq-a-3-3">
-          <span class="cl-faq__num">Q3.</span>
-          <span class="cl-faq__question">綠點如何兌換商品或進行公益捐贈？</span>
-          <span class="cl-faq__icon" aria-hidden="true"><picture class="cl-faq__icon-minus"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-minus-24.svg?v=a8a4a195"><img src="assets/07-faq/icon-minus-32.svg?v=63282dd2" alt=""></picture><picture class="cl-faq__icon-add"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-add-24.svg?v=9729f4af"><img src="assets/07-faq/icon-add-32.svg?v=d2c37445" alt=""></picture></span>
-        </button>
+        <div class="cl-faq__row">
+          <span class="cl-faq__num" aria-hidden="true">Q3.</span>
+          <h3 class="cl-h cl-faq__h"><button class="cl-faq__q" type="button" aria-expanded="false" aria-controls="cl-faq-a-3-3"><span class="cl-faq__question">綠點如何兌換商品或進行公益捐贈？</span><span class="cl-faq__icon" aria-hidden="true"><picture class="cl-faq__icon-minus"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-minus-24.svg?v=a8a4a195"><img src="assets/07-faq/icon-minus-32.svg?v=63282dd2" alt=""></picture><picture class="cl-faq__icon-add"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-add-24.svg?v=9729f4af"><img src="assets/07-faq/icon-add-32.svg?v=d2c37445" alt=""></picture></span></button></h3>
+        </div>
         <div class="cl-faq__a" id="cl-faq-a-3-3"><div class="cl-faq__a-in"><p class="cl-faq__answer">企業可透過平台送出「指定環保產品」採購需求，將由專屬業務窗口主動聯繫對接；亦可選擇將點數用於捐贈予正隆合作公益機構，正隆即另行加碼 0.5 倍點數效益（攜手放大 1.5 倍永續影響力），兌換指定家用紙品捐贈公益團體。</p></div></div>
       </div>
       <div class="cl-faq__item">
-        <button class="cl-faq__q" type="button" aria-expanded="false" aria-controls="cl-faq-a-3-4">
-          <span class="cl-faq__num">Q4.</span>
-          <span class="cl-faq__question">數位證明上的貢獻減碳量與保留樹木等資訊，可視為經第三方驗證的嗎？</span>
-          <span class="cl-faq__icon" aria-hidden="true"><picture class="cl-faq__icon-minus"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-minus-24.svg?v=a8a4a195"><img src="assets/07-faq/icon-minus-32.svg?v=63282dd2" alt=""></picture><picture class="cl-faq__icon-add"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-add-24.svg?v=9729f4af"><img src="assets/07-faq/icon-add-32.svg?v=d2c37445" alt=""></picture></span>
-        </button>
+        <div class="cl-faq__row">
+          <span class="cl-faq__num" aria-hidden="true">Q4.</span>
+          <h3 class="cl-h cl-faq__h"><button class="cl-faq__q" type="button" aria-expanded="false" aria-controls="cl-faq-a-3-4"><span class="cl-faq__question">數位證明上的貢獻減碳量與保留樹木等資訊，可視為經第三方驗證的嗎？</span><span class="cl-faq__icon" aria-hidden="true"><picture class="cl-faq__icon-minus"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-minus-24.svg?v=a8a4a195"><img src="assets/07-faq/icon-minus-32.svg?v=63282dd2" alt=""></picture><picture class="cl-faq__icon-add"><source media="(max-width: 640px)" srcset="assets/07-faq/icon-add-24.svg?v=9729f4af"><img src="assets/07-faq/icon-add-32.svg?v=d2c37445" alt=""></picture></span></button></h3>
+        </div>
         <div class="cl-faq__a" id="cl-faq-a-3-4"><div class="cl-faq__a-in"><p class="cl-faq__answer">本證明之貢獻減碳量與預估保留樹木棵數，係依據正隆生產實績及參考國際通用推估進行計算，未經第三方機構確信，適用於企業永續專案成果說明。</p></div></div>
       </div>
     </div>
@@ -1051,7 +1169,7 @@
   </div>
 
   <div class="cl-footer__inner" data-figma="I1695:29473;1695:29204" data-figma-s="I1695:29472;1695:29182">
-    <a class="cl-footer__logo" href="#" aria-label="正隆 CHENG LOONG" data-figma="I1695:29473;1695:29205" data-figma-s="I1695:29472;1695:29183">
+    <a class="cl-footer__logo" href="#" aria-label="正隆機密文件水銷服務" data-figma="I1695:29473;1695:29205" data-figma-s="I1695:29472;1695:29183">
       <span class="cl-footer__logo-part cl-footer__logo-part--mark"><img src="assets/09-footer/logo-mark.svg?v=d8a5953a" alt=""></span>
       <span class="cl-footer__logo-part cl-footer__logo-part--zh"><img src="assets/09-footer/logo-zh.svg?v=16f81574" alt=""></span>
       <span class="cl-footer__logo-part cl-footer__logo-part--en"><img src="assets/09-footer/logo-en.svg?v=a9707496" alt=""></span>

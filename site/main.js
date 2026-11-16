@@ -1058,8 +1058,9 @@
 
   // 手風琴：各題獨立展開收合
   root.addEventListener('click', function (e) {
-    var q = e.target.closest('.cl-faq__q');
-    if (!q || !root.contains(q)) return;
+    var row = e.target.closest('.cl-faq__row');   // 點 Q 編號或問句都會展開（編號在按鈕外）
+    if (!row || !root.contains(row)) return;
+    var q = row.querySelector('.cl-faq__q');
     var item = q.closest('.cl-faq__item');
     var open = !item.classList.contains('is-open');
     item.classList.toggle('is-open', open);

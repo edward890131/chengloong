@@ -65,6 +65,14 @@
   background: var(--cl-surface-muted);
   overflow: hidden;
 }
+/* SEO：h3 只包問句按鈕，Q 編號放在 h3 外面（.cl-faq__row 排成一列，版面同原本按鈕內排列） */
+.cl-faq__row {
+  display: flex;
+  align-items: center;
+  gap: var(--cl-c-faq-q-gap);
+}
+.cl-faq__h { flex: 1 0 0; min-width: 1px; }
+.cl-faq__row .cl-faq__num { cursor: pointer; }
 .cl-faq__q {
   display: flex;
   align-items: center;
