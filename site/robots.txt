@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://clc-doc-destruction.vercel.app/sitemap.xml

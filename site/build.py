@@ -14,6 +14,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 
+# 正式網域（含 https://，結尾不加斜線）。canonical、og:url、og:image、JSON-LD、sitemap、robots.txt 都用這個值；上線換網域只改這裡
+SITE_URL = 'https://clc-doc-destruction.vercel.app'
+# sitemap 的 lastmod：頁面文字或數字有改時才更新（只改樣式不用動）
+LASTMOD = {'/': '2026-10-28', '/terms': '2026-10-28'}
+
 
 def cat(first, folder, last=None, sep='\n'):
     parts = [first.read_text()] if first.exists() else []
@@ -51,6 +56,24 @@ def bust(text):
     return re.sub(r'(assets/[^"\'()\s?,]+)', rep, text)
 
 
+def check_faq_ld(html):
+    """FAQPage JSON-LD 的問答要和頁面 FAQ 一字不差（SEO 規格 6.2）；不一致就停止 build"""
+    import html as H
+    strip = lambda t: re.sub(r'\s+', '', H.unescape(re.sub(r'<[^>]+>', '', t)))
+    page = re.findall(r'cl-faq__question">(.*?)</span>.*?<p class="cl-faq__answer">(.*?)</p>', html, re.S)
+    ld = next(json.loads(b) for b in re.findall(r'<script type="application/ld\+json">(.*?)</script>', html, re.S) if '"FAQPage"' in b)
+    ld = [(q['name'], q['acceptedAnswer']['text']) for q in ld['mainEntity']]
+    if [(strip(q), strip(a)) for q, a in page] != [(strip(q), strip(a)) for q, a in ld]:
+        raise SystemExit('FAQ 文字和 _head.html 的 FAQPage JSON-LD 不一致：兩邊要一起改')
+
+
+def write_seo_files():
+    urls = ''.join('  <url>\n    <loc>%s%s</loc>\n    <lastmod>%s</lastmod>\n    <changefreq>%s</changefreq>\n    <priority>%s</priority>\n  </url>\n'
+                   % (SITE_URL, path, LASTMOD[path], freq, pri) for path, freq, pri in [('/', 'monthly', '1.0'), ('/terms', 'yearly', '0.3')])
+    (ROOT / 'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + '</urlset>\n')
+    (ROOT / 'robots.txt').write_text('User-agent: *\nAllow: /\n\nSitemap: %s/sitemap.xml\n' % SITE_URL)
+
+
 def main():
     src = ROOT / 'src'
     header = (src / '_header.html').read_text()
@@ -60,21 +83,25 @@ def main():
     pre = [[bust(u), n] for u, n in preload_list(html, css)]
     html, css = bust(html), bust(css)
     html = html.replace('/*CL_PRELOAD*/[]', json.dumps(pre, separators=(',', ':')), 1)
+    html = html.replace('{{SITE_URL}}', SITE_URL)
+    check_faq_ld(html)
     (ROOT / 'index.html').write_text(html)
     # 服務條款頁（R3）：共用 header／頁尾。header 的錨點改連回首頁（index.html#about），logo 回首頁，服務條款標成目前頁
-    terms_header = header.replace('href="#top"', 'href="index.html"')
-    terms_header = re.sub(r'href="#(about|process|green|faq)"', r'href="index.html#\1"', terms_header)
-    terms_header = terms_header.replace('href="terms.html">服務條款', 'href="terms.html" aria-current="page">服務條款')
-    terms_header = terms_header.replace('href="terms.html"><span>服務條款', 'href="terms.html" aria-current="page"><span>服務條款')
+    # 網址一律不帶 .html（SEO 規格；Vercel cleanUrls，本機用 python3 site/serve.py）
+    terms_header = header.replace('href="#top"', 'href="/"')
+    terms_header = re.sub(r'href="#(about|process|green|faq)"', r'href="/#\1"', terms_header)
+    terms_header = terms_header.replace('href="/terms">服務條款', 'href="/terms" aria-current="page">服務條款')
+    terms_header = terms_header.replace('href="/terms"><span>服務條款', 'href="/terms" aria-current="page"><span>服務條款')
     footer = (src / 'sections' / '09-footer.html').read_text()
     terms = (src / 'pages' / 'terms.html').read_text()
-    (ROOT / 'terms.html').write_text(bust(terms).replace('<!--@header-->', terms_header, 1).replace('<!--@footer-->', footer, 1))
+    (ROOT / 'terms.html').write_text(bust(terms).replace('<!--@header-->', terms_header, 1).replace('<!--@footer-->', footer, 1).replace('{{SITE_URL}}', SITE_URL))
+    write_seo_files()
     (ROOT / 'draft.css').write_text(css)
     # 頁面 JS 整包等進場載入完成才跑（_head 的 window.clWhenReady；沒有載入畫面時立刻跑）
     js = cat(ROOT / 'js' / 'base.js', ROOT / 'js' / 'sections')
     (ROOT / 'main.js').write_text('(window.clWhenReady || function (fn) { fn(); })(function () {\n' + js + '\n});\n')
     print('preload: %d files, %.1f MB' % (len(pre), sum(p[1] for p in pre) / 1048576))
-    print('built site/index.html, site/terms.html, site/draft.css, site/main.js')
+    print('built site/index.html, site/terms.html, site/draft.css, site/main.js, site/sitemap.xml, site/robots.txt')
 
 
 if __name__ == '__main__':
