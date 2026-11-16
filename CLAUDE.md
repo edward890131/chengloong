@@ -1,6 +1,6 @@
 ## design-loop
 
-本專案使用 design-loop（`~/.claude/skills/design-loop`）。狀態與紀錄在 `_design-loop/`：
+本專案使用 design-loop（skill 放在 repo 內 `.claude/skills/design-loop`）。狀態與紀錄在 `_design-loop/`：
 - `manifest.json`：平台、Figma 檔與 page、目前站別、整數與同步規則
 - `registry.json`：CSS class ↔ Guideline 章節 ↔ Figma 母版 ↔ 設計稿對照
 

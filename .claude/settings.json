@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"$HOME/.claude/skills/design-loop/scripts/sync_pending.py\""
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/skills/design-loop/scripts/sync_pending.py\""
           }
         ]
       }
